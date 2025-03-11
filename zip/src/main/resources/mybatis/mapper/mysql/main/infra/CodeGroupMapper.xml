@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.junefw.infra.codegroup.CodeGroupDao">
+<mapper namespace="com.a7a7.modeule.codegroup.CodeGroupDao">
+	
+	<resultMap id="resultMapObj" type="com.a7a7.modeule.codegroup.CodeGroupDto"/>
+	
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgNickName,
+		    ifcgGender,
+		    ifcgVerify,
+		    ifcgDelNy
+		FROM
+			codeGroup
+		WHERE 1=1
+		ORDER BY ifcgSeq DESC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO codeGroup (
+			ifcgSeq,
+			ifcgName,
+			ifcgNickName,
+			ifcgGender,
+			ifcgVerify,
+			ifcgDelNy
+		) values (
+			#{ifcgSeq},
+			#{ifcgName},
+			#{ifcgNickName},
+			#{ifcgGender},
+			#{ifcgVerify},
+			#{ifcgDelNy}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE codeGroup SET
+			ifcgName = #{ifcgName},
+			ifcgNickName = #{ifcgNickName},
+			ifcgGender = #{ifcgGender},
+			ifcgVerify = #{ifcgVerify},
+			ifcgDelNy = #{ifcgDelNy}
+		WHERE ifcgSeq = #{ifcgSeq}
+	</update>
 
-	  
 </mapper>
