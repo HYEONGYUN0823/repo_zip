@@ -2,6 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="~{xdm/include/head :: head}"></div>
+
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -11,6 +12,10 @@
         ***********************************-->
         
         <!-- main -->
+        
+        	<form name="formList" id="formList" method="post" autocomplete="off">
+		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
         
         <div class="content-body">
             <div class="container-fluid">
@@ -201,15 +206,15 @@
                                                             for="flexCheckIndeterminate"></label>
                                                     </div>
                                                 </td>
-                                                <td th:text="${list.ifcgSeq}"><!-- 42 --></td>
-                                                <td th:text="${list.ifcgVerify}">Y</td>
-                                                <td><!-- 42 --></td>
-                                                <td th:text="${list.ifcgName}"><b style="color: rgb(42, 92, 255);">작품.기타사이트유형</b></td>
+                                                <td th:text="${list.ifcgSeq}"></td>
+                                                <td th:text="${list.ifcgVerify}"></td>
+                                                <td></td>
+                                                <td th:text="${list.ifcgName}"></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td><b></b></td>
-                                                <td th:text="${list.ifcgNickName}">8</td>
-                                                <td th:text="${list.ifcgGender}">1</td>
+                                                <td th:text="${list.ifcgNickName}"></td>
+                                                <td th:text="${list.ifcgGender}"></td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>
@@ -300,9 +305,11 @@
                                              -->
                                         </tbody>
                                     </table>
+
+                                    
                                     <nav aria-label="Page navigation example">
                                         <ul class="pagination justify-content-center">
-                                            <li class="page-item"><a class="page-link" href="#"><i
+                                            <!-- <li class="page-item"><a class="page-link" href="#"><i
                                                         class="fa-solid fa-chevron-left"></i></a></li>
                                             <li class="page-item"><a class="page-link" href="#">1</a></li>
                                             <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -310,9 +317,25 @@
                                             <li class="page-item"><a class="page-link" href="#">4</a></li>
                                             <li class="page-item"><a class="page-link" href="#">5</a></li>
                                             <li class="page-item"><a class="page-link" href="#"><i
-                                                        class="fa-solid fa-chevron-right"></i></a></li>
+                                                        class="fa-solid fa-chevron-right"></i></a></li> -->
+                                                        
+                                                        
+                                            <li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
+	<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
+		<i class="fa-solid fa-angle-left"></i>
+	</a>
+</li>
+<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item" style="cursor: pointer;">
+	<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"><!-- ${i.index} --></a>
+</li>
+<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" style="cursor: pointer;">
+	<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
+		<i class="fa-solid fa-angle-right"></i>
+	</a>
+</li>
                                         </ul>
                                     </nav>
+                                    
                                     <button type="button" class="btn btn-danger"><i class="fa-solid fa-x"></i></button>
                                     <button type="button" class="btn btn-danger"><i
                                             class="fa-regular fa-trash-can"></i></button>
@@ -331,32 +354,13 @@
                 </div>
             </div>
         </div>
+        </form>
         <!-- main end -->
     </div>
     <!--**********************************
             Content body end
         ***********************************-->
 
-
-    <!--**********************************
-            Footer start
-        ***********************************-->
-    <!-- <div class="footer">
-        <div class="copyright">
-            <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-        </div>
-    </div> -->
-    <!--**********************************
-            Footer end
-        ***********************************-->
-
-    <!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-    <!--**********************************
-           Support ticket button end
-        ***********************************-->
 
 <div th:replace="~{xdm/include/footer :: footer}"></div>
     </div>
@@ -386,6 +390,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+	
+	<script type="text/javascript">
+		let form = document.querySelector("form[name=formList]");
+		goList = function (thisPage) {
+		    document.querySelector("input[name=thisPage]").value = thisPage;
+		    form.action = "/xdm/codegroup/CodeGroupXdmList";
+		    form.submit();
+		}
+		
+		
+	</script>
+	
 </body>
 
 </html>

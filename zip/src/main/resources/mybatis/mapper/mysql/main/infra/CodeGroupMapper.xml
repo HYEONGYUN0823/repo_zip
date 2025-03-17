@@ -5,18 +5,29 @@
 	
 	<resultMap id="resultMapObj" type="com.a7a7.modeule.codegroup.CodeGroupDto"/>
 	
-	<select id="selectList" resultMap="resultMapObj">
-		SELECT
-			ifcgSeq,
-		    ifcgName,
-		    ifcgNickName,
-		    ifcgGender,
-		    ifcgVerify,
-		    ifcgDelNy
-		FROM
-			codeGroup
+	<sql id = "selectCommon">
+		FROM codeGroup as a
 		WHERE 1=1
-		ORDER BY ifcgSeq DESC
+		ORDER BY a.ifcgSeq DESC
+	</sql>
+
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommon"></include>
+	</select>
+	
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    a.ifcgNickName,
+			    a.ifcgGender,
+			    a.ifcgVerify,
+			    a.ifcgDelNy
+		<include refid="selectCommon"></include>
+		) aa
+		limit #{pageNumToShow} offset #{startRnumForMysql}
 	</select>
 	
 	<insert id="insert">

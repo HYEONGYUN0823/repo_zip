@@ -10,8 +10,12 @@ public class CodeGroupService {
 	@Autowired
 	CodeGroupDao codeGroupDao;
 	
-	public List<CodeGroupDto> selectList() {
-		return codeGroupDao.selectList();
+	public int selectOneCount() {
+		return codeGroupDao.selectOneCount();
+	}
+	
+	public List<CodeGroupDto> selectList(CodeGroupVo vo) {
+		return codeGroupDao.selectList(vo);
 	}
 	
 	public int insert(CodeGroupDto codeGroupDto) {
