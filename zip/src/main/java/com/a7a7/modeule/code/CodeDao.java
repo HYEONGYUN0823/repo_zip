@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CodeDao {
 	
-	public int selectOneCount();
+	public int selectOneCount(CodeVo vo);
 	
 	public List<CodeDto> selectList(CodeVo vo);
 	

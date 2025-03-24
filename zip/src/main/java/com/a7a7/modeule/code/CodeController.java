@@ -14,9 +14,25 @@ public class CodeController {
 	@Autowired
 	CodeService codeService;
 	
+	private void setSearch(CodeVo vo) {
+	    if (vo.getShUseNy() != null && !vo.getShUseNy().equals("")) {
+	        vo.setShUseNy(vo.getShUseNy());
+	    }
+	
+	    if (vo.getShDelNy() != null && !vo.getShDelNy().equals("")) {
+	        vo.setShDelNy(vo.getShDelNy());
+	    }
+	
+	    if (vo.getShOption() != null && vo.getShValue() != null && !vo.getShValue().equals("")) {
+	        vo.setShOption(vo.getShOption());
+	        vo.setShValue(vo.getShValue());
+	    }
+	}
+	
 	@RequestMapping(value = "/xdm/code/CodeXdmList")
 	public String codeXdmList(Model model, CodeVo vo) {
-		vo.setParamsPaging(codeService.selectOneCount());
+		setSearch(vo); // 검색 조건 설정
+		vo.setParamsPaging(codeService.selectOneCount(vo));
 		
 		model.addAttribute("list", codeService.selectList(vo));
 		model.addAttribute("vo", vo);

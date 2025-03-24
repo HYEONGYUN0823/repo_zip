@@ -13,8 +13,8 @@ public class CodeService {
 	@Autowired
 	CodeDao codeDao;
 	
-	public int selectOneCount() {
-		return codeDao.selectOneCount();
+	public int selectOneCount(CodeVo vo) {
+		return codeDao.selectOneCount(vo);
 	}
 	
 	public List<CodeDto> selectList(CodeVo vo) {
