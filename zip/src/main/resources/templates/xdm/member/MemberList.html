@@ -2,7 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="~{xdm/include/head :: head}"></div>
-
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -10,25 +9,18 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        
-        <!-- main -->
-<body>
-        	<form name="formList" id="formList" method="post" autocomplete="off">
-		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
-		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-        
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Code Group</h4>
+                            <h4>Member</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">시스템관리</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">코드그룹관리</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">회원관리</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Member관리</a></li>
                         </ol>
                     </div>
                 </div>
@@ -66,31 +58,32 @@
                                     <thead>
                                         <tr>
                                             <td class="p-2">
-                                                <select id="shDelNy" name="shDelNy" class="form-select form-select-sm">
-													<option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
-													<option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
-													<option value="0" th:selected="${vo.shDelNy == 0}">N</option>            
-												</select>
+                                                <select class="form-select form-select-sm"
+                                                    aria-label="Small select example">
+                                                    <option selected>N</option>
+                                                </select>
                                             </td>
                                             <td class="p-2">
-                                                <select name="shUseNy" id="shUseNy" class="form-select form-select-sm">
-													<option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
-													<option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
-													<option value="0" th:selected="${vo.shUseNy == 0}">N</option>
-												</select>
+                                                <select class="form-select form-select-sm"
+                                                    aria-label="Small select example">
+                                                    <option selected>Y</option>
+                                                </select>
                                             </td>
                                             <td class="p-2">
-                                                <select id="shOptionDate" name="shOptionDate" class="form-select form-select-sm">
-													<option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
-													<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
-													<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
-												</select>
+                                                <select class="form-select form-select-sm"
+                                                    aria-label="Small select example">
+                                                    <option selected>날짜</option>
+                                                    <option value="1">등록일</option>
+                                                    <option value="2">수정일</option>
+                                                </select>
                                             </td>
                                             <td class="p-2">
-<!--                                                 <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
+                                                <input class="form-control form-control-sm" type="text"
+                                                    placeholder="2024-12-25" aria-label="default input example">
                                             </td>
                                             <td class="p-2">
-<!--                                                 <input type="text" id="shDateEnd" name="shDateEnd" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="종료일" class="form-control form-control-sm" autocomplete="off"> -->
+                                                <input class="form-control form-control-sm" type="text"
+                                                    placeholder="2025-01-24" aria-label="default input example">
                                             </td>
                                             <td class="p-2"></td>
                                         </tr>
@@ -98,25 +91,20 @@
                                     <tbody>
                                         <tr>
                                             <td class="p-2">
-                                                <select id="shOption" name="shOption" class="form-select form-select-sm">
-													<option value="" th:selected="${vo.shOption == null}">검색구분</option>
-													<option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
-													<option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
-													<option value="3" th:selected="${vo.shOption == 3}">코드그룹 이름 (영문)</option>
-												</select>
+                                                <select class="form-select form-select-sm"
+                                                    aria-label="Small select example">
+                                                    <option selected>검색구분</option>
+                                                    <option value="1">코드그룹 코드</option>
+                                                    <option value="2">코드그룹 이름</option>
+                                                    <option value="3">코드 이름(영문)</option>
+                                                </select>
                                             </td>
                                             <td class="p-2">
-                                                <input type="text" 
-		                                               id="shValue" 
-		                                               name="shValue" 
-		                                               th:value="${vo.shValue}" 
-		                                               onkeyup="enterkey()" 
-		                                               placeholder="검색어" 
-		                                               class="form-control form-control-sm">
-												<div class="invalid-feedback" id="shValueFeedback"></div>
+                                                <input class="form-control form-control-sm" type="text"
+                                                    placeholder="검색어" aria-label="default input example">
                                             </td>
                                             <td class="p-2">
-                                                <button type="button" id="btnSearch" class="btn btn-outline-dark btn-sm"><i
+                                                <button type="button" class="btn btn-outline-dark btn-sm"><i
                                                         class="fa-solid fa-magnifying-glass"></i></button>
                                                 <button type="button" class="btn btn-outline-dark btn-sm"><i
                                                         class="fa-solid fa-rotate-right"></i></button>
@@ -142,9 +130,10 @@
                                                 <td style="width: 5%"></td>
                                                 <td style="width: 10%"></td>
                                                 <td style="width: 10%"></td>
+
                                             </tr>
                                             <tr>
-                                                <td>Total: <a th:text=${vo.totalRows}></a></td>
+                                                <td>Total: 42</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -155,14 +144,13 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td colspan="2">
-                                                    <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum">
-														<option value="5" th:selected="${vo.rowNumToShow eq 5}">5</option>
-														<option value="10" th:selected="${vo.rowNumToShow eq 10}">10</option>
-														<option value="30" th:selected="${vo.rowNumToShow eq 30}">30</option>
-														<option value="50" th:selected="${vo.rowNumToShow eq 50}">50</option>
-														<option value="80" th:selected="${vo.rowNumToShow eq 80}">80</option>
-														<option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>       
-													</select>
+                                                    <select class="form-select form-select-sm"
+                                                        aria-label="Small select example">
+                                                        <option selected>5</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select>
                                                 </td>
                                                 <td></td>
                                             </tr>
@@ -179,29 +167,19 @@
                                                     <b>#</b>
                                                 </td>
                                                 <td><b>사용</b></td>
-                                                <td><b>코드그룹 코드</b></td> <!-- 코드그룹 코드 -->
-                                                <td><b>코드그룹 이름</b></td> <!-- 코드그룹 이름 -->
-                                                <td><b>사용중</b></td>
-                                                <td><b></b></td> <!-- 코드 이름(영문) -->
+                                                <td><b>코드그룹 코드</b></td>
+                                                <td><b>코드그룹 이름</b></td>
                                                 <td><b></b></td>
-                                                <td><b>갯수</b></td> <!-- 갯수 -->
-                                                <td><b><!-- 성별 --></b></td> <!-- 순서 -->
-                                                <td><b>등록일</b></td> <!-- 등록일 -->
-                                                <td><b></b></td> <!-- 수정일 -->
+                                                <td><b>코드 이름(영문)</b></td>
+                                                <td><b></b></td>
+                                                <td><b>갯수</b></td>
+                                                <td><b>순서</b></td>
+                                                <td><b>등록일</b></td>
+                                                <td><b>수정일</b></td>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        	<tr th:if="${#lists.isEmpty(list)}" class="hover-actions-trigger btn-reveal-trigger position-static">
-                                        		<td></td>
-                                        		<td></td>
-                                        		<td></td>
-                                        		<td></td>
-                                        		<td></td>
-                                        		<td colspan="10">
-                                        			<p class="fs-0" style="padding-top: 12px;">There are no data!</p>
-                                        		</td>
-                                        	</tr>
-                                            <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
+                                            <tr>
                                                 <td>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" value=""
@@ -210,19 +188,19 @@
                                                             for="flexCheckIndeterminate"></label>
                                                     </div>
                                                 </td>
-                                                <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                                <td th:text="${list.ifcgDelNy}"></td>
-                                                <td th:text="${list.ifcgSeq}"></td>
-                                                <td th:text="${list.ifcgName}"></td>
-                                                <td th:text="${list.ifcgUseNy}"></td>
+                                                <td>42</td>
+                                                <td>Y</td>
+                                                <td>42</td>
+                                                <td><b style="color: rgb(42, 92, 255);">작품.기타사이트유형</b></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td><b></b></td>
-                                                <td th:text="${list.xifcdSeqCount}"></td>
-                                                <td></td>
+                                                <td>8</td>
+                                                <td>1</td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <!-- <tr>
+                                            <tr>
                                                 <td>
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" value=""
@@ -306,14 +284,11 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                             -->
                                         </tbody>
                                     </table>
-
-                                    
                                     <nav aria-label="Page navigation example">
                                         <ul class="pagination justify-content-center">
-                                            <!-- <li class="page-item"><a class="page-link" href="#"><i
+                                            <li class="page-item"><a class="page-link" href="#"><i
                                                         class="fa-solid fa-chevron-left"></i></a></li>
                                             <li class="page-item"><a class="page-link" href="#">1</a></li>
                                             <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -321,29 +296,13 @@
                                             <li class="page-item"><a class="page-link" href="#">4</a></li>
                                             <li class="page-item"><a class="page-link" href="#">5</a></li>
                                             <li class="page-item"><a class="page-link" href="#"><i
-                                                        class="fa-solid fa-chevron-right"></i></a></li> -->
-                                                        
-                                                        
-                                            <li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
-	<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
-		<i class="fa-solid fa-angle-left"></i>
-	</a>
-</li>
-<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item" style="cursor: pointer;">
-	<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"><!-- ${i.index} --></a>
-</li>
-<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" style="cursor: pointer;">
-	<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
-		<i class="fa-solid fa-angle-right"></i>
-	</a>
-</li>
+                                                        class="fa-solid fa-chevron-right"></i></a></li>
                                         </ul>
                                     </nav>
-                                    
                                     <button type="button" class="btn btn-danger"><i class="fa-solid fa-x"></i></button>
                                     <button type="button" class="btn btn-danger"><i
                                             class="fa-regular fa-trash-can"></i></button>
-                                    <button type="button" onclick="location.href='/xdm/codegroup/CodeGroupXdmForm'"
+                                    <button type="button" onclick="location.href='./form-wizard0.html'"
                                         class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
                                     <button type="button" class="btn btn-success"
@@ -358,13 +317,31 @@
                 </div>
             </div>
         </div>
-        </form>
-        <!-- main end -->
     </div>
     <!--**********************************
             Content body end
         ***********************************-->
 
+
+    <!--**********************************
+            Footer start
+        ***********************************-->
+    <!-- <div class="footer">
+        <div class="copyright">
+            <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
+        </div>
+    </div> -->
+    <!--**********************************
+            Footer end
+        ***********************************-->
+
+    <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+    <!--**********************************
+           Support ticket button end
+        ***********************************-->
 
 <div th:replace="~{xdm/include/footer :: footer}"></div>
     </div>
@@ -394,29 +371,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-	
-	<script type="text/javascript">
-	
-		let form = document.querySelector("form[name=formList]");
-		goList = function (thisPage) {
-		    document.querySelector("input[name=thisPage]").value = thisPage;
-		    form.action = "/xdm/codegroup/CodeGroupXdmList";
-		    form.submit();
-		}
-		
-		document.getElementById("btnSearch").onclick = function () {
-		    form.action = "/xdm/codegroup/CodeGroupXdmList";
-		    form.submit();
-		};
-		
-		document.getElementById("changeRowNum").onchange = function () {
-		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-		    form.action = "/xdm/codegroup/CodeGroupXdmList";
-		    form.submit();
-		}
-		
-	</script>
-	
 </body>
 
 </html>
