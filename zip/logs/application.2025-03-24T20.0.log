@@ -2714,3 +2714,10 @@ org.springframework.expression.spel.SpelEvaluationException: EL1007E: Property o
 		) aa
 		limit 5 offset 0
  {executed in 1 msec} 
+2025-03-24T20:52:33.591 [RMI TCP Connection(107)-127.0.0.1] INFO o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+2025-03-24T20:52:33.596 [RMI TCP Connection(107)-127.0.0.1] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-24T20:52:33.597 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-24T20:52:33.600 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-24T20:52:33.600 [RMI TCP Connection(107)-127.0.0.1] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-24T20:52:33.604 [RMI TCP Connection(107)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-14 - Shutdown initiated... 
+2025-03-24T20:52:33.611 [RMI TCP Connection(107)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-14 - Shutdown completed. 
