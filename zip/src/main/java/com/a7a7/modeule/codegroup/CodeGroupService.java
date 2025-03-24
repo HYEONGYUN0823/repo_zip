@@ -18,6 +18,10 @@ public class CodeGroupService {
 		return codeGroupDao.selectList(vo);
 	}
 	
+	public CodeGroupDto selectOne(CodeGroupDto codeGroupDto) {
+		return codeGroupDao.selectOne(codeGroupDto);
+	}
+	
 	public int insert(CodeGroupDto codeGroupDto) {
 		return codeGroupDao.insert(codeGroupDto);
 	}
@@ -26,4 +30,6 @@ public class CodeGroupService {
 		return codeGroupDao.update(codeGroupDto);
 	}
 	
+//	--------
+
 }

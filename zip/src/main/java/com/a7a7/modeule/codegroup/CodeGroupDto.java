@@ -1,49 +1,59 @@
 package com.a7a7.modeule.codegroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.a7a7.modeule.code.CodeDto;
+
 public class CodeGroupDto {
 	
-	private String ifcgSeq;
-	private String ifcgName;
-	private String ifcgNickName;
-	private String ifcgGender;
-	private String ifcgVerify;
-	private String ifcgDelNy;
+	private String ifcgSeq;			// 시퀀스
+	private String ifcgName;		// 코드그룹 이름
+	private String ifcgDelNy;		// 사용여부
+	private String ifcgUseNy;
+
+	private String xifcdSeqCount;	// 갯수
+	
 //	-----
+	
 	public String getIfcgSeq() {
 		return ifcgSeq;
 	}
+	
 	public void setIfcgSeq(String ifcgSeq) {
 		this.ifcgSeq = ifcgSeq;
 	}
+	
 	public String getIfcgName() {
 		return ifcgName;
 	}
+	
 	public void setIfcgName(String ifcgName) {
 		this.ifcgName = ifcgName;
 	}
-	public String getIfcgNickName() {
-		return ifcgNickName;
-	}
-	public void setIfcgNickName(String ifcgNickName) {
-		this.ifcgNickName = ifcgNickName;
-	}
-	public String getIfcgGender() {
-		return ifcgGender;
-	}
-	public void setIfcgGender(String ifcgGender) {
-		this.ifcgGender = ifcgGender;
-	}
-	public String getIfcgVerify() {
-		return ifcgVerify;
-	}
-	public void setIfcgVerify(String ifcgVerify) {
-		this.ifcgVerify = ifcgVerify;
-	}
+	
 	public String getIfcgDelNy() {
 		return ifcgDelNy;
 	}
+	
+	public String getIfcgUseNy() {
+		return ifcgUseNy;
+	}
+
+	public void setIfcgUseNy(String ifcgUseNy) {
+		this.ifcgUseNy = ifcgUseNy;
+	}
+
 	public void setIfcgDelNy(String ifcgDelNy) {
 		this.ifcgDelNy = ifcgDelNy;
+	}
+	
+	public String getXifcdSeqCount() {
+		return xifcdSeqCount;
+	}
+	
+	public void setXifcdSeqCount(String xifcdSeqCount) {
+		this.xifcdSeqCount = xifcdSeqCount;
 	}
 	
 }

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{xdm/include/head :: head}"></div>
+
+
+
+<body>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Code</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">시스템관리</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">코드관리</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- row -->
+                <style>
+                    /* 글자색을 검정으로 변경 */
+                    .table-responsive-sm th,
+                    .table-responsive-sm td {
+                        color: black !important;
+                    }
+
+                    /* 테이블의 모든 선 제거 */
+                    .table,
+                    .table th,
+                    .table td,
+                    .table thead th,
+                    .table tbody td {
+                        border: none !important;
+                    }
+
+                    .red {
+                        color: red;
+                    }
+
+                    .table {
+                        width: 100%;
+                        table-layout: fixed;
+                        /* 칸 너비 고정 */
+                    }
+                    
+/* 					빨간색 테두리 */
+					.redOutline {
+					    border: 2px solid red; 
+					}
+					
+/* 					빨간색 에러 텍스트 */
+					.errorText {
+					    color: red;
+					    font-size: 12px; /* 텍스트 크기 */
+					}
+                </style>
+                <form action="/xdm/code/CodeXdmInst" method="post" id="form">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title"><b>기본정보</b></h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-responsive-sm">
+                                        <thead>
+                                            <tr>
+                                                <td><b>코드그룹 이름</b><b class="red"> *</b>
+                                                    <br>
+                                                    <select id="ifcgSeq" name="ifcgSeq" class="form-select">
+														<option value="">선택하세요</option>
+														<option th:each="list : ${listCodeGroup}" 
+																th:value="${list.ifcgSeq}" 
+																th:text="${list.ifcgName}" 
+																th:selected="${list.ifcgSeq == item?.ifcgSeq}">
+														</option>
+													</select>
+													<div id="ifcgNameError" class="errorText"></div>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><b>코드</b><b class="red"> *</b>
+                                                    <br>
+                                                    <input class="form-control" type="text" placeholder="자동생성" id="ifcdSeq" name="ifcdSeq"
+                                                        aria-label="Disabled input example" disabled>
+                                                </td>
+                                                <!-- <td><label for="code01"><b>코드 (ANOTHER)</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="code01" type="text"
+                                                        placeholder="영문소문자, 숫자">
+                                                </td> -->
+                                                <td><label for="ifcdName"><b>코드 이름</b><b class="red"> *</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="ifcdName" name="ifcdName" type="text"
+                                                        placeholder="한글, 영대소문자, 숫자">
+                                                        <div id="ifcdNameError" class="errorText"></div>
+                                                </td>
+                                                <!-- <td><label for="ifcdNickName"><b>닉네임코드 이름 (영문)</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="ifcdNickName" name="ifcdNickName" type="text"
+                                                        placeholder="영대소문자, 숫자">
+                                                </td> -->
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <b class="rgb">사용여부</b><b class="red"> *</b>
+                                                    <br>
+                                                    <select id="ifcdDelNy" name="ifcdDelNy" class="form-select">
+                                                        <option value="">선택하세요</option>
+                                                        <option value="1">Y</option>
+                                                        <option value="0">N</option>
+                                                    </select>
+                                                    <div id="ifcdDelNyError" class="errorText"></div>
+                                                </td>
+                                                <td>
+                                                    <b class="rgb">사용중</b><b class="red"> *</b>
+                                                    <br>
+                                                    <select id="ifcdUseNy" name="ifcdUseNy" class="form-select">
+                                                        <option value="">선택하세요</option>
+                                                        <option value="1">Y</option>
+                                                        <option value="0">N</option>
+                                                    </select>
+                                                    <div id="ifcdUseNyError" class="errorText"></div>
+                                                </td>
+                                                <!-- <td>
+                                                    <b class="rgb">성별</b><b class="red"> *</b>
+                                                    <br>
+                                                    <select id="ifcdGender" name="ifcdGender" class="form-select">
+                                                        <option>남</option>
+                                                        <option>여</option>
+                                                    </select>
+                                                </td> -->
+                                            <tr>
+                                                <td colspan="2">
+                                                    <label for="description"><b class="rgb">설명</b></label>
+                                                    <br>
+                                                    <textarea class="form-control" id="description"
+                                                        style="height: 100px"></textarea>
+                                                </td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td>
+                                                    <label for="daguk1"><b>다국어1</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="daguk1" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="daguk2"><b>다국어2</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="daguk2" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="daguk3"><b>다국어3</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="daguk3" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="daguk4"><b>다국어4</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="daguk4" type="text">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label for="daguk5"><b>다국어5</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="daguk5" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="daguk6"><b>다국어6</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="daguk6" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="daguk7"><b>다국어7</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="daguk7" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="daguk8"><b>다국어8</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="daguk8" type="text">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label for="yebi1"><b>예비1 (VARCHAR TYPE)</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="yebi1" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="yebi2"><b>예비2 (VARCHAR TYPE)</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="yebi2" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="yebi3"><b>예비3 (VARCHAR TYPE)</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="yebi3" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="yebi4"><b>예비4 (VARCHAR TYPE)</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="yebi4" type="text">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label for="yebi5"><b>예비1 (INT TYPE)</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="yebi5" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="yebi6"><b>예비2 (INT TYPE)</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="yebi6" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="yebi7"><b>예비3 (INT TYPE)</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="yebi7" type="text">
+                                                </td>
+                                                <td>
+                                                    <label for="yebi8"><b>예비4 (INT TYPE)</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="yebi8" type="text">
+                                                </td>
+                                            </tr> -->
+                                            <!-- <tr>
+                                                <td>
+                                                    <button type="button" class="btn btn-outline-dark"
+                                                        style="text-align: right;">
+                                                        <i class="fa-solid fa-list-ul"></i>
+                                                    </button>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <span style="float: right;">
+                                                        <button type="button" class="btn btn-primary"><i
+                                                                class="fa-solid fa-database"></i></button>
+                                                    </span>
+                                                </td>
+                                            </tr> -->
+                                        </tbody>
+                                    </table>
+                                    <button type="button" onclick="location.href='/xdm/code/CodeXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
+                                    <button type="button" id="dtnSave" class="btn btn-primary" style="float: right;"><i
+                                            class="fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+				<script type="text/javascript">
+				
+				document.getElementById("dtnSave").onclick = function(event) {
+				    event.preventDefault(); // 기본 폼 제출 방지
+
+				    let check = true;
+
+				    const ifcgSeq = document.getElementById("ifcgSeq");
+				    const ifcgNameError = document.getElementById("ifcgNameError");
+
+				    if (ifcgSeq.value == "") {
+				        ifcgSeq.classList.add("redOutline");
+				        ifcgNameError.textContent = "코드 그룹을 선택하세요.";
+				        
+				    	check = false;
+				    } else {
+				        ifcgSeq.classList.remove("redOutline");
+				        ifcgNameError.textContent = "";
+				    }
+
+				    const ifcdName = document.getElementById("ifcdName");
+				    const ifcdNameError = document.getElementById("ifcdNameError");
+
+				    if (ifcdName.value.trim() == "") {
+				        ifcdName.classList.add("redOutline");
+				        ifcdNameError.textContent = "코드 이름을 입력하세요.";
+				        
+				    	check = false;
+				    } else {
+				        ifcdName.classList.remove("redOutline");
+				        ifcdNameError.textContent = "";
+				    }
+
+				    const ifcdDelNy = document.getElementById("ifcdDelNy");
+				    const ifcdDelNyError = document.getElementById("ifcdDelNyError");
+
+				    if (ifcdDelNy.value == "") {
+				        ifcdDelNy.classList.add("redOutline");
+				        ifcdDelNyError.textContent = "사용 여부를 선택하세요.";
+				        
+				    	check = false;
+				    } else {
+				        ifcdDelNy.classList.remove("redOutline");
+				        ifcdDelNyError.textContent = "";
+				    }
+				    
+				    if (ifcdUseNy.value == "") {
+				        ifcdUseNy.classList.add("redOutline");
+				        ifcdUseNyError.textContent = "사용 여부를 선택하세요.";
+				        
+				    	check = false;
+				    } else {
+				        ifcdUseNy.classList.remove("redOutline");
+				        ifcdUseNyError.textContent = "";
+				    }
+				    
+				    if (check) {
+				        document.getElementById("form").submit();
+				    } else {
+				    	// bypass
+				    }
+				};
+				</script>
+				</form>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        
+        <div th:replace="~{xdm/include/footer :: footer}"></div>
+        
+        <!-- <div class="footer">
+                <div class="copyright"> -->
+        <!-- <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p> -->
+        <!-- </div>
+            </div> -->
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="/xdm/template/admin_ui/vendor/global/global.min.js"></script>
+    <script src="/xdm/template/admin_ui/js/quixnav-init.js"></script>
+    <script src="/xdm/template/admin_ui/js/custom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

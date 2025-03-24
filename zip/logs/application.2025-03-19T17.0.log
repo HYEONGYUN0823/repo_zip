@@ -1,0 +1,436 @@
+2025-03-19T17:41:29.656 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 19832 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-19T17:41:29.657 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-19T17:41:29.975 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-19T17:41:29.977 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-19T17:41:29.987 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-19T17:41:30.007 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-19T17:41:30.007 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 347 ms 
+2025-03-19T17:41:30.179 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-19T17:41:30.191 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-19T17:41:30.202 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.791 seconds (process running for 2103.378) 
+2025-03-19T17:41:30.204 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-19T17:41:40.417 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-19T17:41:40.419 [Thread-7] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-19T17:41:40.423 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-19T17:41:40.575 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 19832 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-19T17:41:40.576 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-19T17:41:40.773 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-19T17:41:40.774 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-19T17:41:40.774 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-19T17:41:40.784 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-19T17:41:40.784 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 206 ms 
+2025-03-19T17:41:40.904 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-19T17:41:40.909 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-19T17:41:40.914 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.431 seconds (process running for 2114.09) 
+2025-03-19T17:41:40.915 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-19T17:41:49.447 [http-nio-8080-exec-2] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-19T17:41:49.447 [http-nio-8080-exec-2] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-19T17:41:49.448 [http-nio-8080-exec-2] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-03-19T17:41:49.454 [http-nio-8080-exec-2] INFO c.z.h.HikariDataSource - HikariPool-2 - Starting... 
+2025-03-19T17:41:49.465 [http-nio-8080-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: java.lang.RuntimeException: Driver net.sf.log4jdbc.sql.jdbcapi.DriverSpy claims to not accept jdbcUrl, jdbc:mysql://localhost:3306/bandizip?zeroDateTimeBehavior=convertToNull
+### The error may exist in file [C:\factory\ws_sts4_4270\repo_zip\zip\bin\main\mybatis\mapper\mysql\main\infra\CodeGroupMapper.xml]
+### The error may involve com.a7a7.modeule.codegroup.CodeGroupDao.selectOneCount
+### The error occurred while executing a query
+### Cause: java.lang.RuntimeException: Driver net.sf.log4jdbc.sql.jdbcapi.DriverSpy claims to not accept jdbcUrl, jdbc:mysql://localhost:3306/bandizip?zeroDateTimeBehavior=convertToNull] with root cause 
+java.lang.RuntimeException: Driver net.sf.log4jdbc.sql.jdbcapi.DriverSpy claims to not accept jdbcUrl, jdbc:mysql://localhost:3306/bandizip?zeroDateTimeBehavior=convertToNull
+	at com.zaxxer.hikari.util.DriverDataSource.<init>(DriverDataSource.java:109)
+	at com.zaxxer.hikari.pool.PoolBase.initializeDataSource(PoolBase.java:327)
+	at com.zaxxer.hikari.pool.PoolBase.<init>(PoolBase.java:113)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:91)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:160)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:118)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:77)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:64)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:348)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:89)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:64)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:336)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:158)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:110)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:90)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:75)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	at jdk.proxy2/jdk.proxy2.$Proxy63.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:154)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:87)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy6/jdk.proxy6.$Proxy80.selectOneCount(Unknown Source)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy6/jdk.proxy6.$Proxy81.selectOneCount(Unknown Source)
+	at com.a7a7.modeule.codegroup.CodeGroupService.selectOneCount(CodeGroupService.java:14)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmList(CodeGroupController.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-19T17:41:50.367 [http-nio-8080-exec-1] INFO c.z.h.HikariDataSource - HikariPool-2 - Starting... 
+2025-03-19T17:41:50.374 [http-nio-8080-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: java.lang.RuntimeException: Driver net.sf.log4jdbc.sql.jdbcapi.DriverSpy claims to not accept jdbcUrl, jdbc:mysql://localhost:3306/bandizip?zeroDateTimeBehavior=convertToNull
+### The error may exist in file [C:\factory\ws_sts4_4270\repo_zip\zip\bin\main\mybatis\mapper\mysql\main\infra\CodeGroupMapper.xml]
+### The error may involve com.a7a7.modeule.codegroup.CodeGroupDao.selectOneCount
+### The error occurred while executing a query
+### Cause: java.lang.RuntimeException: Driver net.sf.log4jdbc.sql.jdbcapi.DriverSpy claims to not accept jdbcUrl, jdbc:mysql://localhost:3306/bandizip?zeroDateTimeBehavior=convertToNull] with root cause 
+java.lang.RuntimeException: Driver net.sf.log4jdbc.sql.jdbcapi.DriverSpy claims to not accept jdbcUrl, jdbc:mysql://localhost:3306/bandizip?zeroDateTimeBehavior=convertToNull
+	at com.zaxxer.hikari.util.DriverDataSource.<init>(DriverDataSource.java:109)
+	at com.zaxxer.hikari.pool.PoolBase.initializeDataSource(PoolBase.java:327)
+	at com.zaxxer.hikari.pool.PoolBase.<init>(PoolBase.java:113)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:91)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:160)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:118)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:77)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:64)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:348)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:89)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:64)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:336)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:158)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:110)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:90)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:75)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	at jdk.proxy2/jdk.proxy2.$Proxy63.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:154)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:87)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy6/jdk.proxy6.$Proxy80.selectOneCount(Unknown Source)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy6/jdk.proxy6.$Proxy81.selectOneCount(Unknown Source)
+	at com.a7a7.modeule.codegroup.CodeGroupService.selectOneCount(CodeGroupService.java:14)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmList(CodeGroupController.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-19T17:42:42.623 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-19T17:42:42.626 [Thread-11] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-19T17:42:42.634 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-19T17:42:42.833 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 19832 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-19T17:42:42.833 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-19T17:42:43.023 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-19T17:42:43.024 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-19T17:42:43.024 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-19T17:42:43.031 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-19T17:42:43.031 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 194 ms 
+2025-03-19T17:42:43.159 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-19T17:42:43.173 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-19T17:42:43.176 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.429 seconds (process running for 2176.352) 
+2025-03-19T17:42:43.176 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-19T17:42:46.985 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-19T17:42:46.985 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-19T17:42:46.987 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 2 ms 
+2025-03-19T17:42:46.993 [http-nio-8080-exec-1] INFO c.z.h.HikariDataSource - HikariPool-3 - Starting... 
+2025-03-19T17:42:47.091 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection opened. {executed in 65ms}  
+2025-03-19T17:42:47.092 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.new Connection returned  
+2025-03-19T17:42:47.093 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.getNetworkTimeout() returned 0 
+2025-03-19T17:42:47.095 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.isReadOnly() returned false 
+2025-03-19T17:42:47.095 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.096 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.isValid(1) returned true 
+2025-03-19T17:42:47.097 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.getTransactionIsolation() returned 4 
+2025-03-19T17:42:47.097 [http-nio-8080-exec-1] INFO c.z.h.p.HikariPool - HikariPool-3 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@225c3b3c 
+2025-03-19T17:42:47.098 [http-nio-8080-exec-1] INFO c.z.h.HikariDataSource - HikariPool-3 - Start completed. 
+2025-03-19T17:42:47.098 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.101 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.new PreparedStatement returned  
+2025-03-19T17:42:47.101 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.prepareStatement(SELECT COUNT(*)
+		 
+		FROM codeGroup as a
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@2054c6fb 
+2025-03-19T17:42:47.105 [http-nio-8080-exec-1] INFO l.log4j2 - 1. SELECT COUNT(*) FROM codeGroup as a WHERE 1=1 ORDER BY a.ifcgSeq DESC  {executed in 4 ms} 
+2025-03-19T17:42:47.106 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.execute() returned true 
+2025-03-19T17:42:47.109 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.new ResultSet returned  
+2025-03-19T17:42:47.109 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@48120381 
+2025-03-19T17:42:47.110 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getMetaData() returned com.mysql.cj.jdbc.result.ResultSetMetaData@34b2ca06 - Field level information: 
+	com.mysql.cj.result.Field@eff6d06[dbName=null,tableName=null,originalTableName=null,columnName=COUNT(*),originalColumnName=null,mysqlType=8(FIELD_TYPE_BIGINT),sqlType=-5,flags= BINARY, charsetIndex=63, charsetName=ISO-8859-1] 
+2025-03-19T17:42:47.110 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getType() returned 1003 
+2025-03-19T17:42:47.110 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.isClosed() returned false 
+2025-03-19T17:42:47.110 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.next() returned true 
+2025-03-19T17:42:47.114 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getInt(COUNT(*)) returned 3 
+2025-03-19T17:42:47.114 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.isClosed() returned false 
+2025-03-19T17:42:47.119 [http-nio-8080-exec-1] INFO l.log4j2 - 
+|---------|
+|count(*) |
+|---------|
+|3        |
+|---------|
+ 
+2025-03-19T17:42:47.119 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.next() returned false 
+2025-03-19T17:42:47.119 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.close() returned void 
+2025-03-19T17:42:47.120 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.getMetaData() returned com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema@147f05a 
+2025-03-19T17:42:47.120 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.getMoreResults() returned false 
+2025-03-19T17:42:47.120 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.getUpdateCount() returned -1 
+2025-03-19T17:42:47.121 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.close() returned  
+2025-03-19T17:42:47.121 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.clearWarnings() returned  
+2025-03-19T17:42:47.122 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.123 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.new PreparedStatement returned  
+2025-03-19T17:42:47.123 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.prepareStatement(SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa where 1=1 and aa.ifcdDelNy = 0 and aa.ifcgSeq = a.ifcgSeq) as xifcdSeqCount,
+			    a.ifcgDelNy
+		 
+		FROM codeGroup as a
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+	 
+		) aa
+		limit ? offset ?) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@6c495b95 
+2025-03-19T17:42:47.123 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.setInt(1, 5) returned  
+2025-03-19T17:42:47.123 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.setInt(2, 0) returned  
+2025-03-19T17:42:47.125 [http-nio-8080-exec-1] INFO l.log4j2 - 1. SELECT aa.* FROM ( SELECT a.ifcgSeq, a.ifcgName, (select count(aa.ifcdSeq) from code aa where 
+1=1 and aa.ifcdDelNy = 0 and aa.ifcgSeq = a.ifcgSeq) as xifcdSeqCount, a.ifcgDelNy FROM codeGroup 
+as a WHERE 1=1 ORDER BY a.ifcgSeq DESC ) aa limit 5 offset 0  {executed in 2 ms} 
+2025-03-19T17:42:47.126 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.execute() returned true 
+2025-03-19T17:42:47.126 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.new ResultSet returned  
+2025-03-19T17:42:47.126 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@99907f5 
+2025-03-19T17:42:47.126 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getMetaData() returned com.mysql.cj.jdbc.result.ResultSetMetaData@7b2ba16c - Field level information: 
+	com.mysql.cj.result.Field@45d05b73[dbName=bandizip,tableName=aa,originalTableName=codegroup,columnName=ifcgSeq,originalColumnName=ifcgSeq,mysqlType=3(FIELD_TYPE_INT UNSIGNED),sqlType=4,flags= UNSIGNED, charsetIndex=63, charsetName=ISO-8859-1]
+	com.mysql.cj.result.Field@63e325af[dbName=bandizip,tableName=aa,originalTableName=codegroup,columnName=ifcgName,originalColumnName=ifcgName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags=, charsetIndex=224, charsetName=UTF-8]
+	com.mysql.cj.result.Field@22842089[dbName=null,tableName=aa,originalTableName=null,columnName=xifcdSeqCount,originalColumnName=xifcdSeqCount,mysqlType=8(FIELD_TYPE_BIGINT),sqlType=-5,flags=, charsetIndex=63, charsetName=ISO-8859-1]
+	com.mysql.cj.result.Field@402d574[dbName=bandizip,tableName=aa,originalTableName=codegroup,columnName=ifcgDelNy,originalColumnName=ifcgDelNy,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags=, charsetIndex=224, charsetName=UTF-8] 
+2025-03-19T17:42:47.126 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getType() returned 1003 
+2025-03-19T17:42:47.126 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.isClosed() returned false 
+2025-03-19T17:42:47.126 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.next() returned true 
+2025-03-19T17:42:47.127 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(ifcgSeq) returned 3 
+2025-03-19T17:42:47.127 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(ifcgName) returned 밀키트 
+2025-03-19T17:42:47.127 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(xifcdSeqCount) returned 4 
+2025-03-19T17:42:47.127 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(ifcgDelNy) returned Y 
+2025-03-19T17:42:47.127 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.isClosed() returned false 
+2025-03-19T17:42:47.127 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.next() returned true 
+2025-03-19T17:42:47.127 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(ifcgSeq) returned 2 
+2025-03-19T17:42:47.128 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(ifcgName) returned 통신사 
+2025-03-19T17:42:47.128 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(xifcdSeqCount) returned 6 
+2025-03-19T17:42:47.128 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(ifcgDelNy) returned Y 
+2025-03-19T17:42:47.128 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.isClosed() returned false 
+2025-03-19T17:42:47.128 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.next() returned true 
+2025-03-19T17:42:47.128 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(ifcgSeq) returned 1 
+2025-03-19T17:42:47.128 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(ifcgName) returned 성별 
+2025-03-19T17:42:47.128 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(xifcdSeqCount) returned 4 
+2025-03-19T17:42:47.128 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.getString(ifcgDelNy) returned Y 
+2025-03-19T17:42:47.129 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.isClosed() returned false 
+2025-03-19T17:42:47.130 [http-nio-8080-exec-1] INFO l.log4j2 - 
+|--------|---------|--------------|----------|
+|ifcgseq |ifcgname |xifcdseqcount |ifcgdelny |
+|--------|---------|--------------|----------|
+|3       |밀키트      |4             |Y         |
+|2       |통신사      |6             |Y         |
+|1       |성별       |4             |Y         |
+|--------|---------|--------------|----------|
+ 
+2025-03-19T17:42:47.130 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.next() returned false 
+2025-03-19T17:42:47.130 [http-nio-8080-exec-1] INFO l.log4j2 - 1. ResultSet.close() returned void 
+2025-03-19T17:42:47.130 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.getMetaData() returned com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema@39fa86df 
+2025-03-19T17:42:47.130 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.getMoreResults() returned false 
+2025-03-19T17:42:47.130 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.getUpdateCount() returned -1 
+2025-03-19T17:42:47.130 [http-nio-8080-exec-1] INFO l.log4j2 - 1. PreparedStatement.close() returned  
+2025-03-19T17:42:47.130 [http-nio-8080-exec-1] INFO l.log4j2 - 1. Connection.clearWarnings() returned  
+2025-03-19T17:42:47.215 [HikariPool-3 connection adder] INFO l.log4j2 - 2. Connection opened. {executed in 11ms}  
+2025-03-19T17:42:47.216 [HikariPool-3 connection adder] INFO l.log4j2 - 2. Connection.new Connection returned  
+2025-03-19T17:42:47.217 [HikariPool-3 connection adder] INFO l.log4j2 - 2. Connection.isReadOnly() returned false 
+2025-03-19T17:42:47.217 [HikariPool-3 connection adder] INFO l.log4j2 - 2. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.258 [HikariPool-3 connection adder] INFO l.log4j2 - 3. Connection opened. {executed in 9ms}  
+2025-03-19T17:42:47.259 [HikariPool-3 connection adder] INFO l.log4j2 - 3. Connection.new Connection returned  
+2025-03-19T17:42:47.259 [HikariPool-3 connection adder] INFO l.log4j2 - 3. Connection.isReadOnly() returned false 
+2025-03-19T17:42:47.259 [HikariPool-3 connection adder] INFO l.log4j2 - 3. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.311 [HikariPool-3 connection adder] INFO l.log4j2 - 4. Connection opened. {executed in 15ms}  
+2025-03-19T17:42:47.312 [HikariPool-3 connection adder] INFO l.log4j2 - 4. Connection.new Connection returned  
+2025-03-19T17:42:47.313 [HikariPool-3 connection adder] INFO l.log4j2 - 4. Connection.isReadOnly() returned false 
+2025-03-19T17:42:47.313 [HikariPool-3 connection adder] INFO l.log4j2 - 4. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.369 [HikariPool-3 connection adder] INFO l.log4j2 - 5. Connection opened. {executed in 12ms}  
+2025-03-19T17:42:47.370 [HikariPool-3 connection adder] INFO l.log4j2 - 5. Connection.new Connection returned  
+2025-03-19T17:42:47.370 [HikariPool-3 connection adder] INFO l.log4j2 - 5. Connection.isReadOnly() returned false 
+2025-03-19T17:42:47.370 [HikariPool-3 connection adder] INFO l.log4j2 - 5. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.414 [HikariPool-3 connection adder] INFO l.log4j2 - 6. Connection opened. {executed in 10ms}  
+2025-03-19T17:42:47.414 [HikariPool-3 connection adder] INFO l.log4j2 - 6. Connection.new Connection returned  
+2025-03-19T17:42:47.415 [HikariPool-3 connection adder] INFO l.log4j2 - 6. Connection.isReadOnly() returned false 
+2025-03-19T17:42:47.415 [HikariPool-3 connection adder] INFO l.log4j2 - 6. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.460 [HikariPool-3 connection adder] INFO l.log4j2 - 7. Connection opened. {executed in 9ms}  
+2025-03-19T17:42:47.460 [HikariPool-3 connection adder] INFO l.log4j2 - 7. Connection.new Connection returned  
+2025-03-19T17:42:47.461 [HikariPool-3 connection adder] INFO l.log4j2 - 7. Connection.isReadOnly() returned false 
+2025-03-19T17:42:47.461 [HikariPool-3 connection adder] INFO l.log4j2 - 7. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.507 [HikariPool-3 connection adder] INFO l.log4j2 - 8. Connection opened. {executed in 11ms}  
+2025-03-19T17:42:47.507 [HikariPool-3 connection adder] INFO l.log4j2 - 8. Connection.new Connection returned  
+2025-03-19T17:42:47.508 [HikariPool-3 connection adder] INFO l.log4j2 - 8. Connection.isReadOnly() returned false 
+2025-03-19T17:42:47.508 [HikariPool-3 connection adder] INFO l.log4j2 - 8. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.551 [HikariPool-3 connection adder] INFO l.log4j2 - 9. Connection opened. {executed in 9ms}  
+2025-03-19T17:42:47.551 [HikariPool-3 connection adder] INFO l.log4j2 - 9. Connection.new Connection returned  
+2025-03-19T17:42:47.551 [HikariPool-3 connection adder] INFO l.log4j2 - 9. Connection.isReadOnly() returned false 
+2025-03-19T17:42:47.551 [HikariPool-3 connection adder] INFO l.log4j2 - 9. Connection.getAutoCommit() returned true 
+2025-03-19T17:42:47.598 [HikariPool-3 connection adder] INFO l.log4j2 - 10. Connection opened. {executed in 9ms}  
+2025-03-19T17:42:47.598 [HikariPool-3 connection adder] INFO l.log4j2 - 10. Connection.new Connection returned  
+2025-03-19T17:42:47.598 [HikariPool-3 connection adder] INFO l.log4j2 - 10. Connection.isReadOnly() returned false 
+2025-03-19T17:42:47.598 [HikariPool-3 connection adder] INFO l.log4j2 - 10. Connection.getAutoCommit() returned true 
+2025-03-19T17:44:34.670 [RMI TCP Connection(53)-127.0.0.1] INFO o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+2025-03-19T17:44:34.671 [RMI TCP Connection(53)-127.0.0.1] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-19T17:44:34.673 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-19T17:44:34.674 [RMI TCP Connection(53)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-3 - Shutdown initiated... 
+2025-03-19T17:44:34.674 [HikariPool-3 connection closer] INFO l.log4j2 - 1. Connection.isClosed() returned false 
+2025-03-19T17:44:34.675 [HikariPool-3 connection closer] INFO l.log4j2 - 1. Connection closed. {executed in 1ms}  
+2025-03-19T17:44:34.675 [HikariPool-3 connection closer] INFO l.log4j2 - 1. Connection.close() returned  
+2025-03-19T17:44:34.675 [HikariPool-3 connection closer] INFO l.log4j2 - 1. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.675 [HikariPool-3 connection closer] INFO l.log4j2 - 1. Connection.close() returned  
+2025-03-19T17:44:34.675 [HikariPool-3 connection closer] INFO l.log4j2 - 2. Connection.isClosed() returned false 
+2025-03-19T17:44:34.675 [HikariPool-3 connection closer] INFO l.log4j2 - 2. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.675 [HikariPool-3 connection closer] INFO l.log4j2 - 2. Connection.close() returned  
+2025-03-19T17:44:34.675 [HikariPool-3 connection closer] INFO l.log4j2 - 2. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.675 [HikariPool-3 connection closer] INFO l.log4j2 - 2. Connection.close() returned  
+2025-03-19T17:44:34.675 [HikariPool-3 connection closer] INFO l.log4j2 - 3. Connection.isClosed() returned false 
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 3. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 3. Connection.close() returned  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 3. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 3. Connection.close() returned  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 4. Connection.isClosed() returned false 
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 4. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 4. Connection.close() returned  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 4. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 4. Connection.close() returned  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 5. Connection.isClosed() returned false 
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 5. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 5. Connection.close() returned  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 5. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 5. Connection.close() returned  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 6. Connection.isClosed() returned false 
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 6. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 6. Connection.close() returned  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 6. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 6. Connection.close() returned  
+2025-03-19T17:44:34.676 [HikariPool-3 connection closer] INFO l.log4j2 - 7. Connection.isClosed() returned false 
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 7. Connection closed. {executed in 1ms}  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 7. Connection.close() returned  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 7. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 7. Connection.close() returned  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 8. Connection.isClosed() returned false 
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 8. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 8. Connection.close() returned  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 8. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 8. Connection.close() returned  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 9. Connection.isClosed() returned false 
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 9. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 9. Connection.close() returned  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 9. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 9. Connection.close() returned  
+2025-03-19T17:44:34.677 [HikariPool-3 connection closer] INFO l.log4j2 - 10. Connection.isClosed() returned false 
+2025-03-19T17:44:34.678 [HikariPool-3 connection closer] INFO l.log4j2 - 10. Connection closed. {executed in 1ms}  
+2025-03-19T17:44:34.678 [HikariPool-3 connection closer] INFO l.log4j2 - 10. Connection.close() returned  
+2025-03-19T17:44:34.678 [HikariPool-3 connection closer] INFO l.log4j2 - 10. Connection closed. {executed in 0ms}  
+2025-03-19T17:44:34.678 [HikariPool-3 connection closer] INFO l.log4j2 - 10. Connection.close() returned  
+2025-03-19T17:44:34.678 [RMI TCP Connection(53)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-3 - Shutdown completed. 

@@ -1,13 +1,10 @@
 package com.a7a7.modeule.codegroup;
 
-import java.lang.ProcessBuilder.Redirect;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -15,17 +12,41 @@ public class CodeGroupController {
 	@Autowired
 	CodeGroupService codeGroupService;
 	
+//	private void setSearch(CodeGroupVo vo) {
+//	    if (vo.getShUseNy() != null && !vo.getShUseNy().equals("")) {
+//	        vo.setShUseNy(vo.getShUseNy());
+//	    }
+//	
+//	    if (vo.getShDelNy() != null && !vo.getShDelNy().equals("")) {
+//	        vo.setShDelNy(vo.getShDelNy());
+//	    }
+//	
+//	    if (vo.getShOption() != null && vo.getShValue() != null && !vo.getShValue().equals("")) {
+//	        vo.setShOption(vo.getShOption());
+//	        vo.setShValue(vo.getShValue());
+//	    }
+//	}
+	
 	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmList")
-	public String CodeGroupXdmList(Model model, CodeGroupVo vo, CodeGroupDto codeGroupDto) {
-		vo.setParamsPaging(codeGroupService.selectOneCount());
-		
-		model.addAttribute("list", codeGroupService.selectList(vo));
-		model.addAttribute("vo", vo);
-		
-		System.out.println(codeGroupDto.getIfcgSeq());
-		
-		return "xdm/codegroup/CodeGroupXdmList";
+	public String CodeGroupXdmList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception {
+
+//	    setSearch(vo); // 검색 조건 설정
+	    vo.setParamsPaging(codeGroupService.selectOneCount());
+
+	    if (vo.getTotalRows() > 0) {
+	        model.addAttribute("list", codeGroupService.selectList(vo));
+	    }
+
+	    return "xdm/codegroup/CodeGroupXdmList";
 	}
+	
+	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmView")
+	public String CodeGroupXdmView(Model model, CodeGroupDto codeGroupDto) {
+		model.addAttribute("item", codeGroupService.selectOne(codeGroupDto));
+		
+		return "xdm/codegroup/CodeGroupXdmView";
+	}
+	
 	
 	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmForm")
 	public String CodeGroupXdmForm() {

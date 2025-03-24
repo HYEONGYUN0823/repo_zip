@@ -71,47 +71,57 @@
                                                     <input class="form-control" type="text" name="ifcgSeq" id="ifcgSeq" placeholder="자동생성"
                                                         aria-label="Disabled input example" disabled>
                                                 </td>
-                                                <td><label for="code01"><b>코드그룹 코드 (ANOTHER)</b></label>
+                                                <!-- <td><label for="code01"><b>코드그룹 코드 (ANOTHER)</b></label>
                                                     <br>
                                                     <input class="form-control" id="code01" type="text"
                                                         placeholder="영문소문자, 숫자">
-                                                </td>
-                                                <td><label for="ifcgName"><b><!-- 코드 -->이름</b><b class="red"> *</b></label>
+                                                </td> -->
+                                                <td><label for="ifcgName"><b><!-- 코드 -->코드그룹 이름</b><b class="red"> *</b></label>
                                                     <br>
                                                     <input class="form-control" id="ifcgName" name="ifcgName" type="text"
                                                         placeholder="한글, 영대소문자, 숫자">
                                                 </td>
-                                                <td><label for="ifcgNickName"><b>닉네임<!-- 코드 이름 (영문) --></b></label>
+                                                <!-- <td><label for="ifcgNickName"><b>닉네임코드 이름 (영문)</b></label>
                                                     <br>
                                                     <input class="form-control" id="ifcgNickName" name="ifcgNickName" type="text"
                                                         placeholder="영대소문자, 숫자">
-                                                </td>
+                                                </td> -->
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <!-- td>
                                                     <label for="ifcgVerify"><b class="rgb">인증여부</b><b class="red"> *</b></label>
                                                     <br>
                                                     <select id="ifcgVerify" name="ifcgVerify" class="form-select">
                                                         <option>1</option>
                                                         <option>2</option>
                                                     </select>
-                                                </td>
-                                                <td>
+                                                </td> -->
+                                               <!--  <td>
                                                     <label for="ifcgGender"><b class="rgb">성별</b><b class="red"> *</b></label>
                                                     <br>
                                                     <select id="ifcgGender" name="ifcgGender" class="form-select">
-                                                        <option>1</option>
-                                                        <option>2</option>
+                                                        <option>남</option>
+                                                        <option>여</option>
+                                                    </select>
+                                                </td> -->
+                                                <td>
+                                                    <label for="ifcgDelNy"><b class="rgb">사용여부</b><b class="red"> *</b></label>
+                                                    <br>
+                                                    <select id="ifcgDelNy" name="ifcgDelNy" class="form-select">
+                                                    	<option value="">선택하세요</option>
+                                                        <option value="1">Y</option>
+                                                        <option value="0">N</option>
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <label for="ifcgDelNy"><b class="rgb">삭제</b><b class="red"> *</b></label>
+                                                    <label for="ifcgUseNy"><b class="rgb">사용여부</b><b class="red"> *</b></label>
                                                     <br>
-                                                    <select id="ifcgDelNy" name="ifcgDelNy" class="form-select">
-                                                        <option>1</option>
-                                                        <option>2</option>
+                                                    <select id="ifcgUseNy" name="ifcgUseNy" class="form-select">
+                                                    	<option value="">선택하세요</option>
+                                                        <option value="1">Y</option>
+                                                        <option value="0">N</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -229,17 +239,71 @@
                                             </tr> -->
                                         </tbody>
                                     </table>
+                                    <button type="button" onclick="location.href='/xdm/codegroup/CodeGroupXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
                                     <button type="button" id="dtnSave" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
+                                            
+									<!-- 모달 -->
+									
+									<div class="modal" id="alertModal" tabindex="-1" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">등록 오류</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<p id="modalMessage"></p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary">Save changes</button>
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+												</div>
+											</div>
+										</div>
+									</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 				<script type="text/javascript">
-					document.getElementById("dtnSave").onclick = function() {
-						document.getElementById("form").submit();
+				
+				const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+				const modalElement = document.getElementById("alertModal");
+				const modalMessage = document.getElementById("modalMessage");
+				
+				function showModal(message) {
+					modalMessage.textContent = message;
+					alertModal.show();
+				}
+				
+				document.getElementById("dtnSave").onclick = function() {
+					
+					if(document.getElementById("ifcgName").value.trim() == null || document.getElementById("ifcgName").value.trim() == "") {
+						showModal("코드그룹 이름을 입력하세요");
+						document.getElementById("ifcgName").focus();
+						
+						return false;
 					}
+					
+					if(document.getElementById("ifcgDelNy").value.trim() == null || document.getElementById("ifcgDelNy").value.trim() == "") {
+						showModal("사용여부을 선택하세요");
+						document.getElementById("ifcgDelNy").focus();
+						
+						return false;
+					}
+					
+					document.getElementById("form").submit();
+				}
+				
+				modalElement.addEventListener("hidden.bs.modal", function () {
+// 					alert("끼익");
+					
+				    document.getElementById("dtnSave").disabled = false;  
+				});
+				
 				</script>
                 </form>
             </div>

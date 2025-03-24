@@ -8,6 +8,19 @@
 	<sql id = "selectCommon">
 		FROM codeGroup as a
 		WHERE 1=1
+		<if test="shUseNy != null and !shUseNy.equals('')">AND a.ifcgUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcgDelNy = #{shDelNy}</if>
+<!-- 				
+				<choose>
+					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				</choose>
+ -->				
+        <choose>
+            <when test="shOption == 1">AND a.ifcgSeq = #{shValue}</when>
+            <when test="shOption == 2">AND a.ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
+<!--             <when test="shOption == 3">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when> -->
+        </choose>
 		ORDER BY a.ifcgSeq DESC
 	</sql>
 
@@ -21,40 +34,50 @@
 			SELECT
 				a.ifcgSeq,
 			    a.ifcgName,
-			    a.ifcgNickName,
-			    a.ifcgGender,
-			    a.ifcgVerify,
-			    a.ifcgDelNy
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
 		<include refid="selectCommon"></include>
 		) aa
 		limit #{pageNumToShow} offset #{startRnumForMysql}
+	</select>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = #{ifcgSeq}
+		ORDER BY ifcgSeq DESC
 	</select>
 	
 	<insert id="insert">
 		INSERT INTO codeGroup (
 			ifcgSeq,
 			ifcgName,
-			ifcgNickName,
-			ifcgGender,
-			ifcgVerify,
-			ifcgDelNy
+			ifcgDelNy,
+			ifcgUseNy
 		) values (
 			#{ifcgSeq},
 			#{ifcgName},
-			#{ifcgNickName},
-			#{ifcgGender},
-			#{ifcgVerify},
-			#{ifcgDelNy}
+			#{ifcgDelNy},
+			#{ifcgUseNy}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE codeGroup SET
 			ifcgName = #{ifcgName},
-			ifcgNickName = #{ifcgNickName},
-			ifcgGender = #{ifcgGender},
-			ifcgVerify = #{ifcgVerify},
-			ifcgDelNy = #{ifcgDelNy}
+			ifcgDelNy = #{ifcgDelNy},
+			ifcgUseNy = #{ifcgUseNy}
 		WHERE ifcgSeq = #{ifcgSeq}
 	</update>
 

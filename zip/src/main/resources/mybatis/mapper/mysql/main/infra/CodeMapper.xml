@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a7a7.modeule.code.CodeDao">
+	
+	<resultMap id="resultMapObj" type="com.a7a7.modeule.code.CodeDto"/>
+	
+	<sql id = "selectCommon">
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+	</sql>
+
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommon"></include>
+	</select>
+	
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+		<include refid="selectCommon"></include>
+		) aa
+		limit #{pageNumToShow} offset #{startRnumForMysql}
+	</select>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+			ifcgSeq,
+			ifcgName
+		FROM
+			codeGroup
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO code (
+			ifcdSeq,
+			ifcdName,
+			ifcdDelNy,
+			ifcdUseNy,
+			ifcgSeq
+		) values (
+			#{ifcdSeq},
+			#{ifcdName},
+			#{ifcdDelNy},
+			#{ifcdUseNy},
+			#{ifcgSeq}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE codeGroup SET
+			ifcgName = #{ifcgName},
+			ifcgNickName = #{ifcgNickName},
+			ifcdName = #{ifcdName},
+			ifcgGender = #{ifcgGender},
+			ifcgVerify = #{ifcgVerify},
+			ifcgDelNy = #{ifcgDelNy}
+		WHERE ifcgSeq = #{ifcgSeq}
+	</update>
+	
+	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
+		SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+   </select>
+
+</mapper>
