@@ -17,7 +17,7 @@ public class MemberController {
 	MemberService memberService;
 	
 	@RequestMapping(value = "/xdm/member/MemberXdmList")
-	public String memberXdmList(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
+	public String MemberXdmList(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
 		
 	    vo.setParamsPaging(memberService.selectOneCount());
 
@@ -26,6 +26,12 @@ public class MemberController {
 	    }
 
 		return "xdm/member/MemberXdmList";
+	}
+	
+	@RequestMapping(value = "/xdm/member/MemberXdmForm")
+	public String MemberXdmForm() {
+		
+		return "xdm/member/MemberXdmForm";
 	}
 	
 

@@ -175,7 +175,7 @@
                                                 <td><b>코드그룹 코드</b></td>
                                                 <td><b>코드그룹 이름</b></td>
                                                 <td><b>코드 이름<!-- 코드 --></b></td>
-                                                <td><b><!-- 대체 코드 --></b></td>
+                                                <td><b>삭제</b></td>
                                                 <td><b><!-- 코드 이름 --></b></td>
                                                 <td><b><!-- 갯수 --></b></td>
                                                 <td><b></b></td>
@@ -204,10 +204,11 @@
                                                     </div>
                                                 </td>
                                                 <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}">162</td>
-                                                <td th:text="${list.ifcdDelNy}">Y</td>
+                                                <td th:text="${list.ifcdUseNy}">Y</td>
                                                 <td th:text="${list.ifcgSeq}">42</td>
                                                 <td th:text="${list.ifcgName}">작품.기타사이트유형</td>
                                                 <td th:text="${list.ifcdName}"><!-- 381 --></td>
+                                                <td th:text="${list.ifcdDelNy}">Y</td>
                                                 <td><b style="color: rgb(42, 92, 255);"><!-- 공식홈페이지 --></b></td>
                                                 <td></td>
                                                 <td></td>

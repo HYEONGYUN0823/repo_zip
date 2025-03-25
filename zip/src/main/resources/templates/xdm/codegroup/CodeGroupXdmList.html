@@ -16,6 +16,7 @@
         	<form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+		<input type="hidden" name="ifcgSeq">
         
         <div class="content-body">
             <div class="container-fluid">
@@ -181,7 +182,7 @@
                                                 <td><b>사용</b></td>
                                                 <td><b>코드그룹 코드</b></td> <!-- 코드그룹 코드 -->
                                                 <td><b>코드그룹 이름</b></td> <!-- 코드그룹 이름 -->
-                                                <td><b>사용중</b></td>
+                                                <td><b>삭제</b></td>
                                                 <td><b></b></td> <!-- 코드 이름(영문) -->
                                                 <td><b></b></td>
                                                 <td><b>갯수</b></td> <!-- 갯수 -->
@@ -211,10 +212,15 @@
                                                     </div>
                                                 </td>
                                                 <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                                <td th:text="${list.ifcgDelNy}"></td>
-                                                <td th:text="${list.ifcgSeq}"></td>
-                                                <td th:text="${list.ifcgName}"></td>
                                                 <td th:text="${list.ifcgUseNy}"></td>
+                                                <td th:text="${list.ifcgSeq}"></td>
+                                                <td class="ifcgName align-middle fw-semi-bold">
+                                                	<a href="javascript:void(0);" 
+                                                		th:text="${list.ifcgName}" 
+                                                		th:attr="onclick=|goForm('${list.ifcgSeq}')|">
+                                                	</a>
+                                                </td>
+                                                <td th:text="${list.ifcgDelNy}"></td>
                                                 <td></td>
                                                 <td><b></b></td>
                                                 <td th:text="${list.xifcdSeqCount}"></td>
@@ -343,8 +349,10 @@
                                     <button type="button" class="btn btn-danger"><i class="fa-solid fa-x"></i></button>
                                     <button type="button" class="btn btn-danger"><i
                                             class="fa-regular fa-trash-can"></i></button>
-                                    <button type="button" onclick="location.href='/xdm/codegroup/CodeGroupXdmForm'"
-                                        class="btn btn-primary" style="float: right;"><i
+<!--                                     <button type="button" onclick="location.href='/xdm/codegroup/CodeGroupXdmForm'" -->
+<!--                                         class="btn btn-primary" style="float: right;"><i -->
+<!--                                             class="fa-solid fa-plus"></i></button> -->
+                                            <button type="button" id="btnForm" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
                                     <button type="button" class="btn btn-success"
                                         style="float: right; margin-right: 4px;"><i
@@ -397,21 +405,40 @@
 	
 	<script type="text/javascript">
 	
+		let goUrlXdmList = "/xdm/codegroup/CodeGroupXdmList";
+		let goUrlXdmForm = "/xdm/codegroup/CodeGroupXdmForm";
+		
+		
+	
 		let form = document.querySelector("form[name=formList]");
+		let seq = document.querySelector("input[name=ifcgSeq]");
+		
+		
 		goList = function (thisPage) {
 		    document.querySelector("input[name=thisPage]").value = thisPage;
-		    form.action = "/xdm/codegroup/CodeGroupXdmList";
+		    form.action = goUrlXdmList;
 		    form.submit();
 		}
 		
 		document.getElementById("btnSearch").onclick = function () {
-		    form.action = "/xdm/codegroup/CodeGroupXdmList";
+		    form.action = goUrlXdmList;
 		    form.submit();
 		};
 		
 		document.getElementById("changeRowNum").onchange = function () {
 		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-		    form.action = "/xdm/codegroup/CodeGroupXdmList";
+		    form.action = goUrlXdmList;
+		    form.submit();
+		}
+		
+		document.getElementById("btnForm").onclick = function () {
+		    goForm(0);
+		}
+
+
+		goForm = function (keyValue) {
+		    seq.value = keyValue;
+		    form.action = goUrlXdmForm;
 		    form.submit();
 		}
 		

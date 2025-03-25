@@ -2,6 +2,8 @@ package com.a7a7.modeule.codegroup;
 
 public class CodeGroupVo {
 	
+	private String ifcgSeq;
+	
 //	paging
 	private int thisPage = 1;									// 현재 페이지
 	private int rowNumToShow = 5;								// 화면에 보여줄 데이터 줄 갯수
@@ -15,6 +17,7 @@ public class CodeGroupVo {
 	private int startRnumForMysql = 0;							// 쿼리 시작 row
 	
 	private String ifbnSeq;
+	
 
 //	search
 	private Integer shUseNy = 1; 								/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
@@ -69,8 +72,15 @@ public class CodeGroupVo {
 //		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
 		
 	}
-
 	
+	public String getIfcgSeq() {
+		return ifcgSeq;
+	}
+
+	public void setIfcgSeq(String ifcgSeq) {
+		this.ifcgSeq = ifcgSeq;
+	}
+
 	public int getThisPage() {
 		return thisPage;
 	}

@@ -11,7 +11,7 @@ public interface CodeDao {
 	
 	public List<CodeDto> selectList(CodeVo vo);
 	
-	public List<CodeDto> selectOne();
+	public List<CodeDto> selectOne(CodeVo vo);
 	
 	public int insert(CodeDto codeDto);
 	

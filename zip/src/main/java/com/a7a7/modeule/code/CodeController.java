@@ -49,8 +49,8 @@ public class CodeController {
 	
 	
 	@RequestMapping(value = "/xdm/code/CodeXdmForm")
-	public String CodeXdmForm(Model model) {
-		model.addAttribute("listCodeGroup", codeService.selectOne());
+	public String CodeXdmForm(Model model, CodeVo vo) {
+		model.addAttribute("listCodeGroup", codeService.selectOne(vo));
 		
 		return "xdm/code/CodeXdmForm";
 	}

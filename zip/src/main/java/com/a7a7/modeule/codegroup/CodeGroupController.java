@@ -6,11 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.a7a7.modeule.code.CodeService;
+import com.a7a7.modeule.code.CodeVo;
+
 
 @Controller
 public class CodeGroupController {
 	@Autowired
 	CodeGroupService codeGroupService;
+	@Autowired
+	CodeService codeService;
+//	@Autowired
+//	CodeVo codeVo;
 	
 //	private void setSearch(CodeGroupVo vo) {
 //	    if (vo.getShUseNy() != null && !vo.getShUseNy().equals("")) {
@@ -40,17 +47,24 @@ public class CodeGroupController {
 	    return "xdm/codegroup/CodeGroupXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmView")
-	public String CodeGroupXdmView(Model model, CodeGroupDto codeGroupDto) {
-		model.addAttribute("item", codeGroupService.selectOne(codeGroupDto));
-		
-		return "xdm/codegroup/CodeGroupXdmView";
-	}
+//	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmView")
+//	public String CodeGroupXdmView(Model model, CodeGroupDto codeGroupDto) {
+//		model.addAttribute("item", codeGroupService.selectOne(codeGroupDto));
+//		
+//		return "xdm/codegroup/CodeGroupXdmView";
+//	}
 	
 	
 	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmForm")
-	public String CodeGroupXdmForm() {
+	public String CodeGroupXdmForm(@ModelAttribute("vo") CodeGroupVo vo, CodeVo cvo, Model model) throws Exception{
 		
+		if (vo.getIfcgSeq().equals("0") || vo.getIfcgSeq().equals("")) {
+//			insert mode
+		} else {
+//			update mode
+			model.addAttribute("item", codeGroupService.selectOne(vo));
+			model.addAttribute("list", codeService.selectList(cvo));
+		}
 		return "xdm/codegroup/CodeGroupXdmForm";
 	}
 	
