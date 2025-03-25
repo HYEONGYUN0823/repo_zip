@@ -5,11 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.a7a7.modeule.code.CodeVo;
-import com.a7a7.modeule.codegroup.CodeGroupVo;
 
 
 @Controller
@@ -30,8 +25,8 @@ public class ProductController {
 		return "xdm/product/ProductXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmForm")
-	public String CodeGroupXdmForm(@ModelAttribute("vo") ProductVo vo, CodeVo cvo, Model model) throws Exception{
+	@RequestMapping(value = "/xdm/product/ProductXdmForm")
+	public String ProductXdmForm(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception{
 		
 		if (vo.getIfcgSeq().equals("0") || vo.getIfcgSeq().equals("")) {
 //			insert mode
@@ -39,7 +34,7 @@ public class ProductController {
 //			update mode
 			model.addAttribute("item", productService.selectOne(vo));
 		}
-		return "xdm/codegroup/CodeGroupXdmForm";
+		return "xdm/product/ProductXdmForm";
 	}
 	
 }
