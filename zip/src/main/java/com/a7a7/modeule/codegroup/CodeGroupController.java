@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.a7a7.modeule.code.CodeService;
 import com.a7a7.modeule.code.CodeVo;
 
 
@@ -34,7 +33,7 @@ public class CodeGroupController {
 	public String CodeGroupXdmList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception {
 
 //	    setSearch(vo); // 검색 조건 설정
-	    vo.setParamsPaging(codeGroupService.selectOneCount());
+	    vo.setParamsPaging(codeGroupService.selectOneCount(vo));
 
 	    if (vo.getTotalRows() > 0) {
 	        model.addAttribute("list", codeGroupService.selectList(vo));

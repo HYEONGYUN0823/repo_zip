@@ -1,6 +1,6 @@
-package com.a7a7.modeule.codegroup;
+package com.a7a7.modeule.product;
 
-public class CodeGroupDto {
+public class ProductDto {
 	
 	private String ifcgSeq;			// 시퀀스
 	private String ifcgName;		// 코드그룹 이름

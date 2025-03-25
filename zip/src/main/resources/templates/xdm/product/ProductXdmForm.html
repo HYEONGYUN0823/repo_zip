@@ -3,9 +3,6 @@
 
 <div th:replace="~{xdm/include/head :: head}"></div>
 
-
-
-<body>
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -13,12 +10,15 @@
         <!--**********************************
             Content body start
         ***********************************-->
+        
+        <!-- main -->
+        
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Code</h4>
+                            <h4>Code Group</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -54,7 +54,6 @@
                         table-layout: fixed;
                         /* 칸 너비 고정 */
                     }
-                    
 /* 					빨간색 테두리 */
 					.redOutline {
 					    border: 2px solid red; 
@@ -67,7 +66,7 @@
 					}
                 </style>
                 <form method="post" id="form">
-                <div th:replace="~{xdm/code/codeXdmVo :: vo}"></div>
+                <div th:replace="~{xdm/codegroup/codeGroupXdmVo :: vo}"></div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -79,87 +78,55 @@
                                     <table class="table table-responsive-sm">
                                         <thead>
                                             <tr>
-                                                <td><b>코드그룹 이름</b><b class="red"> *</b>
+                                                <td><b>코드그룹 코드</b><b class="red"> *</b>
                                                     <br>
-                                                    <select id="ifcgSeq" name="ifcgSeq" class="form-select">
-														<option value="">선택하세요</option>
-														<option th:each="list : ${listCodeGroup}" 
-																th:value="${list.ifcgSeq}" 
-																th:text="${list.ifcgName}" 
-																th:selected="${list.ifcgSeq == item?.ifcgSeq}">
-														</option>
-													</select>
-													<div id="ifcgNameError" class="errorText"></div>
+                                                    <input 
+	                                                    type="text" 
+	                                                    id="ifcgSeq" 
+	                                                    name="ifcgSeq" 
+	                                                    th:value="${item?.ifcgSeq}" 
+	                                                    maxlength="20" 
+	                                                    placeholder="자동생성" 
+	                                                    disabled class="form-control"/>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td><label for="ifcgName"><b><!-- 코드 -->코드그룹 이름</b><b class="red"> *</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="ifcgName" name="ifcgName" type="text"
+                                                        placeholder="한글, 영대소문자, 숫자">
+                                                        <div id="ifcgNameError" class="errorText"></div>
+                                                </td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><b>코드</b><b class="red"> *</b>
-                                                    <br>
-                                                    <input 
-	                                                    type="text" 
-	                                                    id="ifcdSeq" 
-	                                                    name="ifcdSeq" 
-	                                                    th:value="${item?.ifcdSeq}" 
-	                                                    maxlength="20" 
-	                                                    placeholder="자동생성" 
-	                                                    disabled 
-	                                                    class="form-control"/>
-                                                </td>
-                                                <!-- <td><label for="code01"><b>코드 (ANOTHER)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="code01" type="text"
-                                                        placeholder="영문소문자, 숫자">
-                                                </td> -->
-                                                <td><label for="ifcdName"><b>코드 이름</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="ifcdName" name="ifcdName" type="text"
-                                                        placeholder="한글, 영대소문자, 숫자">
-                                                        <div id="ifcdNameError" class="errorText"></div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
                                                 <td>
-                                                    <b class="rgb">삭제여부</b><b class="red"> *</b>
+                                                    <label for="ifcgDelNy"><b class="rgb">삭제여부</b><b class="red"> *</b></label>
                                                     <br>
-                                                    <select id="ifcdDelNy" name="ifcdDelNy" class="form-select">
-                                                        <option value="">선택하세요</option>
+                                                    <select id="ifcgDelNy" name="ifcgDelNy" class="form-select">
+                                                    	<option value="">선택하세요</option>
                                                         <option value="1">Y</option>
                                                         <option value="0">N</option>
                                                     </select>
-                                                    <div id="ifcdDelNyError" class="errorText"></div>
+                                                    <div id="ifcgDelNyError" class="errorText"></div>
                                                 </td>
                                                 <td>
-                                                    <b class="rgb">사용여부</b><b class="red"> *</b>
+                                                    <label for="ifcgUseNy"><b class="rgb">사용여부</b><b class="red"> *</b></label>
                                                     <br>
-                                                    <select id="ifcdUseNy" name="ifcdUseNy" class="form-select">
-                                                        <option value="">선택하세요</option>
+                                                    <select id="ifcgUseNy" name="ifcgUseNy" class="form-select">
+                                                    	<option value="">선택하세요</option>
                                                         <option value="1">Y</option>
                                                         <option value="0">N</option>
                                                     </select>
-                                                    <div id="ifcdUseNyError" class="errorText"></div>
-                                                </td>
-                                                
-                                            <tr>
-                                                <td colspan="2">
-                                                    <label for="description"><b class="rgb">설명</b></label>
-                                                    <br>
-                                                    <textarea class="form-control" id="description"
-                                                        style="height: 100px"></textarea>
+                                                    <div id="ifcgUseNyError" class="errorText"></div>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button type="button" onclick="location.href='/xdm/code/CodeXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
+                                    <button type="button" onclick="location.href='/xdm/codegroup/CodeGroupXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
                                     <button type="button" id="dtnSave" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
                                             
-                                    <!-- 모달 -->
+									<!-- 모달 -->
 									
 									<div class="modal" id="alertModal" tabindex="-1" aria-hidden="true">
 										<div class="modal-dialog">
@@ -186,10 +153,10 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 				<script type="text/javascript">
 				
-				let goUrlXdmInst = "/xdm/code/CodeXdmInst";
-				let goUrlXdmUpdt = "/xdm/code/CodeXdmUpdt";
+				let goUrlXdmInst = "/xdm/codegroup/CodeGroupXdmInst";
+				let goUrlXdmUpdt = "/xdm/codeGroup/CodeGroupXdmUpdt";
 				
-				let seq = document.querySelector("input[name=ifcdSeq]");							/* ### */
+				let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
 				
 				const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
 				const modalElement = document.getElementById("alertModal");
@@ -200,64 +167,53 @@
 
 				    let check = true;
 
-				    const ifcgSeq = document.getElementById("ifcgSeq");
+				    const ifcgName = document.getElementById("ifcgName");
 				    const ifcgNameError = document.getElementById("ifcgNameError");
 
-				    if (ifcgSeq.value == "") {
-				        ifcgSeq.classList.add("redOutline");
-				        ifcgNameError.textContent = "코드 그룹을 선택하세요.";
+				    if (ifcgName.value == "") {
+				        ifcgName.classList.add("redOutline");
+				        ifcgNameError.textContent = "코드그룹 이름을 입력하세요.";
 				        
 				    	check = false;
 				    } else {
-				        ifcgSeq.classList.remove("redOutline");
+				        ifcgName.classList.remove("redOutline");
 				        ifcgNameError.textContent = "";
 				    }
 
-				    const ifcdName = document.getElementById("ifcdName");
-				    const ifcdNameError = document.getElementById("ifcdNameError");
+				    const ifcgDelNy = document.getElementById("ifcgDelNy");
+				    const ifcgDelNyError = document.getElementById("ifcgDelNyError");
 
-				    if (ifcdName.value.trim() == "") {
-				        ifcdName.classList.add("redOutline");
-				        ifcdNameError.textContent = "코드 이름을 입력하세요.";
+				    if (ifcgDelNy.value.trim() == "") {
+				        ifcgDelNy.classList.add("redOutline");
+				        ifcgDelNyError.textContent = "삭제여부를 선택하세요.";
 				        
 				    	check = false;
 				    } else {
-				        ifcdName.classList.remove("redOutline");
-				        ifcdNameError.textContent = "";
+				        ifcgDelNy.classList.remove("redOutline");
+				        ifcgDelNyError.textContent = "";
 				    }
 
-				    const ifcdDelNy = document.getElementById("ifcdDelNy");
-				    const ifcdDelNyError = document.getElementById("ifcdDelNyError");
+				    const ifcgUseNy = document.getElementById("ifcgUseNy");
+				    const ifcgUseNyError = document.getElementById("ifcgUseNyError");
 
-				    if (ifcdDelNy.value == "") {
-				        ifcdDelNy.classList.add("redOutline");
-				        ifcdDelNyError.textContent = "사용 여부를 선택하세요.";
+				    if (ifcgUseNy.value == "") {
+				        ifcgUseNy.classList.add("redOutline");
+				        ifcgUseNyError.textContent = "사용 여부를 선택하세요.";
 				        
 				    	check = false;
 				    } else {
-				        ifcdDelNy.classList.remove("redOutline");
-				        ifcdDelNyError.textContent = "";
-				    }
-				    
-				    if (ifcdUseNy.value == "") {
-				        ifcdUseNy.classList.add("redOutline");
-				        ifcdUseNyError.textContent = "사용 여부를 선택하세요.";
-				        
-				    	check = false;
-				    } else {
-				        ifcdUseNy.classList.remove("redOutline");
-				        ifcdUseNyError.textContent = "";
+				        ifcgUseNy.classList.remove("redOutline");
+				        ifcgUseNyError.textContent = "";
 				    }
 				    
 				    if (check) {
-				        document.getElementById("form").submit();
-				    } else {
-				    	// bypass
+						let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+						alertModal.show();
 				    }
 				}
 				
 				document.getElementById("btnSubmit").onclick = function () {
-				    let seq = document.querySelector("input[name=ifcdSeq]"); 
+				    let seq = document.querySelector("input[name=ifcgSeq]"); 
 				    let form = document.getElementById("form");
 
 				    if (seq.value == "0" || seq.value == "") { // 추가
@@ -270,38 +226,12 @@
 				}
 				
 				</script>
-				</form>
+                </form>
             </div>
+            
         </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
 
-
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        
-        <div th:replace="~{xdm/include/footer :: footer}"></div>
-        
-        <!-- <div class="footer">
-                <div class="copyright"> -->
-        <!-- <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p> -->
-        <!-- </div>
-            </div> -->
-        <!--**********************************
-            Footer end
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
-
+<div th:replace="~{xdm/include/footer :: footer}"></div>
     </div>
     <!--**********************************
         Main wrapper end
@@ -314,6 +244,18 @@
     <script src="/xdm/template/admin_ui/vendor/global/global.min.js"></script>
     <script src="/xdm/template/admin_ui/js/quixnav-init.js"></script>
     <script src="/xdm/template/admin_ui/js/custom.min.js"></script>
+
+
+
+    <script src="/xdm/template/admin_ui/vendor/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="/xdm/template/admin_ui/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Form validate init -->
+    <script src="/xdm/template/admin_ui/js/plugins-init/jquery.validate-init.js"></script>
+
+
+
+    <!-- Form step init -->
+    <script src="/xdm/template/admin_ui/js/plugins-init/jquery-steps-init.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

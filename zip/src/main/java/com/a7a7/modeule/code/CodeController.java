@@ -12,8 +12,6 @@ import com.a7a7.modeule.codegroup.CodeGroupService;
 public class CodeController {
 	@Autowired
 	CodeService codeService;
-	@Autowired
-	CodeGroupService codeGroupService;
 	
 //	private void setSearch(CodeVo vo) {
 //	    if (vo.getShUseNy() != null && !vo.getShUseNy().equals("")) {
