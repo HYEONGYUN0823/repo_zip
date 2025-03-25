@@ -14,10 +14,6 @@ import com.a7a7.modeule.code.CodeVo;
 public class CodeGroupController {
 	@Autowired
 	CodeGroupService codeGroupService;
-	@Autowired
-	CodeService codeService;
-//	@Autowired
-//	CodeVo codeVo;
 	
 //	private void setSearch(CodeGroupVo vo) {
 //	    if (vo.getShUseNy() != null && !vo.getShUseNy().equals("")) {
@@ -63,7 +59,6 @@ public class CodeGroupController {
 		} else {
 //			update mode
 			model.addAttribute("item", codeGroupService.selectOne(vo));
-			model.addAttribute("list", codeService.selectList(cvo));
 		}
 		return "xdm/codegroup/CodeGroupXdmForm";
 	}
@@ -75,5 +70,11 @@ public class CodeGroupController {
 		return "redirect:/xdm/codegroup/CodeGroupXdmList";
 	}
 	
+	@RequestMapping(value = "/xdm/codeGroup/CodeGroupXdmUpdt")
+	public String codeGroupXdmUpdt(CodeGroupDto codeGroupDto) {
+		codeGroupService.update(codeGroupDto);
+		
+		return "redirect:/xdm/codegroup/CodeGroupXdmList";
+	}
 	
 }

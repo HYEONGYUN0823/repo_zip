@@ -13,7 +13,11 @@ public interface CodeDao {
 	
 	public List<CodeDto> selectOne(CodeVo vo);
 	
+	public CodeDto selectTwo(CodeVo vo);
+	
 	public int insert(CodeDto codeDto);
+	
+	public int update(CodeDto codeDto);
 	
     public List<CodeDto> selectListCachedCodeArrayList();
 	

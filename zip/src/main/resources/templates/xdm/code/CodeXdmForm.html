@@ -66,7 +66,8 @@
 					    font-size: 12px; /* 텍스트 크기 */
 					}
                 </style>
-                <form action="/xdm/code/CodeXdmInst" method="post" id="form">
+                <form method="post" id="form">
+                <div th:replace="~{xdm/code/codeXdmVo :: vo}"></div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -99,8 +100,15 @@
                                             <tr>
                                                 <td><b>코드</b><b class="red"> *</b>
                                                     <br>
-                                                    <input class="form-control" type="text" placeholder="자동생성" id="ifcdSeq" name="ifcdSeq"
-                                                        aria-label="Disabled input example" disabled>
+                                                    <input 
+	                                                    type="text" 
+	                                                    id="ifcdSeq" 
+	                                                    name="ifcdSeq" 
+	                                                    th:value="${item?.ifcdSeq}" 
+	                                                    maxlength="20" 
+	                                                    placeholder="자동생성" 
+	                                                    disabled 
+	                                                    class="form-control"/>
                                                 </td>
                                                 <!-- <td><label for="code01"><b>코드 (ANOTHER)</b></label>
                                                     <br>
@@ -265,6 +273,26 @@
                                     <button type="button" onclick="location.href='/xdm/code/CodeXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
                                     <button type="button" id="dtnSave" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
+                                            
+                                    <!-- 모달 -->
+									
+									<div class="modal" id="alertModal" tabindex="-1" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">등록 확인</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<p>등록하시겠습니까?</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" id="btnSubmit" class="btn btn-primary">저장</button>
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+												</div>
+											</div>
+										</div>
+									</div>
                                 </div>
                             </div>
                         </div>
@@ -272,6 +300,15 @@
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 				<script type="text/javascript">
+				
+				let goUrlXdmInst = "/xdm/code/CodeXdmInst";
+				let goUrlXdmUpdt = "/xdm/code/CodeXdmUpdt";
+				
+				let seq = document.querySelector("input[name=ifcdSeq]");							/* ### */
+				
+				const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+				const modalElement = document.getElementById("alertModal");
+				const modalMessage = document.getElementById("modalMessage");
 				
 				document.getElementById("dtnSave").onclick = function(event) {
 				    event.preventDefault(); // 기본 폼 제출 방지
@@ -332,7 +369,21 @@
 				    } else {
 				    	// bypass
 				    }
-				};
+				}
+				
+				document.getElementById("btnSubmit").onclick = function () {
+				    let seq = document.querySelector("input[name=ifcdSeq]"); 
+				    let form = document.getElementById("form");
+
+				    if (seq.value == "0" || seq.value == "") { // 추가
+				        form.action = goUrlXdmInst;
+				    } else { // 수정
+				        form.action = goUrlXdmUpdt;
+				    }
+
+				    form.submit();
+				}
+				
 				</script>
 				</form>
             </div>

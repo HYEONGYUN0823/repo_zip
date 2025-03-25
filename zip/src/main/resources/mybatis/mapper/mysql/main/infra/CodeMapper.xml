@@ -7,9 +7,25 @@
 	
 	<sql id = "selectCommon">
 		FROM code as a
-		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
 		WHERE 1=1
-		ORDER BY a.ifcgSeq DESC
+		<if test="shUseNy != null and !shUseNy.equals('')">AND a.ifcdUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcdDelNy = #{shDelNy}</if>
+<!-- 				
+				<choose>
+					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				</choose>
+ -->				
+        <choose>
+            <when test="shOption == 1">AND a.ifcdSeq = #{shValue}</when>
+            <when test="shOption == 2">AND a.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>
+		ORDER BY a.ifcdSeq DESC
 	</sql>
 
 	<select id="selectOneCount" resultType="Integer">
@@ -39,6 +55,19 @@
 			codeGroup
 	</select>
 	
+	<select id="selectTwo" resultMap="resultMapObj">
+		SELECT
+			ifcdSeq,
+			ifcdName,
+			ifcdDelNy,
+			ifcdUseNy
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdSeq = #{ifcdSeq}
+		ORDER BY ifcdSeq DESC
+	</select>
+	
 	<insert id="insert">
 		INSERT INTO code (
 			ifcdSeq,
@@ -56,14 +85,12 @@
 	</insert>
 	
 	<update id="update">
-		UPDATE codeGroup SET
+		UPDATE code SET
 			ifcgName = #{ifcgName},
-			ifcgNickName = #{ifcgNickName},
 			ifcdName = #{ifcdName},
-			ifcgGender = #{ifcgGender},
-			ifcgVerify = #{ifcgVerify},
-			ifcgDelNy = #{ifcgDelNy}
-		WHERE ifcgSeq = #{ifcgSeq}
+			ifcdDelNy = #{ifcdDelNy},
+			ifcdUseNy = #{ifcdUseNy},
+		WHERE ifcdSeq = #{ifcdSeq}
 	</update>
 	
 	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">

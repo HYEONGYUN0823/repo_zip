@@ -2,6 +2,8 @@ package com.a7a7.modeule.code;
 
 public class CodeVo {
 	
+	private String ifcdSeq;
+	
 //	paging
 	private int thisPage = 1;									// 현재 페이지
 	private int rowNumToShow = 5;								// 화면에 보여줄 데이터 줄 갯수
@@ -68,8 +70,18 @@ public class CodeVo {
 //		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
 		
 	}
-
 	
+
+
+
+	public String getIfcdSeq() {
+		return ifcdSeq;
+	}
+
+	public void setIfcdSeq(String ifcdSeq) {
+		this.ifcdSeq = ifcdSeq;
+	}
+
 	public int getThisPage() {
 		return thisPage;
 	}

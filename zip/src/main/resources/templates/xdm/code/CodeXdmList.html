@@ -7,6 +7,7 @@
 <form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+		<input type="hidden" name="ifcdSeq">
         <!--**********************************
             Content body start
         ***********************************-->
@@ -207,7 +208,13 @@
                                                 <td th:text="${list.ifcdUseNy}">Y</td>
                                                 <td th:text="${list.ifcgSeq}">42</td>
                                                 <td th:text="${list.ifcgName}">작품.기타사이트유형</td>
-                                                <td th:text="${list.ifcdName}"><!-- 381 --></td>
+                                                <td class="ifcdName align-middle fw-semi-bold">
+	                                                <a 
+		                                                href="javascript:void(0);" 
+		                                                th:text="${list.ifcdName}" 
+		                                                th:attr="onclick=|goForm('${list.ifcdSeq}')|">
+	                                                </a>
+                                                </td>
                                                 <td th:text="${list.ifcdDelNy}">Y</td>
                                                 <td><b style="color: rgb(42, 92, 255);"><!-- 공식홈페이지 --></b></td>
                                                 <td></td>
@@ -215,103 +222,11 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <!-- <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckIndeterminate">
-                                                        <label class="form-check-label"
-                                                            for="flexCheckIndeterminate"></label>
-                                                    </div>
-                                                </td>
-                                                <td>161</td>
-                                                <td>Y</td>
-                                                <td>42</td>
-                                                <td>작품.기타사이트유형</td>
-                                                <td>382</td>
-                                                <td></td>
-                                                <td><b style="color: rgb(42, 92, 255);">기타사이트</b></td>
-                                                <td></td>
-                                                <td>2</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckIndeterminate">
-                                                        <label class="form-check-label"
-                                                            for="flexCheckIndeterminate"></label>
-                                                    </div>
-                                                </td>
-                                                <td>160</td>
-                                                <td>Y</td>
-                                                <td>41</td>
-                                                <td>작품.연재사이트</td>
-                                                <td>372</td>
-                                                <td></td>
-                                                <td><b style="color: rgb(42, 92, 255);">네이버웹툰</b></td>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckIndeterminate">
-                                                        <label class="form-check-label"
-                                                            for="flexCheckIndeterminate"></label>
-                                                    </div>
-                                                </td>
-                                                <td>159</td>
-                                                <td>Y</td>
-                                                <td>41</td>
-                                                <td>작품.연재사이트</td>
-                                                <td>373</td>
-                                                <td></td>
-                                                <td><b style="color: rgb(42, 92, 255);">카카오웹툰</b></td>
-                                                <td></td>
-                                                <td>2</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckIndeterminate">
-                                                        <label class="form-check-label"
-                                                            for="flexCheckIndeterminate"></label>
-                                                    </div>
-                                                </td>
-                                                <td>158</td>
-                                                <td>Y</td>
-                                                <td>41</td>
-                                                <td>작품.연재사이트</td>
-                                                <td>374</td>
-                                                <td></td>
-                                                <td><b style="color: rgb(42, 92, 255);">버프툰</b></td>
-                                                <td></td>
-                                                <td>3</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr> -->
+                                           
                                         </tbody>
                                     </table>
                                     <nav aria-label="Page navigation example">
-                                        <ul class="pagination justify-content-center"><!-- 
-                                            <li class="page-item"><a class="page-link" href="#"><i
-                                                        class="fa-solid fa-chevron-left"></i></a></li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                            <li class="page-item"><a class="page-link" href="#"><i
-                                                        class="fa-solid fa-chevron-right"></i></a></li> -->
+                                        <ul class="pagination justify-content-center">
                                                         
                                             <li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
 	<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
@@ -331,8 +246,7 @@
                                     <button type="button" class="btn btn-danger"><i class="fa-solid fa-x"></i></button>
                                     <button type="button" class="btn btn-danger"><i
                                             class="fa-regular fa-trash-can"></i></button>
-                                    <button type="button" onclick="location.href='/xdm/code/CodeXdmForm'"
-                                        class="btn btn-primary" style="float: right;"><i
+                                    <button type="button" id="btnForm" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
                                     <button type="button" class="btn btn-success"
                                         style="float: right; margin-right: 4px;"><i
@@ -349,34 +263,9 @@
     </div>
     </form>
     
-    
-    <!--**********************************
-            Content body end
-        ***********************************-->
 
-
-    <!--**********************************
-            Footer start
-        ***********************************-->
         <div th:replace="~{xdm/include/footer :: footer}"></div>
-
-    <!--**********************************
-            Footer end
-        ***********************************-->
-
-    <!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-    <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
-
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
 
     <!--**********************************
         Scripts
@@ -390,16 +279,34 @@
         crossorigin="anonymous"></script>
         
      <script type="text/javascript">
-		let form = document.querySelector("form[name=formList]");
+ 		let seq = document.querySelector("input[name=ifcdSeq]");
+ 		let form = document.querySelector("form");  // form 요소 가져오기
+ 		
+ 		let goUrlXdmList = "/xdm/code/CodeXdmList";
+ 		let goUrlXdmForm = "/xdm/code/CodeXdmForm";
+ 		
 		goList = function (thisPage) {
 		    document.querySelector("input[name=thisPage]").value = thisPage;
-		    form.action = "/xdm/code/CodeXdmList";
+		    form.action = goUrlXdmList;
 		    form.submit();
 		}
 		
 		document.getElementById("changeRowNum").onchange = function () {
 		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-		    form.action = "/xdm/code/CodeXdmList";
+		    form.action = goUrlXdmList;
+		    form.submit();
+		}
+		
+		document.getElementById("btnForm").onclick = function () {
+		    goForm(0);
+		}
+
+
+		goForm = function (keyValue) {
+			
+		    seq.value = keyValue;
+		    alert("^^^^^^^^^^^" + keyValue);
+		    form.action = goUrlXdmForm;
 		    form.submit();
 		}
 		

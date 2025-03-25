@@ -1,0 +1,1392 @@
+2025-03-25T12:00:44.436 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:00:44.437 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:00:44.467 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable 
+2025-03-25T12:00:44.467 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG' 
+2025-03-25T12:00:45.046 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:00:45.053 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:00:45.054 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:00:45.054 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:00:45.076 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:00:45.076 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 600 ms 
+2025-03-25T12:00:45.246 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Starting... 
+2025-03-25T12:00:45.441 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@33c7e1d4 
+2025-03-25T12:00:45.442 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Start completed. 
+2025-03-25T12:00:45.456 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 5 msec} 
+2025-03-25T12:00:46.148 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T12:00:46.159 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:00:46.177 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T12:00:46.182 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 1.935 seconds (process running for 2.401) 
+2025-03-25T12:00:50.234 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T12:00:50.234 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T12:00:50.235 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-03-25T12:00:50.273 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T12:00:50.282 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:00:53.649 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T12:00:53.652 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:03:28.442 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T12:03:28.444 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:07:54.048 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+ {executed in 0 msec} 
+2025-03-25T12:07:54.050 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:08:12.234 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T12:08:12.237 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T12:16:36.728 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T12:16:36.734 [Thread-5] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T12:16:36.735 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:16:36.737 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T12:16:36.738 [Thread-5] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:16:36.742 [Thread-5] INFO c.z.h.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+2025-03-25T12:16:36.749 [Thread-5] INFO c.z.h.HikariDataSource - HikariPool-1 - Shutdown completed. 
+2025-03-25T12:16:36.831 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:16:36.831 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:16:37.107 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:16:37.109 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:16:37.109 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:16:37.109 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:16:37.124 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:16:37.124 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 290 ms 
+2025-03-25T12:16:37.184 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-2 - Starting... 
+2025-03-25T12:16:37.209 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-2 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@32df9114 
+2025-03-25T12:16:37.210 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-2 - Start completed. 
+2025-03-25T12:16:37.211 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T12:16:37.216 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeController': Lookup method resolution failed 
+2025-03-25T12:16:37.216 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-2 - Shutdown initiated... 
+2025-03-25T12:16:37.218 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-2 - Shutdown completed. 
+2025-03-25T12:16:37.218 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T12:16:37.224 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T12:16:37.243 [restartedMain] ERROR o.s.b.SpringApplication - Application run failed 
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:498)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:368)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1320)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1215)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.a7a7.ZipApplication.main(ZipApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.a7a7.modeule.code.CodeController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@6a5937f6]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483)
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:476)
+	... 24 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: AddressDto
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3578)
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2676)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465)
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: AddressDto
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:534)
+	at java.base/java.lang.Class.forName(Class.java:513)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:121)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 30 common frames omitted
+2025-03-25T12:16:49.703 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:16:49.704 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:16:49.900 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:16:49.902 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:16:49.902 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:16:49.902 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:16:49.914 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:16:49.915 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 210 ms 
+2025-03-25T12:16:49.965 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-3 - Starting... 
+2025-03-25T12:16:49.980 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-3 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@e158f1c 
+2025-03-25T12:16:49.980 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-3 - Start completed. 
+2025-03-25T12:16:49.981 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T12:16:49.984 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeController': Lookup method resolution failed 
+2025-03-25T12:16:49.985 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-3 - Shutdown initiated... 
+2025-03-25T12:16:49.986 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-3 - Shutdown completed. 
+2025-03-25T12:16:49.986 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T12:16:49.991 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T12:16:49.994 [restartedMain] ERROR o.s.b.SpringApplication - Application run failed 
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:498)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:368)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1320)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1215)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.a7a7.ZipApplication.main(ZipApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.a7a7.modeule.code.CodeController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@7ab324bc]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483)
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:476)
+	... 24 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: AddressDto
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3578)
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2676)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465)
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: AddressDto
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:534)
+	at java.base/java.lang.Class.forName(Class.java:513)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:121)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 30 common frames omitted
+2025-03-25T12:16:53.245 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:16:53.246 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:16:53.382 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:16:53.383 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:16:53.383 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:16:53.383 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:16:53.392 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:16:53.392 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 145 ms 
+2025-03-25T12:16:53.429 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-4 - Starting... 
+2025-03-25T12:16:53.440 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-4 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@5f9e9425 
+2025-03-25T12:16:53.440 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-4 - Start completed. 
+2025-03-25T12:16:53.441 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+13. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T12:16:53.444 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeController': Lookup method resolution failed 
+2025-03-25T12:16:53.444 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-4 - Shutdown initiated... 
+2025-03-25T12:16:53.445 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-4 - Shutdown completed. 
+2025-03-25T12:16:53.446 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T12:16:53.449 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T12:16:53.451 [restartedMain] ERROR o.s.b.SpringApplication - Application run failed 
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:498)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:368)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1320)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1215)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.a7a7.ZipApplication.main(ZipApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.a7a7.modeule.code.CodeController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@7b8b7011]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483)
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:476)
+	... 24 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: AddressDto
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3578)
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2676)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465)
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: AddressDto
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:534)
+	at java.base/java.lang.Class.forName(Class.java:513)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:121)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 30 common frames omitted
+2025-03-25T12:17:09.399 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:17:09.399 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:17:09.591 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:17:09.591 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:17:09.592 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:17:09.592 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:17:09.603 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:17:09.603 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 202 ms 
+2025-03-25T12:17:09.652 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-5 - Starting... 
+2025-03-25T12:17:09.674 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-5 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@2ebdefe1 
+2025-03-25T12:17:09.674 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-5 - Start completed. 
+2025-03-25T12:17:09.675 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+14. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 0 msec} 
+2025-03-25T12:17:09.789 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T12:17:09.798 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:17:09.801 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T12:17:09.804 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.431 seconds (process running for 986.024) 
+2025-03-25T12:17:09.806 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T12:17:23.207 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T12:17:23.209 [Thread-7] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T12:17:23.210 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:17:23.213 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T12:17:23.213 [Thread-7] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:17:23.217 [Thread-7] INFO c.z.h.HikariDataSource - HikariPool-5 - Shutdown initiated... 
+2025-03-25T12:17:23.221 [Thread-7] INFO c.z.h.HikariDataSource - HikariPool-5 - Shutdown completed. 
+2025-03-25T12:17:23.335 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:17:23.336 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:17:23.596 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:17:23.597 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:17:23.597 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:17:23.597 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:17:23.616 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:17:23.616 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 278 ms 
+2025-03-25T12:17:23.628 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeGroupController': Lookup method resolution failed 
+2025-03-25T12:17:23.628 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T12:17:23.634 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T12:17:23.637 [restartedMain] ERROR o.s.b.SpringApplication - Application run failed 
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeGroupController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:498)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:368)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1320)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1215)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.a7a7.ZipApplication.main(ZipApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.a7a7.modeule.codegroup.CodeGroupController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@275bc222]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483)
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:476)
+	... 24 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: AddressDto
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3578)
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2676)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465)
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: AddressDto
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:534)
+	at java.base/java.lang.Class.forName(Class.java:513)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:121)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 30 common frames omitted
+2025-03-25T12:17:39.641 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:17:39.641 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:17:39.905 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:17:39.905 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:17:39.906 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:17:39.906 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:17:39.922 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:17:39.923 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 279 ms 
+2025-03-25T12:17:39.933 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeGroupController': Lookup method resolution failed 
+2025-03-25T12:17:39.933 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T12:17:39.938 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T12:17:39.941 [restartedMain] ERROR o.s.b.SpringApplication - Application run failed 
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeGroupController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:498)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:368)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1320)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1215)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.a7a7.ZipApplication.main(ZipApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.a7a7.modeule.codegroup.CodeGroupController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@62c70961]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483)
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:476)
+	... 24 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: AddressDto
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3578)
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2676)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465)
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: AddressDto
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:534)
+	at java.base/java.lang.Class.forName(Class.java:513)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:121)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 30 common frames omitted
+2025-03-25T12:17:49.697 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:17:49.697 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:17:49.977 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:17:49.977 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:17:49.978 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:17:49.978 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:17:49.995 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:17:49.995 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 296 ms 
+2025-03-25T12:17:50.007 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeGroupController': Lookup method resolution failed 
+2025-03-25T12:17:50.007 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T12:17:50.012 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T12:17:50.015 [restartedMain] ERROR o.s.b.SpringApplication - Application run failed 
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'codeGroupController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:498)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:368)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1320)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1215)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.a7a7.ZipApplication.main(ZipApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.a7a7.modeule.codegroup.CodeGroupController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@71e1111f]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483)
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:476)
+	... 24 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: AddressDto
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3578)
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2676)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465)
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: AddressDto
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:534)
+	at java.base/java.lang.Class.forName(Class.java:513)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:121)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 30 common frames omitted
+2025-03-25T12:18:10.308 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:18:10.309 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:18:10.642 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:18:10.642 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:18:10.643 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:18:10.643 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:18:10.661 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:18:10.661 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 350 ms 
+2025-03-25T12:18:10.778 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-6 - Starting... 
+2025-03-25T12:18:10.825 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-6 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@291f9b61 
+2025-03-25T12:18:10.826 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-6 - Start completed. 
+2025-03-25T12:18:10.829 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+24. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 2 msec} 
+2025-03-25T12:18:11.068 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T12:18:11.093 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:18:11.100 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T12:18:11.104 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.836 seconds (process running for 1047.323) 
+2025-03-25T12:18:11.107 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T12:20:22.921 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T12:20:22.925 [Thread-20] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T12:20:22.926 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:20:22.930 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T12:20:22.932 [Thread-20] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:20:22.936 [Thread-20] INFO c.z.h.HikariDataSource - HikariPool-6 - Shutdown initiated... 
+2025-03-25T12:20:22.948 [Thread-20] INFO c.z.h.HikariDataSource - HikariPool-6 - Shutdown completed. 
+2025-03-25T12:20:23.132 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:20:23.132 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:20:23.696 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:20:23.699 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:20:23.700 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:20:23.701 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:20:23.740 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:20:23.741 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 600 ms 
+2025-03-25T12:20:23.972 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-7 - Starting... 
+2025-03-25T12:20:24.038 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-7 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@371db30 
+2025-03-25T12:20:24.038 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-7 - Start completed. 
+2025-03-25T12:20:24.042 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+34. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 3 msec} 
+2025-03-25T12:20:24.390 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T12:20:24.419 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:20:24.426 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T12:20:24.438 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 1.42 seconds (process running for 1180.657) 
+2025-03-25T12:20:24.443 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T12:21:32.002 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T12:21:32.002 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T12:21:32.004 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 2 ms 
+2025-03-25T12:21:32.022 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+34. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T12:21:32.029 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+34. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:21:33.562 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+34. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T12:21:33.568 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+34. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T12:21:35.019 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+34. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T12:21:35.025 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+34. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T12:21:52.790 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+34. INSERT INTO codeGroup (
+			ifcgSeq,
+			ifcgName,
+			ifcgDelNy,
+			ifcgUseNy
+		) values (
+			NULL,
+			'밀키트',
+			'0',
+			'1'
+		)
+ {executed in 5 msec} 
+2025-03-25T12:21:52.806 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+34. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T12:21:52.811 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+34. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T12:23:19.689 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T12:23:19.692 [Thread-33] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T12:23:19.693 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:23:19.697 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T12:23:19.698 [Thread-33] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:23:19.701 [Thread-33] INFO c.z.h.HikariDataSource - HikariPool-7 - Shutdown initiated... 
+2025-03-25T12:23:19.706 [Thread-33] INFO c.z.h.HikariDataSource - HikariPool-7 - Shutdown completed. 
+2025-03-25T12:23:19.891 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:23:19.891 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:23:20.483 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:23:20.486 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:23:20.486 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:23:20.486 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:23:20.523 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:23:20.524 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 629 ms 
+2025-03-25T12:23:20.650 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-8 - Starting... 
+2025-03-25T12:23:20.694 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-8 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@6eeb19fa 
+2025-03-25T12:23:20.694 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-8 - Start completed. 
+2025-03-25T12:23:20.697 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+44. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T12:23:20.947 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T12:23:20.970 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:23:20.978 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T12:23:20.989 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 1.209 seconds (process running for 1357.209) 
+2025-03-25T12:23:20.993 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T12:23:46.028 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T12:23:46.029 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T12:23:46.030 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-03-25T12:23:46.039 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+44. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T12:23:46.045 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+44. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:23:49.280 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T12:23:49.282 [Thread-37] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T12:23:49.282 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:23:49.284 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T12:23:49.285 [Thread-37] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:23:49.289 [Thread-37] INFO c.z.h.HikariDataSource - HikariPool-8 - Shutdown initiated... 
+2025-03-25T12:23:49.293 [Thread-37] INFO c.z.h.HikariDataSource - HikariPool-8 - Shutdown completed. 
+2025-03-25T12:23:49.404 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10244 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T12:23:49.405 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T12:23:49.757 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T12:23:49.758 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:23:49.758 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T12:23:49.758 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T12:23:49.791 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T12:23:49.791 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 384 ms 
+2025-03-25T12:23:49.871 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-9 - Starting... 
+2025-03-25T12:23:49.890 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-9 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@58327673 
+2025-03-25T12:23:49.891 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-9 - Start completed. 
+2025-03-25T12:23:49.893 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T12:23:50.032 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T12:23:50.043 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T12:23:50.049 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T12:23:50.059 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.702 seconds (process running for 1386.278) 
+2025-03-25T12:23:50.062 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T12:23:52.712 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T12:23:52.713 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T12:23:52.713 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 0 ms 
+2025-03-25T12:23:52.723 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '4'
+		ORDER BY ifcgSeq DESC
+ {executed in 0 msec} 
+2025-03-25T12:23:52.726 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 0 msec} 
+2025-03-25T12:23:57.922 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. INSERT INTO codeGroup (
+			ifcgSeq,
+			ifcgName,
+			ifcgDelNy,
+			ifcgUseNy
+		) values (
+			NULL,
+			'테스트',
+			'0',
+			'1'
+		)
+ {executed in 5 msec} 
+2025-03-25T12:23:57.937 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T12:23:57.941 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:26:57.720 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T12:26:57.724 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T12:26:59.326 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T12:26:59.329 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T12:27:58.707 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T12:27:58.709 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:30:42.540 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T12:30:42.543 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:31:22.149 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 4 msec} 
+2025-03-25T12:31:22.152 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T12:31:23.338 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T12:31:23.342 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:32:22.962 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T12:32:22.965 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:34:27.794 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T12:34:27.797 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T12:34:51.068 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T12:34:51.072 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T12:37:02.918 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T12:37:02.922 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:39:30.544 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T12:39:30.547 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T12:47:12.007 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T12:47:12.011 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T12:47:28.215 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '5'
+		ORDER BY ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T12:47:28.217 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+54. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 

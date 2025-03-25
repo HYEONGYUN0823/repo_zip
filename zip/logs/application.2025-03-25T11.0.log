@@ -1,0 +1,2940 @@
+2025-03-25T11:01:54.796 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+152. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T11:01:54.813 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+152. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 3 msec} 
+2025-03-25T11:01:56.255 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+152. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:01:56.258 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+152. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:02:41.594 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+152. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:02:41.598 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+152. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:03:07.733 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+152. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T11:03:07.736 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+152. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:03:08.814 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+152. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:03:08.827 [http-nio-8080-exec-8] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:04:45.400 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T11:04:45.412 [Thread-85] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:04:45.414 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:04:45.418 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:04:45.418 [Thread-85] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:04:45.421 [Thread-85] INFO c.z.h.HikariDataSource - HikariPool-15 - Shutdown initiated... 
+2025-03-25T11:04:45.448 [Thread-85] INFO c.z.h.HikariDataSource - HikariPool-15 - Shutdown completed. 
+2025-03-25T11:04:45.626 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 14332 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:04:45.627 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:04:46.094 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:04:46.098 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:04:46.098 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:04:46.098 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:04:46.123 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:04:46.123 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 487 ms 
+2025-03-25T11:04:46.237 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-16 - Starting... 
+2025-03-25T11:04:46.274 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-16 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@625c492e 
+2025-03-25T11:04:46.275 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-16 - Start completed. 
+2025-03-25T11:04:46.277 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+162. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:04:46.288 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:04:46.288 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-16 - Shutdown initiated... 
+2025-03-25T11:04:46.289 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-16 - Shutdown completed. 
+2025-03-25T11:04:46.290 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:04:46.296 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:04:46.304 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:04:53.640 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 14332 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:04:53.641 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:04:53.919 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:04:53.922 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:04:53.926 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:04:53.928 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:04:53.989 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:04:53.990 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 345 ms 
+2025-03-25T11:04:54.157 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-17 - Starting... 
+2025-03-25T11:04:54.177 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-17 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@5a2441d3 
+2025-03-25T11:04:54.177 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-17 - Start completed. 
+2025-03-25T11:04:54.179 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+163. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 2 msec} 
+2025-03-25T11:04:54.184 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:04:54.184 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-17 - Shutdown initiated... 
+2025-03-25T11:04:54.188 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-17 - Shutdown completed. 
+2025-03-25T11:04:54.188 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:04:54.193 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:04:54.197 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:05:20.768 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 14332 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:05:20.768 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:05:20.988 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:05:20.989 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:05:20.989 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:05:20.990 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:05:21.014 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:05:21.014 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 244 ms 
+2025-03-25T11:05:21.064 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-18 - Starting... 
+2025-03-25T11:05:21.084 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-18 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@11c65891 
+2025-03-25T11:05:21.084 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-18 - Start completed. 
+2025-03-25T11:05:21.085 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+164. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:05:21.089 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:05:21.089 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-18 - Shutdown initiated... 
+2025-03-25T11:05:21.090 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-18 - Shutdown completed. 
+2025-03-25T11:05:21.091 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:05:21.094 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:05:21.098 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:05:52.210 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 14332 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:05:52.210 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:05:52.416 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:05:52.416 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:05:52.416 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:05:52.416 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:05:52.434 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:05:52.434 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 221 ms 
+2025-03-25T11:05:52.521 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-19 - Starting... 
+2025-03-25T11:05:52.544 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-19 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@5784685c 
+2025-03-25T11:05:52.544 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-19 - Start completed. 
+2025-03-25T11:05:52.547 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+165. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 2 msec} 
+2025-03-25T11:05:52.553 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:05:52.553 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-19 - Shutdown initiated... 
+2025-03-25T11:05:52.554 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-19 - Shutdown completed. 
+2025-03-25T11:05:52.555 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:05:52.559 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:05:52.562 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:06:10.646 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 14332 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:06:10.647 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:06:10.863 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:06:10.864 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:06:10.864 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:06:10.865 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:06:10.883 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:06:10.883 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 235 ms 
+2025-03-25T11:06:10.934 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-20 - Starting... 
+2025-03-25T11:06:10.950 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-20 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@36caaded 
+2025-03-25T11:06:10.950 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-20 - Start completed. 
+2025-03-25T11:06:10.951 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+166. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:06:10.954 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:06:10.954 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-20 - Shutdown initiated... 
+2025-03-25T11:06:10.955 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-20 - Shutdown completed. 
+2025-03-25T11:06:10.956 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:06:10.959 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:06:10.962 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:06:33.308 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 14332 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:06:33.309 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:06:33.565 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:06:33.566 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:06:33.566 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:06:33.566 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:06:33.590 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:06:33.590 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 279 ms 
+2025-03-25T11:06:33.638 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-21 - Starting... 
+2025-03-25T11:06:33.655 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-21 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@74863a23 
+2025-03-25T11:06:33.655 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-21 - Start completed. 
+2025-03-25T11:06:33.657 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+167. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 2 msec} 
+2025-03-25T11:06:33.660 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:06:33.660 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-21 - Shutdown initiated... 
+2025-03-25T11:06:33.662 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-21 - Shutdown completed. 
+2025-03-25T11:06:33.662 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:06:33.666 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:06:33.670 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:06:40.299 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 14332 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:06:40.299 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:06:40.497 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:06:40.497 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:06:40.497 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:06:40.497 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:06:40.517 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:06:40.517 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 217 ms 
+2025-03-25T11:06:40.559 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-22 - Starting... 
+2025-03-25T11:06:40.575 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-22 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@7060c125 
+2025-03-25T11:06:40.575 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-22 - Start completed. 
+2025-03-25T11:06:40.577 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+168. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:06:40.579 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:06:40.579 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-22 - Shutdown initiated... 
+2025-03-25T11:06:40.580 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-22 - Shutdown completed. 
+2025-03-25T11:06:40.580 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:06:40.584 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:06:40.588 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:07:29.784 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 10480 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:07:29.785 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:07:29.819 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable 
+2025-03-25T11:07:29.819 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG' 
+2025-03-25T11:07:30.629 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:07:30.637 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:07:30.638 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:07:30.638 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:07:30.663 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:07:30.663 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 843 ms 
+2025-03-25T11:07:30.882 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Starting... 
+2025-03-25T11:07:31.286 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@44fa9753 
+2025-03-25T11:07:31.289 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Start completed. 
+2025-03-25T11:07:31.318 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 12 msec} 
+2025-03-25T11:07:31.345 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:07:31.347 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+2025-03-25T11:07:31.350 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Shutdown completed. 
+2025-03-25T11:07:31.353 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:07:31.365 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:07:31.379 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:08:51.103 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 16160 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:08:51.104 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:08:51.135 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable 
+2025-03-25T11:08:51.135 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG' 
+2025-03-25T11:08:52.059 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:08:52.067 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:08:52.068 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:08:52.068 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:08:52.108 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:08:52.108 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 973 ms 
+2025-03-25T11:08:52.358 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Starting... 
+2025-03-25T11:08:52.753 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@14a9b8c1 
+2025-03-25T11:08:52.756 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Start completed. 
+2025-03-25T11:08:52.789 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 11 msec} 
+2025-03-25T11:08:52.822 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:08:52.823 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+2025-03-25T11:08:52.827 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Shutdown completed. 
+2025-03-25T11:08:52.830 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:08:52.845 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:08:52.860 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:09:20.032 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:09:20.033 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:09:20.065 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable 
+2025-03-25T11:09:20.065 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG' 
+2025-03-25T11:09:20.857 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:09:20.865 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:09:20.866 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:09:20.866 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:09:20.919 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:09:20.920 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 855 ms 
+2025-03-25T11:09:21.225 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Starting... 
+2025-03-25T11:09:21.574 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@5db169f2 
+2025-03-25T11:09:21.577 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Start completed. 
+2025-03-25T11:09:21.609 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 13 msec} 
+2025-03-25T11:09:22.574 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:09:22.592 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:09:22.618 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:09:22.625 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 2.879 seconds (process running for 3.706) 
+2025-03-25T11:09:27.365 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T11:09:27.366 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T11:09:27.366 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 0 ms 
+2025-03-25T11:09:27.435 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 4 msec} 
+2025-03-25T11:09:27.454 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 4 msec} 
+2025-03-25T11:10:16.140 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T11:10:16.148 [Thread-5] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:10:16.150 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:10:16.154 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:10:16.155 [Thread-5] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:10:16.165 [Thread-5] INFO c.z.h.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+2025-03-25T11:10:16.182 [Thread-5] INFO c.z.h.HikariDataSource - HikariPool-1 - Shutdown completed. 
+2025-03-25T11:10:16.387 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:10:16.388 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:10:16.775 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:10:16.777 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:10:16.777 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:10:16.777 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:10:16.790 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:10:16.790 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 397 ms 
+2025-03-25T11:10:16.895 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-2 - Starting... 
+2025-03-25T11:10:16.913 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-2 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@fd5c886 
+2025-03-25T11:10:16.914 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-2 - Start completed. 
+2025-03-25T11:10:16.915 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:10:16.919 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:10:16.920 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-2 - Shutdown initiated... 
+2025-03-25T11:10:16.921 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-2 - Shutdown completed. 
+2025-03-25T11:10:16.921 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:10:16.927 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:10:16.948 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:10:41.335 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:10:41.335 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:10:41.597 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:10:41.602 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:10:41.602 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:10:41.602 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:10:41.610 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:10:41.610 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 271 ms 
+2025-03-25T11:10:41.662 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-3 - Starting... 
+2025-03-25T11:10:41.708 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-3 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@5eb43a57 
+2025-03-25T11:10:41.709 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-3 - Start completed. 
+2025-03-25T11:10:41.712 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:10:41.804 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:10:41.817 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:10:41.819 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:10:41.821 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.545 seconds (process running for 82.903) 
+2025-03-25T11:10:41.831 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T11:10:41.906 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T11:10:41.906 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T11:10:41.907 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-03-25T11:10:41.917 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:10:41.924 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:21:11.388 [HikariPool-3 housekeeper] WARN c.z.h.p.HikariPool - HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=6m29s518ms414µs). 
+2025-03-25T11:24:45.299 [http-nio-8080-exec-3] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because the return value of "com.a7a7.modeule.codegroup.CodeGroupVo.getIfcgSeq()" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because the return value of "com.a7a7.modeule.codegroup.CodeGroupVo.getIfcgSeq()" is null
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:59)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:25:00.743 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 6 msec} 
+2025-03-25T11:25:00.752 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 3 msec} 
+2025-03-25T11:25:14.345 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 5 msec} 
+2025-03-25T11:25:14.351 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 3 msec} 
+2025-03-25T11:25:16.491 [http-nio-8080-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because the return value of "com.a7a7.modeule.codegroup.CodeGroupVo.getIfcgSeq()" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because the return value of "com.a7a7.modeule.codegroup.CodeGroupVo.getIfcgSeq()" is null
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:59)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:25:46.768 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:25:46.771 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:25:48.030 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 6 msec} 
+2025-03-25T11:25:48.037 [http-nio-8080-exec-10] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:25:56.413 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 6 msec} 
+2025-03-25T11:25:56.421 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 4 msec} 
+2025-03-25T11:27:55.070 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 4 msec} 
+2025-03-25T11:27:55.075 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 3 msec} 
+2025-03-25T11:28:01.994 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:28:01.997 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:28:13.424 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 6 msec} 
+2025-03-25T11:28:13.432 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 3 msec} 
+2025-03-25T11:28:46.052 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 5 msec} 
+2025-03-25T11:28:46.055 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:29:28.551 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 5 msec} 
+2025-03-25T11:29:28.558 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 3 msec} 
+2025-03-25T11:29:33.765 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:29:33.769 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:29:35.038 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+12. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:29:35.041 [http-nio-8080-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:30:12.072 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications) 
+2025-03-25T11:30:12.077 [Thread-7] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:30:12.081 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:30:12.085 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:30:12.088 [Thread-7] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:30:12.094 [Thread-7] INFO c.z.h.HikariDataSource - HikariPool-3 - Shutdown initiated... 
+2025-03-25T11:30:12.124 [Thread-7] INFO c.z.h.HikariDataSource - HikariPool-3 - Shutdown completed. 
+2025-03-25T11:30:12.500 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:30:12.501 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:30:13.109 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:30:13.122 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:30:13.123 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:30:13.125 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:30:13.142 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:30:13.142 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 625 ms 
+2025-03-25T11:30:13.262 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-4 - Starting... 
+2025-03-25T11:30:13.290 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-4 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@1c8b9eec 
+2025-03-25T11:30:13.291 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-4 - Start completed. 
+2025-03-25T11:30:13.292 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+22. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:30:13.434 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:30:13.443 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:30:13.448 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:30:13.456 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 1.215 seconds (process running for 1254.538) 
+2025-03-25T11:30:13.456 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T11:30:13.485 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T11:30:13.485 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T11:30:13.486 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-03-25T11:30:13.495 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+22. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 0 msec} 
+2025-03-25T11:30:13.499 [http-nio-8080-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:30:37.042 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications) 
+2025-03-25T11:30:37.045 [Thread-14] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:30:37.047 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:30:37.055 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:30:37.056 [Thread-14] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:30:37.061 [Thread-14] INFO c.z.h.HikariDataSource - HikariPool-4 - Shutdown initiated... 
+2025-03-25T11:30:37.071 [Thread-14] INFO c.z.h.HikariDataSource - HikariPool-4 - Shutdown completed. 
+2025-03-25T11:30:37.248 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:30:37.248 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:30:37.624 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:30:37.625 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:30:37.625 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:30:37.625 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:30:37.641 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:30:37.641 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 344 ms 
+2025-03-25T11:30:37.721 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-5 - Starting... 
+2025-03-25T11:30:37.731 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-5 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@4f452710 
+2025-03-25T11:30:37.733 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-5 - Start completed. 
+2025-03-25T11:30:37.734 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+32. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 0 msec} 
+2025-03-25T11:30:37.820 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:30:37.825 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:30:37.826 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:30:37.828 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.658 seconds (process running for 1278.911) 
+2025-03-25T11:30:37.829 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T11:30:40.156 [http-nio-8080-exec-4] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T11:30:40.156 [http-nio-8080-exec-4] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T11:30:40.157 [http-nio-8080-exec-4] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-03-25T11:30:40.168 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+32. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:30:40.174 [http-nio-8080-exec-4] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:30:42.419 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+32. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:30:42.427 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+32. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:30:47.558 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+32. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:30:47.561 [http-nio-8080-exec-8] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:31:14.587 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T11:31:14.588 [Thread-18] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:31:14.588 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:14.590 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:31:14.591 [Thread-18] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:14.593 [Thread-18] INFO c.z.h.HikariDataSource - HikariPool-5 - Shutdown initiated... 
+2025-03-25T11:31:14.599 [Thread-18] INFO c.z.h.HikariDataSource - HikariPool-5 - Shutdown completed. 
+2025-03-25T11:31:14.696 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:31:14.697 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:31:14.887 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:31:14.888 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:14.888 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:31:14.888 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:31:14.914 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:31:14.915 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 217 ms 
+2025-03-25T11:31:14.998 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-6 - Starting... 
+2025-03-25T11:31:15.007 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-6 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@292f7fed 
+2025-03-25T11:31:15.007 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-6 - Start completed. 
+2025-03-25T11:31:15.008 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+42. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:31:15.061 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:31:15.069 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:15.074 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:31:15.075 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.401 seconds (process running for 1316.157) 
+2025-03-25T11:31:15.076 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T11:31:30.997 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T11:31:31.004 [Thread-22] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:31:31.005 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:31.010 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:31:31.010 [Thread-22] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:31.016 [Thread-22] INFO c.z.h.HikariDataSource - HikariPool-6 - Shutdown initiated... 
+2025-03-25T11:31:31.023 [Thread-22] INFO c.z.h.HikariDataSource - HikariPool-6 - Shutdown completed. 
+2025-03-25T11:31:31.102 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:31:31.103 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:31:31.285 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:31:31.285 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:31.285 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:31:31.285 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:31:31.295 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:31:31.295 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 191 ms 
+2025-03-25T11:31:31.388 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-7 - Starting... 
+2025-03-25T11:31:31.401 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-7 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@390d8025 
+2025-03-25T11:31:31.401 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-7 - Start completed. 
+2025-03-25T11:31:31.402 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+52. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:31:31.473 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:31:31.479 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:31.481 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:31:31.482 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.396 seconds (process running for 1332.564) 
+2025-03-25T11:31:31.483 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T11:31:31.897 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T11:31:31.897 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T11:31:31.899 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 2 ms 
+2025-03-25T11:31:31.906 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+52. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:31:31.910 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+52. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:31:33.621 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+52. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:31:33.623 [http-nio-8080-exec-10] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:31:45.768 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T11:31:45.771 [Thread-26] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:31:45.772 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:45.780 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:31:45.781 [Thread-26] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:45.785 [Thread-26] INFO c.z.h.HikariDataSource - HikariPool-7 - Shutdown initiated... 
+2025-03-25T11:31:45.792 [Thread-26] INFO c.z.h.HikariDataSource - HikariPool-7 - Shutdown completed. 
+2025-03-25T11:31:45.888 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:31:45.889 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:31:46.063 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:31:46.064 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:46.064 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:31:46.064 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:31:46.075 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:31:46.075 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 184 ms 
+2025-03-25T11:31:46.125 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-8 - Starting... 
+2025-03-25T11:31:46.137 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-8 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@15ede48e 
+2025-03-25T11:31:46.137 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-8 - Start completed. 
+2025-03-25T11:31:46.139 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+62. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 2 msec} 
+2025-03-25T11:31:46.184 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:31:46.187 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:31:46.189 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:31:46.190 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.336 seconds (process running for 1347.272) 
+2025-03-25T11:31:46.191 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T11:32:51.071 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T11:32:51.071 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T11:32:51.072 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-03-25T11:32:51.082 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+62. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:32:51.086 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+62. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:32:55.521 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+62. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:32:55.523 [http-nio-8080-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:34:01.581 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T11:34:01.584 [Thread-30] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:34:01.587 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:34:01.592 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:34:01.592 [Thread-30] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:34:01.595 [Thread-30] INFO c.z.h.HikariDataSource - HikariPool-8 - Shutdown initiated... 
+2025-03-25T11:34:01.600 [Thread-30] INFO c.z.h.HikariDataSource - HikariPool-8 - Shutdown completed. 
+2025-03-25T11:34:01.742 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:34:01.743 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:34:02.002 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:34:02.004 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:34:02.006 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:34:02.007 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:34:02.026 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:34:02.026 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 279 ms 
+2025-03-25T11:34:02.104 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-9 - Starting... 
+2025-03-25T11:34:02.126 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-9 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@7e7f969f 
+2025-03-25T11:34:02.128 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-9 - Start completed. 
+2025-03-25T11:34:02.129 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+72. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:34:02.221 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:34:02.228 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:34:02.231 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:34:02.236 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.571 seconds (process running for 1483.318) 
+2025-03-25T11:34:02.237 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T11:34:09.495 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T11:34:09.495 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T11:34:09.495 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 0 ms 
+2025-03-25T11:34:09.501 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+72. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:34:09.507 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+72. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:34:10.688 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+72. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:34:10.691 [http-nio-8080-exec-4] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:36:13.707 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+72. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:36:13.709 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+72. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:36:14.681 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T11:36:14.682 [Thread-34] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:36:14.682 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:36:14.686 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:36:14.686 [Thread-34] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:36:14.689 [Thread-34] INFO c.z.h.HikariDataSource - HikariPool-9 - Shutdown initiated... 
+2025-03-25T11:36:14.695 [Thread-34] INFO c.z.h.HikariDataSource - HikariPool-9 - Shutdown completed. 
+2025-03-25T11:36:14.803 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:36:14.804 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:36:15.012 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:36:15.014 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:36:15.015 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:36:15.015 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:36:15.031 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:36:15.031 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 226 ms 
+2025-03-25T11:36:15.129 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-10 - Starting... 
+2025-03-25T11:36:15.161 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-10 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@578b1a66 
+2025-03-25T11:36:15.162 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-10 - Start completed. 
+2025-03-25T11:36:15.163 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+82. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 0 msec} 
+2025-03-25T11:36:15.235 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:36:15.244 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:36:15.248 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:36:15.252 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.488 seconds (process running for 1616.335) 
+2025-03-25T11:36:15.253 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T11:36:15.267 [http-nio-8080-exec-2] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T11:36:15.267 [http-nio-8080-exec-2] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T11:36:15.267 [http-nio-8080-exec-2] INFO o.s.w.s.DispatcherServlet - Completed initialization in 0 ms 
+2025-03-25T11:36:15.291 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+82. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:36:15.303 [http-nio-8080-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:36:25.491 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T11:36:25.493 [Thread-38] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:36:25.494 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:36:25.503 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:36:25.503 [Thread-38] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:36:25.507 [Thread-38] INFO c.z.h.HikariDataSource - HikariPool-10 - Shutdown initiated... 
+2025-03-25T11:36:25.515 [Thread-38] INFO c.z.h.HikariDataSource - HikariPool-10 - Shutdown completed. 
+2025-03-25T11:36:25.646 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:36:25.646 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:36:25.857 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:36:25.857 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:36:25.858 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:36:25.858 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:36:25.872 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:36:25.872 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 225 ms 
+2025-03-25T11:36:25.988 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-11 - Starting... 
+2025-03-25T11:36:26.002 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-11 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@4555bee4 
+2025-03-25T11:36:26.002 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-11 - Start completed. 
+2025-03-25T11:36:26.003 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:36:26.051 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:36:26.056 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:36:26.060 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:36:26.063 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.451 seconds (process running for 1627.145) 
+2025-03-25T11:36:26.063 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T11:39:04.784 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T11:39:04.784 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T11:39:04.785 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-03-25T11:39:04.792 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T11:39:04.799 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:39:06.950 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:39:06.952 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:39:35.849 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:39:35.852 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:41:51.205 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:41:51.209 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:41:52.413 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:41:52.416 [http-nio-8080-exec-7] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:42:56.140 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 4 msec} 
+2025-03-25T11:42:56.144 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:43:25.796 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 4 msec} 
+2025-03-25T11:43:25.799 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:43:32.919 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 3 msec} 
+2025-03-25T11:43:32.921 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:43:34.004 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+92. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:43:34.007 [http-nio-8080-exec-7] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null] with root cause 
+java.lang.NullPointerException: Cannot invoke "com.a7a7.modeule.code.CodeDao.selectList(com.a7a7.modeule.code.CodeVo)" because "this.codeDao" is null
+	at com.a7a7.modeule.code.CodeService.selectList(CodeService.java:21)
+	at com.a7a7.modeule.codegroup.CodeGroupController.CodeGroupXdmForm(CodeGroupController.java:64)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-25T11:46:29.044 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-25T11:46:29.047 [Thread-42] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:46:29.048 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:46:29.051 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:46:29.052 [Thread-42] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:46:29.056 [Thread-42] INFO c.z.h.HikariDataSource - HikariPool-11 - Shutdown initiated... 
+2025-03-25T11:46:29.064 [Thread-42] INFO c.z.h.HikariDataSource - HikariPool-11 - Shutdown completed. 
+2025-03-25T11:46:29.349 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:46:29.349 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:46:29.725 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:46:29.727 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:46:29.727 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:46:29.727 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:46:29.738 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:46:29.738 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 385 ms 
+2025-03-25T11:46:29.838 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-12 - Starting... 
+2025-03-25T11:46:29.869 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-12 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@79618fdc 
+2025-03-25T11:46:29.870 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-12 - Start completed. 
+2025-03-25T11:46:29.872 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+102. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-25T11:46:29.883 [restartedMain] WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'codeGroupController': Unsatisfied dependency expressed through field 'codeVo': No qualifying bean of type 'com.a7a7.modeule.code.CodeVo' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} 
+2025-03-25T11:46:29.883 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-12 - Shutdown initiated... 
+2025-03-25T11:46:29.885 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-12 - Shutdown completed. 
+2025-03-25T11:46:29.887 [restartedMain] INFO o.a.c.c.StandardService - Stopping service [Tomcat] 
+2025-03-25T11:46:29.898 [restartedMain] INFO o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+2025-03-25T11:46:29.903 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field codeVo in com.a7a7.modeule.codegroup.CodeGroupController required a bean of type 'com.a7a7.modeule.code.CodeVo' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.a7a7.modeule.code.CodeVo' in your configuration.
+ 
+2025-03-25T11:48:11.628 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 12156 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-25T11:48:11.629 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-25T11:48:11.993 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-25T11:48:11.995 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:48:11.995 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-25T11:48:11.995 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-25T11:48:12.008 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-25T11:48:12.009 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 376 ms 
+2025-03-25T11:48:12.096 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-13 - Starting... 
+2025-03-25T11:48:12.115 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-13 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@633fdf 
+2025-03-25T11:48:12.115 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-13 - Start completed. 
+2025-03-25T11:48:12.118 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 0 msec} 
+2025-03-25T11:48:12.238 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-25T11:48:12.245 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:48:12.249 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-25T11:48:12.250 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.699 seconds (process running for 2333.333) 
+2025-03-25T11:48:12.251 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-25T11:48:18.933 [http-nio-8080-exec-4] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-25T11:48:18.933 [http-nio-8080-exec-4] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-25T11:48:18.935 [http-nio-8080-exec-4] INFO o.s.w.s.DispatcherServlet - Completed initialization in 2 ms 
+2025-03-25T11:48:18.947 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 5 msec} 
+2025-03-25T11:48:18.953 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:48:20.933 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:48:20.938 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:48:44.859 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '1'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:48:44.861 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:48:48.484 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '2'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:48:48.487 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:49:24.074 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 5 msec} 
+2025-03-25T11:49:24.081 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:49:28.830 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T11:49:28.834 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-25T11:50:17.522 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '3'
+		ORDER BY ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-25T11:50:17.525 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-25T11:50:39.991 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '2'
+		ORDER BY ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:50:39.992 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 0 msec} 
+2025-03-25T11:51:09.334 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-25T11:51:09.335 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+103. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN codeGroup b ON b.ifcgSeq = a.ifcgSeq
+		WHERE 1=1
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 0 msec} 
+2025-03-25T11:54:59.661 [RMI TCP Connection(74)-127.0.0.1] INFO o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+2025-03-25T11:54:59.664 [RMI TCP Connection(74)-127.0.0.1] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-25T11:54:59.664 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:54:59.667 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-25T11:54:59.668 [RMI TCP Connection(74)-127.0.0.1] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-25T11:54:59.804 [RMI TCP Connection(74)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-13 - Shutdown initiated... 
+2025-03-25T11:54:59.807 [RMI TCP Connection(74)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-13 - Shutdown completed. 
