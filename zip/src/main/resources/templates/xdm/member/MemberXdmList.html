@@ -178,15 +178,15 @@
                                                 <td>
                                                     <b>#</b>
                                                 </td>
-                                                <td><b>사용</b></td>
-                                                <td><b>코드그룹 코드</b></td> <!-- 코드그룹 코드 -->
-                                                <td><b>코드그룹 이름</b></td> <!-- 코드그룹 이름 -->
-                                                <td><b>사용중</b></td>
-                                                <td><b></b></td> <!-- 코드 이름(영문) -->
-                                                <td><b></b></td>
-                                                <td><b>갯수</b></td> <!-- 갯수 -->
-                                                <td><b><!-- 성별 --></b></td> <!-- 순서 -->
-                                                <td><b>등록일</b></td> <!-- 등록일 -->
+                                                <td><b>성</b></td>
+                                                <td><b>이름</b></td> <!-- 코드그룹 코드 -->
+                                                <td><b>성별</b></td> <!-- 코드그룹 이름 -->
+                                                <td><b>생일</b></td>
+                                                <td><b>이메일</b></td> <!-- 코드 이름(영문) -->
+                                                <td><b>비밀번호</b></td>
+                                                <td><b>가격</b></td> <!-- 갯수 -->
+                                                <td><b>평점<!-- 성별 --></b></td> <!-- 순서 -->
+                                                <td><b>삭제</b></td> <!-- 등록일 -->
                                                 <td><b></b></td> <!-- 수정일 -->
                                             </tr>
                                         </thead>
@@ -211,16 +211,16 @@
                                                     </div>
                                                 </td>
                                                 <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                                <td th:text="${list.ifcgDelNy}"></td>
-                                                <td th:text="${list.ifcgSeq}"></td>
-                                                <td th:text="${list.ifcgName}"></td>
-                                                <td th:text="${list.ifcgUseNy}"></td>
-                                                <td></td>
-                                                <td><b></b></td>
-                                                <td th:text="${list.xifcdSeqCount}"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td th:text="${list.seq}"></td>
+                                                <td th:text="${list.firstName}"></td>
+                                                <td th:text="${list.lastName}"></td>
+                                                <td th:text="${list.gender}"></td>
+                                                <td th:text="${list.btd}"></td>
+                                                <td th:text="${list.email}"><b></b></td>
+                                                <td th:text="${list.passWord}"></td>
+                                                <td th:text="${list.price}"></td>
+                                                <td th:text="${list.score}"></td>
+                                                <td th:text="${list.delNy}"></td>
                                             </tr>
                                             <!-- <tr>
                                                 <td>

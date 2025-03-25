@@ -6,9 +6,9 @@
 	<resultMap id="resultMapObj" type="com.a7a7.modeule.member.MemberDto"/>
 	
 	<sql id = "selectCommon">
-		FROM codeGroup as a
+		FROM userUi as a
 		WHERE 1=1
-		<if test="shUseNy != null and !shUseNy.equals('')">AND a.ifcgUseNy = #{shUseNy}</if>
+<!-- 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.ifcgUseNy = #{shUseNy}</if> -->
         <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcgDelNy = #{shDelNy}</if>
 <!-- 				
 				<choose>
@@ -17,11 +17,11 @@
 				</choose>
  -->				
         <choose>
-            <when test="shOption == 1">AND a.ifcgSeq = #{shValue}</when>
-            <when test="shOption == 2">AND a.ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
-<!--             <when test="shOption == 3">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when> -->
+            <when test="shOption == 1">AND a.seq = #{shValue}</when>
+<!--             <when test="shOption == 2">AND a.ifcgName LIKE CONCAT('%',#{shValue},'%')</when> -->
+<!--              <when test="shOption == 3">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when> -->
         </choose>
-		ORDER BY a.ifcgSeq DESC
+		ORDER BY a.seq DESC
 	</sql>
 
 	<select id="selectOneCount" resultType="Integer">
@@ -32,15 +32,21 @@
 	<select id="selectList" resultMap="resultMapObj">
 		SELECT aa.* FROM (
 			SELECT
-				a.ifcgSeq,
-			    a.ifcgName,
-			    (select count(aa.ifcdSeq) from code aa 
-			    	where 1=1 
-			    		and aa.ifcdDelNy = 0
-			    		and aa.ifcgSeq = a.ifcgSeq
-			    ) as xifcdSeqCount,
-			    a.ifcgDelNy,
-			    a.ifcgUseNy
+				a.seq,
+			    a.firstName,
+<!-- 			    (select count(aa.ifcdSeq) from code aa  -->
+<!-- 			    	where 1=1  -->
+<!-- 			    		and aa.ifcdDelNy = 0 -->
+<!-- 			    		and aa.ifcgSeq = a.ifcgSeq -->
+<!-- 			    ) as xifcdSeqCount, -->
+			    a.lastName,
+			    a.gender,
+			    a.btd,
+			    a.email,
+			    a.passWord,
+			    a.price,
+			    a.score,
+			    a.delNy
 		<include refid="selectCommon"></include>
 		) aa
 		limit #{pageNumToShow} offset #{startRnumForMysql}
