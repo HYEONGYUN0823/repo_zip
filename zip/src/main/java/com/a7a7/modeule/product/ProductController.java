@@ -13,7 +13,7 @@ public class ProductController {
 	ProductService productService;
 	
 	@RequestMapping(value = "/xdm/product/ProductXdmList")
-	public String ProductXdmList(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception {
+	public String productXdmList(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception {
 
 //	    setSearch(vo); // 검색 조건 설정
 	    vo.setParamsPaging(productService.selectOneCount(vo));
@@ -26,7 +26,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/xdm/product/ProductXdmForm")
-	public String ProductXdmForm(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception{
+	public String productXdmForm(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception{
 		
 		if (vo.getIfcgSeq().equals("0") || vo.getIfcgSeq().equals("")) {
 //			insert mode

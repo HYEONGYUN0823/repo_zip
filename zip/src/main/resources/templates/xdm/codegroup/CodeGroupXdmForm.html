@@ -123,6 +123,13 @@
                                         </tbody>
                                     </table>
                                     <button type="button" onclick="location.href='/xdm/codegroup/CodeGroupXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    
+                                    <!-- 삭제버튼 -->
+                                    
+                                    <button type="button" id="btnUel" class="btn btn-danger"><i
+                                            class="fa-regular fa-trash-can"></i></button>
+                                            
                                     <button type="button" id="dtnSave" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
                                             
@@ -145,6 +152,27 @@
 											</div>
 										</div>
 									</div>
+									
+									<!-- 삭제 모달 -->
+									
+									<div class="modal" id="uelModal" tabindex="-1" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">삭제 확인</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<p>삭제하시겠습니까?</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" id="btnUelSubmit" class="btn btn-danger">삭제</button>
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
                                 </div>
                             </div>
                         </div>
@@ -155,12 +183,35 @@
 				
 				let goUrlXdmInst = "/xdm/codegroup/CodeGroupXdmInst";
 				let goUrlXdmUpdt = "/xdm/codeGroup/CodeGroupXdmUpdt";
+				let goUrlXdmUele = "/xdm/codeGroup/CodeGroupXdmUele";
 				
 				let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
 				
 				const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
 				const modalElement = document.getElementById("alertModal");
 				const modalMessage = document.getElementById("modalMessage");
+				
+				const uelModal = new bootstrap.Modal(document.getElementById("uelModal"));
+				const uelElement = document.getElementById("uelModal");
+				
+				document.getElementById("btnUel").onclick = function(uelEvent) {
+				    event.preventDefault();
+				    
+				    let click = true;
+				    
+				    if (click) {
+						let alertModal = new bootstrap.Modal(document.getElementById("uelModal"));
+						alertModal.show();
+				    }
+				    
+				}
+				document.getElementById("btnUelSubmit").onclick = function () {
+				    let seq = document.querySelector("input[name=ifcgSeq]"); 
+				    let form = document.getElementById("form");
+				        form.action = goUrlXdmUele;
+
+				    form.submit();
+				}
 				
 				document.getElementById("dtnSave").onclick = function(event) {
 				    event.preventDefault(); // 기본 폼 제출 방지

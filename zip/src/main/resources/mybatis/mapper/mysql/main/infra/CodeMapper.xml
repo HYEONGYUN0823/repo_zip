@@ -23,7 +23,7 @@
         <choose>
             <when test="shOption == 1">AND a.ifcdSeq = #{shValue}</when>
             <when test="shOption == 2">AND a.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 3">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when>
+<!--             <when test="shOption == 3">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when> -->
         </choose>
 		ORDER BY a.ifcdSeq DESC
 	</sql>

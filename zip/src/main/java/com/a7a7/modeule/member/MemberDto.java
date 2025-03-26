@@ -13,6 +13,7 @@ public class MemberDto {
 	private String price;
 	private String score;
 	private String delNy;
+	private String admSignin;
 
 	private String xifcdSeqCount;	// 갯수
 
@@ -94,6 +95,14 @@ public class MemberDto {
 
 	public void setDelNy(String delNy) {
 		this.delNy = delNy;
+	}
+
+	public String getAdmSignin() {
+		return admSignin;
+	}
+
+	public void setAdmSignin(String admSignin) {
+		this.admSignin = admSignin;
 	}
 
 	public String getXifcdSeqCount() {

@@ -32,6 +32,7 @@ public class CodeController {
 	public String codeXdmList(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
 //		setSearch(vo); // 검색 조건 설정
 		vo.setParamsPaging(codeService.selectOneCount(vo));
+		
 
 	    if (vo.getTotalRows() > 0) {
 	        model.addAttribute("list", codeService.selectList(vo));
@@ -49,7 +50,7 @@ public class CodeController {
 	
 	
 	@RequestMapping(value = "/xdm/code/CodeXdmForm")
-	public String CodeXdmForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception{
+	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception{
 		System.out.println(codeService.selectTwo(vo));
 		if (vo.getIfcdSeq().equals("0") || vo.getIfcdSeq().equals("")) {
 //			insert mode

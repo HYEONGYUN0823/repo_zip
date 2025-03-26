@@ -1,0 +1,1710 @@
+2025-03-26T13:04:30.020 [RMI TCP Connection(250)-127.0.0.1] INFO o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+2025-03-26T13:04:30.021 [RMI TCP Connection(250)-127.0.0.1] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-26T13:04:30.024 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:04:30.026 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-26T13:04:30.028 [RMI TCP Connection(250)-127.0.0.1] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:04:30.041 [RMI TCP Connection(250)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-15 - Shutdown initiated... 
+2025-03-26T13:04:30.048 [RMI TCP Connection(250)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-15 - Shutdown completed. 
+2025-03-26T13:04:46.028 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 13324 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-26T13:04:46.029 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-26T13:04:46.062 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable 
+2025-03-26T13:04:46.062 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG' 
+2025-03-26T13:04:46.727 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-26T13:04:46.734 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:04:46.735 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-26T13:04:46.735 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-26T13:04:46.758 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-26T13:04:46.758 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 695 ms 
+2025-03-26T13:04:46.968 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Starting... 
+2025-03-26T13:04:47.183 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@63574fd2 
+2025-03-26T13:04:47.185 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Start completed. 
+2025-03-26T13:04:47.207 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 5 msec} 
+2025-03-26T13:04:47.933 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-26T13:04:47.947 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:04:47.957 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-26T13:04:47.963 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 2.121 seconds (process running for 3.817) 
+2025-03-26T13:04:52.164 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-26T13:04:52.164 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-26T13:04:52.165 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-03-26T13:04:52.233 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:04:52.235 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:04:53.844 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:04:53.848 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 0 msec} 
+2025-03-26T13:29:19.126 [http-nio-8080-exec-1] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [0x050x020x000x02...]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.127 [http-nio-8080-exec-8] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [0x000x000x000xa40xffSMBr0x000x000x000x000x080x01@0x000x000x000x000x000x000x000x000x000x000x000x000x000x00@0x060x000x000x010x000x000x810x000x02PC ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.127 [http-nio-8080-exec-9] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x000xfe0x010x000x000xfa0x030x030x18"%0xe3A10xb8|0xad0xf50x0aK0xbb0x800xf10xf1/o0x0d0xf90x93W0x980xcb}~0x9eh-40x980xec ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.127 [http-nio-8080-exec-4] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [0x010x000x000x000x000x000x050x000x010xf00x000x010x00...]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.127 [http-nio-8080-exec-5] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [<stream:stream ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.126 [http-nio-8080-exec-3] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x000xfe0x010x000x000xfa0x030x03>W0x8b0x880xe20x8c0xc1.%0xfdg0xeao0x1b0x057Q0x8fm0x7f0x930x1e0xd80xb50x950xbb0xdfi>[0x8e0xff ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.133 [http-nio-8080-exec-39] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x000xfe0x010x000x000xfa0x030x03fc0xbc&0xaf0x84\1a0x180xa70xd90xec0x830xc40x97b~0xafu0x8c0xb70xbaXDT:z0xf60xca0x8dD ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.137 [http-nio-8080-exec-21] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [{\x01\x00\x1613911111112\c0\xa8\x01\x01\x13\x90\x7b{...]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.138 [http-nio-8080-exec-24] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [?0x000x000x00c0xb70xe8N0xff0xff0xff0xff0xd40x070x000x000x000x000x000x00admin.$cmd0x000x000x000x000x000x010x000x000x000x180x000x000x000x10listDatabases0x000x010x000x000x000x00...]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.142 [http-nio-8080-exec-45] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [<stream:stream ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.139 [http-nio-8080-exec-33] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [8d0xc1x0x010xb80x9b0xcb0x8f0x000x000x000x000x00...]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:29:19.138 [http-nio-8080-exec-30] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [0x000x030x000x010x000x000x000x000x000x000x000x020x000x000x000x000x0f0x00...]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-03-26T13:43:52.395 [HikariPool-1 housekeeper] WARN c.z.h.p.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=27m34s960ms948µs800ns). 
+2025-03-26T13:46:15.451 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:46:15.452 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:46:16.573 [http-nio-8080-exec-18] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:46:16.575 [http-nio-8080-exec-18] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:46:46.145 [http-nio-8080-exec-23] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:46:46.147 [http-nio-8080-exec-23] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:46:47.944 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:46:47.945 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:47:39.226 [http-nio-8080-exec-41] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:47:39.228 [http-nio-8080-exec-41] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:47:43.044 [http-nio-8080-exec-31] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:47:43.047 [http-nio-8080-exec-31] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:47:45.334 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:47:45.335 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:47:49.110 [http-nio-8080-exec-37] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:47:49.119 [http-nio-8080-exec-37] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 3 msec} 
+2025-03-26T13:47:50.447 [http-nio-8080-exec-23] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:47:50.451 [http-nio-8080-exec-23] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 5
+ {executed in 1 msec} 
+2025-03-26T13:47:51.651 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:47:51.653 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:47:52.967 [http-nio-8080-exec-37] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:47:52.970 [http-nio-8080-exec-37] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:47:53.608 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:47:53.610 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:48:03.581 [http-nio-8080-exec-13] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 3 msec} 
+2025-03-26T13:48:03.588 [http-nio-8080-exec-13] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:48:06.817 [http-nio-8080-exec-12] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:48:06.822 [http-nio-8080-exec-12] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:48:07.644 [http-nio-8080-exec-31] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:48:07.646 [http-nio-8080-exec-31] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:48:08.854 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:48:08.858 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:48:14.937 [http-nio-8080-exec-23] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:48:14.941 [http-nio-8080-exec-23] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+11. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:51:01.798 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-26T13:51:01.808 [Thread-5] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-26T13:51:01.810 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:51:01.818 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-26T13:51:01.819 [Thread-5] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:51:01.827 [Thread-5] INFO c.z.h.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+2025-03-26T13:51:01.837 [Thread-5] INFO c.z.h.HikariDataSource - HikariPool-1 - Shutdown completed. 
+2025-03-26T13:51:02.074 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 13324 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-26T13:51:02.075 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-26T13:51:02.569 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-26T13:51:02.572 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:51:02.572 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-26T13:51:02.572 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-26T13:51:02.590 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-26T13:51:02.590 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 507 ms 
+2025-03-26T13:51:02.676 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-2 - Starting... 
+2025-03-26T13:51:02.688 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-2 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@1fbe1eac 
+2025-03-26T13:51:02.688 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-2 - Start completed. 
+2025-03-26T13:51:02.689 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-03-26T13:51:02.769 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-26T13:51:02.778 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:51:02.780 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-26T13:51:02.783 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.827 seconds (process running for 2778.637) 
+2025-03-26T13:51:02.784 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-26T13:51:07.461 [http-nio-8080-exec-2] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-26T13:51:07.461 [http-nio-8080-exec-2] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-26T13:51:07.463 [http-nio-8080-exec-2] INFO o.s.w.s.DispatcherServlet - Completed initialization in 2 ms 
+2025-03-26T13:51:07.476 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:51:07.484 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:51:09.995 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:51:09.999 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:51:20.517 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:51:20.523 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:52:06.889 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:52:06.892 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:52:09.578 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:52:09.582 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:53:56.321 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:53:56.324 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:55:03.670 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:55:03.676 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-03-26T13:55:07.078 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:55:07.081 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 5
+ {executed in 2 msec} 
+2025-03-26T13:55:48.606 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:55:48.609 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 5
+ {executed in 1 msec} 
+2025-03-26T13:55:50.078 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:55:50.080 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:56:13.616 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT
+			ifcgSeq,
+		    ifcgName,
+		    ifcgDelNy,
+		    ifcgUseNy
+		FROM
+			codeGroup
+		WHERE 1=1
+			AND ifcgSeq = '6'
+		ORDER BY ifcgSeq DESC
+ {executed in 2 msec} 
+2025-03-26T13:58:49.002 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-03-26T13:58:49.004 [Thread-7] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-26T13:58:49.004 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:58:49.007 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-26T13:58:49.007 [Thread-7] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:58:49.009 [Thread-7] INFO c.z.h.HikariDataSource - HikariPool-2 - Shutdown initiated... 
+2025-03-26T13:58:49.011 [Thread-7] INFO c.z.h.HikariDataSource - HikariPool-2 - Shutdown completed. 
+2025-03-26T13:58:49.090 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 13324 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-03-26T13:58:49.091 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-03-26T13:58:49.263 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-03-26T13:58:49.264 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:58:49.264 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-03-26T13:58:49.264 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-03-26T13:58:49.273 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-03-26T13:58:49.273 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 180 ms 
+2025-03-26T13:58:49.324 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-3 - Starting... 
+2025-03-26T13:58:49.339 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-3 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@3cd9bb3d 
+2025-03-26T13:58:49.339 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-3 - Start completed. 
+2025-03-26T13:58:49.340 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT 
+			ifcdSeq,
+			ifcdName,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 0 msec} 
+2025-03-26T13:58:49.421 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-03-26T13:58:49.426 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-03-26T13:58:49.428 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-03-26T13:58:49.431 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.384 seconds (process running for 3245.285) 
+2025-03-26T13:58:49.432 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-03-26T13:59:09.551 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-03-26T13:59:09.551 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-03-26T13:59:09.551 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 0 ms 
+2025-03-26T13:59:09.556 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 0 msec} 
+2025-03-26T13:59:09.558 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-03-26T13:59:11.048 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:59:11.049 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 5
+ {executed in 0 msec} 
+2025-03-26T13:59:11.962 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:59:11.963 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 0 msec} 
+2025-03-26T13:59:12.894 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 0 msec} 
+2025-03-26T13:59:12.896 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 5
+ {executed in 1 msec} 
+2025-03-26T13:59:18.043 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:59:18.044 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 0 msec} 
+2025-03-26T13:59:30.155 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:59:30.156 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 5
+ {executed in 0 msec} 
+2025-03-26T13:59:31.373 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:59:31.375 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 10
+ {executed in 1 msec} 
+2025-03-26T13:59:38.104 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 0 msec} 
+2025-03-26T13:59:38.105 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 5
+ {executed in 1 msec} 
+2025-03-26T13:59:40.386 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-03-26T13:59:40.387 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcdSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 0 msec} 

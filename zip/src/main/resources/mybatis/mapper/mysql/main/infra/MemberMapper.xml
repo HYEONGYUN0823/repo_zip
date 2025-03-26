@@ -9,7 +9,7 @@
 		FROM userUi as a
 		WHERE 1=1
 <!-- 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.ifcgUseNy = #{shUseNy}</if> -->
-        <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcgDelNy = #{shDelNy}</if>
+<!--         <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcgDelNy = #{shDelNy}</if> -->
 <!-- 				
 				<choose>
 					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
@@ -46,7 +46,8 @@
 			    a.passWord,
 			    a.price,
 			    a.score,
-			    a.delNy
+			    a.delNy,
+			    a.admSignin
 		<include refid="selectCommon"></include>
 		) aa
 		limit #{pageNumToShow} offset #{startRnumForMysql}
@@ -67,15 +68,27 @@
 	
 	<insert id="insert">
 		INSERT INTO codeGroup (
-			ifcgSeq,
-			ifcgName,
-			ifcgDelNy,
-			ifcgUseNy
+			seq,
+			firstName,
+			lastName,
+			gender,
+			btd,
+			email,
+			passWord,
+			price,
+			score,
+			delNy
 		) values (
-			#{ifcgSeq},
-			#{ifcgName},
-			#{ifcgDelNy},
-			#{ifcgUseNy}
+			#{seq},
+			#{firstName},
+			#{lastName},
+			#{gender},
+			#{btd},
+			#{email},
+			#{passWord},
+			#{price},
+			#{score},
+			#{delNy}
 		)
 	</insert>
 	

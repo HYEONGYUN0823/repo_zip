@@ -80,5 +80,11 @@
 			ifcgUseNy = #{ifcgUseNy}
 		WHERE ifcgSeq = #{ifcgSeq}
 	</update>
-
+	
+	<update id="uelete">
+		UPDATE codeGroup SET
+			ifcgDelNy = 1
+		WHERE ifcgSeq = #{ifcgSeq}
+	</update>
+	
 </mapper>

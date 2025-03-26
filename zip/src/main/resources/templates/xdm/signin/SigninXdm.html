@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Focus - Bootstrap Admin Dashboard </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/xdm/template/admin_ui/images/favicon.png">
+    <link href="/xdm/template/admin_ui/css/style.css" rel="stylesheet">
+<style>
+/* 					빨간색 테두리 */
+					.redOutline {
+					    border: 2px solid red; 
+					}
+					
+/* 					빨간색 에러 텍스트 */
+					.errorText {
+					    color: red;
+					    font-size: 12px; /* 텍스트 크기 */
+					}
+</style>
+</head>
+
+<body class="h-100">
+    <div class="authincation h-100">
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+                                    <h4 class="text-center mb-4">Sign in your account</h4>
+                                    <form action="/xdm/member/MemberXdmList" id="formLogin">
+                                        <div class="form-group">
+                                            <label><strong>이메일</strong></label>
+                                            <input type="email" id="email" class="form-control" value="hello@example.com">
+                                            <div id="id" class="errorText"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><strong>비밀번호</strong></label>
+                                            <input type="password" id="password" class="form-control" value="Password">
+                                            <div id="pass" class="errorText"></div>
+                                        </div>
+                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                            <div class="form-group">
+                                                <div class="form-check ml-2">
+                                                    <input class="form-check-input" type="checkbox" id="basic_checkbox_1">
+                                                    <label class="form-check-label" for="basic_checkbox_1">아이디 기억하기</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <a href="page-forgot-password.html">비밀번호를 잊어버리셨나요?</a>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                        	<button type="button" class="btn btn-primary w-100 mb-3" id="buttonSignIn">로그인</button>
+                                        </div>
+                                    </form>
+                                    <div class="new-account mt-3">
+                                        <p>계정을 가지고 있나요? <a class="text-primary" href="./page-register.html">회원가입</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    
+    <script type="text/javascript">
+//     document.getElementById("buttonSignIn").onclick = function(event) {
+// 	    event.preventDefault(); // 기본 폼 제출 방지
+
+// 	    let check = true;
+
+// 	    const id = document.getElementById("id");
+// 	    const idError = document.getElementById("idError");
+
+// 	    if (id.value == "") {
+// 	    	id.classList.add("redOutline");
+// 	    	idError.textContent = "이메일을 입력하세요.";
+	        
+// 	    	check = false;
+// 	    } else {
+// 	    	id.classList.remove("redOutline");
+// 	    	idError.textContent = "";
+// 	    }
+
+// 		const pass = document.getElementById("pass");
+// 	    const passError = document.getElementById("passError");
+
+// 	    if (pass.value == "") {
+// 	    	pass.classList.add("redOutline");
+// 	    	pass.textContent = "비밀번호를 입력하세요.";
+	        
+// 	    	check = false;
+// 	    } else {
+// 	    	pass.classList.remove("redOutline");
+// 	    	pass.textContent = "";
+// 	    }
+
+// 	    if (check) {
+// 			let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+// 			alertModal.show();
+// 	    }
+// 	}
+    
+		let goUrlXdmList = "/xdm/member/MemberXdmList";
+		
+		let form = document.getElementById("formLogin");
+	    let email = document.getElementById("email").value.trim();
+	    let password = document.getElementById("password").value.trim();
+    
+	function loginLogic (){
+		
+		
+		if(validation() == false) return false;
+		$.ajax({
+			async: true 
+			,cache: false
+			,type: "post"
+			/* ,dataType:"json" */
+			,url: "/xdm/signin/signinXdmProc"
+			/* ,data : $("#formLogin").serialize() */
+			,data : { "email" : $("#email").val(), "passWord" : $("#passWord").val()}
+			,success: function(response) {
+				if(response.rt != "success") {
+			 		document.getElementById("modalAlertTitle").innerText = "확 인";
+			 		document.getElementById("modalAlertBody").innerText = "일치하는 회원이 존재 하지 않습니다!";
+			 		$("#modalAlert").modal("show");
+				} else {
+					document.getElementById("buttonSignIn").onclick = function () {
+						form.action = goUrlXdmList;
+						form.submit();
+					}
+				}
+			}
+			,error : function(jqXHR, textStatus, errorThrown){
+				alert("어렵다..");
+			}
+		});
+	}
+    	
+    </script>
+    
+    <!-- Required vendors -->
+    <script src="/xdm/template/admin_ui/vendor/global/global.min.js"></script>
+    <script src="/xdm/template/admin_ui/js/quixnav-init.js"></script>
+    <script src="/xdm/template/admin_ui/js/custom.min.js"></script>
+	<script src="/xdm/jquery/datetimepicker/jquery-3.7.1.min.js"></script>
+</body>
+
+</html>

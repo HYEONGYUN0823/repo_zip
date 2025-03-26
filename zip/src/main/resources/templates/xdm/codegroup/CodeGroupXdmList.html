@@ -160,12 +160,9 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckIndeterminate">
-                                                        <label class="form-check-label"
-                                                            for="flexCheckIndeterminate"></label>
-                                                    </div>
+                                                    <label class="checkbox-inline">
+						                                <input type="checkbox" id="allCheckBox" onclick="allChecked()">
+						                            </label>
                                                 </td>
                                                 <td>
                                                     <b>#</b>
@@ -195,12 +192,9 @@
                                         	</tr>
                                             <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
                                                 <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckIndeterminate">
-                                                        <label class="form-check-label"
-                                                            for="flexCheckIndeterminate"></label>
-                                                    </div>
+                                                    <label class="checkbox-inline">
+					                                    <input type="checkbox" name="chk" class="chk"onclick="chkClicked()" value="">
+					                                </label>
                                                 </td>
                                                 <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
                                                 <td th:text="${list.ifcgUseNy}"></td>
@@ -219,91 +213,7 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <!-- <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckIndeterminate">
-                                                        <label class="form-check-label"
-                                                            for="flexCheckIndeterminate"></label>
-                                                    </div>
-                                                </td>
-                                                <td>41</td>
-                                                <td>Y</td>
-                                                <td>41</td>
-                                                <td><b style="color: rgb(42, 92, 255);">작품.연재사이트</b></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><b></b></td>
-                                                <td>9</td>
-                                                <td>1</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckIndeterminate">
-                                                        <label class="form-check-label"
-                                                            for="flexCheckIndeterminate"></label>
-                                                    </div>
-                                                </td>
-                                                <td>40</td>
-                                                <td>Y</td>
-                                                <td>40</td>
-                                                <td><b style="color: rgb(42, 92, 255);">결제.구매자거래상태</b></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>9</td>
-                                                <td>1</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckIndeterminate">
-                                                        <label class="form-check-label"
-                                                            for="flexCheckIndeterminate"></label>
-                                                    </div>
-                                                </td>
-                                                <td>39</td>
-                                                <td>Y</td>
-                                                <td>39</td>
-                                                <td><b style="color: rgb(42, 92, 255);">결제.판매자거래상태</b></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>10</td>
-                                                <td>1</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckIndeterminate">
-                                                        <label class="form-check-label"
-                                                            for="flexCheckIndeterminate"></label>
-                                                    </div>
-                                                </td>
-                                                <td>38</td>
-                                                <td>Y</td>
-                                                <td>38</td>
-                                                <td><b style="color: rgb(42, 92, 255);">결제.승인상태</b></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>7</td>
-                                                <td>1</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                             -->
+                                            
                                         </tbody>
                                     </table>
 
@@ -322,23 +232,23 @@
                                                         
                                                         
                                             <li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
-	<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
-		<i class="fa-solid fa-angle-left"></i>
-	</a>
-</li>
-<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item" style="cursor: pointer;">
-	<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"><!-- ${i.index} --></a>
-</li>
-<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" style="cursor: pointer;">
-	<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
-		<i class="fa-solid fa-angle-right"></i>
-	</a>
-</li>
+												<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
+													<i class="fa-solid fa-angle-left"></i>
+												</a>
+											</li>
+											<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item" style="cursor: pointer;">
+												<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"><!-- ${i.index} --></a>
+											</li>
+											<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" style="cursor: pointer;">
+												<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
+													<i class="fa-solid fa-angle-right"></i>
+												</a>
+											</li>
                                         </ul>
                                     </nav>
                                     
                                     <button type="button" class="btn btn-danger"><i class="fa-solid fa-x"></i></button>
-                                    <button type="button" class="btn btn-danger"><i
+                                    <button type="button" id="btnUel" class="btn btn-danger"><i
                                             class="fa-regular fa-trash-can"></i></button>
 <!--                                     <button type="button" onclick="location.href='/xdm/codegroup/CodeGroupXdmForm'" -->
 <!--                                         class="btn btn-primary" style="float: right;"><i -->
@@ -350,6 +260,27 @@
                                             class="fa-regular fa-file-excel"></i></button>
                                     <button type="button" class="btn btn-primary"
                                         style="float: right; margin-right: 4px;"><i class="fa-solid fa-u"></i></button>
+                                        
+                                        <!-- 삭제 모달 -->
+									
+									<div class="modal" id="uelModal" tabindex="-1" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">삭제 확인</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<p>삭제하시겠습니까?</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" id="btnUelSubmit" class="btn btn-danger">삭제</button>
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
                                 </div>
                             </div>
                         </div>
@@ -398,11 +329,46 @@
 	
 		let goUrlXdmList = "/xdm/codegroup/CodeGroupXdmList";
 		let goUrlXdmForm = "/xdm/codegroup/CodeGroupXdmForm";
+		let goUrlXdmUele = "/xdm/codeGroup/CodeGroupXdmUele";
 		
-		
-	
 		let form = document.querySelector("form[name=formList]");
 		let seq = document.querySelector("input[name=ifcgSeq]");
+		
+// 	    삭제 버튼 클릭 이벤트
+	    document.getElementById("btnUel").onclick = function (uelEvent) {
+	        uelEvent.preventDefault();  // 기본 동작을 막음 (폼 제출 등을 방지)
+	        
+// 	        체크된 항목이 있는지 확인
+	        let checkedCheckboxes = document.querySelectorAll("input[name='chk']:checked");
+	        if (checkedCheckboxes.length > 0) {
+	            let alertModal = new bootstrap.Modal(document.getElementById("uelModal"));
+	            alertModal.show();  // 삭제 확인 모달을 띄움
+	        } else {
+	            alert("삭제할 항목을 선택해주세요.");
+	        }
+	    }
+	    
+// 	    삭제 모달에서 삭제 버튼 클릭 시
+	    document.getElementById("btnUelSubmit").onclick = function () {
+	        let seqValues = [];
+	        let delNyValues = [];
+
+// 	        선택된 체크박스에서 ifcgSeq 값과 ifdgDelNy 값을 추출
+	        document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
+	            seqValues.push(checkbox.value);  // 체크된 체크박스의 value 값 (ifcgSeq)
+	            delNyValues.push("1");  // ifdgDelNy 값 (삭제 표시)
+	        });
+
+	        if (seqValues.length > 0) {
+// 	            ifcgSeq 값을 서버에 보내기 위해 연결
+	            document.querySelector("input[name='ifcgSeq']").value = seqValues.join(",");
+	            document.querySelector("input[name='ifdgDelNy']").value = delNyValues.join(","); // ifdgDelNy를 업데이트
+
+// 	            폼을 제출하여 삭제 요청
+	            formList.action = goUrlXdmUele;
+	            formList.submit();
+	        }
+	    }
 		
 		
 		goList = function (thisPage) {
@@ -433,6 +399,63 @@
 		    form.submit();
 		}
 		
+		
+		
+	    // 체크박스 클릭 시 삭제할 항목 업데이트
+	    function updateSeqValues() {
+	        let seqValues = [];
+	        let delNyValues = [];
+	        document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
+	            seqValues.push(checkbox.value);
+	            delNyValues.push("1");  // 선택된 항목의 ifdgDelNy 값을 "1"로 설정
+	        });
+
+	        let seqInput = document.querySelector("input[name='ifcgSeq']");
+	        let delNyInput = document.querySelector("input[name='ifdgDelNy']");
+
+	        if (seqValues.length > 0) {
+	            seqInput.value = seqValues.join(",");
+	            delNyInput.value = delNyValues.join(",");  // ifdgDelNy 값을 업데이트
+	        } else {
+	            seqInput.value = "";
+	            delNyInput.value = "";
+	        }
+	    }
+
+	    // 체크박스 클릭 시 seq 및 delNy 업데이트
+	    document.querySelectorAll("input[name='chk']").forEach(function (checkbox) {
+	        checkbox.addEventListener("click", function () {
+	            updateSeqValues();
+	        });
+	    });
+
+	    // 체크박스 전체 선택 클릭 이벤트
+	    function allChecked(target) {
+	        const checkbox = document.getElementById('allCheckBox');
+	        const is_checked = checkbox.checked;
+
+	        if (is_checked) {
+	            chkAllChecked();
+	        } else {
+	            chkAllUnChecked();
+	        }
+
+	        updateSeqValues();  // 전체 선택 후에도 ifcgSeq 및 ifdgDelNy 값을 업데이트
+	    }
+
+	    // 체크박스 전체 체크
+	    function chkAllChecked() {
+	        document.querySelectorAll(".chk").forEach(function (v) {
+	            v.checked = true;
+	        });
+	    }
+
+	    // 체크박스 전체 체크 해제
+	    function chkAllUnChecked() {
+	        document.querySelectorAll(".chk").forEach(function (v) {
+	            v.checked = false;
+	        });
+	    }
 	</script>
 	
 </body>

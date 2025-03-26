@@ -61,13 +61,13 @@ public class CodeVo {
 			setStartRnumForMysql((getRowNumToShow() * (getThisPage()-1)));
 		}
 		
-//		System.out.println("getThisPage():" + getThisPage());
-//		System.out.println("getTotalRows():" + getTotalRows());
-//		System.out.println("getRowNumToShow():" + getRowNumToShow());
-//		System.out.println("getTotalPages():" + getTotalPages());
-//		System.out.println("getStartPage():" + getStartPage());
-//		System.out.println("getEndPage():" + getEndPage());
-//		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
+		System.out.println("getThisPage():" + getThisPage());
+		System.out.println("getTotalRows():" + getTotalRows());
+		System.out.println("getRowNumToShow():" + getRowNumToShow());
+		System.out.println("getTotalPages():" + getTotalPages());
+		System.out.println("getStartPage():" + getStartPage());
+		System.out.println("getEndPage():" + getEndPage());
+		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
 		
 	}
 	

@@ -30,7 +30,7 @@ public class CodeGroupController {
 //	}
 	
 	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmList")
-	public String CodeGroupXdmList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception {
+	public String codeGroupXdmList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception {
 
 //	    setSearch(vo); // 검색 조건 설정
 	    vo.setParamsPaging(codeGroupService.selectOneCount(vo));
@@ -51,7 +51,7 @@ public class CodeGroupController {
 	
 	
 	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmForm")
-	public String CodeGroupXdmForm(@ModelAttribute("vo") CodeGroupVo vo, CodeVo cvo, Model model) throws Exception{
+	public String codeGroupXdmForm(@ModelAttribute("vo") CodeGroupVo vo, CodeVo cvo, Model model) throws Exception{
 		
 		if (vo.getIfcgSeq().equals("0") || vo.getIfcgSeq().equals("")) {
 //			insert mode
@@ -63,7 +63,7 @@ public class CodeGroupController {
 	}
 	
 	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmInst")
-	public String CodeGroupXdmInst(CodeGroupDto codeGroupDto) {
+	public String codeGroupXdmInst(CodeGroupDto codeGroupDto) {
 		codeGroupService.insert(codeGroupDto);
 		
 		return "redirect:/xdm/codegroup/CodeGroupXdmList";
@@ -75,5 +75,13 @@ public class CodeGroupController {
 		
 		return "redirect:/xdm/codegroup/CodeGroupXdmList";
 	}
+	
+	@RequestMapping(value = "/xdm/codeGroup/CodeGroupXdmUele")
+	public String codeGroupXdmUele(CodeGroupDto codeGroupDto) {
+		codeGroupService.uelete(codeGroupDto);
+		
+		return "redirect:/xdm/codegroup/CodeGroupXdmList";
+	}
+	
 	
 }
