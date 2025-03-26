@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.a7a7.modeule.codegroup.CodeGroupService;
+import com.a7a7.modeule.codegroup.CodeGroupVo;
 
 @Controller
 public class CodeController {
 	@Autowired
 	CodeService codeService;
+	@Autowired
+	CodeGroupService codeGroupService; 
 	
 //	private void setSearch(CodeVo vo) {
 //	    if (vo.getShUseNy() != null && !vo.getShUseNy().equals("")) {
@@ -50,8 +53,10 @@ public class CodeController {
 	
 	
 	@RequestMapping(value = "/xdm/code/CodeXdmForm")
-	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception{
+	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, CodeGroupVo gvo, Model model) throws Exception{
 		System.out.println(codeService.selectTwo(vo));
+		
+		model.addAttribute("listCodeGroup", codeGroupService.selectList(gvo)); 
 		if (vo.getIfcdSeq().equals("0") || vo.getIfcdSeq().equals("")) {
 //			insert mode
 		} else {

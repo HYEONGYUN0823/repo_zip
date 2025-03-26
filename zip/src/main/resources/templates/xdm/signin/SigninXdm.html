@@ -33,16 +33,16 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Sign in your account</h4>
-                                    <form action="/xdm/member/MemberXdmList" id="formLogin">
+                                    <form id="formLogin">
                                         <div class="form-group">
                                             <label><strong>이메일</strong></label>
                                             <input type="email" id="email" class="form-control" value="hello@example.com">
-                                            <div id="id" class="errorText"></div>
+                                            <div id="emailError" class="errorText"></div>
                                         </div>
                                         <div class="form-group">
                                             <label><strong>비밀번호</strong></label>
-                                            <input type="password" id="password" class="form-control" value="Password">
-                                            <div id="pass" class="errorText"></div>
+                                            <input type="password" id="passWord" class="form-control" value="Password">
+                                            <div id="passWordError" class="errorText"></div>
                                         </div>
                                         <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                             <div class="form-group">
@@ -62,6 +62,24 @@
                                     <div class="new-account mt-3">
                                         <p>계정을 가지고 있나요? <a class="text-primary" href="./page-register.html">회원가입</a></p>
                                     </div>
+                                    
+                                    <!-- 모달 -->
+                                    
+                                    <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalAlertTitle">확 인</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div class="modal-body" id="modalAlertBody"></div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -72,56 +90,63 @@
     </div>
 
 
+    <script src="/xdm/template/admin_ui/vendor/global/global.min.js"></script>
+    <script src="/xdm/template/admin_ui/js/quixnav-init.js"></script>
+    <script src="/xdm/template/admin_ui/js/custom.min.js"></script>
+	<script src="/xdm/jquery/datetimepicker/jquery-3.7.1.min.js"></script>
     <!--**********************************
         Scripts
     ***********************************-->
     
     <script type="text/javascript">
-//     document.getElementById("buttonSignIn").onclick = function(event) {
-// 	    event.preventDefault(); // 기본 폼 제출 방지
-
-// 	    let check = true;
-
-// 	    const id = document.getElementById("id");
-// 	    const idError = document.getElementById("idError");
-
-// 	    if (id.value == "") {
-// 	    	id.classList.add("redOutline");
-// 	    	idError.textContent = "이메일을 입력하세요.";
-	        
-// 	    	check = false;
-// 	    } else {
-// 	    	id.classList.remove("redOutline");
-// 	    	idError.textContent = "";
-// 	    }
-
-// 		const pass = document.getElementById("pass");
-// 	    const passError = document.getElementById("passError");
-
-// 	    if (pass.value == "") {
-// 	    	pass.classList.add("redOutline");
-// 	    	pass.textContent = "비밀번호를 입력하세요.";
-	        
-// 	    	check = false;
-// 	    } else {
-// 	    	pass.classList.remove("redOutline");
-// 	    	pass.textContent = "";
-// 	    }
-
-// 	    if (check) {
-// 			let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
-// 			alertModal.show();
-// 	    }
-// 	}
     
-		let goUrlXdmList = "/xdm/member/MemberXdmList";
-		
-		let form = document.getElementById("formLogin");
-	    let email = document.getElementById("email").value.trim();
-	    let password = document.getElementById("password").value.trim();
+	let goUrlXdmList = "/xdm/member/MemberXdmList";
+	
+	let form = document.getElementById("formLogin");
+    let email = document.getElementById("email").value.trim();
+    let passWord = document.getElementById("passWord").value.trim();
     
-	function loginLogic (){
-		
+    
+    document.getElementById("buttonSignIn").onclick = function(event) {
+	    event.preventDefault(); // 기본 폼 제출 방지
+	    loginLogic();
+    }
+    
+	function validation() {
+	    let check = true;
+
+	    const email = document.getElementById("email");
+	    const emailError = document.getElementById("emailError");
+
+	    if (email.value == "") {
+	    	email.classList.add("redOutline");
+	    	emailError.textContent = "이메일을 입력하세요.";
+	        
+	    	check = false;
+	    } else {
+	    	email.classList.remove("redOutline");
+	    	emailError.textContent = "";
+	    }
+
+		const passWord = document.getElementById("passWord");
+	    const passWordError = document.getElementById("passWordError");
+
+	    if (passWord.value == "") {
+	    	passWord.classList.add("redOutline");
+	    	passWordError.textContent = "비밀번호를 입력하세요.";
+	        
+	    	check = false;
+	    } else {
+	    	passWord.classList.remove("redOutline");
+	    	passWordError.textContent = "";
+	    }
+
+	    return check;
+	}
+    
+
+    
+	function loginLogic() {
 		
 		if(validation() == false) return false;
 		$.ajax({
@@ -138,10 +163,8 @@
 			 		document.getElementById("modalAlertBody").innerText = "일치하는 회원이 존재 하지 않습니다!";
 			 		$("#modalAlert").modal("show");
 				} else {
-					document.getElementById("buttonSignIn").onclick = function () {
-						form.action = goUrlXdmList;
-						form.submit();
-					}
+					form.action = goUrlXdmList;
+					form.submit();
 				}
 			}
 			,error : function(jqXHR, textStatus, errorThrown){
@@ -153,10 +176,6 @@
     </script>
     
     <!-- Required vendors -->
-    <script src="/xdm/template/admin_ui/vendor/global/global.min.js"></script>
-    <script src="/xdm/template/admin_ui/js/quixnav-init.js"></script>
-    <script src="/xdm/template/admin_ui/js/custom.min.js"></script>
-	<script src="/xdm/jquery/datetimepicker/jquery-3.7.1.min.js"></script>
 </body>
 
 </html>
