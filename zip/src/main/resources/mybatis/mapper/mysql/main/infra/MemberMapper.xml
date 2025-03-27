@@ -75,6 +75,18 @@
 		ORDER BY seq DESC
 	</select>
 	
+	<select id="selectOneLogin" resultMap="resultMapObj">
+		SELECT
+			a.seq,
+			a.email,
+			a.passWord
+		FROM
+			userUi a
+		WHERE 1=1
+			AND a.email = #{email}
+			<if test="passWord != null and !passWord.equals('')">AND a.passWord = #{passWord}</if>
+	</select>
+	
 <!-- 	<select id="selectTwo" resultMap="resultMapObj"> -->
 <!-- 		SELECT -->
 <!-- 			seq, -->

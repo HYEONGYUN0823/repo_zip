@@ -158,6 +158,7 @@
 			/* ,data : $("#formLogin").serialize() */
 			,data : { "email" : $("#email").val(), "passWord" : $("#passWord").val()}
 			,success: function(response) {
+				console.log("서버 응답:", response);
 				if(response.rt != "success") {
 			 		document.getElementById("modalAlertTitle").innerText = "확 인";
 			 		document.getElementById("modalAlertBody").innerText = "일치하는 회원이 존재 하지 않습니다!";
@@ -168,13 +169,14 @@
 				}
 			}
 			,error : function(jqXHR, textStatus, errorThrown){
+				console.error("AJAX 요청 실패:", textStatus, errorThrown);
 				alert("어렵다..");
 			}
 		});
 	}
     	
     </script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Required vendors -->
 </body>
 

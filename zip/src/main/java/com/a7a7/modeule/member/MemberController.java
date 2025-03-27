@@ -26,21 +26,29 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/xdm/signin/signinXdmProc")
-	public Map<String, Object> signinXdmProc(MemberDto dto, HttpSession httpSession) throws Exception {
+	public Map<String, Object> signinXdmProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
-	    if ("hello@example.com".equals(dto.getEmail()) && "Password".equals(dto.getPassWord())) {
-	        returnMap.put("rt", "success");
-	    } else {
-	        returnMap.put("rt", "fail");
-	    }
+		MemberDto reMember = memberService.selectOneLogin(memberDto);
+		
+		if(reMember != null && reMember.getEmail() != null && !reMember.getEmail().equals(""))	{
+			returnMap.put("rt", "success");
+			
+			httpSession.setAttribute("sessSeqXdm", reMember.getSeq());
+			httpSession.setAttribute("sessIdXdm", reMember.getEmail());
+			httpSession.setAttribute("sessNameXdm", reMember.getLastName());
+		} else {
+			returnMap.put("rt", "fail");
+		}
+	    	
+		
 	    
 		return returnMap;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/xdm/signin/signoutXdmProc")
-	public Map<String, Object> signoutXdmProc(MemberDto dto, HttpSession httpSession) throws Exception {
+	public Map<String, Object> signoutXdmProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		returnMap.put("rt", "success");
@@ -48,13 +56,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/xdm/signin/signinXdm")
-	public String memberXdmList() {
-
+	public String memberXdmList(HttpSession httpSession, MemberDto memberDto) {
+		
 		return "xdm/signin/signinXdm";
 	}
 	
 	@RequestMapping(value = "/xdm/member/MemberXdmList")
-	public String memberXdmList(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
+	public String memberXdmList(@ModelAttribute("vo") MemberVo vo, Model model, HttpSession httpSession) throws Exception {
 		
 	    vo.setParamsPaging(memberService.selectOneCount(vo));
 

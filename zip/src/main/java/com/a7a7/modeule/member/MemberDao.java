@@ -19,4 +19,6 @@ public interface MemberDao {
 	
 	public int selectOneCount(MemberVo vo);
 	
+	public MemberDto selectOneLogin(MemberDto memberDto);
+	
 }

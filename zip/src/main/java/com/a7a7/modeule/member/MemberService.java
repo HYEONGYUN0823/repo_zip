@@ -35,4 +35,8 @@ public class MemberService {
 		return memberDao.update(memberDto);
 	}
 	
+	public MemberDto selectOneLogin(MemberDto memberDto) {
+		return memberDao.selectOneLogin(memberDto);
+	}
+	
 }
