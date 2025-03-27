@@ -2,11 +2,10 @@ package com.a7a7.modeule.member;
 
 public class MemberDto {
 	
-	
 	private String seq;
 	private String firstName;
 	private String lastName;
-	private String gender;
+	private int gender;
 	private String btd;
 	private String email;
 	private String passWord;
@@ -14,8 +13,14 @@ public class MemberDto {
 	private String score;
 	private String delNy;
 	private String admSignin;
+	private String mobileCarrier;
+	
 
 	private String xifcdSeqCount;	// 갯수
+	
+//	-----
+	
+	
 
 	public String getSeq() {
 		return seq;
@@ -41,11 +46,11 @@ public class MemberDto {
 		this.lastName = lastName;
 	}
 
-	public String getGender() {
+	public int getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
 
@@ -112,6 +117,16 @@ public class MemberDto {
 	public void setXifcdSeqCount(String xifcdSeqCount) {
 		this.xifcdSeqCount = xifcdSeqCount;
 	}
+
+	public String getMobileCarrier() {
+		return mobileCarrier;
+	}
+
+	public void setMobileCarrier(String mobileCarrier) {
+		this.mobileCarrier = mobileCarrier;
+	}
+	
+	
 	
 //	-----
 	

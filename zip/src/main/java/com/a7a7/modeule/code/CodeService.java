@@ -25,8 +25,8 @@ public class CodeService {
 		return codeDao.selectOne(vo);
 	}
 	
-	public CodeDto selectTwo(CodeVo vo) {
-		return codeDao.selectTwo(vo);
+	public CodeDto selectTwo(CodeDto codeDto) {
+		return codeDao.selectTwo(codeDto);
 	}
 	
 	public int insert(CodeDto codeDto) {
@@ -36,7 +36,6 @@ public class CodeService {
 	public int update(CodeDto codeDto) {
 		return codeDao.update(codeDto);
 	}
-	
 	
     @PostConstruct
 	public void selectListCachedCodeArrayList() throws Exception {

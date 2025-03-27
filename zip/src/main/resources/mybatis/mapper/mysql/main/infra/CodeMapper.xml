@@ -10,7 +10,7 @@
 		LEFT JOIN
 			codeGroup b
 		ON
-			a.ifcdSeq = b.ifcgSeq
+			a.ifcgSeq = b.ifcgSeq
 		WHERE 1=1
 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.ifcdUseNy = #{shUseNy}</if>
         <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcdDelNy = #{shDelNy}</if>
@@ -44,7 +44,7 @@
 			    b.ifcgName
 		<include refid="selectCommon"></include>
 		) aa
-		limit #{pageNumToShow} offset #{startRnumForMysql}
+		limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
 	
 	<select id="selectOne" resultMap="resultMapObj">
@@ -60,7 +60,8 @@
 			ifcdSeq,
 			ifcdName,
 			ifcdDelNy,
-			ifcdUseNy
+			ifcdUseNy,
+			ifcgSeq
 		FROM
 			code
 		WHERE 1=1
@@ -93,16 +94,16 @@
 		WHERE ifcdSeq = #{ifcdSeq}
 	</update>
 	
-	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
+		<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
 		SELECT 
-			ifcdSeq,
-			ifcdName,
-			ifcgSeq
+			ifcdSeq
+			, ifcdName
+			, ifcgSeq
 		FROM
 			code
 		WHERE 1=1
 			AND ifcdDelNy = 0
 		    AND ifcdUseNy = 1
    </select>
-
+	
 </mapper>

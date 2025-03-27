@@ -353,20 +353,20 @@
 	        let seqValues = [];
 	        let delNyValues = [];
 
-// 	        선택된 체크박스에서 ifcgSeq 값과 ifdgDelNy 값을 추출
+// 	        선택된 체크박스에서 ifcgSeq 값과 ifcgDelNy 값을 추출
 	        document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
 	            seqValues.push(checkbox.value);  // 체크된 체크박스의 value 값 (ifcgSeq)
-	            delNyValues.push("1");  // ifdgDelNy 값 (삭제 표시)
+	            delNyValues.push("1");  // ifcgDelNy 값 (삭제 표시)
 	        });
 
 	        if (seqValues.length > 0) {
 // 	            ifcgSeq 값을 서버에 보내기 위해 연결
 	            document.querySelector("input[name='ifcgSeq']").value = seqValues.join(",");
-	            document.querySelector("input[name='ifdgDelNy']").value = delNyValues.join(","); // ifdgDelNy를 업데이트
+	            document.querySelector("input[name='ifcgDelNy']").value = delNyValues.join(","); // ifcgDelNy를 업데이트
 
 // 	            폼을 제출하여 삭제 요청
-	            formList.action = goUrlXdmUele;
-	            formList.submit();
+	            form.action = goUrlXdmUele;
+	            form.submit();
 	        }
 	    }
 		
@@ -407,15 +407,15 @@
 	        let delNyValues = [];
 	        document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
 	            seqValues.push(checkbox.value);
-	            delNyValues.push("1");  // 선택된 항목의 ifdgDelNy 값을 "1"로 설정
+	            delNyValues.push("1");  // 선택된 항목의 ifcgDelNy 값을 "1"로 설정
 	        });
 
 	        let seqInput = document.querySelector("input[name='ifcgSeq']");
-	        let delNyInput = document.querySelector("input[name='ifdgDelNy']");
+	        let delNyInput = document.querySelector("input[name='ifcgDelNy']");
 
 	        if (seqValues.length > 0) {
 	            seqInput.value = seqValues.join(",");
-	            delNyInput.value = delNyValues.join(",");  // ifdgDelNy 값을 업데이트
+	            delNyInput.value = delNyValues.join(",");  // ifcgDelNy 값을 업데이트
 	        } else {
 	            seqInput.value = "";
 	            delNyInput.value = "";

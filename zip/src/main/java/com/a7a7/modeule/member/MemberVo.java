@@ -1,6 +1,8 @@
 package com.a7a7.modeule.member;
 
 public class MemberVo {
+	
+	private String seq;
 
 //	paging
 	private int thisPage = 1;									// 현재 페이지
@@ -69,8 +71,21 @@ public class MemberVo {
 //		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
 		
 	}
-
 	
+	
+	
+	public String getSeq() {
+		return seq;
+	}
+
+
+
+	public void setSeq(String seq) {
+		this.seq = seq;
+	}
+
+
+
 	public int getThisPage() {
 		return thisPage;
 	}

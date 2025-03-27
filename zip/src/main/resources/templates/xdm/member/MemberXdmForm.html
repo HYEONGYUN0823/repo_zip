@@ -65,6 +65,7 @@
 					}
                 </style>
                 <form method="post" id="form">
+                <input type="hidden" name="seq" th:value="${vo.seq}">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -78,8 +79,15 @@
                                             <tr>
                                                 <td><b>코드</b><b class="red"> *</b>
                                                     <br>
-                                                    <input class="form-control" type="text" name="seq" id="seq" placeholder="자동생성"
-                                                        aria-label="Disabled input example" disabled>
+                                                    <input 
+	                                                    type="text" 
+	                                                    id="seq" 
+	                                                    name="seq" 
+	                                                    th:value="${item?.seq}" 
+	                                                    maxlength="20" 
+	                                                    placeholder="자동생성" 
+	                                                    disabled 
+	                                                    class="form-control"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -109,9 +117,18 @@
                                             	<td>
                                             		<label for="gender"><b><!-- 코드 -->성별</b><b class="red"> *</b></label>
                                                     <br>
-                                                    <input class="form-control" id="gender" name="gender" type="text"
-                                                        placeholder="한글, 영대소문자, 숫자">
+                                                    <select id="gender" name="gender" class="form-select">
+                                                    	<option value="">선택하세요</option>
+                                                        <option 
+	                                                        th:each="list : ${@codeService.selectListCachedCode(1)}" 
+	                                                        th:value="${list.ifcdSeq}" 
+	                                                        th:text="${list.ifcdName}" 
+	                                                        th:selected="${list.ifcdSeq} == ${item?.gender}">
+                                                        </option>
+                                                    </select>
                                                         <div id="genderError" class="errorText"></div>
+<!--                                                     <input class="form-control" id="gender" name="gender" type="text" -->
+<!--                                                         placeholder="한글, 영대소문자, 숫자"> -->
                                                 </td>
                                                 <!-- <td><label for="ifcgNickName"><b>닉네임코드 이름 (영문)</b></label>
                                                     <br>
@@ -148,9 +165,36 @@
                                                     <div id="delNyError" class="errorText"></div>
                                                 </td>
                                                 <td>
+                                                    <label for="mobileCarrier"><b class="rgb">통신사</b><b class="red"> *</b></label>
+                                                    <br>
+                                                    <select id="mobileCarrier" name="mobileCarrier" class="form-select">
+                                                    	<option 
+	                                                        th:each="list : ${@codeService.selectListCachedCode(2)}" 
+	                                                        th:value="${list.ifcdSeq}" 
+	                                                        th:text="${list.ifcdName}" 
+	                                                        th:selected="${list.ifcdSeq} == ${item?.mobileCarrier}">
+                                                        </option>
+                                                    </select>
+                                                    <div id="mobileCarrierError" class="errorText"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                            	<td><label for="price"><b><!-- 코드 -->가격</b><b class="red"> *</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="price" name="price" type="text"
+                                                        placeholder="한글, 영대소문자, 숫자">
+<!--                                                         <div id="btdError" class="errorText"></div> -->
+                                                </td>
+                                            	<td><label for="score"><b><!-- 코드 -->평점</b><b class="red"> *</b></label>
+                                                    <br>
+                                                    <input class="form-control" id="score" name="score" type="text"
+                                                        placeholder="한글, 영대소문자, 숫자">
+<!--                                                         <div id="btdError" class="errorText"></div> -->
+                                                </td>
+                                                <td>
                                                     <label for="admSignin"><b class="rgb">권한</b><b class="red"> *</b></label>
                                                     <br>
-                                                    <select id="admSignin" name="delNy" class="form-select">
+                                                    <select id="admSignin" name="admSignin" class="form-select">
                                                     	<option value="">선택하세요</option>
                                                         <option value="1">Y</option>
                                                         <option value="0">N</option>
@@ -158,118 +202,7 @@
                                                     <div id="admSigninError" class="errorText"></div>
                                                 </td>
                                             </tr>
-                                            <!-- <tr>
-                                                <td colspan="2">
-                                                    <label for="description"><b class="rgb">설명</b></label>
-                                                    <br>
-                                                    <textarea class="form-control" id="description"
-                                                        style="height: 100px"></textarea>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label for="daguk1"><b>다국어1</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="daguk1" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="daguk2"><b>다국어2</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="daguk2" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="daguk3"><b>다국어3</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="daguk3" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="daguk4"><b>다국어4</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="daguk4" type="text">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label for="daguk5"><b>다국어5</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="daguk5" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="daguk6"><b>다국어6</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="daguk6" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="daguk7"><b>다국어7</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="daguk7" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="daguk8"><b>다국어8</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="daguk8" type="text">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label for="yebi1"><b>예비1 (VARCHAR TYPE)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="yebi1" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="yebi2"><b>예비2 (VARCHAR TYPE)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="yebi2" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="yebi3"><b>예비3 (VARCHAR TYPE)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="yebi3" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="yebi4"><b>예비4 (VARCHAR TYPE)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="yebi4" type="text">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label for="yebi5"><b>예비1 (INT TYPE)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="yebi5" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="yebi6"><b>예비2 (INT TYPE)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="yebi6" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="yebi7"><b>예비3 (INT TYPE)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="yebi7" type="text">
-                                                </td>
-                                                <td>
-                                                    <label for="yebi8"><b>예비4 (INT TYPE)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="yebi8" type="text">
-                                                </td>
-                                            </tr> -->
-                                            <!-- <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-outline-dark"
-                                                        style="text-align: right;">
-                                                        <i class="fa-solid fa-list-ul"></i>
-                                                    </button>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <span style="float: right;">
-                                                        <button type="button" class="btn btn-primary"><i
-                                                                class="fa-solid fa-database"></i></button>
-                                                    </span>
-                                                </td>
-                                            </tr> -->
+                                            
                                         </tbody>
                                     </table>
                                     <button type="button" onclick="location.href='/xdm/member/MemberXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
@@ -304,7 +237,9 @@
 				<script type="text/javascript">
 				
 				let goUrlXdmInst = "/xdm/member/MemberXdmInst";
-				let goUrlXdmUpdt = "";
+				let goUrlXdmUpdt = "/xdm/member/MemberXdmUpdt";
+				
+				let seq = document.querySelector("input[name=seq]");
 				
 				const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
 				const modalElement = document.getElementById("alertModal");
@@ -410,13 +345,26 @@
 				    	delNy.classList.remove("redOutline");
 				    	delNyError.textContent = "";
 				    }
+
+				    const mobileCarrier = document.getElementById("mobileCarrier");
+				    const mobileCarrierError = document.getElementById("mobileCarrierError");
+
+				    if (mobileCarrier.value == "") {
+				    	mobileCarrier.classList.add("redOutline");
+				    	mobileCarrierError.textContent = "통신사를 선택하세요.";
+				        
+				    	check = false;
+				    } else {
+				    	mobileCarrier.classList.remove("redOutline");
+				    	mobileCarrierError.textContent = "";
+				    }
 				    
 				    const admSignin = document.getElementById("admSignin");
 				    const admSigninError = document.getElementById("admSigninError");
 
 				    if (admSignin.value == "") {
 				    	admSignin.classList.add("redOutline");
-				    	admSigninError.textContent = "삭제여부를 선택하세요.";
+				    	admSigninError.textContent = "권한여부를 선택하세요.";
 				        
 				    	check = false;
 				    } else {

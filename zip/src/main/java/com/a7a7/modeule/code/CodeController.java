@@ -53,15 +53,15 @@ public class CodeController {
 	
 	
 	@RequestMapping(value = "/xdm/code/CodeXdmForm")
-	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, CodeGroupVo gvo, Model model) throws Exception{
-		System.out.println(codeService.selectTwo(vo));
+	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, CodeGroupVo gvo, CodeDto codeDto, Model model) throws Exception{
+		System.out.println(codeService.selectTwo(codeDto));
 		
-		model.addAttribute("listCodeGroup", codeGroupService.selectList(gvo)); 
+		model.addAttribute("listCodeGroup", codeGroupService.selectListWithoutPaging()); 
 		if (vo.getIfcdSeq().equals("0") || vo.getIfcdSeq().equals("")) {
 //			insert mode
 		} else {
 //			update mode
-			model.addAttribute("item", codeService.selectTwo(vo));
+			model.addAttribute("item", codeService.selectTwo(codeDto));
 		}
 		return "xdm/code/CodeXdmForm";
 	}

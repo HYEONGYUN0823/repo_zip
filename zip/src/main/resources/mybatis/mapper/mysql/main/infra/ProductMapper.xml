@@ -43,7 +43,7 @@
 			    a.ifcgUseNy
 		<include refid="selectCommon"></include>
 		) aa
-		limit #{pageNumToShow} offset #{startRnumForMysql}
+		limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
 	
 	<select id="selectOne" resultMap="resultMapObj">

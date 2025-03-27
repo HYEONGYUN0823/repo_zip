@@ -47,24 +47,54 @@
 			    a.price,
 			    a.score,
 			    a.delNy,
-			    a.admSignin
+			    a.admSignin,
+			    a.mobileCarrier
 		<include refid="selectCommon"></include>
 		) aa
-		limit #{pageNumToShow} offset #{startRnumForMysql}
+		limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
 	
 	<select id="selectOne" resultMap="resultMapObj">
 		SELECT
-			ifcgSeq,
-		    ifcgName,
-		    ifcgDelNy,
-		    ifcgUseNy
+			seq,
+			firstName,
+			lastName,
+			gender,
+			btd,
+			email,
+			passWord,
+			price,
+			score,
+			delNy,
+			admSignin,
+			mobileCarrier
 		FROM
-			codeGroup
+			userUi
 		WHERE 1=1
-			AND ifcgSeq = #{ifcgSeq}
-		ORDER BY ifcgSeq DESC
+			AND seq = #{seq}
+		ORDER BY seq DESC
 	</select>
+	
+<!-- 	<select id="selectTwo" resultMap="resultMapObj"> -->
+<!-- 		SELECT -->
+<!-- 			seq, -->
+<!-- 			firstName, -->
+<!-- 			lastName, -->
+<!-- 			gender, -->
+<!-- 			btd, -->
+<!-- 			email, -->
+<!-- 			passWord, -->
+<!-- 			price, -->
+<!-- 			score, -->
+<!-- 			delNy, -->
+<!-- 			admSignin, -->
+<!-- 			mobileCarrier -->
+<!-- 		FROM -->
+<!-- 			userUi -->
+<!-- 		WHERE 1=1 -->
+<!-- 			AND seq = #{seq} -->
+<!-- 		ORDER BY seq DESC -->
+<!-- 	</select> -->
 	
 	<insert id="insert">
 		INSERT INTO codeGroup (
@@ -77,7 +107,8 @@
 			passWord,
 			price,
 			score,
-			delNy
+			delNy,
+			mobileCarrier
 		) values (
 			#{seq},
 			#{firstName},
@@ -88,16 +119,25 @@
 			#{passWord},
 			#{price},
 			#{score},
-			#{delNy}
+			#{delNy},
+			#{mobileCarrier}
 		)
 	</insert>
 	
 	<update id="update">
-		UPDATE codeGroup SET
-			ifcgName = #{ifcgName},
-			ifcgDelNy = #{ifcgDelNy},
-			ifcgUseNy = #{ifcgUseNy}
-		WHERE ifcgSeq = #{ifcgSeq}
+		UPDATE userUi SET
+			firstName = #{firstName},
+			lastName = #{lastName},
+			gender = #{gender},
+			btd = #{btd},
+			email = #{email},
+			passWord = #{passWord},
+			price = #{price},
+			score = #{score},
+			delNy = #{delNy},
+			mobileCarrier = #{mobileCarrier}
+		WHERE seq = #{seq}
 	</update>
+
 
 </mapper>

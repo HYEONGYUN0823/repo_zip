@@ -16,6 +16,7 @@
         	<form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+		<input type="hidden" name="seq">
         
         <div class="content-body">
             <div class="container-fluid">
@@ -185,7 +186,7 @@
                                                 <td><b>성별</b></td> <!-- 코드그룹 이름 -->
                                                 <td><b>이메일</b></td> <!-- 코드 이름(영문) -->
                                                 <td><b>비밀번호</b></td>
-                                                <td><b>삭제</b></td> <!-- 등록일 -->
+                                                <td><b>통신사</b></td> <!-- 등록일 -->
                                                 <td><b>가격</b></td> <!-- 갯수 -->
                                                 <td><b>평점<!-- 성별 --></b></td> <!-- 순서 -->
                                             </tr>
@@ -213,12 +214,22 @@
                                                 <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
                                                 <td th:text="${list.seq}"></td>
                                                 <td th:text="${list.firstName}"></td>
-                                                <td th:text="${list.lastName}"></td>
+                                               <td class="lastName align-middle fw-semi-bold">
+	                                               <a 
+		                                               href="javascript:void(0);" 
+		                                               th:text="${list.lastName}" 
+		                                               th:attr="onclick=|goForm('${list.seq}')|">
+	                                               </a>
+                                               </td>
                                                 <td th:text="${list.btd}"></td>
-                                                <td th:text="${list.gender}"></td>
+                                                <td th:each="codeList : ${@codeService.selectListCachedCode(1)}"
+                                                	th:if="${#strings.equals(codeList.ifcdSeq, list.gender)}"
+                                                	th:text="${codeList.ifcdName}">
+                                                </td>
+                                                
                                                 <td th:text="${list.email}"><b></b></td>
                                                 <td th:text="${list.passWord}"></td>
-                                                <td th:text="${list.delNy}"></td>
+                                                <td th:text="${list.mobileCarrier}"></td>
                                                 <td th:text="${list.price}"></td>
                                                 <td th:text="${list.score}"></td>
                                             </tr>
@@ -259,8 +270,7 @@
                                     <button type="button" class="btn btn-danger"><i class="fa-solid fa-x"></i></button>
                                     <button type="button" class="btn btn-danger"><i
                                             class="fa-regular fa-trash-can"></i></button>
-                                    <button type="button" onclick="location.href='/xdm/member/MemberXdmForm'"
-                                        class="btn btn-primary" style="float: right;"><i
+                                    <button type="button" id="btnForm" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
                                     <button type="button" class="btn btn-success"
                                         style="float: right; margin-right: 4px;"><i
@@ -313,10 +323,23 @@
 	
 	<script type="text/javascript">
 	
-		let goUrlXdmList = "/xdm/mdmber/MemberXdmList";
-		let goUrlXdmForm = "/xdm/mdmber/MemberXdmForm"
-	
+		let goUrlXdmList = "/xdm/member/MemberXdmList";
+		let goUrlXdmForm = "/xdm/member/MemberXdmForm";
+		
+		let seq = document.querySelector("input[name=seq]");	
 		let form = document.querySelector("form[name=formList]");
+		
+		document.getElementById("btnForm").onclick = function () {
+		    goForm(0);
+		}
+
+
+		goForm = function (keyValue) {
+		    seq.value = keyValue;
+		    form.action = goUrlXdmForm;
+		    form.submit();
+		}
+		
 		goList = function (thisPage) {
 		    document.querySelector("input[name=thisPage]").value = thisPage;
 		    form.action = goUrlXdmList;

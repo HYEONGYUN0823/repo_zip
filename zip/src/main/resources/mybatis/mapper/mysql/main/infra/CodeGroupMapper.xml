@@ -43,7 +43,26 @@
 			    a.ifcgUseNy
 		<include refid="selectCommon"></include>
 		) aa
-		limit #{pageNumToShow} offset #{startRnumForMysql}
+		limit #{rowNumToShow} offset #{startRnumForMysql}
+	</select>
+		
+	<select id="selectListWithoutPaging" resultMap="resultMapObj">
+		SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy
+			FROM codeGroup as a
+			WHERE 1=1
+            AND ifcgDelNy = 0
+			AND ifcgUseNy = 1
+		) aa
 	</select>
 	
 	<select id="selectOne" resultMap="resultMapObj">
