@@ -3,8 +3,7 @@ package com.a7a7.modeule.member;
 public class MemberDto {
 	
 	private String seq;
-	private String firstName;
-	private String lastName;
+	private String name;
 	private int gender;
 	private String btd;
 	private String email;
@@ -13,7 +12,7 @@ public class MemberDto {
 	private String score;
 	private String delNy;
 	private String admSignin;
-	private String mobileCarrier;
+	private int mobileCarrier;
 	
 
 	private String xifcdSeqCount;	// 갯수
@@ -30,20 +29,12 @@ public class MemberDto {
 		this.seq = seq;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getGender() {
@@ -118,11 +109,11 @@ public class MemberDto {
 		this.xifcdSeqCount = xifcdSeqCount;
 	}
 
-	public String getMobileCarrier() {
+	public int getMobileCarrier() {
 		return mobileCarrier;
 	}
 
-	public void setMobileCarrier(String mobileCarrier) {
+	public void setMobileCarrier(int mobileCarrier) {
 		this.mobileCarrier = mobileCarrier;
 	}
 	

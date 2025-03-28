@@ -2,6 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="~{xdm/include/head :: head}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -96,17 +97,17 @@
                                                     <input class="form-control" id="code01" type="text"
                                                         placeholder="영문소문자, 숫자">
                                                 </td> -->
-                                                <td><label for="firstName"><b><!-- 코드 -->성</b><b class="red"> *</b></label>
+<!--                                                 <td><label for="firstName"><b>코드성</b><b class="red"> *</b></label> -->
+<!--                                                     <br> -->
+<!--                                                     <input class="form-control" id="firstName" name="firstName" type="text" -->
+<!--                                                         placeholder="한글, 영대소문자, 숫자"> -->
+<!--                                                         <div id="firstNameError" class="errorText"></div> -->
+<!--                                                 </td> -->
+                                                <td><label for="name"><b><!-- 코드 -->이름</b><b class="red"> *</b></label>
                                                     <br>
-                                                    <input class="form-control" id="firstName" name="firstName" type="text"
+                                                    <input class="form-control" id="name" name="name" type="text"
                                                         placeholder="한글, 영대소문자, 숫자">
-                                                        <div id="firstNameError" class="errorText"></div>
-                                                </td>
-                                                <td><label for="lastName"><b><!-- 코드 -->이름</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="lastName" name="lastName" type="text"
-                                                        placeholder="한글, 영대소문자, 숫자">
-                                                        <div id="lastNameError" class="errorText"></div>
+                                                        <div id="nameError" class="errorText"></div>
                                                 </td>
                                                 <td><label for="btd"><b><!-- 코드 -->생일</b><b class="red"> *</b></label>
                                                     <br>
@@ -206,7 +207,7 @@
                                         </tbody>
                                     </table>
                                     <button type="button" onclick="location.href='/xdm/member/MemberXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
-                                    <button type="button" id="dtnSave" class="btn btn-primary" style="float: right;"><i
+                                    <button type="button" id="btnSave" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
                                             
 									<!-- 모달 -->
@@ -245,40 +246,40 @@
 				const modalElement = document.getElementById("alertModal");
 				const modalMessage = document.getElementById("modalMessage");
 				
-				function showModal(message) {
+				function showModal(message) { alert("123123213");
 					modalMessage.textContent = message;
 					alertModal.show();
 				}
 				
-				document.getElementById("dtnSave").onclick = function(event) {
+				document.getElementById("btnSave").onclick = function(event) {
 				    event.preventDefault(); // 기본 폼 제출 방지
 
 				    let check = true;
 
-				    const firstName = document.getElementById("firstName");
-				    const firstNameError = document.getElementById("firstNameError");
+// 				    const firstName = document.getElementById("firstName");
+// 				    const firstNameError = document.getElementById("firstNameError");
 
-				    if (firstName.value == "") {
-				    	firstName.classList.add("redOutline");
-				    	firstNameError.textContent = "성을 입력하세요.";
+// 				    if (firstName.value == "") {
+// 				    	firstName.classList.add("redOutline");
+// 				    	firstNameError.textContent = "성을 입력하세요.";
+				        
+// 				    	check = false;
+// 				    } else {
+// 				    	firstName.classList.remove("redOutline");
+// 				    	firstNameError.textContent = "";
+// 				    }
+
+				    const name = document.getElementById("name");
+				    const nameError = document.getElementById("nameError");
+
+				    if (name.value.trim() == "") {
+				    	name.classList.add("redOutline");
+				    	nameError.textContent = "이름을 입력하세요.";
 				        
 				    	check = false;
 				    } else {
-				    	firstName.classList.remove("redOutline");
-				    	firstNameError.textContent = "";
-				    }
-
-				    const lastName = document.getElementById("lastName");
-				    const lastNameError = document.getElementById("lastNameError");
-
-				    if (lastName.value.trim() == "") {
-				    	lastName.classList.add("redOutline");
-				    	lastNameError.textContent = "이름을 입력하세요.";
-				        
-				    	check = false;
-				    } else {
-				    	lastName.classList.remove("redOutline");
-				    	lastNameError.textContent = "";
+				    	name.classList.remove("redOutline");
+				    	nameError.textContent = "";
 				    }
 
 				    const btd = document.getElementById("btd");
@@ -433,21 +434,21 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="/xdm/template/admin_ui/vendor/global/global.min.js"></script>
-    <script src="/xdm/template/admin_ui/js/quixnav-init.js"></script>
-    <script src="/xdm/template/admin_ui/js/custom.min.js"></script>
+    <script src="/assets/xdm/template/admin_ui/vendor/global/global.min.js"></script>
+    <script src="/assets/xdm/template/admin_ui/js/quixnav-init.js"></script>
+    <script src="/assets/xdm/template/admin_ui/js/custom.min.js"></script>
 
 
 
-    <script src="/xdm/template/admin_ui/vendor/jquery-steps/build/jquery.steps.min.js"></script>
-    <script src="/xdm/template/admin_ui/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/assets/xdm/template/admin_ui/vendor/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="/assets/xdm/template/admin_ui/vendor/jquery-validation/jquery.validate.min.js"></script>
     <!-- Form validate init -->
-    <script src="/xdm/template/admin_ui/js/plugins-init/jquery.validate-init.js"></script>
+    <script src="/assets/xdm/template/admin_ui/js/plugins-init/jquery.validate-init.js"></script>
 
 
 
     <!-- Form step init -->
-    <script src="/xdm/template/admin_ui/js/plugins-init/jquery-steps-init.js"></script>
+    <script src="/assets/xdm/template/admin_ui/js/plugins-init/jquery-steps-init.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

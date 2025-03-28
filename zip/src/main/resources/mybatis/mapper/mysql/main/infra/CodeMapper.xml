@@ -94,7 +94,7 @@
 		WHERE ifcdSeq = #{ifcdSeq}
 	</update>
 	
-		<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
+	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
 		SELECT 
 			ifcdSeq
 			, ifcdName
@@ -105,5 +105,11 @@
 			AND ifcdDelNy = 0
 		    AND ifcdUseNy = 1
    </select>
+   
+   <update id="uelete">
+		UPDATE code SET
+			ifcdDelNy = 1
+		WHERE ifcdSeq = #{ifcdSeq}
+	</update>
 	
 </mapper>

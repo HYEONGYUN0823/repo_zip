@@ -37,6 +37,10 @@ public class CodeService {
 		return codeDao.update(codeDto);
 	}
 	
+	public int uelete(CodeDto codeDto) {
+		return codeDao.uelete(codeDto);
+	}
+	
     @PostConstruct
 	public void selectListCachedCodeArrayList() throws Exception {
 		List<CodeDto> codeListFromDb = (ArrayList<CodeDto>) codeDao.selectListCachedCodeArrayList();

@@ -20,5 +20,7 @@ public interface CodeDao {
 	public int update(CodeDto codeDto);
 
     public List<CodeDto> selectListCachedCodeArrayList();
+    
+    public int uelete(CodeDto codeDto);
 	
 }

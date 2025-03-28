@@ -9,17 +9,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Focus - Bootstrap Admin Dashboard </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/xdm/template/admin_ui/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/xdm/template/admin_ui/images/favicon.png">
     <!-- Form step -->
-    <link href="/xdm/template/admin_ui/vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
+    <link href="/assets/xdm/template/admin_ui/vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
     
-    <link href="/xdm/template/admin_ui/css/style.css" rel="stylesheet">
+    <link href="/assets/xdm/template/admin_ui/css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/734dfb419e.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    	<script src="/xdm/jquery/datetimepicker/jquery-3.7.1.min.js"></script>
+    	<script src="/assets/xdm/jquery/datetimepicker/jquery-3.7.1.min.js"></script>
         
 
 </head>
@@ -51,9 +51,9 @@
         ***********************************-->
         <div class="nav-header">
             <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="/xdm/template/admin_ui/images/logo.png" alt="">
-                <img class="logo-compact" src="/xdm/template/admin_ui/images/logo-text.png" alt="">
-                <img class="brand-title" src="/xdm/template/admin_ui/images/logo-text.png" alt="">
+                <img class="logo-abbr" src="/assets/xdm/template/admin_ui/images/logo.png" alt="">
+                <img class="logo-compact" src="/assets/xdm/template/admin_ui/images/logo-text.png" alt="">
+                <img class="brand-title" src="/assets/xdm/template/admin_ui/images/logo-text.png" alt="">
             </a>
 
             <div class="nav-control">
@@ -158,7 +158,7 @@
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="./app-profile.html" class="dropdown-item">
                                         <i class="icon-user"></i>
-                                        <span class="ml-2">Profile </span>
+                                        <span class="ml-2">[[${session.sessNameXdm}]]<!-- Profile --> </span>
                                     </a>
                                     <a href="./email-inbox.html" class="dropdown-item">
                                         <i class="icon-envelope-open"></i>

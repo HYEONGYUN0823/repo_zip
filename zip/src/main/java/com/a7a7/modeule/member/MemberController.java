@@ -31,12 +31,13 @@ public class MemberController {
 		
 		MemberDto reMember = memberService.selectOneLogin(memberDto);
 		
-		if(reMember != null && reMember.getEmail() != null && !reMember.getEmail().equals(""))	{
+		if(reMember != null)	{
 			returnMap.put("rt", "success");
 			
 			httpSession.setAttribute("sessSeqXdm", reMember.getSeq());
 			httpSession.setAttribute("sessIdXdm", reMember.getEmail());
-			httpSession.setAttribute("sessNameXdm", reMember.getLastName());
+			httpSession.setAttribute("sessPassWordXdm", reMember.getPassWord());
+			httpSession.setAttribute("sessNameXdm", reMember.getName());
 		} else {
 			returnMap.put("rt", "fail");
 		}
@@ -51,18 +52,26 @@ public class MemberController {
 	public Map<String, Object> signoutXdmProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
+		httpSession.setAttribute("sessSeqXdm", null);
+		httpSession.setAttribute("sessIdXdm", null);
+		httpSession.setAttribute("sessPasswordXdm", null);
 		returnMap.put("rt", "success");
 		return returnMap;
 	}
 	
 	@RequestMapping(value = "/xdm/signin/signinXdm")
-	public String memberXdmList(HttpSession httpSession, MemberDto memberDto) {
+	public String memberXdmList(HttpSession httpSession, MemberDto memberDto) throws Exception {
 		
 		return "xdm/signin/signinXdm";
 	}
 	
 	@RequestMapping(value = "/xdm/member/MemberXdmList")
-	public String memberXdmList(@ModelAttribute("vo") MemberVo vo, Model model, HttpSession httpSession) throws Exception {
+	public String memberXdmList(@ModelAttribute("vo") MemberVo vo, Model model, HttpSession httpSession, MemberDto memberDto) throws Exception {
+//		String id = (String) httpSession.getAttribute("sessIdXdm");
+//		
+//		if (id == null) {
+//			return "redirect:/xdm/signin/signinXdm";
+//		}
 		
 	    vo.setParamsPaging(memberService.selectOneCount(vo));
 

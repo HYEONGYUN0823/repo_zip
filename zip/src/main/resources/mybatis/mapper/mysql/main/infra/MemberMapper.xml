@@ -33,13 +33,12 @@
 		SELECT aa.* FROM (
 			SELECT
 				a.seq,
-			    a.firstName,
 <!-- 			    (select count(aa.ifcdSeq) from code aa  -->
 <!-- 			    	where 1=1  -->
 <!-- 			    		and aa.ifcdDelNy = 0 -->
 <!-- 			    		and aa.ifcgSeq = a.ifcgSeq -->
 <!-- 			    ) as xifcdSeqCount, -->
-			    a.lastName,
+			    a.name,
 			    a.gender,
 			    a.btd,
 			    a.email,
@@ -57,8 +56,7 @@
 	<select id="selectOne" resultMap="resultMapObj">
 		SELECT
 			seq,
-			firstName,
-			lastName,
+			name,
 			gender,
 			btd,
 			email,
@@ -79,7 +77,8 @@
 		SELECT
 			a.seq,
 			a.email,
-			a.passWord
+			a.passWord,
+			a.name
 		FROM
 			userUi a
 		WHERE 1=1
@@ -111,8 +110,7 @@
 	<insert id="insert">
 		INSERT INTO codeGroup (
 			seq,
-			firstName,
-			lastName,
+			name,
 			gender,
 			btd,
 			email,
@@ -123,8 +121,7 @@
 			mobileCarrier
 		) values (
 			#{seq},
-			#{firstName},
-			#{lastName},
+			#{name},
 			#{gender},
 			#{btd},
 			#{email},
@@ -138,8 +135,7 @@
 	
 	<update id="update">
 		UPDATE userUi SET
-			firstName = #{firstName},
-			lastName = #{lastName},
+			name = #{name},
 			gender = #{gender},
 			btd = #{btd},
 			email = #{email},

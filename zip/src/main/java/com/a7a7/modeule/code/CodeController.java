@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.a7a7.modeule.codegroup.CodeGroupService;
 import com.a7a7.modeule.codegroup.CodeGroupVo;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class CodeController {
@@ -80,5 +83,13 @@ public class CodeController {
 		
 		return "redirect:/xdm/code/CodeXdmList";
 	}
+	
+	@RequestMapping(value = "xdm/code/CodeXdmUele")
+	public String codeXdmUele(CodeDto codeDto) {
+		codeService.uelete(codeDto);
+		
+		return "redirect:/xdm/code/CodeXdmList";
+	}
+	
 	
 }

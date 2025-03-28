@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Focus - Bootstrap Admin Dashboard </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/xdm/template/admin_ui/images/favicon.png">
-    <link href="/xdm/template/admin_ui/css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/xdm/template/admin_ui/images/favicon.png">
+    <link href="/assets/xdm/template/admin_ui/css/style.css" rel="stylesheet">
 <style>
 /* 					빨간색 테두리 */
 					.redOutline {
@@ -90,10 +90,10 @@
     </div>
 
 
-    <script src="/xdm/template/admin_ui/vendor/global/global.min.js"></script>
-    <script src="/xdm/template/admin_ui/js/quixnav-init.js"></script>
-    <script src="/xdm/template/admin_ui/js/custom.min.js"></script>
-	<script src="/xdm/jquery/datetimepicker/jquery-3.7.1.min.js"></script>
+    <script src="/assets/xdm/template/admin_ui/vendor/global/global.min.js"></script>
+    <script src="/assets/xdm/template/admin_ui/js/quixnav-init.js"></script>
+    <script src="/assets/xdm/template/admin_ui/js/custom.min.js"></script>
+	<script src="/assets/xdm/jquery/datetimepicker/jquery-3.7.1.min.js"></script>
     <!--**********************************
         Scripts
     ***********************************-->
@@ -164,8 +164,7 @@
 			 		document.getElementById("modalAlertBody").innerText = "일치하는 회원이 존재 하지 않습니다!";
 			 		$("#modalAlert").modal("show");
 				} else {
-					form.action = goUrlXdmList;
-					form.submit();
+					location.href = "/xdm/member/MemberXdmList";
 				}
 			}
 			,error : function(jqXHR, textStatus, errorThrown){
