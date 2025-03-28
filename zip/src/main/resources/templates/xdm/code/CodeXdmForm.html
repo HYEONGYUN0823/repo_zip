@@ -212,6 +212,7 @@
 				
 				let goUrlXdmInst = "/xdm/code/CodeXdmInst";
 				let goUrlXdmUpdt = "/xdm/code/CodeXdmUpdt";
+				let goUrlXdmUele = "/xdm/code/CodeXdmUele";
 				
 				let seq = document.querySelector("input[name=ifcdSeq]");							/* ### */
 				
@@ -234,7 +235,7 @@
 				    
 				}
 				document.getElementById("btnUelSubmit").onclick = function () {
-				    let seq = document.querySelector("input[name=ifcgSeq]"); 
+				    let seq = document.querySelector("input[name=ifcdSeq]"); 
 				    let form = document.getElementById("form");
 				        form.action = goUrlXdmUele;
 

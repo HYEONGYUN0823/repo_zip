@@ -3,13 +3,14 @@
 
 <th:block th:fragment="footer">
 <footer>
-	<script src=/assets/xdm/jquery/datetimepicker/jquery-3.7.1.min.js></script>
 	<div class="footer">
             <div class="copyright">
                 <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
             </div>
 	</div>
 </footer>
+<!-- 	    <script src="/assets/xdm/jquery/jquery-3.7.1.min.js"></script> -->
+<!-- 	<script src="/assets/xdm/js/jquery.datetimepicker.full.js"></script> -->
 <script type="text/javascript">
 	$("#btnSignout").on("click", function(){
 		$.ajax({
@@ -31,3 +32,4 @@
 		});
 	});
 </script>
+</th:block>

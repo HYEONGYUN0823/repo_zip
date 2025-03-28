@@ -77,14 +77,14 @@ public class CodeController {
 		return "redirect:/xdm/code/CodeXdmList";
 	}
 	
-	@RequestMapping(value = "xdm/code/CodeXdmUpdt")
+	@RequestMapping(value = "/xdm/code/CodeXdmUpdt")
 	public String codeXdmUpdt(CodeDto codeDto) {
 		codeService.update(codeDto);
 		
 		return "redirect:/xdm/code/CodeXdmList";
 	}
 	
-	@RequestMapping(value = "xdm/code/CodeXdmUele")
+	@RequestMapping(value = "/xdm/code/CodeXdmUele")
 	public String codeXdmUele(CodeDto codeDto) {
 		codeService.uelete(codeDto);
 		

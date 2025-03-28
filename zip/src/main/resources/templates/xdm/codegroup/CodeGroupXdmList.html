@@ -4,10 +4,32 @@
 <div th:replace="~{xdm/include/head :: head}"></div>
 
 <body>
+    <script src="/assets/xdm/template/admin_ui/vendor/global/global.min.js"></script>
+    <script src="/assets/xdm/template/admin_ui/js/quixnav-init.js"></script>
+    <script src="/assets/xdm/template/admin_ui/js/custom.min.js"></script>
+
+
+
+    <script src="/assets/xdm/template/admin_ui/vendor/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="/assets/xdm/template/admin_ui/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Form validate init -->
+    <script src="/assets/xdm/template/admin_ui/js/plugins-init/jquery.validate-init.js"></script>
+
+
+
+    <!-- Form step init -->
+    <script src="/assets/xdm/template/admin_ui/js/plugins-init/jquery-steps-init.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="/assets/xdm/jquery/jquery-3.7.1.min.js"></script>
+	<script src="/assets/xdm/js/jquery.datetimepicker.full.js"></script>
+
 <form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
 		<input type="hidden" name="ifcgSeq">
+		<input type="hidden" name="ifcgDelNy">
         
         <div class="content-body">
             <div class="container-fluid">
@@ -25,6 +47,7 @@
                     </div>
                 </div>
                 <!-- row -->
+                <div th:replace="~{xdm/include/test:: test}"></div>
                 <style>
                     /* 글자색을 검정으로 변경 */
                     .table-responsive-sm th,
@@ -57,6 +80,7 @@
                                 <table style="width: 100%; table-layout: fixed;">
                                     <thead>
                                         <tr>
+                                        
                                             <td class="p-2">
                                                 <select id="shDelNy" name="shDelNy" class="form-select form-select-sm">
 													<option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
@@ -79,6 +103,7 @@
 												</select>
                                             </td>
                                             <td class="p-2">
+												<input id="datetimepicker" type="text">
 <!--                                                 <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
                                             </td>
                                             <td class="p-2">
@@ -193,7 +218,7 @@
                                             <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
                                                 <td>
                                                     <label class="checkbox-inline">
-					                                    <input type="checkbox" name="chk" class="chk"onclick="chkClicked()" value="">
+					                                    <input type="checkbox" name="chk" class="chk" th:value="${list.ifcgSeq}" onclick="chkClicked()">
 					                                </label>
                                                 </td>
                                                 <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
@@ -290,14 +315,13 @@
         </div>
         </form>
         <!-- main end -->
-    </div>
+
     <!--**********************************
             Content body end
         ***********************************-->
 
 
 <div th:replace="~{xdm/include/footer :: footer}"></div>
-    </div>
     <!--**********************************
         Main wrapper end
     ***********************************-->
@@ -306,157 +330,157 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="/assets/xdm/template/admin_ui/vendor/global/global.min.js"></script>
-    <script src="/assets/xdm/template/admin_ui/js/quixnav-init.js"></script>
-    <script src="/assets/xdm/template/admin_ui/js/custom.min.js"></script>
 
-
-
-    <script src="/assets/xdm/template/admin_ui/vendor/jquery-steps/build/jquery.steps.min.js"></script>
-    <script src="/assets/xdm/template/admin_ui/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <!-- Form validate init -->
-    <script src="/assets/xdm/template/admin_ui/js/plugins-init/jquery.validate-init.js"></script>
-
-
-
-    <!-- Form step init -->
-    <script src="/assets/xdm/template/admin_ui/js/plugins-init/jquery-steps-init.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 	
-	<script type="text/javascript">
-	
-		let goUrlXdmList = "/xdm/codegroup/CodeGroupXdmList";
-		let goUrlXdmForm = "/xdm/codegroup/CodeGroupXdmForm";
-		let goUrlXdmUele = "/xdm/codeGroup/CodeGroupXdmUele";
-		
-		let form = document.querySelector("form[name=formList]");
-		let seq = document.querySelector("input[name=ifcgSeq]");
-		
+<script type="text/javascript">
+
+    let goUrlXdmList = "/xdm/codegroup/CodeGroupXdmList";
+    let goUrlXdmForm = "/xdm/codegroup/CodeGroupXdmForm";
+    let goUrlXdmUele = "/xdm/codeGroup/CodeGroupXdmUele";
+    
+    let form = document.querySelector("form[name=formList]");
+    let seq = document.querySelector("input[name=ifcgSeq]");
+    
+    let seqInput = document.querySelector("input[name='ifcgSeq']");
+    let delNyInput = document.querySelector("input[name='ifcgDelNy']");
+    
 // 	    삭제 버튼 클릭 이벤트
-	    document.getElementById("btnUel").onclick = function (uelEvent) {
-	        uelEvent.preventDefault();  // 기본 동작을 막음 (폼 제출 등을 방지)
-	        
+    document.getElementById("btnUel").onclick = function (uelEvent) {
+        uelEvent.preventDefault();  // 기본 동작을 막음 (폼 제출 등을 방지)
+        
 // 	        체크된 항목이 있는지 확인
-	        let checkedCheckboxes = document.querySelectorAll("input[name='chk']:checked");
-	        if (checkedCheckboxes.length > 0) {
-	            let alertModal = new bootstrap.Modal(document.getElementById("uelModal"));
-	            alertModal.show();  // 삭제 확인 모달을 띄움
-	        } else {
-	            alert("삭제할 항목을 선택해주세요.");
-	        }
-	    }
-	    
+        let checkedCheckboxes = document.querySelectorAll("input[name='chk']:checked");
+        if (checkedCheckboxes.length > 0) {
+            let alertModal = new bootstrap.Modal(document.getElementById("uelModal"));
+            alertModal.show();  // 삭제 확인 모달을 띄움
+        } else {
+            alert("삭제할 항목을 선택해주세요.");
+        }
+    }
+    
 // 	    삭제 모달에서 삭제 버튼 클릭 시
-	    document.getElementById("btnUelSubmit").onclick = function () {
-	        let seqValues = [];
-	        let delNyValues = [];
+    document.getElementById("btnUelSubmit").onclick = function () {
+        let seqValues = [];
+        let delNyValues = [];
 
 // 	        선택된 체크박스에서 ifcgSeq 값과 ifcgDelNy 값을 추출
-	        document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
-	            seqValues.push(checkbox.value);  // 체크된 체크박스의 value 값 (ifcgSeq)
-	            delNyValues.push("1");  // ifcgDelNy 값 (삭제 표시)
-	        });
+        document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
+            seqValues.push(checkbox.value);  // 체크된 체크박스의 value 값 (ifcgSeq)
+            delNyValues.push("1");  // ifcgDelNy 값 (삭제 표시)
+        });
 
-	        if (seqValues.length > 0) {
+        if (seqValues.length > 0) {
 // 	            ifcgSeq 값을 서버에 보내기 위해 연결
-	            document.querySelector("input[name='ifcgSeq']").value = seqValues.join(",");
-	            document.querySelector("input[name='ifcgDelNy']").value = delNyValues.join(","); // ifcgDelNy를 업데이트
+            document.querySelector("input[name='ifcgSeq']").value = seqValues.join(",");
+            document.querySelector("input[name='ifcgDelNy']").value = delNyValues.join(","); // ifcgDelNy를 업데이트
 
 // 	            폼을 제출하여 삭제 요청
-	            form.action = goUrlXdmUele;
-	            form.submit();
-	        }
-	    }
-		
-		
-		goList = function (thisPage) {
-		    document.querySelector("input[name=thisPage]").value = thisPage;
-		    form.action = goUrlXdmList;
-		    form.submit();
-		}
-		
-		document.getElementById("btnSearch").onclick = function () {
-		    form.action = goUrlXdmList;
-		    form.submit();
-		};
-		
-		document.getElementById("changeRowNum").onchange = function () {
-		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-		    form.action = goUrlXdmList;
-		    form.submit();
-		}
-		
-		document.getElementById("btnForm").onclick = function () {
-		    goForm(0);
-		}
+            form.action = goUrlXdmUele;
+            form.submit();
+        }
+    }
+    
+    
+    goList = function (thisPage) {
+        document.querySelector("input[name=thisPage]").value = thisPage;
+        form.action = goUrlXdmList;
+        form.submit();
+    }
+    
+    document.getElementById("btnSearch").onclick = function () {
+        form.action = goUrlXdmList;
+        form.submit();
+    };
+    
+    document.getElementById("changeRowNum").onchange = function () {
+        document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
+        form.action = goUrlXdmList;
+        form.submit();
+    }
+    
+    document.getElementById("btnForm").onclick = function () {
+        goForm(0);
+    }
 
 
-		goForm = function (keyValue) {
-		    seq.value = keyValue;
-		    form.action = goUrlXdmForm;
-		    form.submit();
-		}
-		
-		
-		
-	    // 체크박스 클릭 시 삭제할 항목 업데이트
-	    function updateSeqValues() {
-	        let seqValues = [];
-	        let delNyValues = [];
-	        document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
-	            seqValues.push(checkbox.value);
-	            delNyValues.push("1");  // 선택된 항목의 ifcgDelNy 값을 "1"로 설정
-	        });
+    goForm = function (keyValue) {
+        seq.value = keyValue;
+        form.action = goUrlXdmForm;
+        form.submit();
+    }
+    
+    
+// 	    체크박스
+    
+    
+    // 체크박스 클릭 시 seq 및 delNy 업데이트
+    function updateSeqValues() {
+        let seqValues = [];
+        let delNyValues = [];
+        document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
+            seqValues.push(checkbox.value);
+            delNyValues.push("1");  // 선택된 항목의 ifcgDelNy 값을 "1"로 설정
+        });
 
-	        let seqInput = document.querySelector("input[name='ifcgSeq']");
-	        let delNyInput = document.querySelector("input[name='ifcgDelNy']");
 
-	        if (seqValues.length > 0) {
-	            seqInput.value = seqValues.join(",");
-	            delNyInput.value = delNyValues.join(",");  // ifcgDelNy 값을 업데이트
-	        } else {
-	            seqInput.value = "";
-	            delNyInput.value = "";
-	        }
-	    }
+        if (seqValues.length > 0) {
+            seqInput.value = seqValues.join(",");
+            delNyInput.value = delNyValues.join(",");  // ifcgDelNy 값을 업데이트
+        } else {
+            seqInput.value = "";
+            delNyInput.value = "";
+        }
+    }
 
-	    // 체크박스 클릭 시 seq 및 delNy 업데이트
-	    document.querySelectorAll("input[name='chk']").forEach(function (checkbox) {
-	        checkbox.addEventListener("click", function () {
-	            updateSeqValues();
-	        });
-	    });
+    // 체크박스 클릭 시 seq 및 delNy 업데이트
+    document.querySelectorAll("input[name='chk']").forEach(function (checkbox) {
+        checkbox.addEventListener("click", function () {
+            updateSeqValues();
+            updateAllCheckboxState();  // 개별 체크박스 클릭 시 전체 선택 체크박스 상태 업데이트
+        });
+    });
 
-	    // 체크박스 전체 선택 클릭 이벤트
-	    function allChecked(target) {
-	        const checkbox = document.getElementById('allCheckBox');
-	        const is_checked = checkbox.checked;
+    // 체크박스 전체 선택 클릭 이벤트
+    function allChecked(target) {
+        const checkbox = document.getElementById('allCheckBox');
+        const is_checked = checkbox.checked;
 
-	        if (is_checked) {
-	            chkAllChecked();
-	        } else {
-	            chkAllUnChecked();
-	        }
+        if (is_checked) {
+            chkAllChecked();
+        } else {
+            chkAllUnChecked();
+        }
 
-	        updateSeqValues();  // 전체 선택 후에도 ifcgSeq 및 ifdgDelNy 값을 업데이트
-	    }
+        updateSeqValues();  // 전체 선택 후에도 ifcgSeq 및 ifcgDelNy 값을 업데이트
+    }
 
-	    // 체크박스 전체 체크
-	    function chkAllChecked() {
-	        document.querySelectorAll(".chk").forEach(function (v) {
-	            v.checked = true;
-	        });
-	    }
+    // 체크박스 전체 체크
+    function chkAllChecked() {
+        document.querySelectorAll(".chk").forEach(function (v) {
+            v.checked = true;
+        });
+    }
 
-	    // 체크박스 전체 체크 해제
-	    function chkAllUnChecked() {
-	        document.querySelectorAll(".chk").forEach(function (v) {
-	            v.checked = false;
-	        });
-	    }
-	</script>
+    // 체크박스 전체 체크 해제
+    function chkAllUnChecked() {
+        document.querySelectorAll(".chk").forEach(function (v) {
+            v.checked = false;
+        });
+    }
+
+    // 전체 선택 체크박스 상태 업데이트
+    function updateAllCheckboxState() {
+        const allCheckbox = document.getElementById('allCheckBox');
+        const checkboxes = document.querySelectorAll("input[name='chk']");
+        const checkedCheckboxes = document.querySelectorAll("input[name='chk']:checked");
+        
+        allCheckbox.checked = checkboxes.length > 0 && checkboxes.length === checkedCheckboxes.length;
+    }
+    
+    jQuery('#datetimepicker').datetimepicker();
+    
+
+</script>
 	
 </body>
 
