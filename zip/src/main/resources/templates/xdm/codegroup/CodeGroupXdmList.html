@@ -3,27 +3,8 @@
 
 <div th:replace="~{xdm/include/head :: head}"></div>
 
-<body>
-    <script src="/assets/xdm/template/admin_ui/vendor/global/global.min.js"></script>
-    <script src="/assets/xdm/template/admin_ui/js/quixnav-init.js"></script>
-    <script src="/assets/xdm/template/admin_ui/js/custom.min.js"></script>
 
 
-
-    <script src="/assets/xdm/template/admin_ui/vendor/jquery-steps/build/jquery.steps.min.js"></script>
-    <script src="/assets/xdm/template/admin_ui/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <!-- Form validate init -->
-    <script src="/assets/xdm/template/admin_ui/js/plugins-init/jquery.validate-init.js"></script>
-
-
-
-    <!-- Form step init -->
-    <script src="/assets/xdm/template/admin_ui/js/plugins-init/jquery-steps-init.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src="/assets/xdm/jquery/jquery-3.7.1.min.js"></script>
-	<script src="/assets/xdm/js/jquery.datetimepicker.full.js"></script>
 
 <form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
@@ -103,7 +84,7 @@
 												</select>
                                             </td>
                                             <td class="p-2">
-												<input id="datetimepicker" type="text">
+												<input type="text" id="shDateStart" name="shDateStart" placeholder="시작일">
 <!--                                                 <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
                                             </td>
                                             <td class="p-2">
@@ -477,11 +458,29 @@
         allCheckbox.checked = checkboxes.length > 0 && checkboxes.length === checkedCheckboxes.length;
     }
     
-    jQuery('#datetimepicker').datetimepicker();
+//     jQuery('#datetimepicker').datetimepicker();
+jQuery.datetimepicker.setLocale('ko');
+
+jQuery('#shDateStart').datetimepicker({
+ i18n:{
+  de:{
+   months:[
+    'Januar','Februar','März','April',
+    'Mai','Juni','Juli','August',
+    'September','Oktober','November','Dezember',
+   ],
+   dayOfWeek:[
+    "So.", "Mo", "Di", "Mi",
+    "Do", "Fr", "Sa.",
+   ]
+  }
+ },
+ timepicker:false,
+ format:'Y-m-d'
+});
     
 
 </script>
 	
-</body>
 
 </html>
