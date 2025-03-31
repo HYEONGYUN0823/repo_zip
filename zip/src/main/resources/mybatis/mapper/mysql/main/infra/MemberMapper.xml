@@ -43,8 +43,6 @@
 			    a.btd,
 			    a.email,
 			    a.passWord,
-			    a.price,
-			    a.score,
 			    a.delNy,
 			    a.admSignin,
 			    a.mobileCarrier
@@ -61,8 +59,6 @@
 			btd,
 			email,
 			passWord,
-			price,
-			score,
 			delNy,
 			admSignin,
 			mobileCarrier
@@ -115,8 +111,6 @@
 			btd,
 			email,
 			passWord,
-			price,
-			score,
 			delNy,
 			mobileCarrier
 		) values (
@@ -126,8 +120,6 @@
 			#{btd},
 			#{email},
 			#{passWord},
-			#{price},
-			#{score},
 			#{delNy},
 			#{mobileCarrier}
 		)
@@ -140,8 +132,6 @@
 			btd = #{btd},
 			email = #{email},
 			passWord = #{passWord},
-			price = #{price},
-			score = #{score},
 			delNy = #{delNy},
 			mobileCarrier = #{mobileCarrier}
 		WHERE seq = #{seq}

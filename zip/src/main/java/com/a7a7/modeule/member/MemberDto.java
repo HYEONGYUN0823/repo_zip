@@ -8,8 +8,6 @@ public class MemberDto {
 	private String btd;
 	private String email;
 	private String passWord;
-	private String price;
-	private String score;
 	private String delNy;
 	private String admSignin;
 	private int mobileCarrier;
@@ -67,22 +65,6 @@ public class MemberDto {
 
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
-	}
-
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
-
-	public String getScore() {
-		return score;
-	}
-
-	public void setScore(String score) {
-		this.score = score;
 	}
 
 	public String getDelNy() {

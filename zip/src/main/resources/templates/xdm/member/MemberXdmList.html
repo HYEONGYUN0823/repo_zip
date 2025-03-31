@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
 <div th:replace="~{xdm/include/head :: head}"></div>
+<body>
 
         <!--**********************************
             Sidebar end
         ***********************************-->
 
-        <!--**********************************
-            Content body start
-        ***********************************-->
-        
-        <!-- main -->
                 <style>
                     /* 글자색을 검정으로 변경 */
                     .table-responsive-sm th,
@@ -37,6 +32,11 @@
                         table-layout: fixed;
                     }
                 </style>
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        
+        <!-- main -->
         	<form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
@@ -131,7 +131,6 @@
                                         <thead>
                                             <tr>
                                                 <td style="width: 7%;"></td>
-                                                <td style="width: 7%;"></td>
                                                 <td style="width: 10%"></td>
                                                 <td style="width: 10%"></td>
                                                 <td style="width: 7%"></td>
@@ -142,6 +141,7 @@
                                                 <td style="width: 7%"></td>
                                                 <td style="width: 5%"></td>
                                                 <td style="width: 4%"></td>
+                                                <td style="width: 7%;"></td>
                                             </tr>
                                             <tr>
                                                 <td>Total: <a th:text=${vo.totalRows}></a></td>
@@ -179,15 +179,15 @@
                                                     <b>#</b>
                                                 </td>
                                                 <td><b>코드</b></td> <!-- 수정일 -->
-                                                <td><b><!-- 성 --></b></td>
                                                 <td><b>이름</b></td> <!-- 코드그룹 코드 -->
-                                                <td><b>생일</b></td>
+                                                <td><b>생년월일</b></td>
                                                 <td><b>성별</b></td> <!-- 코드그룹 이름 -->
                                                 <td><b>이메일</b></td> <!-- 코드 이름(영문) -->
                                                 <td><b>비밀번호</b></td>
                                                 <td><b>통신사</b></td> <!-- 등록일 -->
-                                                <td><b>가격</b></td> <!-- 갯수 -->
-                                                <td><b>평점<!-- 성별 --></b></td> <!-- 순서 -->
+                                                <td><b></b></td> <!-- 갯수 -->
+                                                <td><b><!-- 성별 --></b></td> <!-- 순서 -->
+                                                <td><b><!-- 성 --></b></td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -212,7 +212,6 @@
                                                 </td>
                                                 <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
                                                 <td th:text="${list.seq}"></td>
-                                                <td></td><!-- th:text="${list.firstName}" -->
                                                <td class="name align-middle fw-semi-bold">
 	                                               <a 
 		                                               href="javascript:void(0);" 
@@ -232,8 +231,9 @@
                                                 	th:if="${#strings.equals(codeList.ifcdSeq, list.mobileCarrier)}"
                                                 	th:text="${codeList.ifcdName}">
                                                 </td>
-                                                <td th:text="${list.price}"></td>
-                                                <td th:text="${list.score}"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td><!-- th:text="${list.firstName}" -->
                                             </tr>
                       
                                         </tbody>
@@ -342,5 +342,5 @@
 		
 	</script>
 	
-
+</body>
 </html>

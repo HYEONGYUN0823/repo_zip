@@ -2,8 +2,32 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="~{xdm/include/head :: head}"></div>
-
-
+<body>
+	<style>
+		/* 글자색을 검정으로 변경 */
+		.table-responsive-sm th,
+		.table-responsive-sm td {
+			color: black !important;
+		}
+	
+		/* 테이블의 모든 선 제거 */
+		.table,
+		.table th,
+		.table td,
+		.table thead th,
+		.table tbody td {
+			border: none !important;
+		}
+	
+		.red {
+			color: red;
+		}
+	
+		.table {
+			width: 100%;
+			table-layout: fixed;
+		}
+	</style>
 	
 
 <form name="formList" id="formList" method="post" autocomplete="off">
@@ -27,31 +51,7 @@
                     </div>
                 </div>
                 <!-- row -->
-                <style>
-                    /* 글자색을 검정으로 변경 */
-                    .table-responsive-sm th,
-                    .table-responsive-sm td {
-                        color: black !important;
-                    }
 
-                    /* 테이블의 모든 선 제거 */
-                    .table,
-                    .table th,
-                    .table td,
-                    .table thead th,
-                    .table tbody td {
-                        border: none !important;
-                    }
-
-                    .red {
-                        color: red;
-                    }
-
-                    .table {
-                        width: 100%;
-                        table-layout: fixed;
-                    }
-                </style>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -361,14 +361,12 @@
         </div>
         </form>
         <!-- main end -->
-    </div>
     <!--**********************************
             Content body end
         ***********************************-->
 
 
 <div th:replace="~{xdm/include/footer :: footer}"></div>
-    </div>
     <!--**********************************
         Main wrapper end
     ***********************************-->
@@ -418,6 +416,6 @@
 		}
 		
 	</script>
-	
+</body>
 
 </html>

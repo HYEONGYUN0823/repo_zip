@@ -3507,3 +3507,10 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 		) aa
 		limit 5 offset 0
  {executed in 0 msec} 
+2025-03-31T16:47:23.162 [RMI TCP Connection(151)-127.0.0.1] INFO o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+2025-03-31T16:47:23.163 [RMI TCP Connection(151)-127.0.0.1] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-03-31T16:47:23.164 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-03-31T16:47:23.166 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-03-31T16:47:23.166 [RMI TCP Connection(151)-127.0.0.1] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-03-31T16:47:23.226 [RMI TCP Connection(151)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-11 - Shutdown initiated... 
+2025-03-31T16:47:23.229 [RMI TCP Connection(151)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-11 - Shutdown completed. 
