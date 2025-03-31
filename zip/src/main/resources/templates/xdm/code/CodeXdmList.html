@@ -3,14 +3,33 @@
 
 <div th:replace="~{xdm/include/head :: head}"></div>
 
+	<style>
+	    /* 글자색을 검정으로 변경 */
+	    .table-responsive-sm th,
+	    .table-responsive-sm td {
+	        color: black !important;
+	    }
+	
+	    /* 테이블의 모든 선 제거 */
+	    .table,
+	    .table th,
+	    .table td,
+	    .table thead th,
+	    .table tbody td {
+	        border: none !important;
+	    }
+	
+	    .red {
+	        color: red;
+	    }
+	
+	    .table {
+	        width: 100%;
+	        table-layout: fixed;
+	    }
+	</style>
 <body>
 
-    <script src="/assets/xdm/template/admin_ui/vendor/global/global.min.js"></script>
-    <script src="/assets/xdm/template/admin_ui/js/quixnav-init.js"></script>
-    <script src="/assets/xdm/template/admin_ui/js/custom.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 
 <form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
@@ -36,31 +55,6 @@
                     </div>
                 </div>
                 <!-- row -->
-                <style>
-                    /* 글자색을 검정으로 변경 */
-                    .table-responsive-sm th,
-                    .table-responsive-sm td {
-                        color: black !important;
-                    }
-
-                    /* 테이블의 모든 선 제거 */
-                    .table,
-                    .table th,
-                    .table td,
-                    .table thead th,
-                    .table tbody td {
-                        border: none !important;
-                    }
-
-                    .red {
-                        color: red;
-                    }
-
-                    .table {
-                        width: 100%;
-                        table-layout: fixed;
-                    }
-                </style>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -69,30 +63,33 @@
                                     <thead>
                                         <tr>
                                             <td class="p-2">
-                                                <select class="form-select form-select-sm"
-                                                    aria-label="Small select example">
-                                                    <option selected>N</option>
-                                                </select>
+                                                <select id="shDelNy" name="shDelNy" class="form-select form-select-sm">
+													<option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+													<option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+													<option value="0" th:selected="${vo.shDelNy == 0}">N</option>            
+												</select>
                                             </td>
                                             <td class="p-2">
-                                                <select class="form-select form-select-sm"
-                                                    aria-label="Small select example">
-                                                    <option selected>Y</option>
-                                                </select>
+                                                <select name="shUseNy" id="shUseNy" class="form-select form-select-sm">
+													<option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
+													<option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
+													<option value="0" th:selected="${vo.shUseNy == 0}">N</option>
+												</select>
                                             </td>
                                             <td class="p-2">
-                                                <select class="form-select form-select-sm"
-                                                    aria-label="Small select example">
-                                                    <option selected>날짜</option>
-                                                    <option value="1">등록일</option>
-                                                    <option value="2">수정일</option>
-                                                </select>
+                                                <select id="shOptionDate" name="shOptionDate" class="form-select form-select-sm">
+													<option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+													<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
+													<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+												</select>
                                             </td>
                                             <td class="p-2">
+                                            <input type="text" id="shDateStart" name="shDateStart" placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
 <!--                                                 <input class="form-control form-control-sm" type="text" -->
 <!--                                                     placeholder="2024-12-25" aria-label="default input example"> -->
                                             </td>
                                             <td class="p-2">
+                                            <input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" class="form-control form-control-sm" autocomplete="off">
 <!--                                                 <input class="form-control form-control-sm" type="text" -->
 <!--                                                     placeholder="2025-01-24" aria-label="default input example"> -->
                                             </td>
@@ -102,25 +99,27 @@
                                     <tbody>
                                         <tr>
                                             <td class="p-2">
-                                                <select class="form-select form-select-sm"
-                                                    aria-label="Small select example">
-                                                    <option selected>검색구분</option>
-                                                    <option value="1">코드그룹 코드</option>
-                                                    <option value="2">코드그룹 이름</option>
-                                                    <option value="3">코드</option>
-                                                    <option value="1">대체 코드</option>
-                                                    <option value="2">코드 이름</option>
-                                                    <option value="3">코드 이름(영문)</option>
-                                                </select>
+                                                <select id="shOption" name="shOption" class="form-select form-select-sm">
+													<option value="" th:selected="${vo.shOption == null}">검색구분</option>
+													<option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
+													<option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
+													<option value="3" th:selected="${vo.shOption == 3}">코드 이름</option>
+												</select>
                                             </td>
                                             <td class="p-2">
-                                                <input class="form-control form-control-sm" type="text"
-                                                    placeholder="검색어" aria-label="default input example">
+                                                <input type="text" 
+		                                               id="shValue" 
+		                                               name="shValue" 
+		                                               th:value="${vo.shValue}" 
+		                                               onkeyup="enterkey()" 
+		                                               placeholder="검색어" 
+		                                               class="form-control form-control-sm">
+												<div class="invalid-feedback" id="shValueFeedback"></div>
                                             </td>
                                             <td class="p-2">
-                                                <button type="button" class="btn btn-outline-dark btn-sm"><i
+                                                <button type="button" id="btnSearch" class="btn btn-outline-dark btn-sm"><i
                                                         class="fa-solid fa-magnifying-glass"></i></button>
-                                                <button type="button" class="btn btn-outline-dark btn-sm"><i
+                                                <button type="button" onclick="location.href='/xdm/code/CodeXdmList'" class="btn btn-outline-dark btn-sm"><i
                                                         class="fa-solid fa-rotate-right"></i></button>
                                             </td>
                                         </tr>
@@ -187,7 +186,7 @@
                                                 <td><b><!-- 갯수 --></b></td>
                                                 <td><b></b></td>
                                                 <td><b>등록일</b></td>
-                                                <td><b><!-- 수정일 --></b></td>
+                                                <td><b>수정일<!-- 수정일 --></b></td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -222,8 +221,8 @@
                                                 <td><b style="color: rgb(42, 92, 255);"><!-- 공식홈페이지 --></b></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td th:text=${list.ifcdRegDateTime}></td>
+                                                <td th:text=${list.ifcdModDateTime}></td>
                                             </tr>
                                            
                                         </tbody>
@@ -264,12 +263,10 @@
                 </div>
             </div>
         </div>
-    </div>
     </form>
     
 
         <div th:replace="~{xdm/include/footer :: footer}"></div>
-    </div>
 
     <!--**********************************
         Scripts
@@ -307,7 +304,54 @@
 		    form.submit();
 		}
 		
+	    document.getElementById("btnSearch").onclick = function () {
+	        form.action = goUrlXdmList;
+	        form.submit();
+	    };
+		
+//	     jQuery('#datetimepicker').datetimepicker();
+		jQuery.datetimepicker.setLocale('ko');
+
+		jQuery('#shDateStart').datetimepicker({
+		 i18n:{
+		  de:{
+		   months:[
+		    'Januar','Februar','März','April',
+		    'Mai','Juni','Juli','August',
+		    'September','Oktober','November','Dezember',
+		   ],
+		   dayOfWeek:[
+		    "So.", "Mo", "Di", "Mi",
+		    "Do", "Fr", "Sa.",
+		   ]
+		  }
+		 },
+		 timepicker:false,
+		 format:'Y-m-d'
+		});
+		    
+//		     jQuery('#datetimepicker').datetimepicker();
+		jQuery.datetimepicker.setLocale('ko');
+
+		jQuery('#shDateEnd').datetimepicker({
+		 i18n:{
+		  de:{
+		   months:[
+		    'Januar','Februar','März','April',
+		    'Mai','Juni','Juli','August',
+		    'September','Oktober','November','Dezember',
+		   ],
+		   dayOfWeek:[
+		    "So.", "Mo", "Di", "Mi",
+		    "Do", "Fr", "Sa.",
+		   ]
+		  }
+		 },
+		 timepicker:false,
+		 format:'Y-m-d'
+		});
+		    
+		
 	</script>
 </body>
-
 </html>

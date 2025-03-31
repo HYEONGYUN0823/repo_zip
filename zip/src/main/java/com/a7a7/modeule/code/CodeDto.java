@@ -12,6 +12,8 @@ public class CodeDto {
 	private String ifcdName;	// 코드 이름
 	private String ifcdDelNy;	// 코드 사용여부
 	private String ifcdUseNy;
+	private String ifcdRegDateTime;
+	private String ifcdModDateTime;
 	
 //	코드그룹
 	private String ifcgSeq;		// 코드그룹 시퀀스
@@ -65,6 +67,22 @@ public class CodeDto {
 	
 	public void setIfcgName(String ifcgName) {
 		this.ifcgName = ifcgName;
+	}
+
+	public String getIfcdRegDateTime() {
+		return ifcdRegDateTime;
+	}
+
+	public void setIfcdRegDateTime(String ifcdRegDateTime) {
+		this.ifcdRegDateTime = ifcdRegDateTime;
+	}
+
+	public String getIfcdModDateTime() {
+		return ifcdModDateTime;
+	}
+
+	public void setIfcdModDateTime(String ifcdModDateTime) {
+		this.ifcdModDateTime = ifcdModDateTime;
 	}
 	
 }

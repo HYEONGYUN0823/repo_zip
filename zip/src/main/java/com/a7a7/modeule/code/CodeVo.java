@@ -61,13 +61,13 @@ public class CodeVo {
 			setStartRnumForMysql((getRowNumToShow() * (getThisPage()-1)));
 		}
 		
-		System.out.println("getThisPage():" + getThisPage());
-		System.out.println("getTotalRows():" + getTotalRows());
-		System.out.println("getRowNumToShow():" + getRowNumToShow());
-		System.out.println("getTotalPages():" + getTotalPages());
-		System.out.println("getStartPage():" + getStartPage());
-		System.out.println("getEndPage():" + getEndPage());
-		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
+//		System.out.println("getThisPage():" + getThisPage());
+//		System.out.println("getTotalRows():" + getTotalRows());
+//		System.out.println("getRowNumToShow():" + getRowNumToShow());
+//		System.out.println("getTotalPages():" + getTotalPages());
+//		System.out.println("getStartPage():" + getStartPage());
+//		System.out.println("getEndPage():" + getEndPage());
+//		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
 		
 	}
 	
@@ -190,6 +190,10 @@ public class CodeVo {
 	public String getShDateStart() {
 		return shDateStart;
 	}
+	
+	public String getShDateStartDB() {
+		return shDateStart + " 00:00:00";
+	}
 
 
 	public void setShDateStart(String shDateStart) {
@@ -199,6 +203,10 @@ public class CodeVo {
 
 	public String getShDateEnd() {
 		return shDateEnd;
+	}
+	
+	public String getShDateEndDB() {
+		return shDateEnd + " 23:59:59";
 	}
 
 

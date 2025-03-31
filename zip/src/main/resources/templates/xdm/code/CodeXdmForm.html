@@ -166,7 +166,7 @@
                                         </tbody>
                                     </table>
                                     <button type="button" onclick="location.href='/xdm/code/CodeXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
-                                    <button type="button" id="dtnSave" class="btn btn-primary" style="float: right;"><i
+                                    <button type="button" id="btnSave" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
                                             
                                     <button type="button" id="btnUel" class="btn btn-danger">
@@ -252,7 +252,7 @@
 				    form.submit();
 				}
 				
-				document.getElementById("dtnSave").onclick = function(event) {
+				document.getElementById("btnSave").onclick = function(event) {
 				    event.preventDefault(); // 기본 폼 제출 방지
 
 				    let check = true;
@@ -307,7 +307,8 @@
 				    }
 				    
 				    if (check) {
-				        document.getElementById("form").submit();
+				    	let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+						alertModal.show();
 				    } else {
 				    	// bypass
 				    }
@@ -359,7 +360,6 @@
         ***********************************-->
 
 
-    </div>
     <!--**********************************
         Main wrapper end
     ***********************************-->

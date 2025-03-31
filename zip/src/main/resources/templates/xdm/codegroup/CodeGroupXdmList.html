@@ -4,31 +4,6 @@
 <div th:replace="~{xdm/include/head :: head}"></div>
 
 
-
-
-<form name="formList" id="formList" method="post" autocomplete="off">
-		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
-		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-		<input type="hidden" name="ifcgSeq">
-		<input type="hidden" name="ifcgDelNy">
-        
-        <div class="content-body">
-            <div class="container-fluid">
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-                            <h4>Code Group</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">시스템관리</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">코드그룹관리</a></li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- row -->
-                <div th:replace="~{xdm/include/test:: test}"></div>
                 <style>
                     /* 글자색을 검정으로 변경 */
                     .table-responsive-sm th,
@@ -54,6 +29,31 @@
                         table-layout: fixed;
                     }
                 </style>
+
+
+<form name="formList" id="formList" method="post" autocomplete="off">
+		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+		<input type="hidden" name="ifcgSeq">
+		<input type="hidden" name="ifcgDelNy">
+        
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Code Group</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">시스템관리</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">코드그룹관리</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- row -->
+                <div th:replace="~{xdm/include/test:: test}"></div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -84,10 +84,23 @@
 												</select>
                                             </td>
                                             <td class="p-2">
-												<input type="text" id="shDateStart" name="shDateStart" placeholder="시작일">
+												<input 
+													type="text" 
+													id="shDateStart" 
+													name="shDateStart" 
+													placeholder="시작일" 
+													class="form-control form-control-sm" 
+													autocomplete="off">
 <!--                                                 <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
                                             </td>
                                             <td class="p-2">
+                                            	<input 
+	                                            	type="text" 
+	                                            	id="shDateEnd" 
+	                                            	name="shDateEnd" 
+	                                            	placeholder="종료일" 
+	                                            	class="form-control form-control-sm" 
+	                                            	autocomplete="off">
 <!--                                                 <input type="text" id="shDateEnd" name="shDateEnd" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="종료일" class="form-control form-control-sm" autocomplete="off"> -->
                                             </td>
                                             <td class="p-2"></td>
@@ -116,7 +129,7 @@
                                             <td class="p-2">
                                                 <button type="button" id="btnSearch" class="btn btn-outline-dark btn-sm"><i
                                                         class="fa-solid fa-magnifying-glass"></i></button>
-                                                <button type="button" class="btn btn-outline-dark btn-sm"><i
+                                                <button type="button" onclick="location.href='/xdm/codegroup/CodeGroupXdmList'" class="btn btn-outline-dark btn-sm"><i
                                                         class="fa-solid fa-rotate-right"></i></button>
                                             </td>
                                         </tr>
@@ -182,7 +195,7 @@
                                                 <td><b>갯수</b></td> <!-- 갯수 -->
                                                 <td><b><!-- 성별 --></b></td> <!-- 순서 -->
                                                 <td><b>등록일</b></td> <!-- 등록일 -->
-                                                <td><b></b></td> <!-- 수정일 -->
+                                                <td><b>수정일</b></td> <!-- 수정일 -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -216,8 +229,8 @@
                                                 <td><b></b></td>
                                                 <td th:text="${list.xifcdSeqCount}"></td>
                                                 <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td th:text="${list.ifcgRegDateTime}"></td>
+                                                <td th:text="${list.ifcgModDateTime}"></td>
                                             </tr>
                                             
                                         </tbody>
@@ -475,6 +488,27 @@ jQuery('#shDateStart').datetimepicker({
    ]
   }
  },
+ datepicker:true,
+ timepicker:false,
+ format:'Y-m-d'
+});
+    
+
+jQuery('#shDateEnd').datetimepicker({
+ i18n:{
+  de:{
+   months:[
+    'Januar','Februar','März','April',
+    'Mai','Juni','Juli','August',
+    'September','Oktober','November','Dezember',
+   ],
+   dayOfWeek:[
+    "So.", "Mo", "Di", "Mi",
+    "Do", "Fr", "Sa.",
+   ]
+  }
+ },
+ datepicker:true,
  timepicker:false,
  format:'Y-m-d'
 });

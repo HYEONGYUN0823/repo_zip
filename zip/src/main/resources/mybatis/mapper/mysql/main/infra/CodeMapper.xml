@@ -14,15 +14,26 @@
 		WHERE 1=1
 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.ifcdUseNy = #{shUseNy}</if>
         <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcdDelNy = #{shDelNy}</if>
-<!-- 				
-				<choose>
-					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-				</choose>
- -->				
+			
+			<choose>
+				<when test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+	 				and shDateEnd != null and !shDateEnd.equals('')">
+					AND a.ifcdRegDateTime BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				</when>
+				<when test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 2
+	 				and shDateStart != null and !shDateStart.equals('')
+	 				and shDateEnd != null and !shDateEnd.equals('')">
+					AND a.ifcdRegDateTime BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				</when>
+ 			</choose>
+				
         <choose>
             <when test="shOption == 1">AND a.ifcdSeq = #{shValue}</when>
-            <when test="shOption == 2">AND a.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 2">AND b.ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND a.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
 <!--             <when test="shOption == 3">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when> -->
         </choose>
 		ORDER BY a.ifcdSeq DESC
@@ -40,6 +51,8 @@
 			    a.ifcdName,
 			    a.ifcdDelNy,
 			    a.ifcdUseNy,
+			    a.ifcdRegDateTime,
+			    a.ifcdModDateTime,
 			    b.ifcgSeq,
 			    b.ifcgName
 		<include refid="selectCommon"></include>
@@ -75,22 +88,25 @@
 			ifcdName,
 			ifcdDelNy,
 			ifcdUseNy,
+			ifcdRegDateTime,
 			ifcgSeq
 		) values (
 			#{ifcdSeq},
 			#{ifcdName},
 			#{ifcdDelNy},
 			#{ifcdUseNy},
+			now(),
 			#{ifcgSeq}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE code SET
-			ifcgName = #{ifcgName},
+			ifcgSeq = #{ifcgSeq},
 			ifcdName = #{ifcdName},
 			ifcdDelNy = #{ifcdDelNy},
 			ifcdUseNy = #{ifcdUseNy},
+			ifcdModDateTime = now()
 		WHERE ifcdSeq = #{ifcdSeq}
 	</update>
 	

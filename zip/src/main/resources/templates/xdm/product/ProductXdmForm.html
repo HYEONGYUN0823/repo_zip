@@ -33,23 +33,6 @@
         ***********************************-->
         
         <!-- main -->
-        
-        <div class="content-body">
-            <div class="container-fluid">
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-                            <h4>Product</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">시스템관리</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">코드관리</a></li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- row -->
                 <style>
                     /* 글자색을 검정으로 변경 */
                     .table-responsive-sm th,
@@ -86,6 +69,23 @@
 					    font-size: 12px; /* 텍스트 크기 */
 					}
                 </style>
+        
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Product</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">시스템관리</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">코드관리</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- row -->
                 <form method="post" id="form">
                 <div th:replace="~{xdm/codegroup/codeGroupXdmVo :: vo}"></div>
                 <div class="row">
@@ -143,8 +143,8 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button type="button" onclick="location.href='/xdm/codegroup/CodeGroupXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
-                                    <button type="button" id="dtnSave" class="btn btn-primary" style="float: right;"><i
+                                    <button type="button" onclick="location.href='/xdm/product/ProductXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
+                                    <button type="button" id="btnSave" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
                                     <button type="button" id="btnUel" class="btn btn-danger">
                                     	<i class="fa-regular fa-trash-can"></i>
@@ -193,7 +193,7 @@
 				    form.submit();
 				}
 				
-				document.getElementById("dtnSave").onclick = function(event) {
+				document.getElementById("btnSave").onclick = function(event) {
 				    event.preventDefault(); // 기본 폼 제출 방지
 
 				    let check = true;
@@ -263,7 +263,6 @@
         </div>
 
 <div th:replace="~{xdm/include/footer :: footer}"></div>
-    </div>
     <!--**********************************
         Main wrapper end
     ***********************************-->

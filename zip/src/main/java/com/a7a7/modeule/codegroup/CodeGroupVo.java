@@ -185,9 +185,13 @@ public class CodeGroupVo {
 		this.shOptionDate = shOptionDate;
 	}
 
-
+	
 	public String getShDateStart() {
 		return shDateStart;
+	}
+
+	public String getShDateStartDB() {
+		return shDateStart + " 00:00:00";
 	}
 
 
@@ -198,6 +202,10 @@ public class CodeGroupVo {
 
 	public String getShDateEnd() {
 		return shDateEnd;
+	}
+	
+	public String getShDateEndDB() {
+		return shDateEnd + " 23:59:59";
 	}
 
 

@@ -10,15 +10,26 @@
 		WHERE 1=1
 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.ifcgUseNy = #{shUseNy}</if>
         <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcgDelNy = #{shDelNy}</if>
-<!-- 				
-				<choose>
-					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-				</choose>
- -->				
+		
+		<choose>
+			<when test="shOptionDate != null and !shOptionDate.equals('')
+				and shOptionDate == 1
+				and shDateStart != null and !shDateStart.equals('')
+				and shDateEnd != null and !shDateEnd.equals('')">
+				AND a.ifcgRegDateTime BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+			</when>
+			<when test="shOptionDate != null and !shOptionDate.equals('')
+				and shOptionDate == 2
+				and shDateStart != null and !shDateStart.equals('')
+				and shDateEnd != null and !shDateEnd.equals('')">
+				AND a.ifcgRegDateTime BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+			</when>
+		</choose>
+				
         <choose>
             <when test="shOption == 1">AND a.ifcgSeq = #{shValue}</when>
             <when test="shOption == 2">AND a.ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
+            
 <!--             <when test="shOption == 3">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when> -->
         </choose>
 		ORDER BY a.ifcgSeq DESC
@@ -40,7 +51,9 @@
 			    		and aa.ifcgSeq = a.ifcgSeq
 			    ) as xifcdSeqCount,
 			    a.ifcgDelNy,
-			    a.ifcgUseNy
+			    a.ifcgUseNy,
+			    a.ifcgRegDateTime,
+			    a.ifcgModDateTime
 		<include refid="selectCommon"></include>
 		) aa
 		limit #{rowNumToShow} offset #{startRnumForMysql}
@@ -57,7 +70,9 @@
 			    		and aa.ifcgSeq = a.ifcgSeq
 			    ) as xifcdSeqCount,
 			    a.ifcgDelNy,
-			    a.ifcgUseNy
+			    a.ifcgUseNy,
+			    a.ifcgRegDateTime,
+			    a.ifcgModDateTime
 			FROM codeGroup as a
 			WHERE 1=1
             AND ifcgDelNy = 0
@@ -70,7 +85,9 @@
 			ifcgSeq,
 		    ifcgName,
 		    ifcgDelNy,
-		    ifcgUseNy
+		    ifcgUseNy,
+		    ifcgRegDateTime,
+		    ifcgModDateTime
 		FROM
 			codeGroup
 		WHERE 1=1
@@ -83,12 +100,14 @@
 			ifcgSeq,
 			ifcgName,
 			ifcgDelNy,
-			ifcgUseNy
+			ifcgUseNy,
+			ifcgRegDateTime
 		) values (
 			#{ifcgSeq},
 			#{ifcgName},
 			#{ifcgDelNy},
-			#{ifcgUseNy}
+			#{ifcgUseNy},
+			now()
 		)
 	</insert>
 	
@@ -96,13 +115,15 @@
 		UPDATE codeGroup SET
 			ifcgName = #{ifcgName},
 			ifcgDelNy = #{ifcgDelNy},
-			ifcgUseNy = #{ifcgUseNy}
+			ifcgUseNy = #{ifcgUseNy},
+			ifcgModDateTime = now()
 		WHERE ifcgSeq = #{ifcgSeq}
 	</update>
 	
 	<update id="uelete">
 		UPDATE codeGroup SET
-			ifcgDelNy = 1
+			ifcgDelNy = 1,
+			ifcgModDateTime = now()
 		WHERE ifcgSeq = #{ifcgSeq}
 	</update>
 	

@@ -6,6 +6,8 @@ public class CodeGroupDto {
 	private String ifcgName;		// 코드그룹 이름
 	private String ifcgDelNy;		// 사용여부
 	private String ifcgUseNy;
+	private String ifcgRegDateTime;
+	private String ifcgModDateTime;
 
 	private String xifcdSeqCount;	// 갯수
 	
@@ -50,5 +52,23 @@ public class CodeGroupDto {
 	public void setXifcdSeqCount(String xifcdSeqCount) {
 		this.xifcdSeqCount = xifcdSeqCount;
 	}
+
+	public String getIfcgRegDateTime() {
+		return ifcgRegDateTime;
+	}
+
+	public void setIfcgRegDateTime(String ifcgRegDateTime) {
+		this.ifcgRegDateTime = ifcgRegDateTime;
+	}
+
+	public String getIfcgModDateTime() {
+		return ifcgModDateTime;
+	}
+
+	public void setIfcgModDateTime(String ifcgModDateTime) {
+		this.ifcgModDateTime = ifcgModDateTime;
+	}
+	
+	
 	
 }
