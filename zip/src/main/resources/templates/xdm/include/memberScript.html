@@ -120,8 +120,8 @@
 		let delNy = passWordInvalid.value;
 
 		if (delNy != 1 && delNy != 0) {
-			delNyInvalid.classList.remove("is-valid");
-			delNyInvalid.classList.add("is-invalid");
+			delNyInvalid.classList.remove("is-invalid");
+			delNyInvalid.classList.add("is-valid");
 			dinvalidFeedback.style.display = "none";
 		} else {
 			delNyInvalid.classList.remove("is-invalid");
@@ -145,7 +145,6 @@
 			admSigninInvalid.classList.add("is-valid");
 			ainvalidFeedback.style.display = "block";
 		}
-	});
 
 	jQuery.datetimepicker.setLocale('ko');
 

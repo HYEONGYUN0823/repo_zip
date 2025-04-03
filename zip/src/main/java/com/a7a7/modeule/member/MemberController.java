@@ -88,7 +88,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/xdm/member/MemberXdmForm")
-	public String memberXdmForm(@ModelAttribute("vo") MemberVo vo, MemberDto memberDto, Model model) throws Exception{
+	public String memberXdmForm(@ModelAttribute("vo") MemberVo vo, MemberDto memberDto, Model model) throws Exception {
 		System.out.println(memberService.selectOne(memberDto));
 		
 		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
@@ -122,7 +122,17 @@ public class MemberController {
 		return "redirect:/xdm/member/MemberXdmList";
 	}
 	
-	
+	@RequestMapping(value = "/usr/userUi/MemberUsrForm")
+	public String userUiSignup(@ModelAttribute("vo") MemberVo vo, MemberDto memberDto, Model model) throws Exception {
+		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
+//			insert mode
+		} else {
+//			update mode
+			model.addAttribute("item", memberService.selectOne(memberDto));
+		}
+		
+		return "usr/userUi/MemberUsrForm";
+	}
 	
 	
 

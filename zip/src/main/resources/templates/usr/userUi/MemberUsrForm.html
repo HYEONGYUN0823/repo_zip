@@ -22,38 +22,7 @@
   <link rel="stylesheet" href="/usr/template/user_ui/assets/css/theme.min.css">
   <link rel="stylesheet" type="text/css" href="/assets/xdm/css/jquery.datetimepicker.css">
   
-  <style>
-/* 글자색을 검정으로 변경 */
-.table-responsive-sm th, .table-responsive-sm td {
-	color: black !important;
-}
-
-/* 테이블의 모든 선 제거 */
-.table, .table th, .table td, .table thead th, .table tbody td {
-	border: none !important;
-}
-
-.red {
-	color: red;
-}
-
-.table {
-	width: 100%;
-	table-layout: fixed;
-	/* 칸 너비 고정 */
-}
-/* 					빨간색 테두리 */
-.redOutline {
-	border: 2px solid red;
-}
-
-/* 					빨간색 에러 텍스트 */
-.errorText {
-	color: red;
-	font-size: 12px; /* 텍스트 크기 */
-}
-</style>
-
+  
 </head>
 
 <body>
@@ -102,6 +71,7 @@
 <!--                   <input type="text" class="form-control" id="formSignupfname" placeholder="성" required /> -->
 <!--                   <div class="invalid-feedback">성을 입력하세요.</div> -->
 <!--                 </div> -->
+			<input type="hidden" name="seq" th:value="${vo.seq}">
                 <div class="col">
 	            <input	type="hidden" 
 	            		id="seq" name="seq" 
@@ -124,24 +94,24 @@
                   <div class="invalid-feedback">이름을 입력하세요.</div>
                 </div>
                 <!-- 성별버튼 -->
-                <div class="col-12">
-					  <label for="gender" class="form-label">성별</label>
-					  <select id="gender" name="gender" class="form-select">
-					    <option value="" selected disabled>선택하세요</option>
-					    <option th:each="list : ${@codeService.selectListCachedCode(1)}"
-					            th:value="${list.ifcdSeq}"
-					            th:text="${list.ifcdName}"
-					            th:selected="${list.ifcdSeq} == ${item?.gender}">
-					    </option>
-					  </select>
-					  <div id="genderError" class="invalid-feedback" style="display: none;">성별을 선택하세요.</div>
-					</div>
+                <div class="cal-12">
+                  <select id="gender" name="gender" class="form-select" required>
+                   		<option value="" selected disabled>선택하세요</option>
+                       	<option 
+	                        th:each="list : ${@codeService.selectListCachedCode(1)}" 
+	                        th:value="${list.ifcdSeq}" 
+	                        th:text="${list.ifcdName}" 
+	                        th:selected="${list.ifcdSeq} == ${item?.gender}">
+                       	</option>
+                   </select>
+                   <div class="invalid-feedback">성별을 선택하세요.</div>
+                </div>
                 <form class="needs-validation" novalidate>
                   <!-- 전화번호 -->
                   <div class="col-12">
                     <div class="d-flex">
-                      <div class="me-1 col-lg-4">
-                        <select id="mobileCarrier" name="mobileCarrier" class="form-select">
+                      <div class="me-1 col-lg-5">
+                        <select id="mobileCarrier" name="mobileCarrier" class="form-select" required>
                         	<option value="" selected disabled>통신사</option>
                           	<option 
 		                      	th:each="list : ${@codeService.selectListCachedCode(2)}" 
@@ -152,20 +122,22 @@
                         </select>
                         <div class="invalid-feedback">통신사를 선택해주세요.</div>
                       </div>
-                      <div class="tel col-lg-8">
+                      <div class="tel col-lg-7">
                         <input type="tel" id="phoneNumber" maxlength="11" class="form-control" placeholder="휴대전화번호" required>
                         <div class="invalid-feedback">휴대전화번호를 정확히 입력해 주세요.</div>
                       </div>
                     </div>
                   </div>
-</
+
                   <!-- 생년월일 -->
                   <div class="col-12">
-  <label for="btd" class="form-label">생년월일</label>
-  <input type="text" id="btd" name="btd" th:value="${item?.btd}" placeholder="생년월일"
-         class="form-control form-control-sm" autocomplete="off">
-  <div id="btdError" class="invalid-feedback" style="display: none;">생년월일을 입력하세요.</div>
-</div>
+                    <div class="text">
+						<input type="text" id="btd"
+							name="btd" th:value="${item?.btd}" placeholder="생년월일"
+							class="form-control form-control-sm" autocomplete="off" required>
+                      <div class="invalid-feedback">생년월일을 정확히 입력해 주세요.</div>
+                    </div>
+                  </div>
                 </form>
                 <div class="col-12">
                   <!-- 이메일 -->
@@ -189,7 +161,7 @@
                 </div>
 
                 <!-- btn -->
-                <div class="col-12 d-grid"><button type="button" id="btnSave" class="btn btn-primary">회원가입</button></div>
+                <div class="col-12 d-grid"><button type="button" id="btnSubmit" class="btn btn-primary">회원가입</button></div>
 
                 <!-- text -->
                 <p>
@@ -381,183 +353,64 @@
 	<!-- Javascript-->
 	
 	<script type="text/javascript">
+		let goUrlXdmInst = "/xdm/member/MemberXdmInst";
 	
-	function phoneNumberCheck(number){
-		let result = /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
-		return result.test(number);
-	}
-	
-	  // 입력 필드 가져오기
-	  const phoneInput = document.getElementById("phoneNumber");
-	  const invalidFeedback = phoneInput.nextElementSibling;
+		function phoneNumberCheck(number){
+			let result = /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+			return result.test(number);
+		}
+		
+		  // 입력 필드 가져오기
+		  const phoneInput = document.getElementById("phoneNumber");
+		  const invalidFeedback = phoneInput.nextElementSibling;
 
-	  // 입력 시 유효성 검사
-	  phoneInput.addEventListener("input", function () {
-	    let phoneNumber = phoneInput.value;
+		  // 입력 시 유효성 검사
+		  phoneInput.addEventListener("input", function () {
+		    let phoneNumber = phoneInput.value;
 
-	    if (phoneNumber.length == 11 && phoneNumberCheck(phoneNumber)) {
-	      phoneInput.classList.remove("is-invalid");
-	      phoneInput.classList.add("is-valid");
-	      invalidFeedback.style.display = "none";
-	    } else {
-	      phoneInput.classList.remove("is-valid");
-	      phoneInput.classList.add("is-invalid");
-	      invalidFeedback.style.display = "block";
-	    }
-	  });
-	
-	document.getElementById("btnSave").addEventListener("click", function(event) {
-	    event.preventDefault(); // 기본 이벤트 방지
+		    if (phoneNumber.length == 11 && phoneNumberCheck(phoneNumber)) {
+		      phoneInput.classList.remove("is-invalid");
+		      phoneInput.classList.add("is-valid");
+		      invalidFeedback.style.display = "none";
+		    } else {
+		      phoneInput.classList.remove("is-valid");
+		      phoneInput.classList.add("is-invalid");
+		      invalidFeedback.style.display = "block";
+		    }
+		  });
+		  
+			const genderInvalid = document.getElementById("gender");
+			const ginvalidFeedback = genderInvalid.nextElementSibling;
+			
+			genderInvalid.addEventListener("input", function() {
+			    let gender = genderInvalid.value;
 
-	    let isValid = true; // 벨리데이션 체크 변수
-
-	     // **성별 벨리데이션**
-	     let gender = document.getElementById("gender");
-	     let genderError = document.getElementById("genderError");
-	     if (!gender.value) { // 선택되지 않은 경우
-	         gender.classList.add("is-invalid");
-	         genderError.style.display = "block"; // 오류 메시지 표시
-	         isValid = false;
-	     } else {
-	         gender.classList.remove("is-invalid");
-	         genderError.style.display = "none"; // 오류 메시지 숨김
-	     }
-
-	     // **통신사 벨리데이션**
-	     let mobileCarrier = document.getElementById("mobileCarrier");
-	     let mobileCarrierError = document.getElementById("mobileCarrierError");
-	     if (!mobileCarrier.value) {
-	         mobileCarrier.classList.add("is-invalid");
-	         mobileCarrierError.style.display = "block";
-	         isValid = false;
-	     } else {
-	         mobileCarrier.classList.remove("is-invalid");
-	         mobileCarrierError.style.display = "none";
-	     }
-
-	     // **생년월일 벨리데이션**
-	     let btd = document.getElementById("btd");
-	     let btdError = document.getElementById("btdError");
-	     if (!btd.value) {
-	         btd.classList.add("is-invalid");
-	         btdError.style.display = "block";
-	         isValid = false;
-	     } else {
-	         btd.classList.remove("is-invalid");
-	         btdError.style.display = "none";
-	     }
-
-	    // **모든 벨리데이션이 통과되면 폼 제출**
-	    if (isValid) {
-	        document.querySelector(".needs-validation").submit();
-	    }
-	});
-
-
+			    if (gender == 1 || gender == 2 || gender == 3) {
+			        // 올바른 값일 때 (1, 2, 3 중 하나)
+			        genderInvalid.classList.remove("is-invalid");
+			        genderInvalid.classList.add("is-valid");
+			        ginvalidFeedback.style.display = "none";
+			    } else {
+			        // 잘못된 값일 때
+			        genderInvalid.classList.remove("is-valid");
+			        genderInvalid.classList.add("is-invalid");
+			        ginvalidFeedback.style.display = "block";
+			    }
+			});
 			
 			
-// 			document.getElementById("btnSave").onclick = function(event) {
-// 				event.preventDefault(); // 기본 폼 제출 방지
+			document.getElementById("btnSubmit").onclick = function() {
+				let seq = document.querySelector("input[name=seq]");
+				let form = document.getElementById("form");
 
-// 				let check = true;
+				if (seq.value == "0" || seq.value == "") { // 추가
+					form.action = goUrlXdmInst;
+				} else { // 수정
+					// bypass
+				}
 
-// 				const btd = document.getElementById("btd");
-// 				const btdError = document.getElementById("btdError");
-
-// 				if (btd.value == "") {
-// 					btd.classList.add("redOutline");
-// 					btdError.textContent = "생일을 입력하세요.";
-
-// 					check = false;
-// 				} else {
-// 					btd.classList.remove("redOutline");
-// 					btdError.textContent = "";
-// 				}
-
-// 				const gender = document.getElementById("gender");
-// 				const genderError = document.getElementById("genderError");
-
-// 				if (gender.value == "") {
-// 					gender.classList.add("redOutline");
-// 					genderError.textContent = "성별을 입력하세요.";
-
-// 					check = false;
-// 				} else {
-// 					gender.classList.remove("redOutline");
-// 					genderError.textContent = "";
-// 				}
-
-// 				const mobileCarrier = document
-// 						.getElementById("mobileCarrier");
-// 				const mobileCarrierError = document
-// 						.getElementById("mobileCarrierError");
-
-// 				if (mobileCarrier.value == "") {
-// 					mobileCarrier.classList.add("redOutline");
-// 					mobileCarrierError.textContent = "통신사를 선택하세요.";
-
-// 					check = false;
-// 				} else {
-// 					mobileCarrier.classList.remove("redOutline");
-// 					mobileCarrierError.textContent = "";
-// 				}
-
-// 				if (check) {
-// 					let alertModal = new bootstrap.Modal(document
-// 							.getElementById("alertModal"));
-// 					alertModal.show();
-// 				}
-// 			}
-// document.getElementById("btnSave").addEventListener("click", function(event) {
-//     event.preventDefault(); // 기본 이벤트 방지
-
-//     let isValid = true; // 벨리데이션 체크 변수
-
-//     // **성별 벨리데이션**
-//     let gender = document.getElementById("gender");
-//     let genderError = document.getElementById("genderError");
-//     if (!gender.value) { // 선택되지 않은 경우
-//         gender.classList.add("is-invalid");
-//         genderError.style.display = "block"; // 오류 메시지 표시
-//         isValid = false;
-//     } else {
-//         gender.classList.remove("is-invalid");
-//         genderError.style.display = "none"; // 오류 메시지 숨김
-//     }
-
-//     // **통신사 벨리데이션**
-//     let mobileCarrier = document.getElementById("mobileCarrier");
-//     let mobileCarrierError = document.getElementById("mobileCarrierError");
-//     if (!mobileCarrier.value) {
-//         mobileCarrier.classList.add("is-invalid");
-//         mobileCarrierError.style.display = "block";
-//         isValid = false;
-//     } else {
-//         mobileCarrier.classList.remove("is-invalid");
-//         mobileCarrierError.style.display = "none";
-//     }
-
-//     // **생년월일 벨리데이션**
-//     let btd = document.getElementById("btd");
-//     let btdError = document.getElementById("btdError");
-//     if (!btd.value) {
-//         btd.classList.add("is-invalid");
-//         btdError.style.display = "block";
-//         isValid = false;
-//     } else {
-//         btd.classList.remove("is-invalid");
-//         btdError.style.display = "none";
-//     }
-
-//     // **모든 벨리데이션이 통과되면 폼 제출**
-//     if (isValid) {
-//         document.querySelector(".needs-validation").submit();
-//     }
-// });
-
-			
-			
-			
+				form.submit();
+			}
 			
 			
 			jQuery.datetimepicker.setLocale('ko');
