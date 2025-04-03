@@ -2,7 +2,7 @@ package com.a7a7.modeule.product;
 
 public class ProductVo {
 	
-	private String ifcgSeq;
+	private String seq;
 	
 //	paging
 	private int thisPage = 1;									// 현재 페이지
@@ -22,10 +22,11 @@ public class ProductVo {
 //	search
 	private Integer shUseNy = 1; 								/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private Integer shDelNy = 0; 								/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
-	private Integer shOptionDate = 2;							/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
+	private Integer shOptionDate = 0;							/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private String shDateStart;
 	private String shDateEnd;
 	private Integer shOption;									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
+	private Integer shOption1;
 	private String shValue;
 	
 //	-----
@@ -73,12 +74,12 @@ public class ProductVo {
 		
 	}
 	
-	public String getIfcgSeq() {
-		return ifcgSeq;
+	public String getSeq() {
+		return seq;
 	}
 
-	public void setIfcgSeq(String ifcgSeq) {
-		this.ifcgSeq = ifcgSeq;
+	public void setSeq(String seq) {
+		this.seq = seq;
 	}
 
 	public int getThisPage() {
@@ -224,5 +225,14 @@ public class ProductVo {
 	public void setShValue(String shValue) {
 		this.shValue = shValue;
 	}
+
+	public Integer getShOption1() {
+		return shOption1;
+	}
+
+	public void setShOption1(Integer shOption1) {
+		this.shOption1 = shOption1;
+	}
+	
 	
 }

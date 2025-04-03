@@ -11,11 +11,13 @@ public interface ProductDao {
 	
 	public List<CodeGroupDto> selectList(ProductVo vo);
 	
-	public ProductDto selectOne(ProductVo vo);
+	public ProductDto selectOne(ProductDto productDtoo);
 	
 	public int insert(ProductDto productDto);
 	
 	public int update(ProductDto productDto);
+	
+	public int uelete(ProductDto productDto);
 	
 	public int selectOneCount(ProductVo vo);
 	

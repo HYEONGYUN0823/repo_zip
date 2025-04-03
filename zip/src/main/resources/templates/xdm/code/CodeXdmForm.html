@@ -8,324 +8,275 @@
 <body>
 
 
-        <!--**********************************
+	<!--**********************************
             Sidebar end
         ***********************************-->
 
-        <!--**********************************
+	<!--**********************************
             Content body start
         ***********************************-->
-        <div class="content-body">
-            <div class="container-fluid">
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-                            <h4>Code</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">시스템관리</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">코드관리</a></li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- row -->
-                <style>
-                    /* 글자색을 검정으로 변경 */
-                    .table-responsive-sm th,
-                    .table-responsive-sm td {
-                        color: black !important;
-                    }
+	<div class="content-body">
+		<div class="container-fluid">
+			<div class="row page-titles mx-0">
+				<div class="col-sm-6 p-md-0">
+					<div class="welcome-text">
+						<h4>Code</h4>
+					</div>
+				</div>
+				<div
+					class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="javascript:void(0)">시스템관리</a></li>
+						<li class="breadcrumb-item active"><a
+							href="javascript:void(0)">코드관리</a></li>
+					</ol>
+				</div>
+			</div>
+			<!-- row -->
+			<style>
+/* 글자색을 검정으로 변경 */
+.table-responsive-sm th, .table-responsive-sm td {
+	color: black !important;
+}
 
-                    /* 테이블의 모든 선 제거 */
-                    .table,
-                    .table th,
-                    .table td,
-                    .table thead th,
-                    .table tbody td {
-                        border: none !important;
-                    }
+/* 테이블의 모든 선 제거 */
+.table, .table th, .table td, .table thead th, .table tbody td {
+	border: none !important;
+}
 
-                    .red {
-                        color: red;
-                    }
+.red {
+	color: red;
+}
 
-                    .table {
-                        width: 100%;
-                        table-layout: fixed;
-                        /* 칸 너비 고정 */
-                    }
-                    
+.table {
+	width: 100%;
+	table-layout: fixed;
+	/* 칸 너비 고정 */
+}
+
 /* 					빨간색 테두리 */
-					.redOutline {
-					    border: 2px solid red; 
-					}
-					
+.redOutline {
+	border: 2px solid red;
+}
+
 /* 					빨간색 에러 텍스트 */
-					.errorText {
-					    color: red;
-					    font-size: 12px; /* 텍스트 크기 */
-					}
-                </style>
-                <form method="post" id="form">
-                <div th:replace="~{xdm/code/codeXdmVo :: vo}"></div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title"><b>기본정보</b></h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-responsive-sm">
-                                        <thead>
-                                            <tr>
-                                                <td><b>코드그룹 이름</b><b class="red"> *</b>
-                                                    <br>
-                                                    <select id="ifcgSeq" name="ifcgSeq" class="form-select">
+.errorText {
+	color: red;
+	font-size: 12px; /* 텍스트 크기 */
+}
+</style>
+			<form method="post" id="form">
+				<div th:replace="~{xdm/code/codeXdmVo :: vo}"></div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">
+									<b>기본정보</b>
+								</h4>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-responsive-sm">
+										<thead>
+											<tr>
+												<td><b>코드그룹 이름</b><b class="red"> *</b> <br> <select
+													id="ifcgSeq" name="ifcgSeq" class="form-select">
 														<option value="">선택하세요</option>
-														<option th:each="list : ${listCodeGroup}" 
-																th:value="${list.ifcgSeq}" 
-																th:text="${list.ifcgName}" 
-																th:selected="${list.ifcgSeq == item?.ifcgSeq}">
+														<option th:each="list : ${listCodeGroup}"
+															th:value="${list.ifcgSeq}" th:text="${list.ifcgName}"
+															th:selected="${list.ifcgSeq == item?.ifcgSeq}">
 														</option>
-													</select>
-													<div id="ifcgNameError" class="errorText"></div>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><b>코드</b><b class="red"> *</b>
-                                                    <br>
-                                                    <input 
-	                                                    type="text" 
-	                                                    id="ifcdSeq" 
-	                                                    name="ifcdSeq" 
-	                                                    th:value="${item?.ifcdSeq}" 
-	                                                    maxlength="20" 
-	                                                    placeholder="자동생성" 
-	                                                    disabled 
-	                                                    class="form-control"/>
-                                                </td>
-                                                <!-- <td><label for="code01"><b>코드 (ANOTHER)</b></label>
+												</select>
+													<div id="ifcgNameError" class="errorText"></div></td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><b>코드</b><b class="red"> *</b> <br> <input
+													type="text" id="ifcdSeq" name="ifcdSeq"
+													th:value="${item?.ifcdSeq}" maxlength="20"
+													placeholder="자동생성" disabled class="form-control" /></td>
+												<!-- <td><label for="code01"><b>코드 (ANOTHER)</b></label>
                                                     <br>
                                                     <input class="form-control" id="code01" type="text"
                                                         placeholder="영문소문자, 숫자">
                                                 </td> -->
-                                                <td><label for="ifcdName"><b>코드 이름</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="ifcdName" name="ifcdName" type="text"
-                                                        placeholder="한글, 영대소문자, 숫자">
-                                                        <div id="ifcdNameError" class="errorText"></div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <b class="rgb">삭제여부</b><b class="red"> *</b>
-                                                    <br>
-                                                    <select id="ifcdDelNy" name="ifcdDelNy" class="form-select">
-                                                        <option value="">선택하세요</option>
-                                                        <option value="1">Y</option>
-                                                        <option value="0">N</option>
-                                                    </select>
-                                                    <div id="ifcdDelNyError" class="errorText"></div>
-                                                </td>
-                                                <td>
-                                                    <b class="rgb">사용여부</b><b class="red"> *</b>
-                                                    <br>
-                                                    <select id="ifcdUseNy" name="ifcdUseNy" class="form-select">
-                                                        <option value="">선택하세요</option>
-                                                        <option value="1">Y</option>
-                                                        <option value="0">N</option>
-                                                    </select>
-                                                    <div id="ifcdUseNyError" class="errorText"></div>
-                                                </td>
-                                                
-                                            <tr>
-                                                <td colspan="2">
-                                                    <label for="description"><b class="rgb">설명</b></label>
-                                                    <br>
-                                                    <textarea class="form-control" id="description"
-                                                        style="height: 100px"></textarea>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button type="button" onclick="location.href='/xdm/code/CodeXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
-                                    <button type="button" id="btnSave" class="btn btn-primary" style="float: right;"><i
-                                            class="fa-solid fa-plus"></i></button>
-                                            
-                                    <button type="button" id="btnUel" class="btn btn-danger">
-                                    	<i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                            
-                                    <!-- 모달 -->
-									
-									<div class="modal" id="alertModal" tabindex="-1" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title">등록 확인</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-													<p>등록하시겠습니까?</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" id="btnSubmit" class="btn btn-primary">저장</button>
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- 삭제 모달 -->
-									
-									<div class="modal" id="uelModal" tabindex="-1" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title">삭제 확인</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-													<p>삭제하시겠습니까?</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" id="btnUelSubmit" class="btn btn-danger">삭제</button>
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+												<td><label for="ifcdName"><b>코드 이름</b><b
+														class="red"> *</b></label> <br> <input class="form-control"
+													id="ifcdName" name="ifcdName" type="text"
+													th:value="${item?.ifcdName}" placeholder="한글, 영대소문자, 숫자">
+													<div id="ifcdNameError" class="errorText"></div></td>
 
-				</form>
-            </div>
-        </div>
-				<div th:replace="~{xdm/include/footer :: footer}"></div>
+											</tr>
+											<tr>
+												<td><b class="rgb">삭제여부</b><b class="red"> *</b> <br>
+													<select id="ifcdDelNy" name="ifcdDelNy" class="form-select">
+														<option value="">선택하세요</option>
+														<option value="1" th:selected="${item?.ifcdDelNy == '1'}">Y</option>
+														<option value="0" th:selected="${item?.ifcdDelNy == '0'}">N</option>
+												</select>
+													<div id="ifcdDelNyError" class="errorText"></div></td>
+												<td><b class="rgb">사용여부</b><b class="red"> *</b> <br>
+													<select id="ifcdUseNy" name="ifcdUseNy" class="form-select">
+														<option value="">선택하세요</option>
+														<option value="1" th:selected="${item?.ifcdUseNy == '1'}">Y</option>
+														<option value="0" th:selected="${item?.ifcdUseNy == '0'}">N</option>
+												</select>
+													<div id="ifcdUseNyError" class="errorText"></div></td>
+											<tr>
+												<td colspan="2"><label for="description"><b
+														class="rgb">설명</b></label> <br> <textarea
+														class="form-control" id="description"
+														style="height: 100px"></textarea></td>
+											</tr>
+										</tbody>
+									</table>
+									<button type="button"
+										onclick="location.href='/xdm/code/CodeXdmList'"
+										class="btn btn-light">
+										<i class="fa-solid fa-list"></i>
+									</button>
+									<button type="button" id="btnUel" class="btn btn-danger">
+										<i class="fa-regular fa-trash-can"></i>
+									</button>
+									<button type="button" id="btnSave" class="btn btn-primary"
+										style="float: right;">
+										<i class="fa-solid fa-plus"></i>
+									</button>
 
-				<script type="text/javascript">
-				
-				let goUrlXdmInst = "/xdm/code/CodeXdmInst";
-				let goUrlXdmUpdt = "/xdm/code/CodeXdmUpdt";
-				let goUrlXdmUele = "/xdm/code/CodeXdmUele";
-				
-				let seq = document.querySelector("input[name=ifcdSeq]");							/* ### */
-				
-				const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
-				const modalElement = document.getElementById("alertModal");
-				const modalMessage = document.getElementById("modalMessage");
-				
-				const uelModal = new bootstrap.Modal(document.getElementById("uelModal"));
-				const uelElement = document.getElementById("uelModal");
-				
-				document.getElementById("btnUel").onclick = function(uelEvent) {
-				    event.preventDefault();
-				    
-				    let click = true;
-				    
-				    if (click) {
-						let alertModal = new bootstrap.Modal(document.getElementById("uelModal"));
-						alertModal.show();
-				    }
-				    
-				}
-				document.getElementById("btnUelSubmit").onclick = function () {
-				    let seq = document.querySelector("input[name=ifcdSeq]"); 
-				    let form = document.getElementById("form");
-				        form.action = goUrlXdmUele;
 
-				    form.submit();
-				}
-				
-				document.getElementById("btnSave").onclick = function(event) {
-				    event.preventDefault(); // 기본 폼 제출 방지
+									<!-- 모달 -->
 
-				    let check = true;
+									<div th:replace="~{xdm/include/modal :: modal}"></div>
 
-				    const ifcgSeq = document.getElementById("ifcgSeq");
-				    const ifcgNameError = document.getElementById("ifcgNameError");
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-				    if (ifcgSeq.value == "") {
-				        ifcgSeq.classList.add("redOutline");
-				        ifcgNameError.textContent = "코드 그룹을 선택하세요.";
-				        
-				    	check = false;
-				    } else {
-				        ifcgSeq.classList.remove("redOutline");
-				        ifcgNameError.textContent = "";
-				    }
 
-				    const ifcdName = document.getElementById("ifcdName");
-				    const ifcdNameError = document.getElementById("ifcdNameError");
+			</form>
+		</div>
+	</div>
+	<div th:replace="~{xdm/include/footer :: footer}"></div>
 
-				    if (ifcdName.value.trim() == "") {
-				        ifcdName.classList.add("redOutline");
-				        ifcdNameError.textContent = "코드 이름을 입력하세요.";
-				        
-				    	check = false;
-				    } else {
-				        ifcdName.classList.remove("redOutline");
-				        ifcdNameError.textContent = "";
-				    }
+	<script type="text/javascript">
+		let goUrlXdmInst = "/xdm/code/CodeXdmInst";
+		let goUrlXdmUpdt = "/xdm/code/CodeXdmUpdt";
+		let goUrlXdmUele = "/xdm/code/CodeXdmUele";
 
-				    const ifcdDelNy = document.getElementById("ifcdDelNy");
-				    const ifcdDelNyError = document.getElementById("ifcdDelNyError");
+		let seq = document.querySelector("input[name=ifcdSeq]"); /* ### */
 
-				    if (ifcdDelNy.value == "") {
-				        ifcdDelNy.classList.add("redOutline");
-				        ifcdDelNyError.textContent = "사용 여부를 선택하세요.";
-				        
-				    	check = false;
-				    } else {
-				        ifcdDelNy.classList.remove("redOutline");
-				        ifcdDelNyError.textContent = "";
-				    }
-				    
-				    if (ifcdUseNy.value == "") {
-				        ifcdUseNy.classList.add("redOutline");
-				        ifcdUseNyError.textContent = "사용 여부를 선택하세요.";
-				        
-				    	check = false;
-				    } else {
-				        ifcdUseNy.classList.remove("redOutline");
-				        ifcdUseNyError.textContent = "";
-				    }
-				    
-				    if (check) {
-				    	let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
-						alertModal.show();
-				    } else {
-				    	// bypass
-				    }
-				}
-				
-				document.getElementById("btnSubmit").onclick = function () {
-				    let seq = document.querySelector("input[name=ifcdSeq]"); 
-				    let form = document.getElementById("form");
+		const alertModal = new bootstrap.Modal(document
+				.getElementById("alertModal"));
+		const modalElement = document.getElementById("alertModal");
+		const modalMessage = document.getElementById("modalMessage");
 
-				    if (seq.value == "0" || seq.value == "") { // 추가
-				        form.action = goUrlXdmInst;
-				    } else { // 수정
-				        form.action = goUrlXdmUpdt;
-				    }
+		const uelModal = new bootstrap.Modal(document
+				.getElementById("uelModal"));
+		const uelElement = document.getElementById("uelModal");
 
-				    form.submit();
-				}
-				
-				</script>
+		document.getElementById("btnUel").onclick = function(uelEvent) {
+			event.preventDefault();
+
+			let click = true;
+
+			if (click) {
+				let alertModal = new bootstrap.Modal(document
+						.getElementById("uelModal"));
+				alertModal.show();
+			}
+
+		}
+		document.getElementById("btnUelSubmit").onclick = function() {
+			let seq = document.querySelector("input[name=ifcdSeq]");
+			let form = document.getElementById("form");
+			form.action = goUrlXdmUele;
+
+			form.submit();
+		}
+
+		document.getElementById("btnSave").onclick = function(event) {
+			event.preventDefault(); // 기본 폼 제출 방지
+
+			let check = true;
+
+			const ifcgSeq = document.getElementById("ifcgSeq");
+			const ifcgNameError = document.getElementById("ifcgNameError");
+
+			if (ifcgSeq.value == "") {
+				ifcgSeq.classList.add("redOutline");
+				ifcgNameError.textContent = "코드 그룹을 선택하세요.";
+
+				check = false;
+			} else {
+				ifcgSeq.classList.remove("redOutline");
+				ifcgNameError.textContent = "";
+			}
+
+			const ifcdName = document.getElementById("ifcdName");
+			const ifcdNameError = document.getElementById("ifcdNameError");
+
+			if (ifcdName.value.trim() == "") {
+				ifcdName.classList.add("redOutline");
+				ifcdNameError.textContent = "코드 이름을 입력하세요.";
+
+				check = false;
+			} else {
+				ifcdName.classList.remove("redOutline");
+				ifcdNameError.textContent = "";
+			}
+
+			const ifcdDelNy = document.getElementById("ifcdDelNy");
+			const ifcdDelNyError = document.getElementById("ifcdDelNyError");
+
+			if (ifcdDelNy.value == "") {
+				ifcdDelNy.classList.add("redOutline");
+				ifcdDelNyError.textContent = "사용 여부를 선택하세요.";
+
+				check = false;
+			} else {
+				ifcdDelNy.classList.remove("redOutline");
+				ifcdDelNyError.textContent = "";
+			}
+
+			if (ifcdUseNy.value == "") {
+				ifcdUseNy.classList.add("redOutline");
+				ifcdUseNyError.textContent = "사용 여부를 선택하세요.";
+
+				check = false;
+			} else {
+				ifcdUseNy.classList.remove("redOutline");
+				ifcdUseNyError.textContent = "";
+			}
+
+			if (check) {
+				let alertModal = new bootstrap.Modal(document
+						.getElementById("alertModal"));
+				alertModal.show();
+			} else {
+				// bypass
+			}
+		}
+
+		document.getElementById("btnSubmit").onclick = function() {
+			let seq = document.querySelector("input[name=ifcdSeq]");
+			let form = document.getElementById("form");
+
+			if (seq.value == "0" || seq.value == "") { // 추가
+				form.action = goUrlXdmInst;
+			} else { // 수정
+				form.action = goUrlXdmUpdt;
+			}
+
+			form.submit();
+		}
+	</script>
 </body>
 
 </html>

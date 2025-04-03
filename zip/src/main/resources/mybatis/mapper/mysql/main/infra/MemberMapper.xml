@@ -8,18 +8,19 @@
 	<sql id = "selectCommon">
 		FROM userUi as a
 		WHERE 1=1
-<!-- 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.ifcgUseNy = #{shUseNy}</if> -->
-<!--         <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcgDelNy = #{shDelNy}</if> -->
-<!-- 				
+<!-- 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.useNy = #{shUseNy}</if> -->
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.delNy = #{shDelNy}</if>
+				
 				<choose>
 					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 				</choose>
- -->				
+				
         <choose>
             <when test="shOption == 1">AND a.seq = #{shValue}</when>
-<!--             <when test="shOption == 2">AND a.ifcgName LIKE CONCAT('%',#{shValue},'%')</when> -->
-<!--              <when test="shOption == 3">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when> -->
+            <when test="shOption == 2">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>
+             <when test="shOption == 3">AND a.btd LIKE CONCAT('%',#{shValue},'%')</when>
+             <when test="shOption == 4">AND a.email LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
 		ORDER BY a.seq DESC
 	</sql>
@@ -45,7 +46,10 @@
 			    a.passWord,
 			    a.delNy,
 			    a.admSignin,
-			    a.mobileCarrier
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
 		<include refid="selectCommon"></include>
 		) aa
 		limit #{rowNumToShow} offset #{startRnumForMysql}
@@ -61,7 +65,8 @@
 			passWord,
 			delNy,
 			admSignin,
-			mobileCarrier
+			mobileCarrier,
+			phoneNumber
 		FROM
 			userUi
 		WHERE 1=1
@@ -104,7 +109,7 @@
 <!-- 	</select> -->
 	
 	<insert id="insert">
-		INSERT INTO codeGroup (
+		INSERT INTO userUi (
 			seq,
 			name,
 			gender,
@@ -112,7 +117,10 @@
 			email,
 			passWord,
 			delNy,
-			mobileCarrier
+			mobileCarrier,
+			phoneNumber,
+			admSignin,
+			regDateTime
 		) values (
 			#{seq},
 			#{name},
@@ -121,7 +129,10 @@
 			#{email},
 			#{passWord},
 			#{delNy},
-			#{mobileCarrier}
+			#{mobileCarrier},
+			#{phoneNumber},
+			#{admSignin},
+			now()
 		)
 	</insert>
 	
@@ -133,9 +144,17 @@
 			email = #{email},
 			passWord = #{passWord},
 			delNy = #{delNy},
-			mobileCarrier = #{mobileCarrier}
+			mobileCarrier = #{mobileCarrier},
+			phoneNumber = #{phoneNumber},
+			modDateTime = now()
 		WHERE seq = #{seq}
 	</update>
-
+	
+	  <update id="uelete">
+		UPDATE userUi SET
+			delNy = 1,
+			modDateTime = now()
+		WHERE seq = #{seq}
+	</update>
 
 </mapper>

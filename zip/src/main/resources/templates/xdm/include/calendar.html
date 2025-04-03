@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="calendar">
+	<script type="text/javascript">
+		//jQuery('#datetimepicker').datetimepicker();
+		jQuery.datetimepicker.setLocale('ko');
+		
+		jQuery('#shDateStart').datetimepicker({
+		 i18n:{
+		  de:{
+		   months:[
+		    'Januar','Februar','März','April',
+		    'Mai','Juni','Juli','August',
+		    'September','Oktober','November','Dezember',
+		   ],
+		   dayOfWeek:[
+		    "So.", "Mo", "Di", "Mi",
+		    "Do", "Fr", "Sa.",
+		   ]
+		  }
+		 },
+		 datepicker:true,
+		 timepicker:false,
+		 format:'Y-m-d'
+		});
+		    
+		
+		jQuery('#shDateEnd').datetimepicker({
+		 i18n:{
+		  de:{
+		   months:[
+		    'Januar','Februar','März','April',
+		    'Mai','Juni','Juli','August',
+		    'September','Oktober','November','Dezember',
+		   ],
+		   dayOfWeek:[
+		    "So.", "Mo", "Di", "Mi",
+		    "Do", "Fr", "Sa.",
+		   ]
+		  }
+		 },
+		 datepicker:true,
+		 timepicker:false,
+		 format:'Y-m-d'
+		});
+		
+		document.addEventListener("DOMContentLoaded", function() {
+	        let startInput = document.getElementById("shDateStart");
+	        let endInput = document.getElementById("shDateEnd");
+
+	        if (startInput && startInput.value) {
+	            startInput.value = startInput.value.split(" ")[0];
+	        }
+
+	        if (endInput && endInput.value) {
+	            endInput.value = endInput.value.split(" ")[0];
+	        }
+	    });
+		
+	</script>
+</th:block>

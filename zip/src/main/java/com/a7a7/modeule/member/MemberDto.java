@@ -11,6 +11,9 @@ public class MemberDto {
 	private String delNy;
 	private String admSignin;
 	private int mobileCarrier;
+	private String phoneNumber;
+	private String regDateTime;
+	private String modDateTime;
 	
 
 	private String xifcdSeqCount;	// 갯수
@@ -98,6 +101,32 @@ public class MemberDto {
 	public void setMobileCarrier(int mobileCarrier) {
 		this.mobileCarrier = mobileCarrier;
 	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getRegDateTime() {
+		return regDateTime;
+	}
+
+	public void setRegDateTime(String regDateTime) {
+		this.regDateTime = regDateTime;
+	}
+
+	public String getModDateTime() {
+		return modDateTime;
+	}
+
+	public void setModDateTime(String modDateTime) {
+		this.modDateTime = modDateTime;
+	}
+	
+	
 	
 	
 	

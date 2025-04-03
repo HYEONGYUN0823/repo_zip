@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.a7a7.common.util.UtilDateTime;
 import com.a7a7.modeule.codegroup.CodeGroupService;
 import com.a7a7.modeule.codegroup.CodeGroupVo;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,24 +20,14 @@ public class CodeController {
 	@Autowired
 	CodeGroupService codeGroupService; 
 	
-//	private void setSearch(CodeVo vo) {
-//	    if (vo.getShUseNy() != null && !vo.getShUseNy().equals("")) {
-//	        vo.setShUseNy(vo.getShUseNy());
-//	    }
-//	
-//	    if (vo.getShDelNy() != null && !vo.getShDelNy().equals("")) {
-//	        vo.setShDelNy(vo.getShDelNy());
-//	    }
-//	
-//	    if (vo.getShOption() != null && vo.getShValue() != null && !vo.getShValue().equals("")) {
-//	        vo.setShOption(vo.getShOption());
-//	        vo.setShValue(vo.getShValue());
-//	    }
-//	}
+	private void setSearch(CodeVo vo) {
+		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
+		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
+	}
 	
 	@RequestMapping(value = "/xdm/code/CodeXdmList")
 	public String codeXdmList(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
-//		setSearch(vo); // 검색 조건 설정
+		setSearch(vo); // 검색 조건 설정
 		vo.setParamsPaging(codeService.selectOneCount(vo));
 		
 

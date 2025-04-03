@@ -17,10 +17,6 @@ public class SigninController {
 	@Autowired
 	SigninService service;
 	
-//	@ResponseBody
-//	@RequestMapping(value = "/xdm/signin/signinXdmProc")
-//	public Map<String, Object> signinXdmProc(MemberDto dto, HttpSession httpSession) throws Exception {
-//		Map<String, Object> returnMap = new HashMap<String, Object>();
-//		
-//	}
+	
+	
 }

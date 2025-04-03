@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <!-- Required meta tags -->
@@ -8,7 +8,7 @@
   <meta content="Codescandy" name="author">
   <title>Sign up eCommerce HTML Template - FreshCart</title>
   <!-- Favicon icon-->
-  <link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/usr/template/user_ui/assets/images/favicon/favicon.ico">
 
 
   <!-- Libs CSS -->
@@ -20,9 +20,45 @@
   <script src="https://kit.fontawesome.com/734dfb419e.js" crossorigin="anonymous"></script>
   <!-- Theme CSS -->
   <link rel="stylesheet" href="/usr/template/user_ui/assets/css/theme.min.css">
+  <link rel="stylesheet" type="text/css" href="/assets/xdm/css/jquery.datetimepicker.css">
+  
+  <style>
+/* 글자색을 검정으로 변경 */
+.table-responsive-sm th, .table-responsive-sm td {
+	color: black !important;
+}
+
+/* 테이블의 모든 선 제거 */
+.table, .table th, .table td, .table thead th, .table tbody td {
+	border: none !important;
+}
+
+.red {
+	color: red;
+}
+
+.table {
+	width: 100%;
+	table-layout: fixed;
+	/* 칸 너비 고정 */
+}
+/* 					빨간색 테두리 */
+.redOutline {
+	border: 2px solid red;
+}
+
+/* 					빨간색 에러 텍스트 */
+.errorText {
+	color: red;
+	font-size: 12px; /* 텍스트 크기 */
+}
+</style>
+
 </head>
 
 <body>
+    <script src="/assets/xdm/jquery/jquery-3.7.1.min.js"></script>
+	<script src="/assets/xdm/js/jquery.datetimepicker.full.js"></script>
   <!-- navigation -->
   <div class="border-bottom shadow-sm">
     <nav class="navbar navbar-light py-2">
@@ -60,43 +96,61 @@
             <form class="needs-validation" novalidate>
               <div class="row g-3">
                 <!-- col -->
+<!--                 <div class="col"> -->
+<!--                   input -->
+<!--                   <label for="formSignupfname" class="form-label visually-hidden">First Name</label> -->
+<!--                   <input type="text" class="form-control" id="formSignupfname" placeholder="성" required /> -->
+<!--                   <div class="invalid-feedback">성을 입력하세요.</div> -->
+<!--                 </div> -->
                 <div class="col">
+	            <input	type="hidden" 
+	            		id="seq" name="seq" 
+						th:value="${item?.seq}" 
+						placeholder="자동생성" disabled class="form-control" />
+	            <input	type="hidden" 
+	            		id="admSignin" name="admSignin" 
+						th:value="0" 
+						class="form-control" />
+	            <input	type="hidden" id="delNy" name="delNy" 
+						th:value="0" 
+						class="form-control" />
+	            <input	type="hidden"  
+	            		id="useNy" name="useNy" 
+						th:value="1" 
+						class="form-control" />
                   <!-- input -->
-                  <label for="formSignupfname" class="form-label visually-hidden">First Name</label>
-                  <input type="text" class="form-control" id="formSignupfname" placeholder="성" required />
-                  <div class="invalid-feedback">성을 입력하세요.</div>
-                </div>
-                <div class="col">
-                  <!-- input -->
-                  <label for="formSignuplname" class="form-label visually-hidden">Last name</label>
-                  <input type="text" class="form-control" id="formSignuplname" placeholder="이름" required />
+                  <label for="name" class="form-label visually-hidden">Last name</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="이름" required />
                   <div class="invalid-feedback">이름을 입력하세요.</div>
                 </div>
                 <!-- 성별버튼 -->
-                <div class="cal-12 btn-group" role="group" aria-label="Basic radio toggle button group">
-                  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                  <label class="btn btn-outline-primary" for="btnradio1">남자</label>
-
-                  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                  <label class="btn btn-outline-primary" for="btnradio2">여자</label>
-
-                  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                  <label class="btn btn-outline-primary" for="btnradio3">선택안함</label>
-                </div>
+                <div class="col-12">
+					  <label for="gender" class="form-label">성별</label>
+					  <select id="gender" name="gender" class="form-select">
+					    <option value="" selected disabled>선택하세요</option>
+					    <option th:each="list : ${@codeService.selectListCachedCode(1)}"
+					            th:value="${list.ifcdSeq}"
+					            th:text="${list.ifcdName}"
+					            th:selected="${list.ifcdSeq} == ${item?.gender}">
+					    </option>
+					  </select>
+					  <div id="genderError" class="invalid-feedback" style="display: none;">성별을 선택하세요.</div>
+					</div>
                 <form class="needs-validation" novalidate>
                   <!-- 전화번호 -->
                   <div class="col-12">
                     <div class="d-flex">
                       <div class="me-1 col-lg-4">
-                        <select class="form-select">
-                          <option selected>통신사</option>
-                          <option value="">SKT</option>
-                          <option value="">KT</option>
-                          <option value="">LG U+</option>
-                          <option value="">알뜰폰SKT</option>
-                          <option value="">알뜰폰KT</option>
-                          <option value="">알뜰폰LG U+</option>
+                        <select id="mobileCarrier" name="mobileCarrier" class="form-select">
+                        	<option value="" selected disabled>통신사</option>
+                          	<option 
+		                      	th:each="list : ${@codeService.selectListCachedCode(2)}" 
+		                      	th:value="${list.ifcdSeq}" 
+		                      	th:text="${list.ifcdName}" 
+		                      	th:selected="${list.ifcdSeq} == ${item?.mobileCarrier}">
+                          	</option>
                         </select>
+                        <div class="invalid-feedback">통신사를 선택해주세요.</div>
                       </div>
                       <div class="tel col-lg-8">
                         <input type="tel" id="phoneNumber" maxlength="11" class="form-control" placeholder="휴대전화번호" required>
@@ -104,20 +158,19 @@
                       </div>
                     </div>
                   </div>
-
+</
                   <!-- 생년월일 -->
                   <div class="col-12">
-                    <div class="text">
-                      <input type="tel" maxlength="8" class="form-control" placeholder="생년월일 8자리" pattern="[0-9]{8}"
-                        required>
-                      <div class="invalid-feedback">생년월일을 정확히 입력해 주세요.</div>
-                    </div>
-                  </div>
+  <label for="btd" class="form-label">생년월일</label>
+  <input type="text" id="btd" name="btd" th:value="${item?.btd}" placeholder="생년월일"
+         class="form-control form-control-sm" autocomplete="off">
+  <div id="btdError" class="invalid-feedback" style="display: none;">생년월일을 입력하세요.</div>
+</div>
                 </form>
                 <div class="col-12">
                   <!-- 이메일 -->
-                  <label for="formSignupEmail" class="form-label visually-hidden">Email address</label>
-                  <input type="email" class="form-control" id="formSignupEmail" placeholder="이메일" required />
+                  <label for="email" class="form-label visually-hidden">Email address</label>
+                  <input type="email" class="form-control" id="email" name="" placeholder="이메일" required />
                   <div class="invalid-feedback">이메일을 정확히 입력해 주세요.</div>
                 </div>
                 <!-- 비밀번호 -->
@@ -134,8 +187,9 @@
                     </div>
                   </div>
                 </div>
+
                 <!-- btn -->
-                <div class="col-12 d-grid"><button type="submit" class="btn btn-primary">회원가입</button></div>
+                <div class="col-12 d-grid"><button type="button" id="btnSave" class="btn btn-primary">회원가입</button></div>
 
                 <!-- text -->
                 <p>
@@ -157,7 +211,6 @@
 
   <!-- Footer -->
   <!-- footer -->
-  <footer class="footer">
     <div class="container">
       <div class="row g-4 py-4">
         <div class="col-12 col-md-12 col-lg-4">
@@ -314,40 +367,8 @@
 
       </div>
     </div>
-  </footer>
+<!-- /usr/template/user_ui/assets/libs/jquery/dist/jquery.min.js -->
   
-	<!-- Javascript-->
-	
-	<script type="text/javascript">
-	
-		function phoneNumberCheck(number){
-			let result = /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
-			return result.test(number);
-		}
-		
-		  // 입력 필드 가져오기
-		  const phoneInput = document.getElementById("phoneNumber");
-		  const invalidFeedback = phoneInput.nextElementSibling;
-
-		  // 입력 시 유효성 검사
-		  phoneInput.addEventListener("input", function () {
-		    let phoneNumber = phoneInput.value;
-
-		    if (phoneNumber.length == 11 && phoneNumberCheck(phoneNumber)) {
-		      phoneInput.classList.remove("is-invalid");
-		      phoneInput.classList.add("is-valid");
-		      invalidFeedback.style.display = "none";
-		    } else {
-		      phoneInput.classList.remove("is-valid");
-		      phoneInput.classList.add("is-invalid");
-		      invalidFeedback.style.display = "block";
-		    }
-		  });
-		  
-	</script>
-	
-  <!-- Libs JS -->
-  <script src="/usr/template/user_ui/assets/libs/jquery/dist/jquery.min.js"></script>
   <script src="/usr/template/user_ui/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/usr/template/user_ui/assets/libs/simplebar/dist/simplebar.min.js"></script>
 
@@ -357,6 +378,208 @@
   <script src="/usr/template/user_ui/assets/js/vendors/password.js"></script>
 
   <script src="/usr/template/user_ui/assets/js/vendors/validation.js"></script>
+	<!-- Javascript-->
+	
+	<script type="text/javascript">
+	
+	function phoneNumberCheck(number){
+		let result = /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+		return result.test(number);
+	}
+	
+	  // 입력 필드 가져오기
+	  const phoneInput = document.getElementById("phoneNumber");
+	  const invalidFeedback = phoneInput.nextElementSibling;
+
+	  // 입력 시 유효성 검사
+	  phoneInput.addEventListener("input", function () {
+	    let phoneNumber = phoneInput.value;
+
+	    if (phoneNumber.length == 11 && phoneNumberCheck(phoneNumber)) {
+	      phoneInput.classList.remove("is-invalid");
+	      phoneInput.classList.add("is-valid");
+	      invalidFeedback.style.display = "none";
+	    } else {
+	      phoneInput.classList.remove("is-valid");
+	      phoneInput.classList.add("is-invalid");
+	      invalidFeedback.style.display = "block";
+	    }
+	  });
+	
+	document.getElementById("btnSave").addEventListener("click", function(event) {
+	    event.preventDefault(); // 기본 이벤트 방지
+
+	    let isValid = true; // 벨리데이션 체크 변수
+
+	     // **성별 벨리데이션**
+	     let gender = document.getElementById("gender");
+	     let genderError = document.getElementById("genderError");
+	     if (!gender.value) { // 선택되지 않은 경우
+	         gender.classList.add("is-invalid");
+	         genderError.style.display = "block"; // 오류 메시지 표시
+	         isValid = false;
+	     } else {
+	         gender.classList.remove("is-invalid");
+	         genderError.style.display = "none"; // 오류 메시지 숨김
+	     }
+
+	     // **통신사 벨리데이션**
+	     let mobileCarrier = document.getElementById("mobileCarrier");
+	     let mobileCarrierError = document.getElementById("mobileCarrierError");
+	     if (!mobileCarrier.value) {
+	         mobileCarrier.classList.add("is-invalid");
+	         mobileCarrierError.style.display = "block";
+	         isValid = false;
+	     } else {
+	         mobileCarrier.classList.remove("is-invalid");
+	         mobileCarrierError.style.display = "none";
+	     }
+
+	     // **생년월일 벨리데이션**
+	     let btd = document.getElementById("btd");
+	     let btdError = document.getElementById("btdError");
+	     if (!btd.value) {
+	         btd.classList.add("is-invalid");
+	         btdError.style.display = "block";
+	         isValid = false;
+	     } else {
+	         btd.classList.remove("is-invalid");
+	         btdError.style.display = "none";
+	     }
+
+	    // **모든 벨리데이션이 통과되면 폼 제출**
+	    if (isValid) {
+	        document.querySelector(".needs-validation").submit();
+	    }
+	});
+
+
+			
+			
+// 			document.getElementById("btnSave").onclick = function(event) {
+// 				event.preventDefault(); // 기본 폼 제출 방지
+
+// 				let check = true;
+
+// 				const btd = document.getElementById("btd");
+// 				const btdError = document.getElementById("btdError");
+
+// 				if (btd.value == "") {
+// 					btd.classList.add("redOutline");
+// 					btdError.textContent = "생일을 입력하세요.";
+
+// 					check = false;
+// 				} else {
+// 					btd.classList.remove("redOutline");
+// 					btdError.textContent = "";
+// 				}
+
+// 				const gender = document.getElementById("gender");
+// 				const genderError = document.getElementById("genderError");
+
+// 				if (gender.value == "") {
+// 					gender.classList.add("redOutline");
+// 					genderError.textContent = "성별을 입력하세요.";
+
+// 					check = false;
+// 				} else {
+// 					gender.classList.remove("redOutline");
+// 					genderError.textContent = "";
+// 				}
+
+// 				const mobileCarrier = document
+// 						.getElementById("mobileCarrier");
+// 				const mobileCarrierError = document
+// 						.getElementById("mobileCarrierError");
+
+// 				if (mobileCarrier.value == "") {
+// 					mobileCarrier.classList.add("redOutline");
+// 					mobileCarrierError.textContent = "통신사를 선택하세요.";
+
+// 					check = false;
+// 				} else {
+// 					mobileCarrier.classList.remove("redOutline");
+// 					mobileCarrierError.textContent = "";
+// 				}
+
+// 				if (check) {
+// 					let alertModal = new bootstrap.Modal(document
+// 							.getElementById("alertModal"));
+// 					alertModal.show();
+// 				}
+// 			}
+// document.getElementById("btnSave").addEventListener("click", function(event) {
+//     event.preventDefault(); // 기본 이벤트 방지
+
+//     let isValid = true; // 벨리데이션 체크 변수
+
+//     // **성별 벨리데이션**
+//     let gender = document.getElementById("gender");
+//     let genderError = document.getElementById("genderError");
+//     if (!gender.value) { // 선택되지 않은 경우
+//         gender.classList.add("is-invalid");
+//         genderError.style.display = "block"; // 오류 메시지 표시
+//         isValid = false;
+//     } else {
+//         gender.classList.remove("is-invalid");
+//         genderError.style.display = "none"; // 오류 메시지 숨김
+//     }
+
+//     // **통신사 벨리데이션**
+//     let mobileCarrier = document.getElementById("mobileCarrier");
+//     let mobileCarrierError = document.getElementById("mobileCarrierError");
+//     if (!mobileCarrier.value) {
+//         mobileCarrier.classList.add("is-invalid");
+//         mobileCarrierError.style.display = "block";
+//         isValid = false;
+//     } else {
+//         mobileCarrier.classList.remove("is-invalid");
+//         mobileCarrierError.style.display = "none";
+//     }
+
+//     // **생년월일 벨리데이션**
+//     let btd = document.getElementById("btd");
+//     let btdError = document.getElementById("btdError");
+//     if (!btd.value) {
+//         btd.classList.add("is-invalid");
+//         btdError.style.display = "block";
+//         isValid = false;
+//     } else {
+//         btd.classList.remove("is-invalid");
+//         btdError.style.display = "none";
+//     }
+
+//     // **모든 벨리데이션이 통과되면 폼 제출**
+//     if (isValid) {
+//         document.querySelector(".needs-validation").submit();
+//     }
+// });
+
+			
+			
+			
+			
+			
+			jQuery.datetimepicker.setLocale('ko');
+
+			jQuery('#btd').datetimepicker(
+					{
+						i18n : {
+							de : {
+								months : [ 'Januar', 'Februar', 'März', 'April', 'Mai',
+										'Juni', 'Juli', 'August', 'September',
+										'Oktober', 'November', 'Dezember', ],
+								dayOfWeek : [ "So.", "Mo", "Di", "Mi", "Do", "Fr",
+										"Sa.", ]
+							}
+						},
+						datepicker : true,
+						timepicker : false,
+						format : 'Y-m-d'
+					});
+	</script>
+	
+
 </body>
 
 </html>

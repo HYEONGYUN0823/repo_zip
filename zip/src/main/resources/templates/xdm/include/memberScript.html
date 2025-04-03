@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="memberScript">
+<script type="text/javascript">
+	function phoneNumberCheck(number) {
+		let result = /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+		return result.test(number);
+	}
+
+	// 입력 필드 가져오기
+	const invalid = document.getElementById("phoneNumber");
+	const invalidFeedback = invalid.nextElementSibling;
+
+	// 입력 시 유효성 검사
+	invalid.addEventListener("input", function() {
+		let phoneNumber = invalid.value;
+
+		if (phoneNumber.length == 11 && phoneNumberCheck(phoneNumber)) {
+			invalid.classList.remove("is-invalid");
+			invalid.classList.add("is-valid");
+			invalidFeedback.style.display = "none";
+		} else {
+			invalid.classList.remove("is-valid");
+			invalid.classList.add("is-invalid");
+			invalidFeedback.style.display = "block";
+		}
+	});
+
+	const genderInvalid = document.getElementById("gender");
+	const ginvalidFeedback = genderInvalid.nextElementSibling;
+	
+	genderInvalid.addEventListener("input", function() {
+		let gender = genderInvalid.value;
+
+		if (gender != 1 || gender != 2 || gender != 3) {
+			genderInvalid.classList.remove("is-invalid");
+			genderInvalid.classList.add("is-valid");
+			ginvalidFeedback.style.display = "none";
+		} else {
+			genderInvalid.classList.remove("is-valid");
+			genderInvalid.classList.add("is-invalid");
+			ginvalidFeedback.style.display = "block";
+		}
+	});
+	
+	const bInvalid = document.getElementById("btd");
+	const binvalidFeedback = bInvalid.nextElementSibling;
+
+	bInvalid.addEventListener("input", function () {
+	    let btd = bInvalid.value.trim();
+
+	    if (btd == "") {
+	        bInvalid.classList.remove("is-valid");
+	        bInvalid.classList.add("is-invalid");
+	        binvalidFeedback.style.display = "block";
+	    } else {
+	        bInvalid.classList.remove("is-invalid");
+	        bInvalid.classList.add("is-valid");
+	        binvalidFeedback.style.display = "none";
+	    }
+	    console.log(binvalidFeedback);
+	});
+	
+	const nameInvalid = document.getElementById("name");
+	const ninvalidFeedback = nameInvalid.nextElementSibling;
+	
+	nameInvalid.addEventListener("input", function() {
+		let name = nameInvalid.value.trim();
+
+		if (name == "") {
+			nameInvalid.classList.remove("is-valid");
+			nameInvalid.classList.add("is-invalid");
+			ninvalidFeedback.style.display = "none";
+		} else {
+			nameInvalid.classList.remove("is-invalid");
+			nameInvalid.classList.add("is-valid");
+			ninvalidFeedback.style.display = "block";
+		}
+	});
+	
+	const emailInvalid = document.getElementById("email");
+	const einvalidFeedback = emailInvalid.nextElementSibling;
+	
+	emailInvalid.addEventListener("input", function() {
+		let email = emailInvalid.value.trim();
+
+		if (email == "") {
+			emailInvalid.classList.remove("is-valid");
+			emailInvalid.classList.add("is-invalid");
+			einvalidFeedback.style.display = "none";
+		} else {
+			emailInvalid.classList.remove("is-invalid");
+			emailInvalid.classList.add("is-valid");
+			einvalidFeedback.style.display = "block";
+		}
+	});
+	
+	const passWordInvalid = document.getElementById("passWord");
+	const pinvalidFeedback = genderInvalid.nextElementSibling;
+	
+	passWordInvalid.addEventListener("input", function() {
+		let passWord = passWordInvalid.value;
+
+		if (passWord == "") {
+			passWordInvalid.classList.remove("is-valid");
+			passWordInvalid.classList.add("is-invalid");
+			pinvalidFeedback.style.display = "none";
+		} else {
+			passWordInvalid.classList.remove("is-invalid");
+			passWordInvalid.classList.add("is-valid");
+			pinvalidFeedback.style.display = "block";
+		}
+	});
+	
+	const delNyInvalid = document.getElementById("delNy");
+	const dinvalidFeedback = delNyInvalid.nextElementSibling;
+	
+	delNyInvalid.addEventListener("input", function() {
+		let delNy = passWordInvalid.value;
+
+		if (delNy != 1 && delNy != 0) {
+			delNyInvalid.classList.remove("is-valid");
+			delNyInvalid.classList.add("is-invalid");
+			dinvalidFeedback.style.display = "none";
+		} else {
+			delNyInvalid.classList.remove("is-invalid");
+			delNyInvalid.classList.add("is-valid");
+			dinvalidFeedback.style.display = "block";
+		}
+	});
+	
+	const admSigninInvalid = document.getElementById("admSignin");
+	const ainvalidFeedback = admSigninInvalid.nextElementSibling;
+	
+	admSigninInvalid.addEventListener("input", function() {
+		let admSignin = admSigninInvalid.value;
+
+		if (admSignin != 1 && delNy != 0) {
+			admSigninInvalid.classList.remove("is-invalid");
+			admSigninInvalid.classList.add("is-valid");
+			ainvalidFeedback.style.display = "none";
+		} else {
+			admSigninInvalid.classList.remove("is-invalid");
+			admSigninInvalid.classList.add("is-valid");
+			ainvalidFeedback.style.display = "block";
+		}
+	});
+
+	jQuery.datetimepicker.setLocale('ko');
+
+	jQuery('#btd').datetimepicker(
+			{
+				i18n : {
+					de : {
+						months : [ 'Januar', 'Februar', 'März', 'April', 'Mai',
+								'Juni', 'Juli', 'August', 'September',
+								'Oktober', 'November', 'Dezember', ],
+						dayOfWeek : [ "So.", "Mo", "Di", "Mi", "Do", "Fr",
+								"Sa.", ]
+					}
+				},
+				datepicker : true,
+				timepicker : false,
+				format : 'Y-m-d'
+			});
+</script>
+</th:block>

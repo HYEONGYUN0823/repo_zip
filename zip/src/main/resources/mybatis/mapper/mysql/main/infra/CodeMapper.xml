@@ -16,17 +16,11 @@
         <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcdDelNy = #{shDelNy}</if>
 			
 			<choose>
-				<when test="shOptionDate != null and !shOptionDate.equals('')
-					and shOptionDate == 1
-					and shDateStart != null and !shDateStart.equals('')
-	 				and shDateEnd != null and !shDateEnd.equals('')">
-					AND a.ifcdRegDateTime BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				<when test="shOptionDate == 1">
+					AND a.ifcdRegDateTime BETWEEN #{shDateStart} AND #{shDateEnd}
 				</when>
-				<when test="shOptionDate != null and !shOptionDate.equals('')
-					and shOptionDate == 2
-	 				and shDateStart != null and !shDateStart.equals('')
-	 				and shDateEnd != null and !shDateEnd.equals('')">
-					AND a.ifcdRegDateTime BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				<when test="shOptionDate == 2">
+					AND a.ifcdModDateTime BETWEEN #{shDateStart} AND #{shDateEnd}
 				</when>
  			</choose>
 				

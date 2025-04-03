@@ -2,7 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="~{xdm/include/head :: head}"></div>
-<body>
 	<style>
 		/* 글자색을 검정으로 변경 */
 		.table-responsive-sm th,
@@ -28,12 +27,13 @@
 			table-layout: fixed;
 		}
 	</style>
+<body>
 	
 
 <form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-		<input type="hidden" name="ifcgSeq">
+		<input type="hidden" name="seq">
         
         <div class="content-body">
             <div class="container-fluid">
@@ -81,24 +81,37 @@
 												</select>
                                             </td>
                                             <td class="p-2">
-<!--                                                 <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
+                                            	<input type="text" id="shDateStart" name="shDateStart" placeholder="시작일" class="form-control form-control-sm" autocomplete="off" th:value="${vo.shDateStart}">
                                             </td>
                                             <td class="p-2">
-<!--                                                 <input type="text" id="shDateEnd" name="shDateEnd" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="종료일" class="form-control form-control-sm" autocomplete="off"> -->
+                                            	<input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" class="form-control form-control-sm" autocomplete="off" th:value="${vo.shDateEnd}">
                                             </td>
                                             <td class="p-2"></td>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    	<tr>
+                                    		<td class="p-2">
+                                                <select id="shOption1" name="shOption1" class="form-select form-select-sm">
+													<option value="" th:selected="${vo.shOption1 == null}">브랜드 이름</option>
+													<option
+														th:each="list : ${@codeService.selectListCachedCode(3)}"
+														th:value="${list.ifcdSeq}" 
+														th:text="${list.ifcdName}"
+														th:selected="${list.ifcdSeq} == ${vo.shOption1}">
+													</option>
+												</select>
+                                            </td>
+                                    	</tr>
                                         <tr>
                                             <td class="p-2">
                                                 <select id="shOption" name="shOption" class="form-select form-select-sm">
 													<option value="" th:selected="${vo.shOption == null}">검색구분</option>
-													<option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
-													<option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
-													<option value="3" th:selected="${vo.shOption == 3}">코드그룹 이름 (영문)</option>
+													<option value="1" th:selected="${vo.shOption == 1}">상품코드</option>
+													<option value="2" th:selected="${vo.shOption == 2}">밀키트 이름</option>
 												</select>
                                             </td>
+                                            
                                             <td class="p-2">
                                                 <input type="text" 
 		                                               id="shValue" 
@@ -112,7 +125,7 @@
                                             <td class="p-2">
                                                 <button type="button" id="btnSearch" class="btn btn-outline-dark btn-sm"><i
                                                         class="fa-solid fa-magnifying-glass"></i></button>
-                                                <button type="button" class="btn btn-outline-dark btn-sm"><i
+                                                <button type="button" onclick="location.href='/xdm/product/ProductXdmList'" class="btn btn-outline-dark btn-sm"><i
                                                         class="fa-solid fa-rotate-right"></i></button>
                                             </td>
                                         </tr>
@@ -127,8 +140,8 @@
                                                 <td style="width: 7%;"></td>
                                                 <td style="width: 7%;"></td>
                                                 <td style="width: 4%"></td>
-                                                <td style="width: 15%"></td>
-                                                <td style="width: 15%"></td>
+                                                <td style="width: 12%"></td>
+                                                <td style="width: 18%"></td>
                                                 <td style="width: 7%"></td>
                                                 <td style="width: 10%"></td>
                                                 <td style="width: 7%"></td>
@@ -172,16 +185,16 @@
                                                 <td>
                                                     <b>#</b>
                                                 </td>
+                                                <td><b>코드</b></td>
+                                                <td><b>브랜드</b></td> <!-- 코드그룹 코드 -->
+                                                <td><b>밀키트 이름</b></td> <!-- 코드그룹 이름 -->
+                                                <td><b>재고</b></td>
+                                                <td><b>가격</b></td> <!-- 코드 이름(영문) -->
+                                                <td><b>평점</b></td>
                                                 <td><b>사용</b></td>
-                                                <td><b>코드그룹 코드</b></td> <!-- 코드그룹 코드 -->
-                                                <td><b>코드그룹 이름</b></td> <!-- 코드그룹 이름 -->
-                                                <td><b>삭제</b></td>
-                                                <td><b></b></td> <!-- 코드 이름(영문) -->
-                                                <td><b></b></td>
-                                                <td><b>갯수</b></td> <!-- 갯수 -->
                                                 <td><b><!-- 성별 --></b></td> <!-- 순서 -->
                                                 <td><b>등록일</b></td> <!-- 등록일 -->
-                                                <td><b></b></td> <!-- 수정일 -->
+                                                <td><b>수정일</b></td> <!-- 갯수 -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -205,21 +218,23 @@
                                                     </div>
                                                 </td>
                                                 <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                                <td th:text="${list.ifcgUseNy}"></td>
-                                                <td th:text="${list.ifcgSeq}"></td>
-                                                <td class="ifcgName align-middle fw-semi-bold">
-                                                	<a href="javascript:void(0);" 
-                                                		th:text="${list.ifcgName}" 
-                                                		th:attr="onclick=|goForm('${list.ifcgSeq}')|">
-                                                	</a>
+                                                <td th:text="${list.seq}"></td>
+                                                <td th:each="codeList : ${@codeService.selectListCachedCode(3)}"
+                                                	th:if="${#strings.equals(codeList.ifcdSeq, list.brandName)}"
+                                                	th:text="${codeList.ifcdName}">
                                                 </td>
-                                                <td th:text="${list.ifcgDelNy}"></td>
+<!--                                                 <td th:text="${list.mealKitName}"></td> -->
+                                                <td class="mealKitName align-middle fw-semi-bold"><a
+													href="javascript:void(0);" th:text="${list.mealKitName}"
+													th:attr="onclick=|goForm('${list.seq}')|"> </a>
+												</td>
+                                                <td th:text="${list.stock}"></td>
+                                                <td th:text="${#numbers.formatInteger(list.price, 0, 'COMMA')}"></td>
+                                                <td th:text="${list.score}"><b></b></td>
+                                                <td th:text="${list.mealUseNy}"></td>
                                                 <td></td>
-                                                <td><b></b></td>
-                                                <td th:text="${list.xifcdSeqCount}"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td th:text="${list.mealRegDateTime}"></td>
+                                                <td th:text="${list.mealModDateTime}"></td>
                                             </tr>
                                             <!-- <tr>
                                                 <td>
@@ -384,7 +399,7 @@
 		
 	
 		let form = document.querySelector("form[name=formList]");
-		let seq = document.querySelector("input[name=ifcgSeq]");
+		let seq = document.querySelector("input[name=seq]");
 		
 		
 		goList = function (thisPage) {
@@ -416,6 +431,7 @@
 		}
 		
 	</script>
+	<div th:replace="~{xdm/include/calendar :: calendar}"></div>
 </body>
 
 </html>

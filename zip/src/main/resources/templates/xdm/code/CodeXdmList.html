@@ -84,14 +84,10 @@
 												</select>
                                             </td>
                                             <td class="p-2">
-                                            <input type="text" id="shDateStart" name="shDateStart" placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
-<!--                                                 <input class="form-control form-control-sm" type="text" -->
-<!--                                                     placeholder="2024-12-25" aria-label="default input example"> -->
+                                            	<input type="text" id="shDateStart" name="shDateStart" placeholder="시작일" class="form-control form-control-sm" autocomplete="off" th:value="${vo.shDateStart}">
                                             </td>
                                             <td class="p-2">
-                                            <input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" class="form-control form-control-sm" autocomplete="off">
-<!--                                                 <input class="form-control form-control-sm" type="text" -->
-<!--                                                     placeholder="2025-01-24" aria-label="default input example"> -->
+                                            	<input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" class="form-control form-control-sm" autocomplete="off" th:value="${vo.shDateEnd}">
                                             </td>
                                             <td class="p-2"></td>
                                         </tr>
@@ -246,7 +242,7 @@
                                         </ul>
                                     </nav>
                                     <button type="button" class="btn btn-danger"><i class="fa-solid fa-x"></i></button>
-                                    <button type="button" class="btn btn-danger"><i
+                                    <button type="button" id="btnUel" class="btn btn-danger"><i
                                             class="fa-regular fa-trash-can"></i></button>
                                     <button type="button" id="btnForm" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
@@ -256,6 +252,8 @@
                                     <button type="button" class="btn btn-primary"
                                         style="float: right; margin-right: 4px;"><i class="fa-solid fa-u"></i></button>
                                         
+                                        <!-- 모달 -->
+                                        <div th:replace="~{xdm/include/modal :: modal}"></div>
                                 </div>
                             </div>
                         </div>
@@ -277,8 +275,12 @@
  		let seq = document.querySelector("input[name=ifcdSeq]");
  		let form = document.getElementById("formList");  // form 요소 가져오기
  		
+ 	    let seqInput = document.querySelector("input[name='ifcdSeq']");
+ 	    let delNyInput = document.querySelector("input[name='ifcdDelNy']");
+ 		
  		let goUrlXdmList = "/xdm/code/CodeXdmList";
  		let goUrlXdmForm = "/xdm/code/CodeXdmForm";
+ 		let goUrlXdmUele = "/xdm/code/CodeXdmUele";
  		
 		goList = function (thisPage) {
 		    document.querySelector("input[name=thisPage]").value = thisPage;
@@ -309,49 +311,31 @@
 	        form.submit();
 	    };
 		
-//	     jQuery('#datetimepicker').datetimepicker();
-		jQuery.datetimepicker.setLocale('ko');
-
-		jQuery('#shDateStart').datetimepicker({
-		 i18n:{
-		  de:{
-		   months:[
-		    'Januar','Februar','März','April',
-		    'Mai','Juni','Juli','August',
-		    'September','Oktober','November','Dezember',
-		   ],
-		   dayOfWeek:[
-		    "So.", "Mo", "Di", "Mi",
-		    "Do", "Fr", "Sa.",
-		   ]
-		  }
-		 },
-		 timepicker:false,
-		 format:'Y-m-d'
-		});
 		    
-//		     jQuery('#datetimepicker').datetimepicker();
-		jQuery.datetimepicker.setLocale('ko');
-
-		jQuery('#shDateEnd').datetimepicker({
-		 i18n:{
-		  de:{
-		   months:[
-		    'Januar','Februar','März','April',
-		    'Mai','Juni','Juli','August',
-		    'September','Oktober','November','Dezember',
-		   ],
-		   dayOfWeek:[
-		    "So.", "Mo", "Di", "Mi",
-		    "Do", "Fr", "Sa.",
-		   ]
-		  }
-		 },
-		 timepicker:false,
-		 format:'Y-m-d'
-		});
+		//	    삭제 모달에서 삭제 버튼 클릭 시
+		document.getElementById("btnUelSubmit").onclick = function () {
+		    let seqValues = [];
+		    let delNyValues = [];
 		    
 		
+		//	        선택된 체크박스에서 ifcgSeq 값과 ifcgDelNy 값을 추출
+		    document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
+		        seqValues.push(checkbox.value);  // 체크된 체크박스의 value 값 (ifcgSeq)
+		        delNyValues.push("1");  // ifcgDelNy 값 (삭제 표시)
+		    });
+		
+		    if (seqValues.length > 0) {
+		//	            ifcgSeq 값을 서버에 보내기 위해 연결
+		        document.querySelector("input[name='ifcdSeq']").value = seqValues.join(",");
+		        document.querySelector("input[name='ifcdDelNy']").value = delNyValues.join(","); // ifcgDelNy를 업데이트
+		
+		//	            폼을 제출하여 삭제 요청
+		        form.action = goUrlXdmUele;
+		        form.submit();
+		    }
+		}
 	</script>
+	<div th:replace="~{xdm/include/checkBox :: checkBox}"></div>
+	<div th:replace="~{xdm/include/calendar :: calendar}"></div>
 </body>
 </html>

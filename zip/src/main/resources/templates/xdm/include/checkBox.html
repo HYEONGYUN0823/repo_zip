@@ -1,0 +1,92 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="checkBox">	
+	<script type="text/javascript">
+		// 체크박스
+		function chkClicked() {
+		    console.log("체크박스 클릭");
+		}
+		
+		// 체크박스 클릭 시 seq 및 delNy 업데이트
+		function updateSeqValues() {
+		    let seqValues = [];
+		    let delNyValues = [];
+		    document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
+		        seqValues.push(checkbox.value);
+		        delNyValues.push("1");  // 선택된 항목의 ifcgDelNy 값을 "1"로 설정
+		    });
+		
+		
+		    if (seqValues.length > 0) {
+		        seqInput.value = seqValues.join(",");
+		        delNyInput.value = delNyValues.join(",");  // ifcgDelNy 값을 업데이트
+		    } else {
+		        seqInput.value = "";
+		        delNyInput.value = "";
+		    }
+		}
+		
+		// 체크박스 클릭 시 seq 및 delNy 업데이트
+		document.querySelectorAll("input[name='chk']").forEach(function (checkbox) {
+		    checkbox.addEventListener("click", function () {
+		        updateSeqValues();
+		        updateAllCheckboxState();  // 개별 체크박스 클릭 시 전체 선택 체크박스 상태 업데이트
+		    });
+		});
+		
+		// 체크박스 전체 선택 클릭 이벤트
+		function allChecked(target) {
+		    const checkbox = document.getElementById('allCheckBox');
+		    const is_checked = checkbox.checked;
+		
+		    if (is_checked) {
+		        chkAllChecked();
+		    } else {
+		        chkAllUnChecked();
+		    }
+		
+		    updateSeqValues();  // 전체 선택 후에도 ifcgSeq 및 ifcgDelNy 값을 업데이트
+		}
+		
+		// 체크박스 전체 체크
+		function chkAllChecked() {
+		    document.querySelectorAll(".chk").forEach(function (v) {
+		        v.checked = true;
+		    });
+		}
+		
+		// 체크박스 전체 체크 해제
+		function chkAllUnChecked() {
+		    document.querySelectorAll(".chk").forEach(function (v) {
+		        v.checked = false;
+		    });
+		}
+		
+		// 전체 선택 체크박스 상태 업데이트
+		function updateAllCheckboxState() {
+		    const allCheckbox = document.getElementById('allCheckBox');
+		    const checkboxes = document.querySelectorAll("input[name='chk']");
+		    const checkedCheckboxes = document.querySelectorAll("input[name='chk']:checked");
+		    
+		    allCheckbox.checked = checkboxes.length > 0 && checkboxes.length === checkedCheckboxes.length;
+		}
+		
+		//    삭제 버튼 클릭 이벤트
+		document.getElementById("btnUel").onclick = function (uelEvent) {
+		    uelEvent.preventDefault();  // 기본 동작을 막음 (폼 제출 등을 방지)
+		    
+		//	        체크된 항목이 있는지 확인
+		    let checkedCheckboxes = document.querySelectorAll("input[name='chk']:checked");
+		    if (checkedCheckboxes.length > 0) {
+		        let alertModal = new bootstrap.Modal(document.getElementById("uelModal"));
+		        alertModal.show();  // 삭제 확인 모달을 띄움
+		    } else {
+		        alert("삭제할 항목을 선택해주세요.");
+		    }
+		}
+		
+// 		------------------
+		
+
+	</script>
+</th:block>

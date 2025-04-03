@@ -67,7 +67,7 @@
                 </div>
                 <!-- row -->
                 <form method="post" id="form">
-                <div th:replace="~{xdm/codegroup/codeGroupXdmVo :: vo}"></div>
+                <input type="hidden" name="seq" th:value="${vo.seq}">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -83,44 +83,83 @@
                                                     <br>
                                                     <input 
 	                                                    type="text" 
-	                                                    id="ifcgSeq" 
-	                                                    name="ifcgSeq" 
-	                                                    th:value="${item?.ifcgSeq}" 
+	                                                    id="seq" 
+	                                                    name="seq" 
+	                                                    th:value="${item?.seq}" 
 	                                                    maxlength="20" 
 	                                                    placeholder="자동생성" 
 	                                                    disabled class="form-control"/>
                                                 </td>
-                                                <td><label for="ifcgName"><b><!-- 코드 -->코드그룹 이름</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="ifcgName" name="ifcgName" type="text"
-                                                        placeholder="한글, 영대소문자, 숫자">
-                                                        <div id="ifcgNameError" class="errorText"></div>
-                                                </td>
-                                            </tr>
+                                                <td><label for="brandName"><b> <!-- 코드 -->브랜드
+												</b><b class="red"> *</b></label> <br> 
+												<select id="brandName" name="brandName" class="form-select">
+													<option value="">선택하세요</option>
+													<option
+														th:each="list : ${@codeService.selectListCachedCode(3)}"
+														th:value="${list.ifcdSeq}" th:text="${list.ifcdName}"
+														th:selected="${list.ifcdSeq} == ${item?.brandName}">
+													</option>
+												</select>
+												<div id="brandNameError" class="errorText"></div> <!--                                                     <input class="form-control" id="gender" name="gender" type="text" -->
+												<!--                                                         placeholder="한글, 영대소문자, 숫자"> -->
+												</td>
+												<td><label for="email"><b> <!-- 코드 -->밀키트 명
+													</b><b class="red"> *</b></label> <br> <input class="form-control"
+													id="mealKitName" name="mealKitName" type="text"
+													th:value="${item?.mealKitName}" placeholder="한글 또는 영어">
+													<div id="mealKitNameError" class="errorText"></div>
+												</td>
+												<td><label for="stock"><b> <!-- 코드 -->재고
+													</b><b class="red"> *</b></label> <br> <input class="form-control"
+													id="stock" name="stock" type="text"
+													th:value="${item?.stock}" placeholder="숫자">
+													<div id="stockError" class="errorText"></div>
+												</td>
+											</tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+	                                            <td><label for="price"><b> <!-- 코드 -->가격
+														</b><b class="red"> *</b></label> <br> <input class="form-control"
+														id="price" name="price" type="text"
+														th:value="${item?.price}" placeholder="숫자">
+														<div id="priceError" class="errorText"></div>
+												</td>
+	                                            <td><label for="score"><b> <!-- 코드 -->평점
+														</b><b class="red"> *</b></label> <br> <input class="form-control"
+														id="score" name="score" type="text"
+														th:value="${item?.score}" placeholder="숫자">
+														<div id="scoreError" class="errorText"></div>
+												</td>
                                                 <td>
-                                                    <label for="ifcgDelNy"><b class="rgb">삭제여부</b><b class="red"> *</b></label>
+                                                    <label for="mealDelNy"><b class="rgb">삭제여부</b><b class="red"> *</b></label>
                                                     <br>
-                                                    <select id="ifcgDelNy" name="ifcgDelNy" class="form-select">
+                                                    <select id="mealDelNy" name="mealDelNy" class="form-select">
                                                     	<option value="">선택하세요</option>
-                                                        <option value="1">Y</option>
-                                                        <option value="0">N</option>
+                                                        <option value="1" th:selected="${item?.mealDelNy == '1'}">Y</option>
+                                                        <option value="0" th:selected="${item?.mealDelNy == '0'}">N</option>
                                                     </select>
-                                                    <div id="ifcgDelNyError" class="errorText"></div>
+                                                    <div id="mealDelNyError" class="errorText"></div>
                                                 </td>
                                                 <td>
-                                                    <label for="ifcgUseNy"><b class="rgb">사용여부</b><b class="red"> *</b></label>
+                                                    <label for="mealUseNy"><b class="rgb">사용여부</b><b class="red"> *</b></label>
                                                     <br>
-                                                    <select id="ifcgUseNy" name="ifcgUseNy" class="form-select">
+                                                    <select id="mealUseNy" name="mealUseNy" class="form-select">
                                                     	<option value="">선택하세요</option>
-                                                        <option value="1">Y</option>
-                                                        <option value="0">N</option>
+                                                        <option value="1" th:selected="${item?.mealUseNy == '1'}">Y</option>
+                                                        <option value="0" th:selected="${item?.mealUseNy == '0'}">N</option>
                                                     </select>
-                                                    <div id="ifcgUseNyError" class="errorText"></div>
+                                                    <div id="mealUseNyError" class="errorText"></div>
                                                 </td>
                                             </tr>
+                                            <tr>
+	                                            <td colspan="2"><label for="stock"><b> <!-- 코드 -->재료
+														</b><b class="red"> *</b></label> <br> <textarea class="form-control" style="height: 100px"
+														id="ingredient" name="ingredient" type="text"
+														th:text="${item?.ingredient}" placeholder="재료, 재료, 재료"></textarea>
+														<div id="ingredientError" class="errorText"></div>
+												</td>
+											</tr>
                                         </tbody>
                                     </table>
                                     <button type="button" onclick="location.href='/xdm/product/ProductXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
@@ -152,7 +191,7 @@
 	let goUrlXdmUpdt = "/xdm/product/ProductXdmUpdt";
 	let goUrlXdmUele = "/xdm/product/ProductXdmUele";
 	
-	let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
+	let seq = document.querySelector("input[name=seq]");							/* ### */
 	
 	const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
 	const modalElement = document.getElementById("alertModal");
@@ -173,7 +212,7 @@
 	    
 	}
 	document.getElementById("btnUelSubmit").onclick = function () {
-	    let seq = document.querySelector("input[name=ifcdSeq]"); 
+	    let seq = document.querySelector("input[name=seq]"); 
 	    let form = document.getElementById("form");
 	        form.action = goUrlXdmUele;
 
@@ -184,46 +223,116 @@
 	    event.preventDefault(); // 기본 폼 제출 방지
 
 	    let check = true;
+		
+	    const brandName = document.getElementById("brandName");
+		const brandNameError = document
+				.getElementById("brandNameError");
 
-	    const ifcgName = document.getElementById("ifcgName");
-	    const ifcgNameError = document.getElementById("ifcgNameError");
+		if (brandName.value == "") {
+			brandName.classList.add("redOutline");
+			brandNameError.textContent = "브랜드를 선택하세요.";
 
-	    if (ifcgName.value == "") {
-	        ifcgName.classList.add("redOutline");
-	        ifcgNameError.textContent = "코드그룹 이름을 입력하세요.";
-	        
-	    	check = false;
-	    } else {
-	        ifcgName.classList.remove("redOutline");
-	        ifcgNameError.textContent = "";
-	    }
+			check = false;
+		} else {
+			brandName.classList.remove("redOutline");
+			brandNameError.textContent = "";
+		}
+		
+	    const mealKitName = document.getElementById("mealKitName");
+		const mealKitNameError = document
+				.getElementById("mealKitNameError");
 
-	    const ifcgDelNy = document.getElementById("ifcgDelNy");
-	    const ifcgDelNyError = document.getElementById("ifcgDelNyError");
+		if (mealKitName.value == "") {
+			mealKitName.classList.add("redOutline");
+			mealKitNameError.textContent = "밀키트이름을 입력하세요.";
 
-	    if (ifcgDelNy.value.trim() == "") {
-	        ifcgDelNy.classList.add("redOutline");
-	        ifcgDelNyError.textContent = "삭제여부를 선택하세요.";
-	        
-	    	check = false;
-	    } else {
-	        ifcgDelNy.classList.remove("redOutline");
-	        ifcgDelNyError.textContent = "";
-	    }
+			check = false;
+		} else {
+			mealKitName.classList.remove("redOutline");
+			mealKitNameError.textContent = "";
+		}
+		
+	    const stock = document.getElementById("stock");
+		const stockError = document
+				.getElementById("stockError");
 
-	    const ifcgUseNy = document.getElementById("ifcgUseNy");
-	    const ifcgUseNyError = document.getElementById("ifcgUseNyError");
+		if (stock.value == "") {
+			stock.classList.add("redOutline");
+			stockError.textContent = "재고를 입력하세요.";
 
-	    if (ifcgUseNy.value == "") {
-	        ifcgUseNy.classList.add("redOutline");
-	        ifcgUseNyError.textContent = "사용 여부를 선택하세요.";
-	        
-	    	check = false;
-	    } else {
-	        ifcgUseNy.classList.remove("redOutline");
-	        ifcgUseNyError.textContent = "";
-	    }
-	    
+			check = false;
+		} else {
+			stock.classList.remove("redOutline");
+			stockError.textContent = "";
+		}
+		
+	    const price = document.getElementById("price");
+		const priceError = document
+				.getElementById("priceError");
+
+		if (price.value == "") {
+			price.classList.add("redOutline");
+			priceError.textContent = "가격을 입력하세요.";
+
+			check = false;
+		} else {
+			price.classList.remove("redOutline");
+			priceError.textContent = "";
+		}
+		
+	    const score = document.getElementById("score");
+		const scoreError = document.getElementById("scoreError");
+
+		if (score.value == "") {
+			score.classList.add("redOutline");
+			scoreError.textContent = "평점을 입력하세요.";
+
+			check = false;
+		} else {
+			score.classList.remove("redOutline");
+			scoreError.textContent = "";
+		}
+		
+	    const mealDelNy = document.getElementById("mealDelNy");
+		const mealDelNyError = document
+				.getElementById("mealDelNyError");
+
+		if (mealDelNy.value == "") {
+			mealDelNy.classList.add("redOutline");
+			mealDelNyError.textContent = "평점을 입력하세요.";
+
+			check = false;
+		} else {
+			mealDelNy.classList.remove("redOutline");
+			mealDelNyError.textContent = "";
+		}
+		
+	    const mealUseNy = document.getElementById("mealUseNy");
+		const mealUseNyError = document.getElementById("mealUseNyError");
+
+		if (mealUseNy.value == "") {
+			mealUseNy.classList.add("redOutline");
+			mealUseNyError.textContent = "평점을 입력하세요.";
+
+			check = false;
+		} else {
+			mealUseNy.classList.remove("redOutline");
+			mealUseNyError.textContent = "";
+		}
+		
+	    const ingredient = document.getElementById("ingredient");
+		const ingredientError = document.getElementById("ingredientError");
+
+		if (ingredient.value == "") {
+			ingredient.classList.add("redOutline");
+			ingredientError.textContent = "평점을 입력하세요.";
+
+			check = false;
+		} else {
+			ingredient.classList.remove("redOutline");
+			ingredientError.textContent = "";
+		}
+
 	    if (check) {
 			let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
 			alertModal.show();
@@ -231,7 +340,7 @@
 	}
 	
 	document.getElementById("btnSubmit").onclick = function () {
-	    let seq = document.querySelector("input[name=ifcgSeq]"); 
+	    let seq = document.querySelector("input[name=seq]"); 
 	    let form = document.getElementById("form");
 
 	    if (seq.value == "0" || seq.value == "") { // 추가

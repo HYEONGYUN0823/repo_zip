@@ -1,0 +1,35 @@
+2025-04-02T16:00:08.952 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+171. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 0 msec} 
+2025-04-02T16:00:08.953 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+171. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.email,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.a7a7.common.util.UtilDateTime;
 import com.a7a7.modeule.code.CodeVo;
 
 
@@ -14,25 +15,15 @@ public class CodeGroupController {
 	@Autowired
 	CodeGroupService codeGroupService;
 	
-//	private void setSearch(CodeGroupVo vo) {
-//	    if (vo.getShUseNy() != null && !vo.getShUseNy().equals("")) {
-//	        vo.setShUseNy(vo.getShUseNy());
-//	    }
-//	
-//	    if (vo.getShDelNy() != null && !vo.getShDelNy().equals("")) {
-//	        vo.setShDelNy(vo.getShDelNy());
-//	    }
-//	
-//	    if (vo.getShOption() != null && vo.getShValue() != null && !vo.getShValue().equals("")) {
-//	        vo.setShOption(vo.getShOption());
-//	        vo.setShValue(vo.getShValue());
-//	    }
-//	}
+	private void setSearch(CodeGroupVo vo) {
+		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
+		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
+	}
 	
 	@RequestMapping(value = "/xdm/codegroup/CodeGroupXdmList")
 	public String codeGroupXdmList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception {
 
-//	    setSearch(vo); // 검색 조건 설정
+	    setSearch(vo); // 검색 조건 설정
 	    vo.setParamsPaging(codeGroupService.selectOneCount(vo));
 
 	    if (vo.getTotalRows() > 0) {

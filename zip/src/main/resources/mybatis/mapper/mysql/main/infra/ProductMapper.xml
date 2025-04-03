@@ -6,22 +6,26 @@
 	<resultMap id="resultMapObj" type="com.a7a7.modeule.product.ProductDto"/>
 	
 	<sql id = "selectCommon">
-		FROM codeGroup as a
+		FROM mealKit as a
 		WHERE 1=1
-		<if test="shUseNy != null and !shUseNy.equals('')">AND a.ifcgUseNy = #{shUseNy}</if>
-        <if test="shDelNy != null and !shDelNy.equals('')">AND a.ifcgDelNy = #{shDelNy}</if>
-<!-- 				
+		<if test="shUseNy != null and !shUseNy.equals('')">AND a.mealUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.mealDelNy = #{shDelNy}</if>
+ 				
 				<choose>
-					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 1">AND a.mealRegDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.mealModDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 				</choose>
- -->				
+				
         <choose>
-            <when test="shOption == 1">AND a.ifcgSeq = #{shValue}</when>
-            <when test="shOption == 2">AND a.ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
-<!--             <when test="shOption == 3">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when> -->
+            <when test="shOption == 1">AND a.seq = #{shValue}</when>
+            <when test="shOption == 2">AND a.mealKitName LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
-		ORDER BY a.ifcgSeq DESC
+        
+        <if test="shOption1 != null and shOption1 != ''">
+	        AND a.brandName = #{shOption1}
+	    </if>
+        
+		ORDER BY a.seq DESC
 	</sql>
 
 	<select id="selectOneCount" resultType="Integer">
@@ -32,15 +36,17 @@
 	<select id="selectList" resultMap="resultMapObj">
 		SELECT aa.* FROM (
 			SELECT
-				a.ifcgSeq,
-			    a.ifcgName,
-			    (select count(aa.ifcdSeq) from code aa 
-			    	where 1=1 
-			    		and aa.ifcdDelNy = 0
-			    		and aa.ifcgSeq = a.ifcgSeq
-			    ) as xifcdSeqCount,
-			    a.ifcgDelNy,
-			    a.ifcgUseNy
+				a.seq,
+				a.brandName,
+				a.mealKitName,
+				a.stock,
+				a.price,
+				a.score,
+				a.ingredient,
+				a.mealDelNy,
+				a.mealUseNy,
+				a.mealRegDateTime,
+				a.mealModDateTime
 		<include refid="selectCommon"></include>
 		) aa
 		limit #{rowNumToShow} offset #{startRnumForMysql}
@@ -48,37 +54,67 @@
 	
 	<select id="selectOne" resultMap="resultMapObj">
 		SELECT
-			ifcgSeq,
-		    ifcgName,
-		    ifcgDelNy,
-		    ifcgUseNy
+			seq,
+			brandName,
+			mealKitName,
+			stock,
+			price,
+			score,
+			ingredient,
+			mealDelNy,
+			mealUseNy
 		FROM
-			codeGroup
+			mealKit
 		WHERE 1=1
-			AND ifcgSeq = #{ifcgSeq}
-		ORDER BY ifcgSeq DESC
+			AND seq = #{seq}
+		ORDER BY seq DESC
 	</select>
 	
 	<insert id="insert">
-		INSERT INTO codeGroup (
-			ifcgSeq,
-			ifcgName,
-			ifcgDelNy,
-			ifcgUseNy
+		INSERT INTO mealKit (
+			seq,
+			brandName,
+			mealKitName,
+			stock,
+			price,
+			score,
+			ingredient,
+			mealDelNy,
+			mealUseNy,
+			mealRegDateTime
 		) values (
-			#{ifcgSeq},
-			#{ifcgName},
-			#{ifcgDelNy},
-			#{ifcgUseNy}
+			#{seq},
+			#{brandName},
+			#{mealKitName},
+			#{stock},
+			#{price},
+			#{score},
+			#{ingredient},
+			#{mealDelNy},
+			#{mealUseNy},
+			now()
 		)
 	</insert>
 	
 	<update id="update">
-		UPDATE codeGroup SET
-			ifcgName = #{ifcgName},
-			ifcgDelNy = #{ifcgDelNy},
-			ifcgUseNy = #{ifcgUseNy}
-		WHERE ifcgSeq = #{ifcgSeq}
+		UPDATE mealKit SET
+			brandName = #{brandName},
+			mealKitName = #{mealKitName},
+			stock = #{stock},
+			price = #{price},
+			score = #{score},
+			ingredient = #{ingredient},
+			mealDelNy = #{mealDelNy},
+			mealUseNy = #{mealUseNy},
+			mealModDateTime = now()
+		WHERE seq = #{seq}
+	</update>
+	
+	<update id="uelete">
+		UPDATE mealKit SET
+			mealDelNy = 1,
+			mealModDateTime = now()
+		WHERE seq = #{seq}
 	</update>
 
 </mapper>

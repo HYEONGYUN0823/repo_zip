@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.a7a7.common.util.UtilDateTime;
 import com.a7a7.modeule.code.CodeDto;
 import com.a7a7.modeule.code.CodeService;
 import com.a7a7.modeule.code.CodeVo;
@@ -23,6 +24,11 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	CodeService codeService;
+	
+	private void setSearch(MemberVo vo) {
+		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
+		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/xdm/signin/signinXdmProc")
@@ -67,18 +73,17 @@ public class MemberController {
 	
 	@RequestMapping(value = "/xdm/member/MemberXdmList")
 	public String memberXdmList(@ModelAttribute("vo") MemberVo vo, Model model, HttpSession httpSession, MemberDto memberDto) throws Exception {
-//		String id = (String) httpSession.getAttribute("sessIdXdm");
-//		
-//		if (id == null) {
-//			return "redirect:/xdm/signin/signinXdm";
-//		}
 		
+		setSearch(vo);
 	    vo.setParamsPaging(memberService.selectOneCount(vo));
 
 	    if (vo.getTotalRows() > 0) {
 	        model.addAttribute("list", memberService.selectList(vo));
+	        model.addAttribute("memberDto", memberDto); // MemberDto 값도 유지
 	    }
-
+	    
+//	    model.addAttribute("vo", vo); // MemberVo 값 유지
+	    
 		return "xdm/member/MemberXdmList";
 	}
 	
@@ -86,13 +91,11 @@ public class MemberController {
 	public String memberXdmForm(@ModelAttribute("vo") MemberVo vo, MemberDto memberDto, Model model) throws Exception{
 		System.out.println(memberService.selectOne(memberDto));
 		
-//		model.addAttribute("codeList", CodeService.selectListCachedCode("1"));
 		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
 //			insert mode
 		} else {
 //			update mode
 			model.addAttribute("item", memberService.selectOne(memberDto));
-//			model.addAttribute("list", codeService.selectList(cvo));
 		}
 		
 		return "xdm/member/MemberXdmForm";
@@ -108,6 +111,13 @@ public class MemberController {
 	@RequestMapping(value = "/xdm/member/MemberXdmUpdt")
 	public String memberXdmUpdt(MemberDto memberDto) {
 		memberService.update(memberDto);
+		
+		return "redirect:/xdm/member/MemberXdmList";
+	}
+	
+	@RequestMapping(value = "/xdm/member/MemberXdmUele")
+	public String memberXdmUele(MemberDto memberDto) {
+		memberService.uelete(memberDto);
 		
 		return "redirect:/xdm/member/MemberXdmList";
 	}

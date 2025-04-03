@@ -2,441 +2,395 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="~{xdm/include/head :: head}"></div>
+<style>
+/* 글자색을 검정으로 변경 */
+.table-responsive-sm th, .table-responsive-sm td {
+	color: black !important;
+}
+
+/* 테이블의 모든 선 제거 */
+.table, .table th, .table td, .table thead th, .table tbody td {
+	border: none !important;
+}
+
+.red {
+	color: red;
+}
+
+.table {
+	width: 100%;
+	table-layout: fixed;
+	/* 칸 너비 고정 */
+}
+/* 					빨간색 테두리 */
+.redOutline {
+	border: 2px solid red;
+}
+
+/* 					빨간색 에러 텍스트 */
+.errorText {
+	color: red;
+	font-size: 12px; /* 텍스트 크기 */
+}
+</style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!--**********************************
+<!--**********************************
             Sidebar end
         ***********************************-->
 
-        <!--**********************************
+<!--**********************************
             Content body start
         ***********************************-->
-        
-        <!-- main -->
-        
-        <div class="content-body">
-            <div class="container-fluid">
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-                            <h4>Member</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">회원관리</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">멤버관리</a></li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- row -->
-                <style>
-                    /* 글자색을 검정으로 변경 */
-                    .table-responsive-sm th,
-                    .table-responsive-sm td {
-                        color: black !important;
-                    }
 
-                    /* 테이블의 모든 선 제거 */
-                    .table,
-                    .table th,
-                    .table td,
-                    .table thead th,
-                    .table tbody td {
-                        border: none !important;
-                    }
+<!-- main -->
 
-                    .red {
-                        color: red;
-                    }
+<div class="content-body">
+	<div class="container-fluid">
+		<div class="row page-titles mx-0">
+			<div class="col-sm-6 p-md-0">
+				<div class="welcome-text">
+					<h4>Member</h4>
+				</div>
+			</div>
+			<div
+				class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="javascript:void(0)">회원관리</a></li>
+					<li class="breadcrumb-item active"><a
+						href="javascript:void(0)">멤버관리</a></li>
+				</ol>
+			</div>
+		</div>
+		<!-- row -->
+		
+		<form method="post" id="form">
+			<input type="hidden" name="seq" th:value="${vo.seq}">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">
+								<b>기본정보</b>
+							</h4>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-responsive-sm">
+									<thead>
+										<tr>
+											<td><b>코드</b><b class="red"> *</b> <br> <input
+												type="text" id="seq" name="seq" th:value="${item?.seq}"
+												maxlength="20" placeholder="자동생성" disabled
+												class="form-control" /></td>
+										</tr>
+										<tr>
+											<td><label for="name"><b> <!-- 코드 -->이름
+												</b><b class="red"> *</b></label> <br> <input class="form-control"
+												id="name" name="name" type="text" th:value="${item?.name}"
+												placeholder="한글, 영대소문자, 숫자">
+												<div id="nameError" class="errorText"></div></td>
+											<td><label for="btd"><b> <!-- 코드 -->생년월일
+												</b><b class="red"> *</b></label> <br> <input type="text" id="btd"
+												name="btd" th:value="${item?.btd}" placeholder="생년월일"
+												class="form-control form-control-sm" autocomplete="off">
+												<div id="btdError" class="errorText"></div></td>
+											<td><label for="gender"><b> <!-- 코드 -->성별
+												</b><b class="red"> *</b></label> <br> <select id="gender"
+												name="gender" class="form-select">
+													<option value="">선택하세요</option>
+													<option
+														th:each="list : ${@codeService.selectListCachedCode(1)}"
+														th:value="${list.ifcdSeq}" th:text="${list.ifcdName}"
+														th:selected="${list.ifcdSeq} == ${item?.gender}">
+													</option>
+											</select>
+												<div id="genderError" class="errorText"></div>
+											</td>
+											<td><label for="phoneNumber"><b> <!-- 코드 -->휴대전화번호
+												</b><b class="red"> *</b></label> <br> <input class="form-control"
+												id="phoneNumber" name="phoneNumber" type="text"
+												th:value="${item?.phoneNumber}" placeholder="01012345678">
+												<div id="phoneNumberError" class="errorText"></div></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><label for="email"><b> <!-- 코드 -->이메일
+												</b><b class="red"> *</b></label> <br> <input class="form-control"
+												id="email" name="email" type="text"
+												th:value="${item?.email}" placeholder="한글, 영대소문자, 숫자">
+												<div id="emailError" class="errorText"></div>
+											</td>
+											<td><label for="passWord"><b> <!-- 코드 -->비밀번호
+												</b><b class="red"> *</b></label> <br> <input class="form-control"
+												id="passWord" name="passWord" type="text"
+												th:value="${item?.passWord}" placeholder="한글, 영대소문자, 숫자">
+												<div id="passWordError" class="errorText"></div>
+											</td>
+											<td><label for="delNy"><b class="rgb">삭제여부</b><b
+													class="red"> *</b></label> <br> <select id="delNy"
+												name="delNy" class="form-select">
+													<option value="">선택하세요</option>
+													<option value="1" th:selected="${item?.delNy == '1'}">Y</option>
+													<option value="0" th:selected="${item?.delNy == '0'}">N</option>
+											</select>
+												<div id="delNyError" class="errorText"></div>
+											</td>
+											<td><label for="mobileCarrier"><b class="rgb">통신사</b><b
+													class="red"> *</b></label> <br> <select id="mobileCarrier"
+												name="mobileCarrier" class="form-select">
+													<option
+														th:each="list : ${@codeService.selectListCachedCode(2)}"
+														th:value="${list.ifcdSeq}" th:text="${list.ifcdName}"
+														th:selected="${list.ifcdSeq} == ${item?.mobileCarrier}">
+													</option>
+											</select>
+												<div id="mobileCarrierError" class="errorText"></div>
+											</td>
+										</tr>
+										<tr>
+											<td><label for="admSignin"><b class="rgb">권한</b><b
+													class="red"> *</b></label> <br> <select id="admSignin"
+												name="admSignin" class="form-select">
+													<option value="">선택하세요</option>
+													<option value="1" th:selected="${item?.admSignin == '1'}">Y</option>
+													<option value="0" th:selected="${item?.admSignin == '0'}">N</option>
+											</select>
+												<div id="admSigninError" class="errorText"></div></td>
+										</tr>
 
-                    .table {
-                        width: 100%;
-                        table-layout: fixed;
-                        /* 칸 너비 고정 */
-                    }
-/* 					빨간색 테두리 */
-					.redOutline {
-					    border: 2px solid red; 
-					}
-					
-/* 					빨간색 에러 텍스트 */
-					.errorText {
-					    color: red;
-					    font-size: 12px; /* 텍스트 크기 */
-					}
-                </style>
-                <form method="post" id="form">
-                <input type="hidden" name="seq" th:value="${vo.seq}">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title"><b>기본정보</b></h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-responsive-sm">
-                                        <thead>
-                                            <tr>
-                                                <td><b>코드</b><b class="red"> *</b>
-                                                    <br>
-                                                    <input 
-	                                                    type="text" 
-	                                                    id="seq" 
-	                                                    name="seq" 
-	                                                    th:value="${item?.seq}" 
-	                                                    maxlength="20" 
-	                                                    placeholder="자동생성" 
-	                                                    disabled 
-	                                                    class="form-control"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <!-- <td><label for="code01"><b>코드그룹 코드 (ANOTHER)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="code01" type="text"
-                                                        placeholder="영문소문자, 숫자">
-                                                </td> -->
-<!--                                                 <td><label for="firstName"><b>코드성</b><b class="red"> *</b></label> -->
-<!--                                                     <br> -->
-<!--                                                     <input class="form-control" id="firstName" name="firstName" type="text" -->
-<!--                                                         placeholder="한글, 영대소문자, 숫자"> -->
-<!--                                                         <div id="firstNameError" class="errorText"></div> -->
-<!--                                                 </td> -->
-                                                <td><label for="name"><b><!-- 코드 -->이름</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="name" name="name" type="text"
-                                                        placeholder="한글, 영대소문자, 숫자">
-                                                        <div id="nameError" class="errorText"></div>
-                                                </td>
-                                                <td><label for="btd"><b><!-- 코드 -->생년월일</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <input 
-													type="text" 
-													id="btd" 
-													name="btd" 
-													placeholder="생년월일" 
-													class="form-control form-control-sm" 
-													autocomplete="off">
-                                                        <div id="btdError" class="errorText"></div>
-                                                </td>
-                                            	<td>
-                                            		<label for="gender"><b><!-- 코드 -->성별</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <select id="gender" name="gender" class="form-select">
-                                                    	<option value="">선택하세요</option>
-                                                        <option 
-	                                                        th:each="list : ${@codeService.selectListCachedCode(1)}" 
-	                                                        th:value="${list.ifcdSeq}" 
-	                                                        th:text="${list.ifcdName}" 
-	                                                        th:selected="${list.ifcdSeq} == ${item?.gender}">
-                                                        </option>
-                                                    </select>
-                                                        <div id="genderError" class="errorText"></div>
-<!--                                                     <input class="form-control" id="gender" name="gender" type="text" -->
-<!--                                                         placeholder="한글, 영대소문자, 숫자"> -->
-                                                </td>
-                                                <!-- <td><label for="ifcgNickName"><b>닉네임코드 이름 (영문)</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="ifcgNickName" name="ifcgNickName" type="text"
-                                                        placeholder="영대소문자, 숫자">
-                                                </td> -->
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                            		<label for="email"><b><!-- 코드 -->이메일</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="email" name="email" type="text"
-                                                        placeholder="한글, 영대소문자, 숫자">
-                                                        <div id="emailError" class="errorText"></div>
-                                                </td>
-                                                <td>
-                                            		<label for="passWord"><b><!-- 코드 -->비밀번호</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <input class="form-control" id="passWord" name="passWord" type="text"
-                                                        placeholder="한글, 영대소문자, 숫자">
-                                                        <div id="passWordError" class="errorText"></div>
-                                                </td>
-                                                
-                                                <td>
-                                                    <label for="delNy"><b class="rgb">삭제여부</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <select id="delNy" name="delNy" class="form-select">
-                                                    	<option value="">선택하세요</option>
-                                                        <option value="1">Y</option>
-                                                        <option value="0">N</option>
-                                                    </select>
-                                                    <div id="delNyError" class="errorText"></div>
-                                                </td>
-                                                <td>
-                                                    <label for="mobileCarrier"><b class="rgb">통신사</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <select id="mobileCarrier" name="mobileCarrier" class="form-select">
-                                                    	<option 
-	                                                        th:each="list : ${@codeService.selectListCachedCode(2)}" 
-	                                                        th:value="${list.ifcdSeq}" 
-	                                                        th:text="${list.ifcdName}" 
-	                                                        th:selected="${list.ifcdSeq} == ${item?.mobileCarrier}">
-                                                        </option>
-                                                    </select>
-                                                    <div id="mobileCarrierError" class="errorText"></div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-<!--                                             	<td><label for="price"><b>코드가격</b><b class="red"> *</b></label> -->
-<!--                                                     <br> -->
-<!--                                                     <input class="form-control" id="price" name="price" type="text" -->
-<!--                                                         placeholder="한글, 영대소문자, 숫자"> -->
-<!--                                                         <div id="btdError" class="errorText"></div> -->
-<!--                                                 </td> -->
-<!--                                             	<td><label for="score"><b>코드평점</b><b class="red"> *</b></label> -->
-<!--                                                     <br> -->
-<!--                                                     <input class="form-control" id="score" name="score" type="text" -->
-<!--                                                         placeholder="한글, 영대소문자, 숫자"> -->
-<!--                                                         <div id="btdError" class="errorText"></div> -->
-<!--                                                 </td> -->
-                                                <td>
-                                                    <label for="admSignin"><b class="rgb">권한</b><b class="red"> *</b></label>
-                                                    <br>
-                                                    <select id="admSignin" name="admSignin" class="form-select">
-                                                    	<option value="">선택하세요</option>
-                                                        <option value="1">Y</option>
-                                                        <option value="0">N</option>
-                                                    </select>
-                                                    <div id="admSigninError" class="errorText"></div>
-                                                </td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                    <button type="button" onclick="location.href='/xdm/member/MemberXdmList'" class="btn btn-light"><i class="fa-solid fa-list"></i></button>
-                                    <button type="button" id="btnSave" class="btn btn-primary" style="float: right;"><i
-                                            class="fa-solid fa-plus"></i></button>
-                                            
-									<!-- 모달 -->
-									
-									<div class="modal" id="alertModal" tabindex="-1" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title">등록 확인</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-													<p>저장하시겠습니까?</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" id="btnSubmit" class="btn btn-primary">저장</button>
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-												</div>
-											</div>
-										</div>
-									</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-				<script type="text/javascript">
-				
+									</tbody>
+								</table>
+								<button type="button"
+									onclick="location.href='/xdm/member/MemberXdmList'"
+									class="btn btn-light">
+									<i class="fa-solid fa-list"></i>
+								</button>
+								<button type="button" id="btnUel" class="btn btn-danger">
+										<i class="fa-regular fa-trash-can"></i>
+								</button>
+								<button type="button" id="btnSave" class="btn btn-primary"
+									style="float: right;">
+									<i class="fa-solid fa-plus"></i>
+								</button>
+
+								<!-- 모달 -->
+
+								<div th:replace="~{xdm/include/modal :: modal}"></div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+			<script type="text/javascript">
 				let goUrlXdmInst = "/xdm/member/MemberXdmInst";
 				let goUrlXdmUpdt = "/xdm/member/MemberXdmUpdt";
-				
+				let goUrlXdmUele = "/xdm/member/MemberXdmUele";
+
 				let seq = document.querySelector("input[name=seq]");
-				
-				const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+
+				const alertModal = new bootstrap.Modal(document
+						.getElementById("alertModal"));
 				const modalElement = document.getElementById("alertModal");
 				const modalMessage = document.getElementById("modalMessage");
-				
-				function showModal(message) { alert("123123213");
+
+				function showModal(message) {
+					alert("123123213");
 					modalMessage.textContent = message;
 					alertModal.show();
 				}
 				
-				document.getElementById("btnSave").onclick = function(event) {
-				    event.preventDefault(); // 기본 폼 제출 방지
-
-				    let check = true;
-
-// 				    const firstName = document.getElementById("firstName");
-// 				    const firstNameError = document.getElementById("firstNameError");
-
-// 				    if (firstName.value == "") {
-// 				    	firstName.classList.add("redOutline");
-// 				    	firstNameError.textContent = "성을 입력하세요.";
-				        
-// 				    	check = false;
-// 				    } else {
-// 				    	firstName.classList.remove("redOutline");
-// 				    	firstNameError.textContent = "";
-// 				    }
-
-				    const name = document.getElementById("name");
-				    const nameError = document.getElementById("nameError");
-
-				    if (name.value.trim() == "") {
-				    	name.classList.add("redOutline");
-				    	nameError.textContent = "이름을 입력하세요.";
-				        
-				    	check = false;
-				    } else {
-				    	name.classList.remove("redOutline");
-				    	nameError.textContent = "";
-				    }
-
-				    const btd = document.getElementById("btd");
-				    const btdError = document.getElementById("btdError");
-
-				    if (btd.value == "") {
-				    	btd.classList.add("redOutline");
-				    	btdError.textContent = "생일을 입력하세요.";
-				        
-				    	check = false;
-				    } else {
-				    	btd.classList.remove("redOutline");
-				    	btdError.textContent = "";
-				    }
-
-				    const email = document.getElementById("email");
-				    const emailError = document.getElementById("emailError");
-
-				    if (email.value == "") {
-				    	email.classList.add("redOutline");
-				    	emailError.textContent = "이메일을 입력하세요.";
-				        
-				    	check = false;
-				    } else {
-				    	email.classList.remove("redOutline");
-				    	emailError.textContent = "";
-				    }
-
-				    const passWord = document.getElementById("passWord");
-				    const passWordError = document.getElementById("passWordError");
-
-				    if (passWord.value == "") {
-				    	passWord.classList.add("redOutline");
-				    	passWordError.textContent = "비밀번호를 입력하세요.";
-				        
-				    	check = false;
-				    } else {
-				    	passWord.classList.remove("redOutline");
-				    	passWordError.textContent = "";
-				    }
-
-				    const gender = document.getElementById("gender");
-				    const genderError = document.getElementById("genderError");
-
-				    if (gender.value == "") {
-				    	gender.classList.add("redOutline");
-				    	genderError.textContent = "성별을 입력하세요.";
-				        
-				    	check = false;
-				    } else {
-				    	gender.classList.remove("redOutline");
-				    	genderError.textContent = "";
-				    }
-
-				    const delNy = document.getElementById("delNy");
-				    const delNyError = document.getElementById("delNyError");
-
-				    if (delNy.value == "") {
-				    	delNy.classList.add("redOutline");
-				    	delNyError.textContent = "삭제여부를 선택하세요.";
-				        
-				    	check = false;
-				    } else {
-				    	delNy.classList.remove("redOutline");
-				    	delNyError.textContent = "";
-				    }
-
-				    const mobileCarrier = document.getElementById("mobileCarrier");
-				    const mobileCarrierError = document.getElementById("mobileCarrierError");
-
-				    if (mobileCarrier.value == "") {
-				    	mobileCarrier.classList.add("redOutline");
-				    	mobileCarrierError.textContent = "통신사를 선택하세요.";
-				        
-				    	check = false;
-				    } else {
-				    	mobileCarrier.classList.remove("redOutline");
-				    	mobileCarrierError.textContent = "";
-				    }
-				    
-				    const admSignin = document.getElementById("admSignin");
-				    const admSigninError = document.getElementById("admSigninError");
-
-				    if (admSignin.value == "") {
-				    	admSignin.classList.add("redOutline");
-				    	admSigninError.textContent = "권한여부를 선택하세요.";
-				        
-				    	check = false;
-				    } else {
-				    	admSignin.classList.remove("redOutline");
-				    	admSigninError.textContent = "";
-				    }
-				    
-				    if (check) {
-						let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+				const uelModal = new bootstrap.Modal(document
+						.getElementById("uelModal"));
+				const uelElement = document.getElementById("uelModal");
+				
+				document.getElementById("btnUel").onclick = function(uelEvent) {
+					event.preventDefault();
+				
+					let click = true;
+				
+					if (click) {
+						let alertModal = new bootstrap.Modal(document
+								.getElementById("uelModal"));
 						alertModal.show();
-				    }
+					}
+				
 				}
+				document.getElementById("btnUelSubmit").onclick = function() {
+					let seq = document.querySelector("input[name=seq]");
+					let form = document.getElementById("form");
+					form.action = goUrlXdmUele;
 				
-				document.getElementById("btnSubmit").onclick = function () {
-				    let seq = document.querySelector("input[name=seq]"); 
-				    let form = document.getElementById("form");
-
-				    if (seq.value == "0" || seq.value == "") { // 추가
-				        form.action = goUrlXdmInst;
-				    } else { // 수정
-				        form.action = goUrlXdmUpdt;
-				    }
-
-				    form.submit();
+					form.submit();
 				}
-				
-				
-				
-				</script>
-                </form>
-            </div>
-            
-        </div>
+
+				document.getElementById("btnSave").onclick = function(event) {
+					event.preventDefault(); // 기본 폼 제출 방지
+
+					let check = true;
+
+					const name = document.getElementById("name");
+					const nameError = document.getElementById("nameError");
+
+					if (name.value.trim() == "") {
+						name.classList.add("redOutline");
+						nameError.textContent = "이름을 입력하세요.";
+
+						check = false;
+					} else {
+						name.classList.remove("redOutline");
+						nameError.textContent = "";
+					}
+
+					const btd = document.getElementById("btd");
+					const btdError = document.getElementById("btdError");
+
+					if (btd.value == "") {
+						btd.classList.add("redOutline");
+						btdError.textContent = "생일을 입력하세요.";
+
+						check = false;
+					} else {
+						btd.classList.remove("redOutline");
+						btdError.textContent = "";
+					}
+
+					const email = document.getElementById("email");
+					const emailError = document.getElementById("emailError");
+
+					if (email.value == "") {
+						email.classList.add("redOutline");
+						emailError.textContent = "이메일을 입력하세요.";
+
+						check = false;
+					} else {
+						email.classList.remove("redOutline");
+						emailError.textContent = "";
+					}
+
+					const passWord = document.getElementById("passWord");
+					const passWordError = document
+							.getElementById("passWordError");
+
+					if (passWord.value == "") {
+						passWord.classList.add("redOutline");
+						passWordError.textContent = "비밀번호를 입력하세요.";
+
+						check = false;
+					} else {
+						passWord.classList.remove("redOutline");
+						passWordError.textContent = "";
+					}
+
+					const gender = document.getElementById("gender");
+					const genderError = document.getElementById("genderError");
+
+					if (gender.value == "") {
+						gender.classList.add("redOutline");
+						genderError.textContent = "성별을 입력하세요.";
+
+						check = false;
+					} else {
+						gender.classList.remove("redOutline");
+						genderError.textContent = "";
+					}
+
+					const delNy = document.getElementById("delNy");
+					const delNyError = document.getElementById("delNyError");
+
+					if (delNy.value == "") {
+						delNy.classList.add("redOutline");
+						delNyError.textContent = "삭제여부를 선택하세요.";
+
+						check = false;
+					} else {
+						delNy.classList.remove("redOutline");
+						delNyError.textContent = "";
+					}
+
+					const mobileCarrier = document
+							.getElementById("mobileCarrier");
+					const mobileCarrierError = document
+							.getElementById("mobileCarrierError");
+
+					if (mobileCarrier.value == "") {
+						mobileCarrier.classList.add("redOutline");
+						mobileCarrierError.textContent = "통신사를 선택하세요.";
+
+						check = false;
+					} else {
+						mobileCarrier.classList.remove("redOutline");
+						mobileCarrierError.textContent = "";
+					}
+
+					const admSignin = document.getElementById("admSignin");
+					const admSigninError = document
+							.getElementById("admSigninError");
+
+					if (admSignin.value == "") {
+						admSignin.classList.add("redOutline");
+						admSigninError.textContent = "권한여부를 선택하세요.";
+
+						check = false;
+					} else {
+						admSignin.classList.remove("redOutline");
+						admSigninError.textContent = "";
+					}
+
+					const phoneNumber = document.getElementById("phoneNumber");
+					const phoneNumberError = document
+							.getElementById("phoneNumberError");
+
+					if (phoneNumber.value == "") {
+						phoneNumber.classList.add("redOutline");
+						phoneNumberError.textContent = "휴대전화번호를 입력하세요.";
+
+						check = false;
+					} else {
+						phoneNumber.classList.remove("redOutline");
+						phoneNumberError.textContent = "";
+					}
+
+					if (check) {
+						let alertModal = new bootstrap.Modal(document
+								.getElementById("alertModal"));
+						alertModal.show();
+					}
+				}
+
+				document.getElementById("btnSubmit").onclick = function() {
+					let seq = document.querySelector("input[name=seq]");
+					let form = document.getElementById("form");
+
+					if (seq.value == "0" || seq.value == "") { // 추가
+						form.action = goUrlXdmInst;
+					} else { // 수정
+						form.action = goUrlXdmUpdt;
+					}
+
+					form.submit();
+				}
+			</script>
+		</form>
+	</div>
+
+</div>
 
 <div th:replace="~{xdm/include/footer :: footer}"></div>
-    <!--**********************************
+<div th:replace="~{xdm/include/memberScript :: memberScript}"></div>
+<!--**********************************
         Main wrapper end
     ***********************************-->
 
-    <!--**********************************
+<!--**********************************
         Scripts
     ***********************************-->
-    <!-- Required vendors -->
-    <script type="text/javascript">
-	    jQuery.datetimepicker.setLocale('ko');
-	
-	    jQuery('#btd').datetimepicker({
-	     i18n:{
-	      de:{
-	       months:[
-	        'Januar','Februar','März','April',
-	        'Mai','Juni','Juli','August',
-	        'September','Oktober','November','Dezember',
-	       ],
-	       dayOfWeek:[
-	        "So.", "Mo", "Di", "Mi",
-	        "Do", "Fr", "Sa.",
-	       ]
-	      }
-	     },
-	     datepicker:true,
-	     timepicker:false,
-	     format:'Y-m-d'
-	    });
-    </script>
-    
+<!-- Required vendors -->
+
+
 </body>
 
 </html>

@@ -21,8 +21,8 @@ public class ProductService {
 		return productDao.selectList(vo);
 	}
 	
-	public ProductDto selectOne(ProductVo vo) {
-		return productDao.selectOne(vo);
+	public ProductDto selectOne(ProductDto productDto) {
+		return productDao.selectOne(productDto);
 	}
 	
 	public int insert(ProductDto productDto) {
@@ -31,6 +31,10 @@ public class ProductService {
 	
 	public int update(ProductDto productDto) {
 		return productDao.update(productDto);
+	}
+	
+	public int uelete(ProductDto productDto) {
+		return productDao.uelete(productDto);
 	}
 	
 }

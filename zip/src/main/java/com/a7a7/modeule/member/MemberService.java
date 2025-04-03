@@ -35,6 +35,10 @@ public class MemberService {
 		return memberDao.update(memberDto);
 	}
 	
+	public int uelete(MemberDto memberDto) {
+		return memberDao.uelete(memberDto);
+	}
+	
 	public MemberDto selectOneLogin(MemberDto memberDto) {
 		return memberDao.selectOneLogin(memberDto);
 	}

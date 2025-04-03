@@ -29,7 +29,7 @@
                         table-layout: fixed;
                     }
                 </style>
-
+<body>
 
 <form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <!-- row -->
-                <div th:replace="~{xdm/include/test:: test}"></div>
+<!--                 <div th:replace="~{xdm/include/test:: test}"></div> -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -90,7 +90,7 @@
 													name="shDateStart" 
 													placeholder="시작일" 
 													class="form-control form-control-sm" 
-													autocomplete="off">
+													autocomplete="off" th:value="${vo.shDateStart}">
 <!--                                                 <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
                                             </td>
                                             <td class="p-2">
@@ -100,7 +100,7 @@
 	                                            	name="shDateEnd" 
 	                                            	placeholder="종료일" 
 	                                            	class="form-control form-control-sm" 
-	                                            	autocomplete="off">
+	                                            	autocomplete="off" th:value="${vo.shDateEnd}">
 <!--                                                 <input type="text" id="shDateEnd" name="shDateEnd" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="종료일" class="form-control form-control-sm" autocomplete="off"> -->
                                             </td>
                                             <td class="p-2"></td>
@@ -338,43 +338,6 @@
     let seqInput = document.querySelector("input[name='ifcgSeq']");
     let delNyInput = document.querySelector("input[name='ifcgDelNy']");
     
-// 	    삭제 버튼 클릭 이벤트
-    document.getElementById("btnUel").onclick = function (uelEvent) {
-        uelEvent.preventDefault();  // 기본 동작을 막음 (폼 제출 등을 방지)
-        
-// 	        체크된 항목이 있는지 확인
-        let checkedCheckboxes = document.querySelectorAll("input[name='chk']:checked");
-        if (checkedCheckboxes.length > 0) {
-            let alertModal = new bootstrap.Modal(document.getElementById("uelModal"));
-            alertModal.show();  // 삭제 확인 모달을 띄움
-        } else {
-            alert("삭제할 항목을 선택해주세요.");
-        }
-    }
-    
-// 	    삭제 모달에서 삭제 버튼 클릭 시
-    document.getElementById("btnUelSubmit").onclick = function () {
-        let seqValues = [];
-        let delNyValues = [];
-
-// 	        선택된 체크박스에서 ifcgSeq 값과 ifcgDelNy 값을 추출
-        document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
-            seqValues.push(checkbox.value);  // 체크된 체크박스의 value 값 (ifcgSeq)
-            delNyValues.push("1");  // ifcgDelNy 값 (삭제 표시)
-        });
-
-        if (seqValues.length > 0) {
-// 	            ifcgSeq 값을 서버에 보내기 위해 연결
-            document.querySelector("input[name='ifcgSeq']").value = seqValues.join(",");
-            document.querySelector("input[name='ifcgDelNy']").value = delNyValues.join(","); // ifcgDelNy를 업데이트
-
-// 	            폼을 제출하여 삭제 요청
-            form.action = goUrlXdmUele;
-            form.submit();
-        }
-    }
-    
-    
     goList = function (thisPage) {
         document.querySelector("input[name=thisPage]").value = thisPage;
         form.action = goUrlXdmList;
@@ -403,118 +366,34 @@
         form.submit();
     }
     
+	//	    삭제 모달에서 삭제 버튼 클릭 시
+	document.getElementById("btnUelSubmit").onclick = function () {
+	    let seqValues = [];
+	    let delNyValues = [];
+	    
+	
+	//	        선택된 체크박스에서 ifcgSeq 값과 ifcgDelNy 값을 추출
+	    document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
+	        seqValues.push(checkbox.value);  // 체크된 체크박스의 value 값 (ifcgSeq)
+	        delNyValues.push("1");  // ifcgDelNy 값 (삭제 표시)
+	    });
+	
+	    if (seqValues.length > 0) {
+	//	            ifcgSeq 값을 서버에 보내기 위해 연결
+	        document.querySelector("input[name='ifcgSeq']").value = seqValues.join(",");
+	        document.querySelector("input[name='ifcgDelNy']").value = delNyValues.join(","); // ifcgDelNy를 업데이트
+	
+	//	            폼을 제출하여 삭제 요청
+	        form.action = goUrlXdmUele;
+	        form.submit();
+	    }
+	}
     
-// 	    체크박스
-    
-    
-    // 체크박스 클릭 시 seq 및 delNy 업데이트
-    function updateSeqValues() {
-        let seqValues = [];
-        let delNyValues = [];
-        document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
-            seqValues.push(checkbox.value);
-            delNyValues.push("1");  // 선택된 항목의 ifcgDelNy 값을 "1"로 설정
-        });
-
-
-        if (seqValues.length > 0) {
-            seqInput.value = seqValues.join(",");
-            delNyInput.value = delNyValues.join(",");  // ifcgDelNy 값을 업데이트
-        } else {
-            seqInput.value = "";
-            delNyInput.value = "";
-        }
-    }
-
-    // 체크박스 클릭 시 seq 및 delNy 업데이트
-    document.querySelectorAll("input[name='chk']").forEach(function (checkbox) {
-        checkbox.addEventListener("click", function () {
-            updateSeqValues();
-            updateAllCheckboxState();  // 개별 체크박스 클릭 시 전체 선택 체크박스 상태 업데이트
-        });
-    });
-
-    // 체크박스 전체 선택 클릭 이벤트
-    function allChecked(target) {
-        const checkbox = document.getElementById('allCheckBox');
-        const is_checked = checkbox.checked;
-
-        if (is_checked) {
-            chkAllChecked();
-        } else {
-            chkAllUnChecked();
-        }
-
-        updateSeqValues();  // 전체 선택 후에도 ifcgSeq 및 ifcgDelNy 값을 업데이트
-    }
-
-    // 체크박스 전체 체크
-    function chkAllChecked() {
-        document.querySelectorAll(".chk").forEach(function (v) {
-            v.checked = true;
-        });
-    }
-
-    // 체크박스 전체 체크 해제
-    function chkAllUnChecked() {
-        document.querySelectorAll(".chk").forEach(function (v) {
-            v.checked = false;
-        });
-    }
-
-    // 전체 선택 체크박스 상태 업데이트
-    function updateAllCheckboxState() {
-        const allCheckbox = document.getElementById('allCheckBox');
-        const checkboxes = document.querySelectorAll("input[name='chk']");
-        const checkedCheckboxes = document.querySelectorAll("input[name='chk']:checked");
-        
-        allCheckbox.checked = checkboxes.length > 0 && checkboxes.length === checkedCheckboxes.length;
-    }
-    
-//     jQuery('#datetimepicker').datetimepicker();
-jQuery.datetimepicker.setLocale('ko');
-
-jQuery('#shDateStart').datetimepicker({
- i18n:{
-  de:{
-   months:[
-    'Januar','Februar','März','April',
-    'Mai','Juni','Juli','August',
-    'September','Oktober','November','Dezember',
-   ],
-   dayOfWeek:[
-    "So.", "Mo", "Di", "Mi",
-    "Do", "Fr", "Sa.",
-   ]
-  }
- },
- datepicker:true,
- timepicker:false,
- format:'Y-m-d'
-});
-    
-
-jQuery('#shDateEnd').datetimepicker({
- i18n:{
-  de:{
-   months:[
-    'Januar','Februar','März','April',
-    'Mai','Juni','Juli','August',
-    'September','Oktober','November','Dezember',
-   ],
-   dayOfWeek:[
-    "So.", "Mo", "Di", "Mi",
-    "Do", "Fr", "Sa.",
-   ]
-  }
- },
- datepicker:true,
- timepicker:false,
- format:'Y-m-d'
-});
     
 
 </script>
-	
 
+<div th:replace="~{xdm/include/checkBox :: checkBox}"></div>
+<div th:replace="~{xdm/include/calendar :: calendar}"></div>
+</body>
 </html>
