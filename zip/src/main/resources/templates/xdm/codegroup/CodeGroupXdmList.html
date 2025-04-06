@@ -216,7 +216,7 @@
 					                                </label>
                                                 </td>
                                                 <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                                <td th:text="${list.ifcgUseNy}"></td>
+                                                <td th:text="${list.ifcgUseNy == '1' ? 'Y' : 'N'}"></td>
                                                 <td th:text="${list.ifcgSeq}"></td>
                                                 <td class="ifcgName align-middle fw-semi-bold">
                                                 	<a href="javascript:void(0);" 
@@ -224,7 +224,7 @@
                                                 		th:attr="onclick=|goForm('${list.ifcgSeq}')|">
                                                 	</a>
                                                 </td>
-                                                <td th:text="${list.ifcgDelNy}"></td>
+                                                <td th:text="${list.ifcgDelNy == '1' ? 'Y' : 'N'}"></td>
                                                 <td></td>
                                                 <td><b></b></td>
                                                 <td th:text="${list.xifcdSeqCount}"></td>

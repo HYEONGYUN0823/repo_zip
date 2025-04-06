@@ -62,7 +62,8 @@
               <p>OOO에 오신 것을 환영합니다! 시작하려면 이메일을 입력하세요.</p>
             </div>
             <!-- form -->
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" novalidate id="form">
+			<input type="hidden" name="seq" th:value="${vo.seq}">
               <div class="row g-3">
                 <!-- col -->
 <!--                 <div class="col"> -->
@@ -71,12 +72,8 @@
 <!--                   <input type="text" class="form-control" id="formSignupfname" placeholder="성" required /> -->
 <!--                   <div class="invalid-feedback">성을 입력하세요.</div> -->
 <!--                 </div> -->
-			<input type="hidden" name="seq" th:value="${vo.seq}">
                 <div class="col">
-	            <input	type="hidden" 
-	            		id="seq" name="seq" 
-						th:value="${item?.seq}" 
-						placeholder="자동생성" disabled class="form-control" />
+	            <input type="hidden" id="seq" name="seq" th:value="${item?.seq}" />
 	            <input	type="hidden" 
 	            		id="admSignin" name="admSignin" 
 						th:value="0" 
@@ -123,7 +120,7 @@
                         <div class="invalid-feedback">통신사를 선택해주세요.</div>
                       </div>
                       <div class="tel col-lg-7">
-                        <input type="tel" id="phoneNumber" maxlength="11" class="form-control" placeholder="휴대전화번호" required>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" maxlength="11" class="form-control" placeholder="휴대전화번호" required>
                         <div class="invalid-feedback">휴대전화번호를 정확히 입력해 주세요.</div>
                       </div>
                     </div>
@@ -142,7 +139,7 @@
                 <div class="col-12">
                   <!-- 이메일 -->
                   <label for="email" class="form-label visually-hidden">Email address</label>
-                  <input type="email" class="form-control" id="email" name="" placeholder="이메일" required />
+                  <input type="email" class="form-control" id="email" name="email" placeholder="이메일" required />
                   <div class="invalid-feedback">이메일을 정확히 입력해 주세요.</div>
                 </div>
                 <!-- 비밀번호 -->
@@ -150,7 +147,7 @@
                   <div class="password-field position-relative">
                     <label for="formSignupPassword" class="form-label visually-hidden">Password</label>
                     <div class="password-field position-relative">
-                      <input type="password" class="form-control fakePassword" id="formSignupPassword"
+                      <input type="password" class="form-control fakePassword" id="password" name="password"
                         placeholder="비밀번호" required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,20}$" />
                       <span><i class="bi bi-eye-slash passwordToggler"></i></span>
                       <div class="invalid-feedback">
@@ -161,7 +158,7 @@
                 </div>
 
                 <!-- btn -->
-                <div class="col-12 d-grid"><button type="button" id="btnSubmit" class="btn btn-primary">회원가입</button></div>
+                <div class="col-12 d-grid"><button type="submit" id="btnSubmit" class="btn btn-primary">회원가입</button></div>
 
                 <!-- text -->
                 <p>
@@ -353,7 +350,9 @@
 	<!-- Javascript-->
 	
 	<script type="text/javascript">
-		let goUrlXdmInst = "/xdm/member/MemberXdmInst";
+		let goUrlXdmInst = "/usr/userUi/MemberUsrInst";
+		
+		let form = document.getElementById("form");
 	
 		function phoneNumberCheck(number){
 			let result = /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/;

@@ -94,6 +94,15 @@
 									</thead>
 									<tbody>
 										<tr>
+											<td class="p-2"><select id="shAdmSignin" name="shAdmSignin"
+												class="form-select form-select-sm">
+													<option value="" th:selected="${vo.shAdmSignin == null}">전체</option>
+													<option value="0" th:selected="${vo.shAdmSignin == 0}">사용자</option>
+													<option value="1" th:selected="${vo.shAdmSignin == 1}">관리자</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
 											<td class="p-2"><select id="shOption" name="shOption"
 												class="form-select form-select-sm">
 													<option value="" th:selected="${vo.shOption == null}">검색구분</option>
@@ -101,7 +110,8 @@
 													<option value="2" th:selected="${vo.shOption == 2}">이름</option>
 													<option value="3" th:selected="${vo.shOption == 3}">생년월일</option>
 													<option value="4" th:selected="${vo.shOption == 4}">이메일</option>
-											</select></td>
+												</select>
+											</td>
 											<td class="p-2"><input type="text" id="shValue"
 												name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()"
 												placeholder="검색어" class="form-control form-control-sm">
@@ -130,9 +140,9 @@
 												<td style="width: 7%"></td>
 												<td style="width: 10%"></td>
 												<td style="width: 7%;"></td>
-												<td style="width: 15%"></td>
-												<td style="width: 10%"></td>
-												<td style="width: 7%"></td>
+												<td style="width: 17%"></td>
+												<td style="width: 1%"></td>
+												<td style="width: 14%"></td>
 												<td style="width: 13%"></td>
 												<td style="width: 10%"></td>
 												<td style="width: 10%"></td>

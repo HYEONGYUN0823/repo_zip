@@ -203,7 +203,7 @@
 					                                </label>
                                                 </td>
                                                 <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}">162</td>
-                                                <td th:text="${list.ifcdUseNy}">Y</td>
+                                                <td th:text="${list.ifcdUseNy == '1' ? 'Y' : 'N'}">Y</td>
                                                 <td th:text="${list.ifcgSeq}">42</td>
                                                 <td th:text="${list.ifcgName}">작품.기타사이트유형</td>
                                                 <td class="ifcdName align-middle fw-semi-bold">
@@ -213,7 +213,7 @@
 		                                                th:attr="onclick=|goForm('${list.ifcdSeq}')|">
 	                                                </a>
                                                 </td>
-                                                <td th:text="${list.ifcdDelNy}">Y</td>
+                                                <td th:text="${list.ifcdDelNy == '1' ? 'Y' : 'N'}">Y</td>
                                                 <td><b style="color: rgb(42, 92, 255);"><!-- 공식홈페이지 --></b></td>
                                                 <td></td>
                                                 <td></td>

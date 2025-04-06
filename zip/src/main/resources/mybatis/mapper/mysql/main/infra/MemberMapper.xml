@@ -10,11 +10,16 @@
 		WHERE 1=1
 <!-- 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.useNy = #{shUseNy}</if> -->
         <if test="shDelNy != null and !shDelNy.equals('')">AND a.delNy = #{shDelNy}</if>
+<!--         <if test="shAdmSignin != null and shAdmSignin.equals('')">AND a.admSignin = #{shAdmSignin}</if> -->
 				
 				<choose>
 					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 				</choose>
+        
+        <choose>
+            <when test="shAdmSignin != null">AND a.admSignin = #{shAdmSignin}</when>
+        </choose>
 				
         <choose>
             <when test="shOption == 1">AND a.seq = #{shValue}</when>

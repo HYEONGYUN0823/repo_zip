@@ -81,6 +81,7 @@ public class MemberController {
 	        model.addAttribute("list", memberService.selectList(vo));
 	        model.addAttribute("memberDto", memberDto); // MemberDto 값도 유지
 	    }
+	    System.out.println("shAdmSignin: " + vo.getShAdmSignin());
 	    
 //	    model.addAttribute("vo", vo); // MemberVo 값 유지
 	    
@@ -134,6 +135,12 @@ public class MemberController {
 		return "usr/userUi/MemberUsrForm";
 	}
 	
+	@RequestMapping(value = "/usr/userUi/MemberUsrInst")
+	public String memberUsrInst(MemberDto memberDto) {
+		memberService.insert(memberDto);
+		
+		return "redirect:/xdm/member/MemberXdmList";
+	}
 	
 
 }

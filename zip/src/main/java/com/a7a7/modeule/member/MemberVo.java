@@ -25,6 +25,7 @@ public class MemberVo {
 	private String shDateStart;
 	private String shDateEnd;
 	private Integer shOption;									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
+	private Integer shAdmSignin;
 	private String shValue;
 	
 //	-----
@@ -228,6 +229,18 @@ public class MemberVo {
 
 	public void setShValue(String shValue) {
 		this.shValue = shValue;
+	}
+
+
+
+	public Integer getShAdmSignin() {
+		return shAdmSignin;
+	}
+
+
+
+	public void setShAdmSignin(Integer shAdmSignin) {
+		this.shAdmSignin = shAdmSignin;
 	}
 	
 }
