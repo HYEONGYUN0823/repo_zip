@@ -23,4 +23,6 @@ public interface MemberDao {
 	
 	public MemberDto selectOneLogin(MemberDto memberDto);
 	
+	public int checkId(MemberDto memberDto);
+	
 }

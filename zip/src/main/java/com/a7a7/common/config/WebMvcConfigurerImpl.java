@@ -16,7 +16,9 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer{
 			.addPathPatterns("/*/*/*Xdm*", "/*/*/*Usr*")
 			.excludePathPatterns(
 //					"/resources/**",
-//					"/usr/**",
+					"/usr/**",
+					"/usr/signin/signinUsr",
+					"/usr/userUi/MemberUsrForm",
 //					"/v1/infra/member/signUpUsrForm",
 //					"/v1/infra/member/signinUsrForm",
 //					"/v1/infra/member/signinUsrProc",

@@ -223,121 +223,119 @@
 	    event.preventDefault(); // 기본 폼 제출 방지
 
 	    let check = true;
-		
+	    let firstErrorField = null; // 에러 발생 시 첫 번째로 포커스할 요소
+
 	    const brandName = document.getElementById("brandName");
-		const brandNameError = document
-				.getElementById("brandNameError");
+	    const brandNameError = document.getElementById("brandNameError");
 
-		if (brandName.value == "") {
-			brandName.classList.add("redOutline");
-			brandNameError.textContent = "브랜드를 선택하세요.";
+	    if (brandName.value == "") {
+	        brandName.classList.add("redOutline");
+	        brandNameError.textContent = "브랜드를 선택하세요.";
+	        check = false;
+	        if (!firstErrorField) firstErrorField = brandName;
+	    } else {
+	        brandName.classList.remove("redOutline");
+	        brandNameError.textContent = "";
+	    }
 
-			check = false;
-		} else {
-			brandName.classList.remove("redOutline");
-			brandNameError.textContent = "";
-		}
-		
 	    const mealKitName = document.getElementById("mealKitName");
-		const mealKitNameError = document
-				.getElementById("mealKitNameError");
+	    const mealKitNameError = document.getElementById("mealKitNameError");
 
-		if (mealKitName.value == "") {
-			mealKitName.classList.add("redOutline");
-			mealKitNameError.textContent = "밀키트이름을 입력하세요.";
+	    if (mealKitName.value == "") {
+	        mealKitName.classList.add("redOutline");
+	        mealKitNameError.textContent = "밀키트이름을 입력하세요.";
+	        check = false;
+	        if (!firstErrorField) firstErrorField = mealKitName;
+	    } else {
+	        mealKitName.classList.remove("redOutline");
+	        mealKitNameError.textContent = "";
+	    }
 
-			check = false;
-		} else {
-			mealKitName.classList.remove("redOutline");
-			mealKitNameError.textContent = "";
-		}
-		
 	    const stock = document.getElementById("stock");
-		const stockError = document
-				.getElementById("stockError");
+	    const stockError = document.getElementById("stockError");
 
-		if (stock.value == "") {
-			stock.classList.add("redOutline");
-			stockError.textContent = "재고를 입력하세요.";
+	    if (stock.value == "") {
+	        stock.classList.add("redOutline");
+	        stockError.textContent = "재고를 입력하세요.";
+	        check = false;
+	        if (!firstErrorField) firstErrorField = stock;
+	    } else {
+	        stock.classList.remove("redOutline");
+	        stockError.textContent = "";
+	    }
 
-			check = false;
-		} else {
-			stock.classList.remove("redOutline");
-			stockError.textContent = "";
-		}
-		
 	    const price = document.getElementById("price");
-		const priceError = document
-				.getElementById("priceError");
+	    const priceError = document.getElementById("priceError");
 
-		if (price.value == "") {
-			price.classList.add("redOutline");
-			priceError.textContent = "가격을 입력하세요.";
+	    if (price.value == "") {
+	        price.classList.add("redOutline");
+	        priceError.textContent = "가격을 입력하세요.";
+	        check = false;
+	        if (!firstErrorField) firstErrorField = price;
+	    } else {
+	        price.classList.remove("redOutline");
+	        priceError.textContent = "";
+	    }
 
-			check = false;
-		} else {
-			price.classList.remove("redOutline");
-			priceError.textContent = "";
-		}
-		
 	    const score = document.getElementById("score");
-		const scoreError = document.getElementById("scoreError");
+	    const scoreError = document.getElementById("scoreError");
 
-		if (score.value == "") {
-			score.classList.add("redOutline");
-			scoreError.textContent = "평점을 입력하세요.";
+	    if (score.value == "") {
+	        score.classList.add("redOutline");
+	        scoreError.textContent = "평점을 입력하세요.";
+	        check = false;
+	        if (!firstErrorField) firstErrorField = score;
+	    } else {
+	        score.classList.remove("redOutline");
+	        scoreError.textContent = "";
+	    }
 
-			check = false;
-		} else {
-			score.classList.remove("redOutline");
-			scoreError.textContent = "";
-		}
-		
 	    const mealDelNy = document.getElementById("mealDelNy");
-		const mealDelNyError = document
-				.getElementById("mealDelNyError");
+	    const mealDelNyError = document.getElementById("mealDelNyError");
 
-		if (mealDelNy.value == "") {
-			mealDelNy.classList.add("redOutline");
-			mealDelNyError.textContent = "평점을 입력하세요.";
+	    if (mealDelNy.value == "") {
+	        mealDelNy.classList.add("redOutline");
+	        mealDelNyError.textContent = "삭제여부를 선택하세요.";
+	        check = false;
+	        if (!firstErrorField) firstErrorField = mealDelNy;
+	    } else {
+	        mealDelNy.classList.remove("redOutline");
+	        mealDelNyError.textContent = "";
+	    }
 
-			check = false;
-		} else {
-			mealDelNy.classList.remove("redOutline");
-			mealDelNyError.textContent = "";
-		}
-		
 	    const mealUseNy = document.getElementById("mealUseNy");
-		const mealUseNyError = document.getElementById("mealUseNyError");
+	    const mealUseNyError = document.getElementById("mealUseNyError");
 
-		if (mealUseNy.value == "") {
-			mealUseNy.classList.add("redOutline");
-			mealUseNyError.textContent = "평점을 입력하세요.";
+	    if (mealUseNy.value == "") {
+	        mealUseNy.classList.add("redOutline");
+	        mealUseNyError.textContent = "사용여부를 선택하세요.";
+	        check = false;
+	        if (!firstErrorField) firstErrorField = mealUseNy;
+	    } else {
+	        mealUseNy.classList.remove("redOutline");
+	        mealUseNyError.textContent = "";
+	    }
 
-			check = false;
-		} else {
-			mealUseNy.classList.remove("redOutline");
-			mealUseNyError.textContent = "";
-		}
-		
 	    const ingredient = document.getElementById("ingredient");
-		const ingredientError = document.getElementById("ingredientError");
+	    const ingredientError = document.getElementById("ingredientError");
 
-		if (ingredient.value == "") {
-			ingredient.classList.add("redOutline");
-			ingredientError.textContent = "평점을 입력하세요.";
-
-			check = false;
-		} else {
-			ingredient.classList.remove("redOutline");
-			ingredientError.textContent = "";
-		}
+	    if (ingredient.value == "") {
+	        ingredient.classList.add("redOutline");
+	        ingredientError.textContent = "재료를 입력하세요.";
+	        check = false;
+	        if (!firstErrorField) firstErrorField = ingredient;
+	    } else {
+	        ingredient.classList.remove("redOutline");
+	        ingredientError.textContent = "";
+	    }
 
 	    if (check) {
-			let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
-			alertModal.show();
+	        let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+	        alertModal.show();
+	    } else {
+	        firstErrorField.focus(); // 에러가 있으면 첫 번째 항목에 포커스
 	    }
-	}
+	};
 	
 	document.getElementById("btnSubmit").onclick = function () {
 	    let seq = document.querySelector("input[name=seq]"); 

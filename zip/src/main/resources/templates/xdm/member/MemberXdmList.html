@@ -235,7 +235,7 @@
 													th:if="${#strings.equals(codeList.ifcdSeq, list.gender)}"
 													th:text="${codeList.ifcdName}"></td>
 
-												<td th:text="${list.email}"><b></b></td>
+												<td th:text="${list.iD}"><b></b></td>
 												<td></td>
 												<td
 													th:each="codeList : ${@codeService.selectListCachedCode(2)}"

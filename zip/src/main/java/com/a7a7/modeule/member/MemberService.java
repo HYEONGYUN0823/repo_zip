@@ -43,4 +43,8 @@ public class MemberService {
 		return memberDao.selectOneLogin(memberDto);
 	}
 	
+	public int checkId(MemberDto memberDto) {
+		return memberDao.checkId(memberDto);
+	}
+	
 }

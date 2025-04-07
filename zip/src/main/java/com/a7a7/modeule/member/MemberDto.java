@@ -6,7 +6,7 @@ public class MemberDto {
 	private String name;
 	private int gender;
 	private String btd;
-	private String email;
+	private String iD;
 	private String passWord;
 	private String delNy;
 	private String admSignin;
@@ -53,13 +53,14 @@ public class MemberDto {
 	public void setBtd(String btd) {
 		this.btd = btd;
 	}
+	
 
-	public String getEmail() {
-		return email;
+	public String getiD() {
+		return iD;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setiD(String iD) {
+		this.iD = iD;
 	}
 
 	public String getPassWord() {

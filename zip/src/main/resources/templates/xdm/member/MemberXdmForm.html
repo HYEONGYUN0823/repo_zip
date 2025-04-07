@@ -115,11 +115,11 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td><label for="email"><b> <!-- 코드 -->이메일
+											<td><label for="iD"><b> <!-- 코드 -->아이디
 												</b><b class="red"> *</b></label> <br> <input class="form-control"
-												id="email" name="email" type="text"
-												th:value="${item?.email}" placeholder="한글, 영대소문자, 숫자">
-												<div id="emailError" class="errorText"></div>
+												id="iD" name="iD" type="text"
+												th:value="${item?.iD}" placeholder="한글, 영대소문자, 숫자">
+												<div id="iDError" class="errorText"></div>
 											</td>
 											<td><label for="passWord"><b> <!-- 코드 -->비밀번호
 												</b><b class="red"> *</b></label> <br> <input class="form-control"
@@ -231,6 +231,7 @@
 					event.preventDefault(); // 기본 폼 제출 방지
 
 					let check = true;
+					let firstErrorField = null;
 
 					const name = document.getElementById("name");
 					const nameError = document.getElementById("nameError");
@@ -238,7 +239,7 @@
 					if (name.value.trim() == "") {
 						name.classList.add("redOutline");
 						nameError.textContent = "이름을 입력하세요.";
-
+						if (!firstErrorField) firstErrorField = name;
 						check = false;
 					} else {
 						name.classList.remove("redOutline");
@@ -251,34 +252,33 @@
 					if (btd.value == "") {
 						btd.classList.add("redOutline");
 						btdError.textContent = "생일을 입력하세요.";
-
+						if (!firstErrorField) firstErrorField = btd;
 						check = false;
 					} else {
 						btd.classList.remove("redOutline");
 						btdError.textContent = "";
 					}
 
-					const email = document.getElementById("email");
-					const emailError = document.getElementById("emailError");
+					const iD = document.getElementById("iD");
+					const iDError = document.getElementById("iDError");
 
-					if (email.value == "") {
-						email.classList.add("redOutline");
-						emailError.textContent = "이메일을 입력하세요.";
-
+					if (iD.value == "") {
+						iD.classList.add("redOutline");
+						iDError.textContent = "이메일을 입력하세요.";
+						if (!firstErrorField) firstErrorField = iD;
 						check = false;
 					} else {
-						email.classList.remove("redOutline");
-						emailError.textContent = "";
+						iD.classList.remove("redOutline");
+						iDError.textContent = "";
 					}
 
 					const passWord = document.getElementById("passWord");
-					const passWordError = document
-							.getElementById("passWordError");
+					const passWordError = document.getElementById("passWordError");
 
 					if (passWord.value == "") {
 						passWord.classList.add("redOutline");
 						passWordError.textContent = "비밀번호를 입력하세요.";
-
+						if (!firstErrorField) firstErrorField = passWord;
 						check = false;
 					} else {
 						passWord.classList.remove("redOutline");
@@ -291,7 +291,7 @@
 					if (gender.value == "") {
 						gender.classList.add("redOutline");
 						genderError.textContent = "성별을 입력하세요.";
-
+						if (!firstErrorField) firstErrorField = gender;
 						check = false;
 					} else {
 						gender.classList.remove("redOutline");
@@ -304,22 +304,20 @@
 					if (delNy.value == "") {
 						delNy.classList.add("redOutline");
 						delNyError.textContent = "삭제여부를 선택하세요.";
-
+						if (!firstErrorField) firstErrorField = delNy;
 						check = false;
 					} else {
 						delNy.classList.remove("redOutline");
 						delNyError.textContent = "";
 					}
 
-					const mobileCarrier = document
-							.getElementById("mobileCarrier");
-					const mobileCarrierError = document
-							.getElementById("mobileCarrierError");
+					const mobileCarrier = document.getElementById("mobileCarrier");
+					const mobileCarrierError = document.getElementById("mobileCarrierError");
 
 					if (mobileCarrier.value == "") {
 						mobileCarrier.classList.add("redOutline");
 						mobileCarrierError.textContent = "통신사를 선택하세요.";
-
+						if (!firstErrorField) firstErrorField = mobileCarrier;
 						check = false;
 					} else {
 						mobileCarrier.classList.remove("redOutline");
@@ -327,13 +325,12 @@
 					}
 
 					const admSignin = document.getElementById("admSignin");
-					const admSigninError = document
-							.getElementById("admSigninError");
+					const admSigninError = document.getElementById("admSigninError");
 
 					if (admSignin.value == "") {
 						admSignin.classList.add("redOutline");
 						admSigninError.textContent = "권한여부를 선택하세요.";
-
+						if (!firstErrorField) firstErrorField = admSignin;
 						check = false;
 					} else {
 						admSignin.classList.remove("redOutline");
@@ -341,13 +338,12 @@
 					}
 
 					const phoneNumber = document.getElementById("phoneNumber");
-					const phoneNumberError = document
-							.getElementById("phoneNumberError");
+					const phoneNumberError = document.getElementById("phoneNumberError");
 
 					if (phoneNumber.value == "") {
 						phoneNumber.classList.add("redOutline");
 						phoneNumberError.textContent = "휴대전화번호를 입력하세요.";
-
+						if (!firstErrorField) firstErrorField = phoneNumber;
 						check = false;
 					} else {
 						phoneNumber.classList.remove("redOutline");
@@ -355,11 +351,14 @@
 					}
 
 					if (check) {
-						let alertModal = new bootstrap.Modal(document
-								.getElementById("alertModal"));
+						let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
 						alertModal.show();
+					} else {
+						if (firstErrorField) {
+							firstErrorField.focus(); // 첫 번째 에러 항목에 포커스
+						}
 					}
-				}
+				};
 
 				document.getElementById("btnSubmit").onclick = function() {
 					let seq = document.querySelector("input[name=seq]");

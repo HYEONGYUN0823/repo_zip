@@ -23,17 +23,17 @@ public class CheckLoginSessionInterceptor implements HandlerInterceptor{
 		}
 			
 //		사용자용
-//		if(request.getRequestURI().contains("Usr")) {
-//			if (request.getSession().getAttribute("sessSeqUsr") != null) {
-//				// by pass
-//			} else {
-//				response.sendRedirect(Constants.URL_LOGINUSRFORM);
-//				return false;
-//			}
-//		} else {
-////				by pass
-//		}
-//			
+		if(request.getRequestURI().contains("Usr")) {
+			if (request.getSession().getAttribute("sessSeqUsr") != null) {
+				// by pass
+			} else {
+				response.sendRedirect("/usr/signin/signinUsr");
+				return false;
+			}
+		} else {
+//				by pass
+		}
+			
 			
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 		

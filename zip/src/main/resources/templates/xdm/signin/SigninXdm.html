@@ -35,9 +35,9 @@
                                     <h4 class="text-center mb-4">Sign in your account</h4>
                                     <form id="formLogin">
                                         <div class="form-group">
-                                            <label><strong>이메일</strong></label>
-                                            <input type="email" id="email" class="form-control" value="qwer@naver.com">
-                                            <div id="emailError" class="errorText"></div>
+                                            <label><strong>아이디</strong></label>
+                                            <input type="text" id="iD" class="form-control" value="qwer@naver.com">
+                                            <div id="iDError" class="errorText"></div>
                                         </div>
                                         <div class="form-group">
                                             <label><strong>비밀번호</strong></label>
@@ -103,7 +103,7 @@
 	let goUrlXdmList = "/xdm/member/MemberXdmList";
 	
 	let form = document.getElementById("formLogin");
-    let email = document.getElementById("email").value.trim();
+    let iD = document.getElementById("iD").value.trim();
     let passWord = document.getElementById("passWord").value.trim();
     
     
@@ -115,17 +115,17 @@
 	function validation() {
 	    let check = true;
 
-	    const email = document.getElementById("email");
-	    const emailError = document.getElementById("emailError");
+	    const iD = document.getElementById("iD");
+	    const iDError = document.getElementById("iDError");
 
-	    if (email.value == "") {
-	    	email.classList.add("redOutline");
-	    	emailError.textContent = "이메일을 입력하세요.";
+	    if (iD.value == "") {
+	    	iD.classList.add("redOutline");
+	    	iDError.textContent = "아이디을 입력하세요.";
 	        
 	    	check = false;
 	    } else {
-	    	email.classList.remove("redOutline");
-	    	emailError.textContent = "";
+	    	iD.classList.remove("redOutline");
+	    	iDError.textContent = "";
 	    }
 
 		const passWord = document.getElementById("passWord");
@@ -156,7 +156,7 @@
 			/* ,dataType:"json" */
 			,url: "/xdm/signin/signinXdmProc"
 			/* ,data : $("#formLogin").serialize() */
-			,data : { "email" : $("#email").val(), "passWord" : $("#passWord").val()}
+			,data : { "iD" : $("#iD").val(), "passWord" : $("#passWord").val()}
 			,success: function(response) {
 				console.log("서버 응답:", response);
 				if(response.rt != "success") {

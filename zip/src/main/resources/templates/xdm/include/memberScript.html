@@ -79,20 +79,20 @@
 		}
 	});
 	
-	const emailInvalid = document.getElementById("email");
-	const einvalidFeedback = emailInvalid.nextElementSibling;
+	const iDInvalid = document.getElementById("iD");
+	const iinvalidFeedback = iDInvalid.nextElementSibling;
 	
-	emailInvalid.addEventListener("input", function() {
-		let email = emailInvalid.value.trim();
+	iDInvalid.addEventListener("input", function() {
+		let iD = iDInvalid.value.trim();
 
-		if (email == "") {
-			emailInvalid.classList.remove("is-valid");
-			emailInvalid.classList.add("is-invalid");
-			einvalidFeedback.style.display = "none";
+		if (iD == "") {
+			iDInvalid.classList.remove("is-valid");
+			iDInvalid.classList.add("is-invalid");
+			iinvalidFeedback.style.display = "none";
 		} else {
-			emailInvalid.classList.remove("is-invalid");
-			emailInvalid.classList.add("is-valid");
-			einvalidFeedback.style.display = "block";
+			iDInvalid.classList.remove("is-invalid");
+			iDInvalid.classList.add("is-valid");
+			iinvalidFeedback.style.display = "block";
 		}
 	});
 	

@@ -25,7 +25,7 @@
             <when test="shOption == 1">AND a.seq = #{shValue}</when>
             <when test="shOption == 2">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>
              <when test="shOption == 3">AND a.btd LIKE CONCAT('%',#{shValue},'%')</when>
-             <when test="shOption == 4">AND a.email LIKE CONCAT('%',#{shValue},'%')</when>
+             <when test="shOption == 4">AND a.id LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
 		ORDER BY a.seq DESC
 	</sql>
@@ -47,7 +47,7 @@
 			    a.name,
 			    a.gender,
 			    a.btd,
-			    a.email,
+			    a.iD,
 			    a.passWord,
 			    a.delNy,
 			    a.admSignin,
@@ -66,7 +66,7 @@
 			name,
 			gender,
 			btd,
-			email,
+			iD,
 			passWord,
 			delNy,
 			admSignin,
@@ -82,13 +82,13 @@
 	<select id="selectOneLogin" resultMap="resultMapObj">
 		SELECT
 			a.seq,
-			a.email,
+			a.iD,
 			a.passWord,
 			a.name
 		FROM
 			userUi a
 		WHERE 1=1
-			AND a.email = #{email}
+			AND a.iD = #{iD}
 			<if test="passWord != null and !passWord.equals('')">AND a.passWord = #{passWord}</if>
 	</select>
 	
@@ -119,7 +119,7 @@
 			name,
 			gender,
 			btd,
-			email,
+			iD,
 			passWord,
 			delNy,
 			mobileCarrier,
@@ -131,7 +131,7 @@
 			#{name},
 			#{gender},
 			#{btd},
-			#{email},
+			#{iD},
 			#{passWord},
 			#{delNy},
 			#{mobileCarrier},
@@ -146,7 +146,7 @@
 			name = #{name},
 			gender = #{gender},
 			btd = #{btd},
-			email = #{email},
+			iD = #{iD},
 			passWord = #{passWord},
 			delNy = #{delNy},
 			mobileCarrier = #{mobileCarrier},
@@ -161,5 +161,9 @@
 			modDateTime = now()
 		WHERE seq = #{seq}
 	</update>
+	
+	<select id="checkId" resultType="int">
+		SELECT COUNT(*) FROM userUi WHERE iD = #{iD}
+	</select>
 
 </mapper>

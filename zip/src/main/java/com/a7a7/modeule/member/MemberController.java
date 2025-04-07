@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a7a7.common.util.UtilDateTime;
-import com.a7a7.modeule.code.CodeDto;
 import com.a7a7.modeule.code.CodeService;
-import com.a7a7.modeule.code.CodeVo;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -41,7 +39,7 @@ public class MemberController {
 			returnMap.put("rt", "success");
 			
 			httpSession.setAttribute("sessSeqXdm", reMember.getSeq());
-			httpSession.setAttribute("sessIdXdm", reMember.getEmail());
+			httpSession.setAttribute("sessIdXdm", reMember.getiD());
 			httpSession.setAttribute("sessPassWordXdm", reMember.getPassWord());
 			httpSession.setAttribute("sessNameXdm", reMember.getName());
 		} else {
@@ -90,7 +88,6 @@ public class MemberController {
 	
 	@RequestMapping(value = "/xdm/member/MemberXdmForm")
 	public String memberXdmForm(@ModelAttribute("vo") MemberVo vo, MemberDto memberDto, Model model) throws Exception {
-		System.out.println(memberService.selectOne(memberDto));
 		
 		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
 //			insert mode
@@ -98,7 +95,7 @@ public class MemberController {
 //			update mode
 			model.addAttribute("item", memberService.selectOne(memberDto));
 		}
-		
+		System.out.println("vo.getSeq() = " + vo.getSeq());
 		return "xdm/member/MemberXdmForm";
 	}
 	
@@ -125,13 +122,17 @@ public class MemberController {
 	
 	@RequestMapping(value = "/usr/userUi/MemberUsrForm")
 	public String userUiSignup(@ModelAttribute("vo") MemberVo vo, MemberDto memberDto, Model model) throws Exception {
+		if(vo.getSeq() == null) {
+		    vo.setSeq("0");
+		}
+		
 		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
 //			insert mode
 		} else {
 //			update mode
 			model.addAttribute("item", memberService.selectOne(memberDto));
 		}
-		
+		System.out.println("vo.getSeq() = " + vo.getSeq());
 		return "usr/userUi/MemberUsrForm";
 	}
 	
@@ -142,5 +143,15 @@ public class MemberController {
 		return "redirect:/xdm/member/MemberXdmList";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/usr/userUi/checkId")
+	public Map<String, Object> checkId(MemberDto memberDto) {
+		int count = memberService.checkId(memberDto); // memberDto에 iD가 담겨 있음
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("exists", count > 0); // 이미 존재하면 true, 아니면 false
+
+		return result;
+	}
 
 }

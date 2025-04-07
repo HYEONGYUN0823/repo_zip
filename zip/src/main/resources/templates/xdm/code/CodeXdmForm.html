@@ -205,6 +205,7 @@
 			event.preventDefault(); // 기본 폼 제출 방지
 
 			let check = true;
+			let firstErrorField = null; // 첫 번째 에러 발생 필드 저장용
 
 			const ifcgSeq = document.getElementById("ifcgSeq");
 			const ifcgNameError = document.getElementById("ifcgNameError");
@@ -212,7 +213,7 @@
 			if (ifcgSeq.value == "") {
 				ifcgSeq.classList.add("redOutline");
 				ifcgNameError.textContent = "코드 그룹을 선택하세요.";
-
+				if (!firstErrorField) firstErrorField = ifcgSeq;
 				check = false;
 			} else {
 				ifcgSeq.classList.remove("redOutline");
@@ -225,7 +226,7 @@
 			if (ifcdName.value.trim() == "") {
 				ifcdName.classList.add("redOutline");
 				ifcdNameError.textContent = "코드 이름을 입력하세요.";
-
+				if (!firstErrorField) firstErrorField = ifcdName;
 				check = false;
 			} else {
 				ifcdName.classList.remove("redOutline");
@@ -237,18 +238,21 @@
 
 			if (ifcdDelNy.value == "") {
 				ifcdDelNy.classList.add("redOutline");
-				ifcdDelNyError.textContent = "사용 여부를 선택하세요.";
-
+				ifcdDelNyError.textContent = "삭제 여부를 선택하세요.";
+				if (!firstErrorField) firstErrorField = ifcdDelNy;
 				check = false;
 			} else {
 				ifcdDelNy.classList.remove("redOutline");
 				ifcdDelNyError.textContent = "";
 			}
 
+			const ifcdUseNy = document.getElementById("ifcdUseNy");
+			const ifcdUseNyError = document.getElementById("ifcdUseNyError");
+
 			if (ifcdUseNy.value == "") {
 				ifcdUseNy.classList.add("redOutline");
 				ifcdUseNyError.textContent = "사용 여부를 선택하세요.";
-
+				if (!firstErrorField) firstErrorField = ifcdUseNy;
 				check = false;
 			} else {
 				ifcdUseNy.classList.remove("redOutline");
@@ -256,13 +260,17 @@
 			}
 
 			if (check) {
-				let alertModal = new bootstrap.Modal(document
-						.getElementById("alertModal"));
+				let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
 				alertModal.show();
 			} else {
-				// bypass
+				// 첫 번째 에러 발생 필드로 포커스 이동
+				if (firstErrorField) {
+					firstErrorField.focus();
+					// 선택 옵션일 경우 스크롤도 함께 내려가게 하려면 아래 코드 추가:
+					// firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" });
+				}
 			}
-		}
+		};
 
 		document.getElementById("btnSubmit").onclick = function() {
 			let seq = document.querySelector("input[name=ifcdSeq]");
