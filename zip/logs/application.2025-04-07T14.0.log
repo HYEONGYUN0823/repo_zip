@@ -1,0 +1,850 @@
+2025-04-07T14:00:20.345 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. INSERT INTO userUi (
+			seq,
+			name,
+			gender,
+			btd,
+			iD,
+			passWord,
+			delNy,
+			mobileCarrier,
+			phoneNumber,
+			admSignin,
+			regDateTime
+		) values (
+			'0',
+			'테스트유저3',
+			1,
+			'2018-04-04',
+			'asdfasdf',
+			'!Q1zxczc',
+			'0',
+			5,
+			'01088888888',
+			'0',
+			now()
+		)
+ {executed in 4 msec} 
+2025-04-07T14:00:20.351 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 0 msec} 
+2025-04-07T14:00:20.354 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.iD,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-04-07T14:00:27.739 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+         AND a.admSignin = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 1 msec} 
+2025-04-07T14:00:27.743 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.iD,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+         AND a.admSignin = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-04-07T14:00:31.933 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+         AND a.admSignin = 1 
+
+		ORDER BY a.seq DESC
+ {executed in 1 msec} 
+2025-04-07T14:00:31.935 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.iD,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+         AND a.admSignin = 1 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 0 msec} 
+2025-04-07T14:00:34.345 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 1 msec} 
+2025-04-07T14:00:34.347 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.iD,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-04-07T14:02:50.881 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 1 msec} 
+2025-04-07T14:02:50.883 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.iD,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-04-07T14:02:56.997 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 1 msec} 
+2025-04-07T14:02:57.000 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.iD,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 5
+ {executed in 2 msec} 
+2025-04-07T14:02:58.140 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 1 msec} 
+2025-04-07T14:02:58.143 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.iD,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 0 msec} 
+2025-04-07T14:10:06.978 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-04-07T14:10:06.980 [Thread-11] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-04-07T14:10:06.981 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:10:06.984 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-04-07T14:10:06.985 [Thread-11] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:10:06.987 [Thread-11] INFO c.z.h.HikariDataSource - HikariPool-3 - Shutdown initiated... 
+2025-04-07T14:10:06.991 [Thread-11] INFO c.z.h.HikariDataSource - HikariPool-3 - Shutdown completed. 
+2025-04-07T14:10:07.066 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 1152 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-04-07T14:10:07.066 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-04-07T14:10:07.200 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-04-07T14:10:07.201 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:10:07.201 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-04-07T14:10:07.201 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-04-07T14:10:07.209 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-04-07T14:10:07.209 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 142 ms 
+2025-04-07T14:10:07.247 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-4 - Starting... 
+2025-04-07T14:10:07.256 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-4 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@c2d54ad 
+2025-04-07T14:10:07.256 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-4 - Start completed. 
+2025-04-07T14:10:07.257 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+31. SELECT 
+			ifcdSeq
+			, ifcdName
+			, ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 0 msec} 
+2025-04-07T14:10:07.324 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-04-07T14:10:07.328 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:10:07.330 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-04-07T14:10:07.332 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.285 seconds (process running for 1962.606) 
+2025-04-07T14:10:07.332 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-04-07T14:10:09.781 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-04-07T14:10:09.784 [Thread-15] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-04-07T14:10:09.785 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:10:09.791 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-04-07T14:10:09.791 [Thread-15] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:10:09.794 [Thread-15] INFO c.z.h.HikariDataSource - HikariPool-4 - Shutdown initiated... 
+2025-04-07T14:10:09.798 [Thread-15] INFO c.z.h.HikariDataSource - HikariPool-4 - Shutdown completed. 
+2025-04-07T14:10:09.882 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 1152 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-04-07T14:10:09.882 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-04-07T14:10:10.000 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-04-07T14:10:10.001 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:10:10.001 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-04-07T14:10:10.001 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-04-07T14:10:10.008 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-04-07T14:10:10.009 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 126 ms 
+2025-04-07T14:10:10.043 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-5 - Starting... 
+2025-04-07T14:10:10.050 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-5 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@7c6fe192 
+2025-04-07T14:10:10.050 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-5 - Start completed. 
+2025-04-07T14:10:10.051 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+41. SELECT 
+			ifcdSeq
+			, ifcdName
+			, ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-04-07T14:10:10.101 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-04-07T14:10:10.105 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:10:10.108 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-04-07T14:10:10.110 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.245 seconds (process running for 1965.384) 
+2025-04-07T14:10:10.110 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-04-07T14:11:09.665 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-04-07T14:11:09.672 [Thread-19] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-04-07T14:11:09.673 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:11:09.677 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-04-07T14:11:09.677 [Thread-19] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:11:09.679 [Thread-19] INFO c.z.h.HikariDataSource - HikariPool-5 - Shutdown initiated... 
+2025-04-07T14:11:09.683 [Thread-19] INFO c.z.h.HikariDataSource - HikariPool-5 - Shutdown completed. 
+2025-04-07T14:11:09.750 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 1152 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-04-07T14:11:09.750 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-04-07T14:11:09.876 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-04-07T14:11:09.877 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:11:09.877 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-04-07T14:11:09.877 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-04-07T14:11:09.884 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-04-07T14:11:09.884 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 132 ms 
+2025-04-07T14:11:09.916 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-6 - Starting... 
+2025-04-07T14:11:09.924 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-6 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@37b02a0c 
+2025-04-07T14:11:09.924 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-6 - Start completed. 
+2025-04-07T14:11:09.925 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+51. SELECT 
+			ifcdSeq
+			, ifcdName
+			, ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-04-07T14:11:09.989 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-04-07T14:11:09.993 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:11:09.994 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-04-07T14:11:09.996 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.268 seconds (process running for 2025.27) 
+2025-04-07T14:11:09.997 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-04-07T14:11:21.537 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-04-07T14:11:21.540 [Thread-23] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-04-07T14:11:21.541 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:11:21.547 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-04-07T14:11:21.548 [Thread-23] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:11:21.550 [Thread-23] INFO c.z.h.HikariDataSource - HikariPool-6 - Shutdown initiated... 
+2025-04-07T14:11:21.555 [Thread-23] INFO c.z.h.HikariDataSource - HikariPool-6 - Shutdown completed. 
+2025-04-07T14:11:21.631 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 1152 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-04-07T14:11:21.632 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-04-07T14:11:21.747 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-04-07T14:11:21.747 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:11:21.747 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-04-07T14:11:21.747 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-04-07T14:11:21.754 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-04-07T14:11:21.754 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 121 ms 
+2025-04-07T14:11:21.801 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-7 - Starting... 
+2025-04-07T14:11:21.808 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-7 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@72c0e25a 
+2025-04-07T14:11:21.808 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-7 - Start completed. 
+2025-04-07T14:11:21.809 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+61. SELECT 
+			ifcdSeq
+			, ifcdName
+			, ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 1 msec} 
+2025-04-07T14:11:21.861 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-04-07T14:11:21.865 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:11:21.867 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-04-07T14:11:21.868 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.252 seconds (process running for 2037.142) 
+2025-04-07T14:11:21.869 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-04-07T14:12:50.158 [http-nio-8080-exec-2] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-04-07T14:12:50.158 [http-nio-8080-exec-2] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-04-07T14:12:50.159 [http-nio-8080-exec-2] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-04-07T14:12:51.205 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+61. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 1 msec} 
+2025-04-07T14:12:51.208 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+61. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.iD,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-04-07T14:13:06.582 [File Watcher] INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2025-04-07T14:13:06.585 [Thread-27] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-04-07T14:13:06.586 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:13:06.593 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-04-07T14:13:06.593 [Thread-27] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:13:06.596 [Thread-27] INFO c.z.h.HikariDataSource - HikariPool-7 - Shutdown initiated... 
+2025-04-07T14:13:06.601 [Thread-27] INFO c.z.h.HikariDataSource - HikariPool-7 - Shutdown completed. 
+2025-04-07T14:13:06.685 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 1152 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-04-07T14:13:06.685 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-04-07T14:13:06.811 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-04-07T14:13:06.812 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:13:06.812 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-04-07T14:13:06.812 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-04-07T14:13:06.818 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-04-07T14:13:06.818 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 132 ms 
+2025-04-07T14:13:06.866 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-8 - Starting... 
+2025-04-07T14:13:06.873 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-8 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@1613e810 
+2025-04-07T14:13:06.874 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-8 - Start completed. 
+2025-04-07T14:13:06.874 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT 
+			ifcdSeq
+			, ifcdName
+			, ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 0 msec} 
+2025-04-07T14:13:06.934 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-04-07T14:13:06.937 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:13:06.939 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-04-07T14:13:06.940 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 0.272 seconds (process running for 2142.215) 
+2025-04-07T14:13:06.941 [restartedMain] INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged 
+2025-04-07T14:15:23.662 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-04-07T14:15:23.663 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-04-07T14:15:23.664 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-04-07T14:19:10.837 [http-nio-8080-exec-1] INFO o.a.c.h.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level. 
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x000xee0x010x000x000xea0x030x03?0xa65J10xf8EA0xban0xfaOrz0x1e0x930xb70xb0@0xce0xf60xbfL0xd60xf00xc3R=0x130xac0x04d ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:409)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:270)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-04-07T14:21:02.936 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 1 msec} 
+2025-04-07T14:21:02.939 [http-nio-8080-exec-5] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy,
+			    a.ifcgRegDateTime,
+			    a.ifcgModDateTime
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-04-07T14:21:04.788 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 1 msec} 
+2025-04-07T14:21:04.792 [http-nio-8080-exec-6] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy,
+			    a.ifcgRegDateTime,
+			    a.ifcgModDateTime
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-04-07T14:22:14.435 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT COUNT(*)
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+ {executed in 2 msec} 
+2025-04-07T14:22:14.438 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy,
+			    a.ifcgRegDateTime,
+			    a.ifcgModDateTime
+
+		FROM codeGroup as a
+		WHERE 1=1
+		 AND a.ifcgUseNy = 1 
+         AND a.ifcgDelNy = 0 
+
+		ORDER BY a.ifcgSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-04-07T14:22:15.460 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT COUNT(*)
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcgSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+ {executed in 1 msec} 
+2025-04-07T14:22:15.464 [http-nio-8080-exec-7] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT aa.* FROM (
+			SELECT
+				a.ifcdSeq,
+			    a.ifcdName,
+			    a.ifcdDelNy,
+			    a.ifcdUseNy,
+			    a.ifcdRegDateTime,
+			    a.ifcdModDateTime,
+			    b.ifcgSeq,
+			    b.ifcgName
+
+		FROM code as a
+		LEFT JOIN
+			codeGroup b
+		ON
+			a.ifcgSeq = b.ifcgSeq
+		WHERE 1=1
+		 AND a.ifcdUseNy = 1 
+         AND a.ifcdDelNy = 0 
+
+		ORDER BY a.ifcdSeq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 2 msec} 
+2025-04-07T14:22:17.048 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT
+			ifcdSeq,
+			ifcdName,
+			ifcdDelNy,
+			ifcdUseNy,
+			ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdSeq = '0'
+		ORDER BY ifcdSeq DESC
+ {executed in 0 msec} 
+2025-04-07T14:22:17.051 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT aa.* FROM (
+			SELECT
+				a.ifcgSeq,
+			    a.ifcgName,
+			    (select count(aa.ifcdSeq) from code aa 
+			    	where 1=1 
+			    		and aa.ifcdDelNy = 0
+			    		and aa.ifcgSeq = a.ifcgSeq
+			    ) as xifcdSeqCount,
+			    a.ifcgDelNy,
+			    a.ifcgUseNy,
+			    a.ifcgRegDateTime,
+			    a.ifcgModDateTime
+			FROM codeGroup as a
+			WHERE 1=1
+            AND ifcgDelNy = 0
+			AND ifcgUseNy = 1
+		) aa
+ {executed in 2 msec} 
+2025-04-07T14:22:42.942 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 1 msec} 
+2025-04-07T14:22:42.944 [http-nio-8080-exec-2] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.iD,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-04-07T14:22:54.065 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT COUNT(*)
+
+		FROM mealKit as a
+		WHERE 1=1
+		 AND a.mealUseNy = 1 
+         AND a.mealDelNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 1 msec} 
+2025-04-07T14:22:54.069 [http-nio-8080-exec-8] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+				a.brandName,
+				a.mealKitName,
+				a.stock,
+				a.price,
+				a.score,
+				a.ingredient,
+				a.mealDelNy,
+				a.mealUseNy,
+				a.mealRegDateTime,
+				a.mealModDateTime
+
+		FROM mealKit as a
+		WHERE 1=1
+		 AND a.mealUseNy = 1 
+         AND a.mealDelNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 3 msec} 
+2025-04-07T14:23:01.334 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT COUNT(*)
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 0 msec} 
+2025-04-07T14:23:01.336 [http-nio-8080-exec-10] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+
+			    a.name,
+			    a.gender,
+			    a.btd,
+			    a.iD,
+			    a.passWord,
+			    a.delNy,
+			    a.admSignin,
+			    a.mobileCarrier,
+			    a.phoneNumber,
+			    a.regDateTime,
+			    a.modDateTime
+
+		FROM userUi as a
+		WHERE 1=1
+
+         AND a.delNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-04-07T14:28:50.240 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT COUNT(*)
+
+		FROM mealKit as a
+		WHERE 1=1
+		 AND a.mealUseNy = 1 
+         AND a.mealDelNy = 0 
+
+		ORDER BY a.seq DESC
+ {executed in 1 msec} 
+2025-04-07T14:28:50.242 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+71. SELECT aa.* FROM (
+			SELECT
+				a.seq,
+				a.brandName,
+				a.mealKitName,
+				a.stock,
+				a.price,
+				a.score,
+				a.ingredient,
+				a.mealDelNy,
+				a.mealUseNy,
+				a.mealRegDateTime,
+				a.mealModDateTime
+
+		FROM mealKit as a
+		WHERE 1=1
+		 AND a.mealUseNy = 1 
+         AND a.mealDelNy = 0 
+
+		ORDER BY a.seq DESC
+
+		) aa
+		limit 5 offset 0
+ {executed in 1 msec} 
+2025-04-07T14:38:53.957 [HikariPool-8 housekeeper] WARN c.z.h.p.HikariPool - HikariPool-8 - Thread starvation or clock leap detected (housekeeper delta=1m46s583ms78µs). 
+2025-04-07T14:39:41.142 [RMI TCP Connection(91)-127.0.0.1] INFO o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+2025-04-07T14:39:41.146 [RMI TCP Connection(91)-127.0.0.1] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-04-07T14:39:41.150 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:39:41.158 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-04-07T14:39:41.160 [RMI TCP Connection(91)-127.0.0.1] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-04-07T14:39:41.165 [RMI TCP Connection(91)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-8 - Shutdown initiated... 
+2025-04-07T14:39:41.186 [RMI TCP Connection(91)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-8 - Shutdown completed. 

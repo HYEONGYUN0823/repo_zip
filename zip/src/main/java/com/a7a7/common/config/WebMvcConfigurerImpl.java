@@ -16,12 +16,12 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer{
 			.addPathPatterns("/*/*/*Xdm*", "/*/*/*Usr*")
 			.excludePathPatterns(
 //					"/resources/**",
-					"/usr/**",
+					"/user/**",
 					"/usr/signin/signinUsr",
 					"/usr/userUi/MemberUsrForm",
-//					"/v1/infra/member/signUpUsrForm",
-//					"/v1/infra/member/signinUsrForm",
-//					"/v1/infra/member/signinUsrProc",
+					"/usr/signin/signinUsrProc",
+					"/usr/userUi/checkId",
+					"/usr/userUi/MemberUsrInst",
 //					"/v1/infra/member/signupIdCheckUsrProc",
 //					"/v1/infra/member/sendMailGoogleCertificationUsrProc",
 //					"/v1/infra/member/certificationCheckUsrProc",

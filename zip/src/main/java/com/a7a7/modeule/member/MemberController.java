@@ -140,7 +140,7 @@ public class MemberController {
 	public String memberUsrInst(MemberDto memberDto) {
 		memberService.insert(memberDto);
 		
-		return "redirect:/xdm/member/MemberXdmList";
+		return "redirect:/usr/signin/signinUsr";
 	}
 	
 	@ResponseBody
@@ -153,5 +153,32 @@ public class MemberController {
 
 		return result;
 	}
-
+	
+	@RequestMapping(value = "/usr/signin/signinUsr")
+	public String memberUsrList(HttpSession httpSession, MemberDto memberDto) throws Exception {
+		
+		return "/usr/signin/SigninUsr";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/usr/signin/signinUsrProc")
+	public Map<String, Object> signinUsrProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		MemberDto reMember = memberService.selectOneLogin(memberDto);
+		
+		if(reMember != null)	{
+			returnMap.put("rt", "success");
+			
+			httpSession.setAttribute("sessSeqUsr", reMember.getSeq());
+			httpSession.setAttribute("sessIdUsr", reMember.getiD());
+			httpSession.setAttribute("sessPassWordUsr", reMember.getPassWord());
+			httpSession.setAttribute("sessNameUsr", reMember.getName());
+		} else {
+			returnMap.put("rt", "fail");
+		}
+		
+		return returnMap;
+	}
+	
 }

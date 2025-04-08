@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta content="Codescandy" name="author">
-  <title>Sign up eCommerce HTML Template - FreshCart</title>
+  <title>Sign in eCommerce HTML Template - FreshCart</title>
   <!-- Favicon icon-->
   <link rel="shortcut icon" type="image/x-icon" href="/user/template/user_ui/assets/images/favicon/favicon.ico">
 
@@ -16,19 +16,14 @@
   <link href="/user/template/user_ui/assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
   <link href="/user/template/user_ui/assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
 
-  <!-- 아이콘 -->
-  <script src="https://kit.fontawesome.com/734dfb419e.js" crossorigin="anonymous"></script>
+
   <!-- Theme CSS -->
   <link rel="stylesheet" href="/user/template/user_ui/assets/css/theme.min.css">
-  <link rel="stylesheet" type="text/css" href="/assets/xdm/css/jquery.datetimepicker.css">
-  
-
-</style>
 </head>
 
 <body>
-    <script src="/assets/xdm/jquery/jquery-3.7.1.min.js"></script>
-	<script src="/assets/xdm/js/jquery.datetimepicker.full.js"></script>
+<script src="/assets/xdm/jquery/jquery-3.7.1.min.js"></script>
+
   <!-- navigation -->
   <div class="border-bottom shadow-sm">
     <nav class="navbar navbar-light py-2">
@@ -42,175 +37,85 @@
       </div>
     </nav>
   </div>
- <style>
-  body {
-    padding: 30px;
-    background-color: #f8f9fa;
-  }
-  .form-container {
-    max-width: 600px;
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  .form-control.is-valid {
-    background-image: none;
-    border-color: #ced4da; /* 기본 테두리로 회색 고정 */
-  }
-  .form-control.is-invalid {
-    background-image: none;
-    border-color: #dc3545; /* 빨간 테두리 */
-  }
 
-  /* 🔽 여기에 추가해줘 */
-  .form-control:valid {
-    border-color: #ced4da !important;
-    background-image: none !important;
-    box-shadow: none !important;
-  }
-
-  .form-control:invalid {
-    box-shadow: none !important;
-  }
-</style>
 
   <main>
     <!-- section -->
-
     <section class="my-lg-14 my-8">
-      <!-- container -->
       <div class="container">
         <!-- row -->
         <div class="row justify-content-center align-items-center">
           <div class="col-12 col-md-6 col-lg-4 order-lg-1 order-2">
             <!-- img -->
-            <img src="/user/template/user_ui/assets/images/svg-graphics/signup-g.svg" alt="" class="img-fluid" />
+            <img src="/user/template/user_ui/assets/images/svg-graphics/signin-g.svg" alt="" class="img-fluid" />
           </div>
           <!-- col -->
           <div class="col-12 col-md-6 offset-lg-1 col-lg-4 order-lg-2 order-1">
             <div class="mb-lg-9 mb-5">
-              <h1 class="mb-1 h2 fw-bold">회원가입</h1>
-              <p>OOO에 오신 것을 환영합니다! 시작하려면 이메일을 입력하세요.</p>
+              <h1 class="mb-1 h2 fw-bold">로그인</h1>
+              <p>OOO에 다시 오신 것을 환영합니다! 시작하려면 아이디를 입력하세요.</p>
             </div>
-            <!-- form -->
-            <form class="needs-validation" novalidate method="post" id="form">
-			<input type="hidden" name="seq" th:value="${vo.seq}">
+
+            <form class="needs-validation" novalidate>
               <div class="row g-3">
-                <!-- col -->
-<!--                 <div class="col"> -->
-<!--                   input -->
-<!--                   <label for="formSignupfname" class="form-label visually-hidden">First Name</label> -->
-<!--                   <input type="text" class="form-control" id="formSignupfname" placeholder="성" required /> -->
-<!--                   <div class="invalid-feedback">성을 입력하세요.</div> -->
-<!--                 </div> -->
-<!-- 	            <input type="hidden" id="seq" name="seq" th:value="${item?.seq}" /> -->
-	            <input	type="hidden" 
-	            		id="admSignin" name="admSignin" 
-						th:value="0" 
-						class="form-control" />
-	            <input	type="hidden" id="delNy" name="delNy" 
-						th:value="0" 
-						class="form-control" />
-	            <input	type="hidden"  
-	            		id="useNy" name="useNy" 
-						th:value="1" 
-						class="form-control" />
-						
-				<!-- 아이디 -->
-				<div class="col-12">
-					<input type="text" class="form-control" id="iD" name="iD" placeholder="아이디" required />
-<!-- 					<div class="invalid-feedback">아이디를 입력하세요.</div> -->
-					<div id="idCheckResult" style="margin-top: 5px; font-size: 0.875em;"></div>
-				</div>
-				
-                <!-- 비밀번호 -->
-                
+                <!-- row -->
+
                 <div class="col-12">
+                  <!-- input -->
+                  <label for="formSigninEmail" class="form-label visually-hidden">Email address</label>
+                  <input type="text" class="form-control" id="iD" name="iD" placeholder="아이디를 입력해주세요" required />
+                  <div class="invalid-feedback">아이디를 정확히 입력해 주세요.</div>
+                </div>
+                <div class="col-12">
+                  <!-- input -->
                   <div class="password-field position-relative">
-                    <label for="formSignupPassword" class="form-label visually-hidden">Password</label>
+                    <label for="formSigninPassword" class="form-label visually-hidden">Password</label>
                     <div class="password-field position-relative">
                       <input type="password" class="form-control fakePassword" id="passWord" name="passWord"
-                        placeholder="비밀번호" required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,20}$" />
+                        placeholder="비밀번호를 입력해주세요" required />
                       <span><i class="bi bi-eye-slash passwordToggler"></i></span>
-                      <div class="invalid-feedback">
-                        비밀번호는 8~20자이며, 대문자, 소문자, 숫자, 특수문자를 포함해야 합니다.
-                      </div>
+                      <div class="invalid-feedback">비밀번호를 정확히 입력해 주세요.</div>
                     </div>
                   </div>
                 </div>
-                
-                
-                <div class="col">
-
-                  <!-- input -->
-                  <label for="name" class="form-label visually-hidden">Last name</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="이름" required />
-                  <div class="invalid-feedback">이름을 입력하세요.</div>
-                </div>
-                
-                
-                  <!-- 생년월일 -->
-                  <div class="col-12">
-                    <div class="text">
-						<input type="text" id="btd"
-							name="btd" th:value="${item?.btd}" placeholder="생년월일"
-							class="form-control form-control-sm" autocomplete="off" required>
-                      <div class="invalid-feedback">생년월일을 정확히 입력해 주세요.</div>
-                    </div>
+                <div class="d-flex justify-content-between">
+                  <!-- form check -->
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    <!-- label -->
+                    <label class="form-check-label" for="flexCheckDefault">로그인 상태 유지</label>
                   </div>
-                
-                
-                <!-- 성별버튼 -->
-                <div class="col-12">
-                  <select id="gender" name="gender" class="form-select" required>
-                   		<option value="" selected disabled>성별</option>
-                       	<option 
-	                        th:each="list : ${@codeService.selectListCachedCode(1)}" 
-	                        th:value="${list.ifcdSeq}" 
-	                        th:text="${list.ifcdName}" 
-	                        th:selected="${list.ifcdSeq} == ${item?.gender}">
-                       	</option>
-                   </select>
-                   <div class="invalid-feedback">성별을 선택하세요.</div>
-                </div>
-                  <!-- 전화번호 -->
-                  <div class="col-12">
-                    <div class="d-flex">
-                      <div class="me-1 col-lg-5">
-                        <select id="mobileCarrier" name="mobileCarrier" class="form-select" required>
-                        	<option value="" selected disabled>통신사</option>
-                          	<option 
-		                      	th:each="list : ${@codeService.selectListCachedCode(2)}" 
-		                      	th:value="${list.ifcdSeq}" 
-		                      	th:text="${list.ifcdName}" 
-		                      	th:selected="${list.ifcdSeq} == ${item?.mobileCarrier}">
-                          	</option>
-                        </select>
-                        <div class="invalid-feedback">통신사를 선택해주세요.</div>
-                      </div>
-                      <div class="tel col-lg-7">
-                        <input type="tel" id="phoneNumber" name="phoneNumber" maxlength="11" class="form-control" placeholder="휴대전화번호" required>
-                        <div class="invalid-feedback">휴대전화번호를 정확히 입력해 주세요.</div>
-                      </div>
-                    </div>
+                  <div>
+                    비밀번호를 잊어버리셨나요?
+                    <a href="../pages/forgot-password.html">재설정</a>
                   </div>
-
-
+                </div>
                 <!-- btn -->
-                <div class="col-12 d-grid"><button type="button" id="btnSubmit" class="btn btn-primary">회원가입</button></div>
-
-                <!-- text -->
-                <p>
-                  <small>
-                    계속해서 귀하는 당사의
-                    <a href="#!">서비스 약관</a>
-                    및
-                    <a href="#!">개인정보 보호정책</a>
-                    에 동의합니다.
-                  </small>
-                </p>
+                <div class="col-12 d-grid"><button type="button" id="buttonSignIn" class="btn btn-primary">로그인</button></div>
+                
+                
+				<!-- 모달 -->
+				
+				<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog">
+				    <div class="modal-dialog" role="document">
+				        <div class="modal-content">
+				            <div class="modal-header">
+				                <h5 class="modal-title" id="modalAlertTitle">확 인</h5>
+				                <button type="button" class="close" data-dismiss="modal">&times;</button>
+				            </div>
+				            <div class="modal-body" id="modalAlertBody"></div>
+				            <div class="modal-footer">
+				                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+                
+                <!-- link -->
+                <div>
+                  계정을 가지고 있지 않나요?
+                  <a href="/usr/userUi/MemberUsrForm">회원가입</a>
+                </div>
               </div>
             </form>
           </div>
@@ -221,6 +126,7 @@
 
   <!-- Footer -->
   <!-- footer -->
+  <footer class="footer">
     <div class="container">
       <div class="row g-4 py-4">
         <div class="col-12 col-md-12 col-lg-4">
@@ -377,8 +283,10 @@
 
       </div>
     </div>
-<!-- /user/template/user_ui/assets/libs/jquery/dist/jquery.min.js -->
-  
+  </footer>
+  <!-- Javascript-->
+  <!-- Libs JS -->
+  <!-- <script src="../assets/libs/jquery/dist/jquery.min.js"></script> -->
   <script src="/user/template/user_ui/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/user/template/user_ui/assets/libs/simplebar/dist/simplebar.min.js"></script>
 
@@ -386,169 +294,92 @@
   <script src="/user/template/user_ui/assets/js/theme.min.js"></script>
 
   <script src="/user/template/user_ui/assets/js/vendors/password.js"></script>
-
   <script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
-	<!-- Javascript-->
+  
+	<script type="text/javascript">
+	    document.getElementById("buttonSignIn").onclick = function(event) {
+	        event.preventDefault(); // 기본 폼 제출 방지
+	        loginLogic();
+	    }
 	
-<script type="text/javascript">
-
-	let goUrlXdmInst = "/usr/userUi/MemberUsrInst";
-	let seq = document.querySelector("input[name=seq]");
-	let form = document.getElementById("form");
-
-// 	아이디 중복 여부 저장 변수
-	let isIdAvailable = false;
-
-	function phoneNumberCheck(number) {
-		let result = /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
-		return result.test(number);
-	}
-
-	const phoneInput = document.getElementById("phoneNumber");
-	const invalidFeedback = phoneInput.nextElementSibling;
-
-	phoneInput.addEventListener("input", function () {
-		let phoneNumber = phoneInput.value;
-
-		if (phoneNumber.length == 11 && phoneNumberCheck(phoneNumber)) {
-			phoneInput.classList.remove("is-invalid");
-			phoneInput.classList.add("is-valid");
-			invalidFeedback.style.display = "none";
-		} else {
-			phoneInput.classList.remove("is-valid");
-			phoneInput.classList.add("is-invalid");
-			invalidFeedback.style.display = "block";
-		}
-	});
-
-	const genderInvalid = document.getElementById("gender");
-	const ginvalidFeedback = genderInvalid.nextElementSibling;
-
-	genderInvalid.addEventListener("input", function () {
-		let gender = genderInvalid.value;
-
-		if (gender == 1 || gender == 2 || gender == 3) {
-			genderInvalid.classList.remove("is-invalid");
-			genderInvalid.classList.add("is-valid");
-			ginvalidFeedback.style.display = "none";
-		} else {
-			genderInvalid.classList.remove("is-valid");
-			genderInvalid.classList.add("is-invalid");
-			ginvalidFeedback.style.display = "block";
-		}
-	});
-
-// 	버튼 클릭 이벤트
-	document.getElementById("btnSubmit").onclick = function () {
-		const form = document.getElementById("form");
-		const seq = document.querySelector("input[name=seq]");
-		const iDInput = document.getElementById("iD");
-		const idCheckResult = document.getElementById("idCheckResult");
-
-// 		하나씩 검증해서 가장 위에 있는 미입력 필드에만 포커스 주기
-		const inputs = form.querySelectorAll("input, select, textarea");
-		for (let input of inputs) {
-			if (!input.checkValidity()) {
-				input.classList.add("is-invalid");
-				input.focus();
-				return false;
-			} else {
-				input.classList.remove("is-invalid");
-				input.classList.add("is-valid");
-			}
-		}
-
-// 		아이디 입력 여부 추가 확인
-		if (iDInput.value.trim() == "") {
-			iDInput.classList.remove("is-valid");
-			iDInput.classList.add("is-invalid");
-			idCheckResult.textContent = "아이디를 입력하세요.";
-			idCheckResult.style.display = "block";
-			idCheckResult.style.color = "red";
-			iDInput.focus();
-			return false;
-		}
-
-// 		신규 등록 아이디 중복 체크
-		if (seq.value == "0" || seq.value == "") {
-			if (!isIdAvailable) {
-				iDInput.classList.remove("is-valid");
-				iDInput.classList.add("is-invalid");
-				idCheckResult.textContent = "중복된 아이디입니다.";
-				idCheckResult.style.display = "block";
-				idCheckResult.style.color = "red";
-				iDInput.focus();
-				return false;
-			}
-			form.action = goUrlXdmInst;
-		}
-
-		form.submit();
-	};
-
-// 	생일 datetimepicker
-	jQuery.datetimepicker.setLocale('ko');
-	jQuery('#btd').datetimepicker({
-		i18n: {
-			de: {
-				months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli',
-					'August', 'September', 'Oktober', 'November', 'Dezember',],
-				dayOfWeek: ["So.", "Mo", "Di", "Mi", "Do", "Fr", "Sa.",]
-			}
-		},
-		datepicker: true,
-		timepicker: false,
-		format: 'Y-m-d'
-	});
-
-// 	아이디 중복 체크
-	$(document).ready(function () {
-		const iDInput = $("#iD");
-		const iDCheckResult = $("#idCheckResult");
-
-		iDInput.on("blur", function () {
-			const userId = iDInput.val().trim();
-
-			if (userId == "") {
-				iDInput.removeClass("is-valid").addClass("is-invalid");
-				iDCheckResult.text("아이디를 입력하세요.")
-					.css({ display: "block", color: "red" });
-				isIdAvailable = false;
-				return false;
-			}
-
-			$.ajax({
-				url: "/usr/userUi/checkId",
-				type: "GET",
-				data: { iD: userId },
-				dataType: "json",
-				success: function (data) {
-					if (data.exists) {
-						iDInput.removeClass("is-valid").addClass("is-invalid");
-						iDCheckResult.text("중복된 아이디입니다.")
-							.css({ display: "block", color: "red" });
-						isIdAvailable = false;
-					} else {
-						iDInput.removeClass("is-invalid").addClass("is-valid");
-						iDCheckResult.text("사용 가능한 아이디입니다.")
-							.css({ display: "block", color: "green" });
-						isIdAvailable = true;
-					}
-				},
-				error: function () {
-					iDInput.removeClass("is-valid").addClass("is-invalid");
-					iDCheckResult.text("오류가 발생했습니다.")
-						.css({ display: "block", color: "red" });
-					isIdAvailable = false;
-				}
-			});
-		});
-	});
-</script>
-
-
+	    function validation() {
+	        const idInput = document.getElementById("iD");
+	        const passwordInput = document.getElementById("passWord");
 	
-
+	        const idValue = idInput.value.trim();
+	        const passwordValue = passwordInput.value.trim();
+	
+	        const idPattern = /^[A-Za-z0-9]{4,12}$/;
+	        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/;
+	
+	        const idFeedback = document.getElementById("idFeedback");
+	        const passwordFeedback = document.getElementById("passwordFeedback");
+	
+	        let isValid = true;
+	
+	        // 아이디 검사
+	        if (idValue == "") {
+	            idInput.classList.add("is-invalid");
+	            idInput.classList.remove("is-valid");
+	            idFeedback.textContent = "아이디를 입력해주세요.";
+	            isValid = false;
+	        } else if (!idPattern.test(idValue)) {
+	            idInput.classList.add("is-invalid");
+	            idInput.classList.remove("is-valid");
+	            idFeedback.textContent = "아이디는 영어와 숫자를 조합하여 4~12자로 입력해주세요.";
+	            isValid = false;
+	        } else {
+	            idInput.classList.remove("is-invalid");
+	            idInput.classList.add("is-valid");
+	        }
+	
+	        // 비밀번호 검사
+	        if (passwordValue == "") {
+	            passwordInput.classList.add("is-invalid");
+	            passwordInput.classList.remove("is-valid");
+	            passwordFeedback.textContent = "비밀번호를 입력해주세요.";
+	            isValid = false;
+	        } else if (!passwordPattern.test(passwordValue)) {
+	            passwordInput.classList.add("is-invalid");
+	            passwordInput.classList.remove("is-valid");
+	            passwordFeedback.textContent = "비밀번호는 대문자, 소문자, 숫자, 특수문자를 포함하여 8~16자로 입력해주세요.";
+	            isValid = false;
+	        } else {
+	            passwordInput.classList.remove("is-invalid");
+	            passwordInput.classList.add("is-valid");
+	        }
+	
+	        return isValid;
+	    }
+	
+	    function loginLogic() {
+	    	if(validation() == false) return false;
+	
+	        $.ajax({
+	            async: true,
+	            cache: false,
+	            type: "post",
+	            url: "/usr/signin/signinUsrProc",
+	            data: {
+	                "iD": $("#iD").val(),
+	                "passWord": $("#passWord").val()
+	            },
+	            success: function(response) {
+	                if (response.rt != "success") {
+	                    document.getElementById("modalAlertTitle").innerText = "확 인";
+	                    document.getElementById("modalAlertBody").innerText = "일치하는 회원이 존재 하지 않습니다!";
+	                    $("#modalAlert").modal("show");
+	                } else {
+	                    location.href = "/usr/userUi/MemberUsrForm"; // 로그인 성공 후 이동할 경로
+	                }
+	            },
+	            error: function(jqXHR, textStatus, errorThrown) {
+	                console.error("AJAX 요청 실패:", textStatus, errorThrown);
+	                alert("오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!오류발생!");
+	            }
+	        });
+	    }
+	</script>
 </body>
 
 </html>
