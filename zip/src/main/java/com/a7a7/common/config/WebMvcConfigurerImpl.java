@@ -22,7 +22,7 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer{
 					"/usr/signin/signinUsrProc",
 					"/usr/userUi/checkId",
 					"/usr/userUi/MemberUsrInst",
-//					"/v1/infra/member/signupIdCheckUsrProc",
+					"/usr/index/Index",
 //					"/v1/infra/member/sendMailGoogleCertificationUsrProc",
 //					"/v1/infra/member/certificationCheckUsrProc",
 //					"/v1/infra/member/memberUsrInst",

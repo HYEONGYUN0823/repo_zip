@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,16 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	CodeService codeService;
+	
+	public String encodeBcrypt(String planeText, int strength) {
+		  return new BCryptPasswordEncoder(strength).encode(planeText);
+	}
+
+			
+	public boolean matchesBcrypt(String planeText, String hashValue, int strength) {
+	  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(strength);
+	  return passwordEncoder.matches(planeText, hashValue);
+	}
 	
 	private void setSearch(MemberVo vo) {
 		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
@@ -138,6 +149,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "/usr/userUi/MemberUsrInst")
 	public String memberUsrInst(MemberDto memberDto) {
+		memberDto.setPassWord(encodeBcrypt(memberDto.getPassWord(), 10));
+		
 		memberService.insert(memberDto);
 		
 		return "redirect:/usr/signin/signinUsr";
@@ -157,7 +170,7 @@ public class MemberController {
 	@RequestMapping(value = "/usr/signin/signinUsr")
 	public String memberUsrList(HttpSession httpSession, MemberDto memberDto) throws Exception {
 		
-		return "/usr/signin/SigninUsr";
+		return "usr/signin/SigninUsr";
 	}
 	
 	@ResponseBody
@@ -167,7 +180,9 @@ public class MemberController {
 		
 		MemberDto reMember = memberService.selectOneLogin(memberDto);
 		
-		if(reMember != null)	{
+		boolean check = matchesBcrypt(memberDto.getPassWord(), reMember.getPassWord(), 10);
+		
+		if(reMember != null && check)	{
 			returnMap.put("rt", "success");
 			
 			httpSession.setAttribute("sessSeqUsr", reMember.getSeq());

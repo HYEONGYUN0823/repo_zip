@@ -89,7 +89,7 @@
 			userUi a
 		WHERE 1=1
 			AND a.iD = #{iD}
-			<if test="passWord != null and !passWord.equals('')">AND a.passWord = #{passWord}</if>
+<!-- 			<if test="passWord != null and !passWord.equals('')">AND a.passWord = #{passWord}</if> -->
 	</select>
 	
 <!-- 	<select id="selectTwo" resultMap="resultMapObj"> -->
