@@ -196,4 +196,16 @@ public class MemberController {
 		return returnMap;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/usr/signin/signoutUsrProc")
+	public Map<String, Object> signoutUsrProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		httpSession.setAttribute("sessSeqUsr", null);
+		httpSession.setAttribute("sessIdUsr", null);
+		httpSession.setAttribute("sessPasswordUsr", null);
+		returnMap.put("rt", "success");
+		return returnMap;
+	}
+	
 }
