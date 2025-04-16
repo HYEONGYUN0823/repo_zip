@@ -25,4 +25,5 @@ public interface MemberDao {
 	
 	public int checkId(MemberDto memberDto);
 	
+	public int userUpdate(MemberDto memberDto);
 }

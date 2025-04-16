@@ -1,0 +1,41 @@
+2025-04-14T14:01:02.527 [HikariPool-2 housekeeper] WARN c.z.h.p.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=48m5s605ms484µs600ns). 
+2025-04-14T14:03:42.443 [http-nio-8080-exec-3] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT
+			a.seq,
+			a.iD,
+			a.passWord,
+			a.name
+		FROM
+			userUi a
+		WHERE 1=1
+			AND a.iD = 'sksmsqkqhdi'
+ {executed in 2 msec} 
+2025-04-14T14:09:54.594 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT
+			a.seq,
+			a.iD,
+			a.passWord,
+			a.name
+		FROM
+			userUi a
+		WHERE 1=1
+			AND a.iD = 'sksmsqkqhdi'
+ {executed in 2 msec} 
+2025-04-14T14:10:37.196 [http-nio-8080-exec-1] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+21. SELECT
+			a.seq,
+			a.iD,
+			a.passWord,
+			a.name
+		FROM
+			userUi a
+		WHERE 1=1
+			AND a.iD = 'sksmsqkqhdi'
+ {executed in 1 msec} 
+2025-04-14T14:11:09.140 [RMI TCP Connection(33)-127.0.0.1] INFO o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+2025-04-14T14:11:09.142 [RMI TCP Connection(33)-127.0.0.1] INFO o.s.b.w.e.t.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+2025-04-14T14:11:09.143 [tomcat-shutdown] INFO o.a.c.h.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"] 
+2025-04-14T14:11:09.145 [tomcat-shutdown] INFO o.s.b.w.e.t.GracefulShutdown - Graceful shutdown complete 
+2025-04-14T14:11:09.146 [RMI TCP Connection(33)-127.0.0.1] INFO o.a.c.h.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"] 
+2025-04-14T14:11:09.442 [RMI TCP Connection(33)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-2 - Shutdown initiated... 
+2025-04-14T14:11:09.452 [RMI TCP Connection(33)-127.0.0.1] INFO c.z.h.HikariDataSource - HikariPool-2 - Shutdown completed. 

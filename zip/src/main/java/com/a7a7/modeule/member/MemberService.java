@@ -47,4 +47,8 @@ public class MemberService {
 		return memberDao.checkId(memberDto);
 	}
 	
+	public int userUpdate(MemberDto memberDto) {
+		return memberDao.userUpdate(memberDto);
+	}
+	
 }

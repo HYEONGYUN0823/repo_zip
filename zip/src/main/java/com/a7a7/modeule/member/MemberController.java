@@ -39,6 +39,10 @@ public class MemberController {
 		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
 	}
 	
+	
+	/************************************************
+	 					로그인 관련
+	 ************************************************/
 	@ResponseBody
 	@RequestMapping(value = "/xdm/signin/signinXdmProc")
 	public Map<String, Object> signinXdmProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
@@ -79,7 +83,63 @@ public class MemberController {
 		
 		return "xdm/signin/signinXdm";
 	}
+
 	
+	@ResponseBody
+	@RequestMapping("/usr/userUi/checkId")
+	public Map<String, Object> checkId(MemberDto memberDto) {
+		int count = memberService.checkId(memberDto); // memberDto에 iD가 담겨 있음
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("exists", count > 0); // 이미 존재하면 true, 아니면 false
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/usr/signin/signinUsr")
+	public String memberUsrList(HttpSession httpSession, MemberDto memberDto) throws Exception {
+		
+		return "usr/signin/SigninUsr";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/usr/signin/signinUsrProc")
+	public Map<String, Object> signinUsrProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		MemberDto reMember = memberService.selectOneLogin(memberDto);
+		
+		boolean check = matchesBcrypt(memberDto.getPassWord(), reMember.getPassWord(), 10);
+		
+		if(reMember != null && check)	{
+			returnMap.put("rt", "success");
+			
+			httpSession.setAttribute("sessSeqUsr", reMember.getSeq());
+			httpSession.setAttribute("sessIdUsr", reMember.getiD());
+			httpSession.setAttribute("sessPassWordUsr", reMember.getPassWord());
+			httpSession.setAttribute("sessNameUsr", reMember.getName());
+		} else {
+			returnMap.put("rt", "fail");
+		}
+		
+		return returnMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/usr/signin/signoutUsrProc")
+	public Map<String, Object> signoutUsrProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		httpSession.setAttribute("sessSeqUsr", null);
+		httpSession.setAttribute("sessIdUsr", null);
+		httpSession.setAttribute("sessPasswordUsr", null);
+		returnMap.put("rt", "success");
+		return returnMap;
+	}
+	
+	/************************************************
+						회원 관련
+	 ************************************************/
 	@RequestMapping(value = "/xdm/member/MemberXdmList")
 	public String memberXdmList(@ModelAttribute("vo") MemberVo vo, Model model, HttpSession httpSession, MemberDto memberDto) throws Exception {
 		
@@ -156,56 +216,25 @@ public class MemberController {
 		return "redirect:/usr/signin/signinUsr";
 	}
 	
-	@ResponseBody
-	@RequestMapping("/usr/userUi/checkId")
-	public Map<String, Object> checkId(MemberDto memberDto) {
-		int count = memberService.checkId(memberDto); // memberDto에 iD가 담겨 있음
+	@RequestMapping(value = "/usr/setting/userUiSettings")
+	public String memberUsrSettings() {
+		return "usr/setting/userUiSettings";
+	}
+	
+	
+	@RequestMapping(value = "/usr/member/MemberUsrUpdt")
+	public String memberUsrUpdt(MemberDto memberDto, HttpSession httpSession) {
 
-		Map<String, Object> result = new HashMap<>();
-		result.put("exists", count > 0); // 이미 존재하면 true, 아니면 false
+	    // 세션에서 사용자 seq 가져오기
+	    String sessSeqUsr = (String) httpSession.getAttribute("sessSeqUsr");
 
-		return result;
-	}
-	
-	@RequestMapping(value = "/usr/signin/signinUsr")
-	public String memberUsrList(HttpSession httpSession, MemberDto memberDto) throws Exception {
+	    // 로그인한 사용자의 seq 설정
+	    memberDto.setSeq(sessSeqUsr);
+
+	    // 정보 수정
+	    memberService.userUpdate(memberDto);
 		
-		return "usr/signin/SigninUsr";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/usr/signin/signinUsrProc")
-	public Map<String, Object> signinUsrProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
-		Map<String, Object> returnMap = new HashMap<String, Object>();
-		
-		MemberDto reMember = memberService.selectOneLogin(memberDto);
-		
-		boolean check = matchesBcrypt(memberDto.getPassWord(), reMember.getPassWord(), 10);
-		
-		if(reMember != null && check)	{
-			returnMap.put("rt", "success");
-			
-			httpSession.setAttribute("sessSeqUsr", reMember.getSeq());
-			httpSession.setAttribute("sessIdUsr", reMember.getiD());
-			httpSession.setAttribute("sessPassWordUsr", reMember.getPassWord());
-			httpSession.setAttribute("sessNameUsr", reMember.getName());
-		} else {
-			returnMap.put("rt", "fail");
-		}
-		
-		return returnMap;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/usr/signin/signoutUsrProc")
-	public Map<String, Object> signoutUsrProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
-		Map<String, Object> returnMap = new HashMap<String, Object>();
-		
-		httpSession.setAttribute("sessSeqUsr", null);
-		httpSession.setAttribute("sessIdUsr", null);
-		httpSession.setAttribute("sessPasswordUsr", null);
-		returnMap.put("rt", "success");
-		return returnMap;
+		return "redirect:/usr/setting/userUiSettings";
 	}
 	
 }

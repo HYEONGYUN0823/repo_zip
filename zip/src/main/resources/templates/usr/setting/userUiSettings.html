@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{usr/include/head :: head}"></div>
+
+	<script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
+	<main>
+		<!-- section -->
+		<section>
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- col -->
+					<div class="col-12">
+						<div class="d-flex justify-content-between align-items-center d-md-none py-4">
+							<!-- heading -->
+							<h3 class="fs-5 mb-0">Account Setting</h3>
+							<!-- button -->
+							<button class="btn btn-outline-gray-400 text-muted d-md-none btn-icon btn-sm ms-3"
+								type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAccount"
+								aria-controls="offcanvasAccount">
+								<i class="bi bi-text-indent-left fs-3"></i>
+							</button>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-3 col-md-4 col-12 border-end d-none d-md-block">
+						<div class="pt-10 pe-lg-10">
+							<!-- nav item -->
+							<ul class="nav flex-column nav-pills nav-pills-dark">
+								
+								<!-- nav item -->
+								<li class="nav-item">
+									<a class="nav-link active" href="account-settings.html">
+										<i class="feather-icon icon-settings me-2"></i>
+										계정 설정
+									</a>
+								</li>
+								<!-- nav item -->
+								<li class="nav-item">
+									<a class="nav-link" href="account-address.html">
+										<i class="feather-icon icon-map-pin me-2"></i>
+										비밀번호 변경
+									</a>
+								</li>
+								<!-- nav item -->
+								<li class="nav-item">
+									<a class="nav-link" href="account-payment-method.html">
+										<i class="feather-icon icon-credit-card me-2"></i>
+										회원탈퇴
+									</a>
+								</li>
+								
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-9 col-md-8 col-12">
+						<div class="py-6 p-md-6 p-lg-10">
+							<div class="mb-6">
+								<!-- heading -->
+								<h2 class="mb-0">계정 설정</h2>
+							</div>
+							<div>
+								<!-- heading -->
+								<h5 class="mb-4">계정 세부 정보</h5>
+								<div class="row">
+									<div class="col-lg-5">
+										<!-- form -->
+										<form method="post" id="form">
+<!-- 										<input type="hidden" name="seq" th:value="${vo.seq}"> -->
+											<!-- input -->
+											<div class="mb-3">
+												<label class="form-label">이름</label>
+												<input class="form-control" id="name" name="name" type="text" th:value="${item?.name}"
+												placeholder="홍길동">
+											</div>
+											<!-- input -->
+											<div class="mb-3">
+												<label class="form-label">성별</label>
+												<select id="gender"	name="gender" class="form-select">
+													<option value="" selected disabled>선택하세요</option>
+													<option
+														th:each="list : ${@codeService.selectListCachedCode(1)}"
+														th:value="${list.ifcdSeq}" th:text="${list.ifcdName}"
+														th:selected="${list.ifcdSeq} == ${item?.gender}">
+													</option>
+												</select>
+											</div>
+											<!-- input -->
+											<div class="mb-3">
+												<label class="form-label">생년월일</label>
+												<input type="text" id="btd" name="btd" th:value="${item?.btd}" placeholder="생년월일"
+												class="form-control form-control-sm" autocomplete="off">
+											</div>
+											<!-- input -->
+											<div class="mb-3">
+												<label class="form-label">통신사</label>
+												<select id="mobileCarrier" name="mobileCarrier" class="form-select">
+													<option value="" selected disabled>선택하세요</option>
+													<option
+														th:each="list : ${@codeService.selectListCachedCode(2)}"
+														th:value="${list.ifcdSeq}" th:text="${list.ifcdName}"
+														th:selected="${list.ifcdSeq} == ${item?.mobileCarrier}">
+													</option>
+												</select>
+											</div>
+											<!-- input -->
+											<div class="mb-3">
+												<label class="form-label">휴대전화번호</label>
+												<input class="form-control"
+												id="phoneNumber" name="phoneNumber" type="text"
+												th:value="${item?.phoneNumber}" placeholder="01012345678" maxlength="11">
+											</div>
+											<!-- button -->
+											<div class="mb-3">
+												<button class="btn btn-primary" id="btnSave">저장</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+
+
+	<div th:replace="~{usr/include/modal :: modal}"></div>
+	<!-- Javascript-->
+	<!-- Libs JS -->
+	<!-- <script src="../assets/libs/jquery/dist/jquery.min.js"></script> -->
+	<script src="/user/template/user_ui/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/user/template/user_ui/assets/libs/simplebar/dist/simplebar.min.js"></script>
+
+	<!-- Theme JS -->
+	<script src="/user/template/user_ui/assets/js/theme.min.js"></script>
+	<script src="/user/jquery/jquery-3.7.1.min.js"></script>
+	<script src="/user/js/jquery.datetimepicker.full.js"></script>
+	
+	<script type="text/javascript">
+	
+	let goUrlXdmUpdt = "/usr/member/MemberUsrUpdt";
+	
+	const btnSave = document.getElementById("btnSave");
+    const form = document.getElementById("form");
+
+    // 저장 버튼 클릭 시
+    btnSave.addEventListener("click", function () {
+     
+      if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return false;
+      }
+	
+      const seq = document.querySelector("input[name=seq]");
+
+      if (seq && (seq.value == "0" || seq.value == "")) {
+        form.action = "";
+      } else {
+        form.action = goUrlXdmUpdt;
+      }
+
+      form.submit();
+    });
+	  
+	  jQuery.datetimepicker.setLocale('ko');
+
+		jQuery('#btd').datetimepicker(
+				{
+					i18n : {
+						de : {
+							months : [ 'Januar', 'Februar', 'März', 'April', 'Mai',
+									'Juni', 'Juli', 'August', 'September',
+									'Oktober', 'November', 'Dezember', ],
+							dayOfWeek : [ "So.", "Mo", "Di", "Mi", "Do", "Fr",
+									"Sa.", ]
+						}
+					},
+					datepicker : true,
+					timepicker : false,
+					format : 'Y-m-d'
+				});
+	</script>
+
+</body>
+
+</html>

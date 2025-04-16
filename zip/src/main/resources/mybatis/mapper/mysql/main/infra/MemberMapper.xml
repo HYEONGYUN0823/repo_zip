@@ -155,7 +155,7 @@
 		WHERE seq = #{seq}
 	</update>
 	
-	  <update id="uelete">
+	<update id="uelete">
 		UPDATE userUi SET
 			delNy = 1,
 			modDateTime = now()
@@ -165,5 +165,16 @@
 	<select id="checkId" resultType="int">
 		SELECT COUNT(*) FROM userUi WHERE iD = #{iD}
 	</select>
+	
+	<update id="userUpdate">
+		UPDATE userUi SET
+			name = #{name},
+			gender = #{gender},
+			btd = #{btd},
+			mobileCarrier = #{mobileCarrier},
+			phoneNumber = #{phoneNumber},
+			modDateTime = now()
+		WHERE seq = #{seq}
+	</update>
 
 </mapper>

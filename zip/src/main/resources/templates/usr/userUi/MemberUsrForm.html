@@ -119,7 +119,7 @@
 						
 				<!-- 아이디 -->
 				<div class="col-12">
-					<input type="text" class="form-control" id="iD" name="iD" placeholder="아이디" required />
+					<input type="text" class="form-control" id="iD" name="iD" placeholder="아이디" maxlength="16" required />
 <!-- 					<div class="invalid-feedback">아이디를 입력하세요.</div> -->
 					<div id="idCheckResult" style="margin-top: 5px; font-size: 0.875em;"></div>
 				</div>
@@ -131,10 +131,26 @@
                     <label for="formSignupPassword" class="form-label visually-hidden">Password</label>
                     <div class="password-field position-relative">
                       <input type="password" class="form-control fakePassword" id="passWord" name="passWord"
-                        placeholder="비밀번호" required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,20}$" />
+                        placeholder="비밀번호" maxlength="20" required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,20}$" />
                       <span><i class="bi bi-eye-slash passwordToggler"></i></span>
                       <div class="invalid-feedback">
                         비밀번호는 8~20자이며, 대문자, 소문자, 숫자, 특수문자를 포함해야 합니다.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+				
+                <!-- 비밀번호 확인 -->
+                
+                <div class="col-12">
+                  <div class="password-field position-relative">
+                    <label for="formSignupPassword" class="form-label visually-hidden">Password</label>
+                    <div class="password-field position-relative">
+                      <input type="password" class="form-control fakePassword" id="confirmPassword" name="confirmPassword"
+                        placeholder="비밀번호 확인" maxlength="20" required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,20}$" />
+                      <span><i class="bi bi-eye-slash passwordToggler"></i></span>
+                      <div class="invalid-feedback">
+                      	비밀번호가 일치하지 않습니다.
                       </div>
                     </div>
                   </div>
@@ -390,12 +406,11 @@
 	<!-- Javascript-->
 	
 <script type="text/javascript">
-
 	let goUrlXdmInst = "/usr/userUi/MemberUsrInst";
 	let seq = document.querySelector("input[name=seq]");
 	let form = document.getElementById("form");
 
-// 	아이디 중복 여부 저장 변수
+	// 아이디 중복 여부 저장 변수
 	let isIdAvailable = false;
 
 	function phoneNumberCheck(number) {
@@ -437,14 +452,16 @@
 		}
 	});
 
-// 	버튼 클릭 이벤트
+	// 버튼 클릭 이벤트
 	document.getElementById("btnSubmit").onclick = function () {
 		const form = document.getElementById("form");
 		const seq = document.querySelector("input[name=seq]");
 		const iDInput = document.getElementById("iD");
 		const idCheckResult = document.getElementById("idCheckResult");
+		const passWord = document.getElementById("passWord");
+		const confirmPassword = document.getElementById("confirmPassword");
 
-// 		하나씩 검증해서 가장 위에 있는 미입력 필드에만 포커스 주기
+		// 하나씩 검증해서 가장 위에 있는 미입력 필드에만 포커스 주기
 		const inputs = form.querySelectorAll("input, select, textarea");
 		for (let input of inputs) {
 			if (!input.checkValidity()) {
@@ -457,7 +474,7 @@
 			}
 		}
 
-// 		아이디 입력 여부 추가 확인
+		// 아이디 입력 여부 추가 확인
 		if (iDInput.value.trim() == "") {
 			iDInput.classList.remove("is-valid");
 			iDInput.classList.add("is-invalid");
@@ -468,7 +485,17 @@
 			return false;
 		}
 
-// 		신규 등록 아이디 중복 체크
+		// 비밀번호 일치 여부 확인
+		if (passWord.value !== confirmPassword.value) {
+			confirmPassword.classList.add("is-invalid");
+			confirmPassword.focus();
+			return false;
+		} else {
+			confirmPassword.classList.remove("is-invalid");
+			confirmPassword.classList.add("is-valid");
+		}
+
+		// 신규 등록 아이디 중복 체크
 		if (seq.value == "0" || seq.value == "") {
 			if (!isIdAvailable) {
 				iDInput.classList.remove("is-valid");
@@ -485,7 +512,7 @@
 		form.submit();
 	};
 
-// 	생일 datetimepicker
+	// 생일 datetimepicker
 	jQuery.datetimepicker.setLocale('ko');
 	jQuery('#btd').datetimepicker({
 		i18n: {
@@ -500,7 +527,7 @@
 		format: 'Y-m-d'
 	});
 
-// 	아이디 중복 체크
+	// 아이디 중복 체크
 	$(document).ready(function () {
 		const iDInput = $("#iD");
 		const iDCheckResult = $("#idCheckResult");
@@ -544,9 +571,6 @@
 		});
 	});
 </script>
-
-
-	
 
 </body>
 
