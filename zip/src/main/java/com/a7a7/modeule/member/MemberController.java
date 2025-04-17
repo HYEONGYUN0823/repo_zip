@@ -218,9 +218,12 @@ public class MemberController {
 	
 	@RequestMapping(value = "/usr/setting/userUiSettings")
 	public String memberUsrSettings() {
-		
-		
 		return "usr/setting/userUiSettings";
+	}
+	
+	@RequestMapping(value = "/usr/setting/ChangePasswordUsrForm")
+	public String ChangePasswordUsrForm() {
+		return "usr/setting/ChangePasswordUsrForm";
 	}
 	
 	
