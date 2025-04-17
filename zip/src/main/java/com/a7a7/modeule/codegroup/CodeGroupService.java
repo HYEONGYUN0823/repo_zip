@@ -37,7 +37,5 @@ public class CodeGroupService {
 	public int uelete(CodeGroupDto codeGroupDto) {
 		return codeGroupDao.uelete(codeGroupDto);
 	}
-	
-//	--------
 
 }

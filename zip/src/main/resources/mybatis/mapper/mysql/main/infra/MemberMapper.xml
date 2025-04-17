@@ -54,7 +54,14 @@
 			    a.mobileCarrier,
 			    a.phoneNumber,
 			    a.regDateTime,
-			    a.modDateTime
+			    a.modDateTime,
+			    a.zipCode,
+			    a.roadNameAddress,
+			    a.Address,
+			    a.detailedAddress,
+			    a.referenceItem,
+			    a.longitude,
+			    a.latitude
 		<include refid="selectCommon"></include>
 		) aa
 		limit #{rowNumToShow} offset #{startRnumForMysql}
@@ -173,6 +180,26 @@
 			btd = #{btd},
 			mobileCarrier = #{mobileCarrier},
 			phoneNumber = #{phoneNumber},
+			zipCode = #{zipCode},
+			roadNameAddress = #{roadNameAddress},
+			Address = #{Address},
+			detailedAddress = #{detailedAddress},
+			referenceItem = #{referenceItem},
+			longitude = #{longitude},
+			latitude = #{latitude},
+			modDateTime = now()
+		WHERE seq = #{seq}
+	</update>
+	
+	<update id="addressUpdate">
+		UPDATE userUi SET
+			zipCode = #{zipCode},
+			roadNameAddress = #{roadNameAddress},
+			Address = #{Address},
+			detailedAddress = #{detailedAddress},
+			referenceItem = #{referenceItem},
+			longitude = #{longitude},
+			latitude = #{latitude},
 			modDateTime = now()
 		WHERE seq = #{seq}
 	</update>

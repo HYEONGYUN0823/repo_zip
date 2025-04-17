@@ -189,112 +189,113 @@
 
 <div th:replace="~{xdm/include/footer :: footer}"></div>
 
-				<script type="text/javascript">
-				
-				let goUrlXdmInst = "/xdm/codegroup/CodeGroupXdmInst";
-				let goUrlXdmUpdt = "/xdm/codeGroup/CodeGroupXdmUpdt";
-				let goUrlXdmUele = "/xdm/codeGroup/CodeGroupXdmUele";
-				
-				let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
-				
-				const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
-				const modalElement = document.getElementById("alertModal");
-				const modalMessage = document.getElementById("modalMessage");
-				
-				const uelModal = new bootstrap.Modal(document.getElementById("uelModal"));
-				const uelElement = document.getElementById("uelModal");
-				
-				document.getElementById("btnUel").onclick = function(uelEvent) {
-				    event.preventDefault();
-				    
-				    let click = true;
-				    
-				    if (click) {
-						let alertModal = new bootstrap.Modal(document.getElementById("uelModal"));
-						alertModal.show();
-				    }
-				    
-				}
-				document.getElementById("btnUelSubmit").onclick = function () {
-				    let seq = document.querySelector("input[name=ifcgSeq]"); 
-				    let form = document.getElementById("form");
-				        form.action = goUrlXdmUele;
+	<script type="text/javascript">
+	
+	let goUrlXdmInst = "/xdm/codegroup/CodeGroupXdmInst";
+	let goUrlXdmUpdt = "/xdm/codeGroup/CodeGroupXdmUpdt";
+	let goUrlXdmUele = "/xdm/codeGroup/CodeGroupXdmUele";
+	
+	let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
+	
+	const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+	const modalElement = document.getElementById("alertModal");
+	const modalMessage = document.getElementById("modalMessage");
+	
+	const uelModal = new bootstrap.Modal(document.getElementById("uelModal"));
+	const uelElement = document.getElementById("uelModal");
+	
+	document.getElementById("btnUel").onclick = function(uelEvent) {
+	    event.preventDefault();
+	    
+	    let click = true;
+	    
+	    if (click) {
+			let alertModal = new bootstrap.Modal(document.getElementById("uelModal"));
+			alertModal.show();
+	    }
+	    
+	}
+	document.getElementById("btnUelSubmit").onclick = function () {
+	    let seq = document.querySelector("input[name=ifcgSeq]"); 
+	    let form = document.getElementById("form");
+	        form.action = goUrlXdmUele;
 
-				    form.submit();
-				}
-				
-				document.getElementById("btnSave").onclick = function(event) {
-				    event.preventDefault(); // 기본 폼 제출 방지
+	    form.submit();
+	}
+	
+	document.getElementById("btnSave").onclick = function(event) {
+	    event.preventDefault(); // 기본 폼 제출 방지
 
-				    let check = true;
-				    let firstErrorField = null; // 첫 번째 에러 필드 저장용
+	    let check = true;
+	    let firstErrorField = null; // 첫 번째 에러 필드 저장용
 
-				    const ifcgName = document.getElementById("ifcgName");
-				    const ifcgNameError = document.getElementById("ifcgNameError");
+	    const ifcgName = document.getElementById("ifcgName");
+	    const ifcgNameError = document.getElementById("ifcgNameError");
 
-				    if (ifcgName.value == "") {
-				        ifcgName.classList.add("redOutline");
-				        ifcgNameError.textContent = "코드그룹 이름을 입력하세요.";
-				        if (!firstErrorField) firstErrorField = ifcgName;
-				        check = false;
-				    } else {
-				        ifcgName.classList.remove("redOutline");
-				        ifcgNameError.textContent = "";
-				    }
+	    if (ifcgName.value == "") {
+	        ifcgName.classList.add("redOutline");
+	        ifcgNameError.textContent = "코드그룹 이름을 입력하세요.";
+	        if (!firstErrorField) firstErrorField = ifcgName;
+	        check = false;
+	    } else {
+	        ifcgName.classList.remove("redOutline");
+	        ifcgNameError.textContent = "";
+	    }
 
-				    const ifcgDelNy = document.getElementById("ifcgDelNy");
-				    const ifcgDelNyError = document.getElementById("ifcgDelNyError");
+	    const ifcgDelNy = document.getElementById("ifcgDelNy");
+	    const ifcgDelNyError = document.getElementById("ifcgDelNyError");
 
-				    if (ifcgDelNy.value.trim() == "") {
-				        ifcgDelNy.classList.add("redOutline");
-				        ifcgDelNyError.textContent = "삭제여부를 선택하세요.";
-				        if (!firstErrorField) firstErrorField = ifcgDelNy;
-				        check = false;
-				    } else {
-				        ifcgDelNy.classList.remove("redOutline");
-				        ifcgDelNyError.textContent = "";
-				    }
+	    if (ifcgDelNy.value.trim() == "") {
+	        ifcgDelNy.classList.add("redOutline");
+	        ifcgDelNyError.textContent = "삭제여부를 선택하세요.";
+	        if (!firstErrorField) firstErrorField = ifcgDelNy;
+	        check = false;
+	    } else {
+	        ifcgDelNy.classList.remove("redOutline");
+	        ifcgDelNyError.textContent = "";
+	    }
 
-				    const ifcgUseNy = document.getElementById("ifcgUseNy");
-				    const ifcgUseNyError = document.getElementById("ifcgUseNyError");
+	    const ifcgUseNy = document.getElementById("ifcgUseNy");
+	    const ifcgUseNyError = document.getElementById("ifcgUseNyError");
 
-				    if (ifcgUseNy.value == "") {
-				        ifcgUseNy.classList.add("redOutline");
-				        ifcgUseNyError.textContent = "사용 여부를 선택하세요.";
-				        if (!firstErrorField) firstErrorField = ifcgUseNy;
-				        check = false;
-				    } else {
-				        ifcgUseNy.classList.remove("redOutline");
-				        ifcgUseNyError.textContent = "";
-				    }
+	    if (ifcgUseNy.value == "") {
+	        ifcgUseNy.classList.add("redOutline");
+	        ifcgUseNyError.textContent = "사용 여부를 선택하세요.";
+	        if (!firstErrorField) firstErrorField = ifcgUseNy;
+	        check = false;
+	    } else {
+	        ifcgUseNy.classList.remove("redOutline");
+	        ifcgUseNyError.textContent = "";
+	    }
 
-				    // 에러가 있으면 첫 번째 에러 필드에 포커스
-				    if (!check && firstErrorField) {
-				        firstErrorField.focus();
-				        return;
-				    }
+	    // 에러가 있으면 첫 번째 에러 필드에 포커스
+	    if (!check && firstErrorField) {
+	        firstErrorField.focus();
+	        return;
+	    }
 
-				    // 통과 시 모달 띄움
-				    if (check) {
-				        let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
-				        alertModal.show();
-				    }
-				};
-				
-				document.getElementById("btnSubmit").onclick = function () {
-				    let seq = document.querySelector("input[name=ifcgSeq]"); 
-				    let form = document.getElementById("form");
+	    // 통과 시 모달 띄움
+	    if (check) {
+	        let alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+	        alertModal.show();
+	    }
+	};
+	
+	document.getElementById("btnSubmit").onclick = function () {
+	    let seq = document.querySelector("input[name=ifcgSeq]"); 
+	    let form = document.getElementById("form");
 
-				    if (seq.value == "0" || seq.value == "") { // 추가
-				        form.action = goUrlXdmInst;
-				    } else { // 수정
-				        form.action = goUrlXdmUpdt;
-				    }
+	    if (seq.value == "0" || seq.value == "") { // 추가
+	        form.action = goUrlXdmInst;
+	    } else { // 수정
+	        form.action = goUrlXdmUpdt;
+	    }
 
-				    form.submit();
-				}
-				
-				</script>
+	    form.submit();
+	}
+	
+	</script>
+	
 </body>
 
 </html>

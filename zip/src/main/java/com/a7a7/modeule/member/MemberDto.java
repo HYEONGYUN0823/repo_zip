@@ -15,6 +15,15 @@ public class MemberDto {
 	private String regDateTime;
 	private String modDateTime;
 	
+	// 우편번호
+	private String zipCode;
+	private String roadNameAddress;
+	private String Address;
+	private String detailedAddress;
+	private String referenceItem;
+	private double longitude;
+	private double latitude;
+	
 
 	private String xifcdSeqCount;	// 갯수
 	
@@ -128,12 +137,63 @@ public class MemberDto {
 	}
 	
 	
+//	----- 우편번호 -----
 	
-	
-	
-//	-----
-	
-	
-	
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getRoadNameAddress() {
+		return roadNameAddress;
+	}
+
+	public void setRoadNameAddress(String roadNameAddress) {
+		this.roadNameAddress = roadNameAddress;
+	}
+
+	public String getAddress() {
+		return Address;
+	}
+
+	public void setAddress(String address) {
+		Address = address;
+	}
+
+	public String getDetailedAddress() {
+		return detailedAddress;
+	}
+
+	public void setDetailedAddress(String detailedAddress) {
+		this.detailedAddress = detailedAddress;
+	}
+
+	public String getReferenceItem() {
+		return referenceItem;
+	}
+
+	public void setReferenceItem(String referenceItem) {
+		this.referenceItem = referenceItem;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}	
 	
 }

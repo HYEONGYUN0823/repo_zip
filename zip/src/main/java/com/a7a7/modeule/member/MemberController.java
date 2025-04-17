@@ -218,6 +218,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "/usr/setting/userUiSettings")
 	public String memberUsrSettings() {
+		
+		
 		return "usr/setting/userUiSettings";
 	}
 	
@@ -233,6 +235,10 @@ public class MemberController {
 
 	    // 정보 수정
 	    memberService.userUpdate(memberDto);
+
+	    // 이름 바뀐 경우 세션에도 반영
+	    httpSession.setAttribute("sessNameUsr", memberDto.getName());
+
 		
 		return "redirect:/usr/setting/userUiSettings";
 	}

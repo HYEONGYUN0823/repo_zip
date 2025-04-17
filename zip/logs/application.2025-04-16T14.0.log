@@ -1,0 +1,53 @@
+2025-04-16T14:46:22.012 [restartedMain] INFO c.a.ZipApplication - Starting ZipApplication using Java 21.0.5 with PID 6964 (C:\factory\ws_sts4_4270\repo_zip\zip\bin\main started by user in C:\factory\ws_sts4_4270\repo_zip\zip) 
+2025-04-16T14:46:22.013 [restartedMain] INFO c.a.ZipApplication - No active profile set, falling back to 1 default profile: "default" 
+2025-04-16T14:46:22.040 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable 
+2025-04-16T14:46:22.040 [restartedMain] INFO o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG' 
+2025-04-16T14:46:22.914 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http) 
+2025-04-16T14:46:22.923 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2025-04-16T14:46:22.924 [restartedMain] INFO o.a.c.c.StandardService - Starting service [Tomcat] 
+2025-04-16T14:46:22.924 [restartedMain] INFO o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36] 
+2025-04-16T14:46:22.951 [restartedMain] INFO o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext 
+2025-04-16T14:46:22.952 [restartedMain] INFO o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 911 ms 
+2025-04-16T14:46:23.174 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Starting... 
+2025-04-16T14:46:23.397 [restartedMain] INFO c.z.h.p.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@1962eff3 
+2025-04-16T14:46:23.398 [restartedMain] INFO c.z.h.HikariDataSource - HikariPool-1 - Start completed. 
+2025-04-16T14:46:23.414 [restartedMain] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT 
+			ifcdSeq
+			, ifcdName
+			, ifcgSeq
+		FROM
+			code
+		WHERE 1=1
+			AND ifcdDelNy = 0
+		    AND ifcdUseNy = 1
+ {executed in 5 msec} 
+2025-04-16T14:46:24.203 [restartedMain] INFO o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729 
+2025-04-16T14:46:24.223 [restartedMain] INFO o.a.c.h.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2025-04-16T14:46:24.233 [restartedMain] INFO o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/' 
+2025-04-16T14:46:24.238 [restartedMain] INFO c.a.ZipApplication - Started ZipApplication in 2.471 seconds (process running for 3.795) 
+2025-04-16T14:47:37.216 [http-nio-8080-exec-1] INFO o.a.c.c.C.[.[.[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2025-04-16T14:47:37.216 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2025-04-16T14:47:37.217 [http-nio-8080-exec-1] INFO o.s.w.s.DispatcherServlet - Completed initialization in 1 ms 
+2025-04-16T14:47:50.464 [http-nio-8080-exec-9] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT
+			a.seq,
+			a.iD,
+			a.passWord,
+			a.name
+		FROM
+			userUi a
+		WHERE 1=1
+			AND a.iD = 'sksmsqkqhdi'
+ {executed in 2 msec} 
+2025-04-16T14:49:43.003 [http-nio-8080-exec-4] DEBUG j.sqltiming -  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT
+			a.seq,
+			a.iD,
+			a.passWord,
+			a.name
+		FROM
+			userUi a
+		WHERE 1=1
+			AND a.iD = 'sksmsqkqhdi'
+ {executed in 2 msec} 
