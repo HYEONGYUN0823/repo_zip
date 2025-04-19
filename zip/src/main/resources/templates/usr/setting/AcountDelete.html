@@ -39,14 +39,14 @@
 								</li>
 								<!-- nav item -->
 <li class="nav-item">
-    <a class="nav-link active" href="/usr/setting/ChangePasswordUsrForm">
+    <a class="nav-link" href="/usr/setting/ChangePasswordUsrForm">
         <i class="feather-icon icon-map-pin me-2"></i>
         비밀번호 변경
     </a>
 </li>
 								<!-- nav item -->
 								<li class="nav-item">
-									<a class="nav-link" href="/usr/setting/AcountDelete">
+									<a class="nav-link active" href="/usr/setting/AcountDelete">
 										<i class="feather-icon icon-credit-card me-2"></i>
 										회원탈퇴
 									</a>
@@ -57,236 +57,48 @@
 					</div>
 					<div class="col-lg-9 col-md-8 col-12">
 						<div class="py-6 p-md-6 p-lg-10">
-							<div class="d-flex justify-content-between mb-6">
+										<!-- form -->
+										<form method="post" id="form"  action="/usr/setting/AcoutUele">
+<!-- 							<hr class="my-10" /> -->
+							<div>
 								<!-- heading -->
-								<h2 class="mb-0">비밀번호 변경</h2>
-							</div>
-							<div class="row">
-								<!-- heading -->
-								<h5 class="mb-4">비밀번호</h5>
-								<form class="row row-cols-1 row-cols-lg-2">
-									<!-- input -->
-									<div class="mb-3 col">
-										<label class="form-label">현재 비밀번호</label>
-										<input type="password" class="form-control" placeholder="**********" />
-									</div>
-									<!-- input -->
-									<div class="mb-3 col">
-										<label class="form-label">새 비밀번호</label>
-										<input type="password" class="form-control" placeholder="**********" />
-									</div>
-									<!-- input -->
-									<div class="col-12">
-										<p class="mb-4">
-											현재 비밀번호가 기억나지 않나요?
-											<br>
-											<a href="#">비밀번호를 재설정하세요.</a>
-										</p>
-										<a href="#" class="btn btn-primary">재설정</a>
-									</div>
+								<h5 class="mb-4">계정 삭제</h5>
+								<p class="mb-2">계정을 삭제하시겠습니까?</p>
+								<p class="mb-5">이 계정에는 12개의 주문이 포함되어 있으며, 계정을 삭제하면 관련된 모든 주문 세부 정보가 삭제됩니다.</p>
+								<!-- btn -->
+								<a type="button" id="btnUel" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+    계정을 삭제합니다
+</a>
+								</div>
+<!-- 모달 -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteAccountModalLabel">계정 삭제 확인</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+      </div>
+      <div class="modal-body">
+        정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+
+        <!-- 삭제 버튼이 form을 제출 -->
+        <button type="submit" class="btn btn-danger" form="form">삭제</button>
+      </div>
+    </div>
+  </div>
+  </div>
 								</form>
-							</div>
-							</div>
-						</div>
-					</div>
-				</div>
+								</div>
+								</div>
+								</div>
+								</div>
+						
 		</section>
 	</main>
 
-	<!-- Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<!-- modal content -->
-			<div class="modal-content">
-				<!-- modal header -->
-				<div class="modal-header">
-					<h5 class="modal-title" id="deleteModalLabel">Delete address</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<!-- modal body -->
-				<div class="modal-body">
-					<h6>Are you sure you want to delete this address?</h6>
-					<p class="mb-6">
-						Jitu Chauhan
-						<br />
-
-						4450 North Avenue Oakland,
-						<br />
-
-						Nebraska, United States,
-						<br />
-
-						402-776-1106
-					</p>
-				</div>
-				<!-- modal footer -->
-				<div class="modal-footer">
-					<!-- btn -->
-					<button type="button" class="btn btn-outline-gray-400" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-danger">Delete</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<!-- modal content -->
-			<div class="modal-content">
-				<!-- modal body -->
-				<div class="modal-body p-6">
-					<div class="d-flex justify-content-between mb-5">
-						<div>
-							<!-- heading -->
-							<h5 class="mb-1" id="addAddressModalLabel">새 주소지 입력</h5>
-							<p class="small mb-0">주문 배송을 위해 새 주소지를 추가하세요.</p>
-						</div>
-						<div>
-							<!-- button -->
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-					</div>
-					<!-- row -->
-					<div class="row g-3">
-						<!-- col -->
-						<div class="col-12">
-							<!-- input -->
-							<input type="text" class="form-control" placeholder="성" aria-label="First name"
-								required="" />
-						</div>
-						<!-- col -->
-						<div class="col-12">
-							<!-- input -->
-							<input type="text" class="form-control" placeholder="이름" aria-label="Last name"
-								required="" />
-						</div>
-						<!-- col -->
-						<div class="col-12">
-							<!-- input -->
-							<input type="text" class="form-control" placeholder="주소지 1" />
-						</div>
-						<!-- col -->
-						<div class="col-12">
-							<!-- input -->
-							<input type="text" class="form-control" placeholder="주소지 2" />
-						</div>
-						<!-- col -->
-						<div class="col-12">
-							<!-- input -->
-							<input type="text" class="form-control" placeholder="도시" />
-						</div>
-						<!-- col -->
-						<div class="col-12">
-							<!-- form select -->
-							<select class="form-select">
-								<option selected="">국가</option>
-								<option value="1">KOR</option>
-								<option value="2">USA</option>
-								<option value="3">JP</option>
-							</select>
-						</div>
-						<!-- col -->
-						<div class="col-12">
-							<!-- form select -->
-							<select class="form-select">
-								<option selected="">Gujarat</option>
-								<option value="1">Northern Ireland</option>
-								<option value="2">Alaska</option>
-								<option value="3">Abu Dhabi</option>
-							</select>
-						</div>
-						<!-- col -->
-						<div class="col-12">
-							<!-- input -->
-							<input type="text" class="form-control" placeholder="Zip Code" />
-						</div>
-						<!-- col -->
-						<div class="col-12">
-							<!-- input -->
-							<input type="text" class="form-control" placeholder="Business Name" />
-						</div>
-						<!-- col -->
-						<div class="col-12">
-							<!-- form check -->
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-								<label class="form-check-label" for="flexCheckDefault">Set as Default</label>
-							</div>
-						</div>
-						<!-- col -->
-						<div class="col-12 text-end">
-							<button type="button" class="btn btn-outline-primary"
-								data-bs-dismiss="modal">Cancel</button>
-							<button class="btn btn-primary" type="button">Save Address</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- modal -->
-	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasAccount" aria-labelledby="offcanvasAccountLabel">
-		<!-- offcanvac header -->
-		<div class="offcanvas-header">
-			<h5 class="offcanvas-title" id="offcanvasAccountLabel">Offcanvas</h5>
-			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		</div>
-		<!-- offcanvac body -->
-		<div class="offcanvas-body">
-			<!-- nav -->
-			<ul class="nav flex-column nav-pills nav-pills-dark">
-				<!-- nav item -->
-				<li class="nav-item">
-					<a class="nav-link" aria-current="page" href="account-orders.html">
-						<i class="feather-icon icon-shopping-bag me-2"></i>
-						Your Orders
-					</a>
-				</li>
-				<!-- nav item -->
-				<li class="nav-item">
-					<a class="nav-link" href="account-settings.html">
-						<i class="feather-icon icon-settings me-2"></i>
-						Settings
-					</a>
-				</li>
-				<!-- nav item -->
-				<li class="nav-item">
-					<a class="nav-link active" href="account-address.html">
-						<i class="feather-icon icon-map-pin me-2"></i>
-						Address
-					</a>
-				</li>
-				<!-- nav item -->
-				<li class="nav-item">
-					<a class="nav-link" href="account-payment-method.html">
-						<i class="feather-icon icon-credit-card me-2"></i>
-						Payment Method
-					</a>
-				</li>
-				<!-- nav item -->
-				<li class="nav-item">
-					<a class="nav-link" href="account-notification.html">
-						<i class="feather-icon icon-bell me-2"></i>
-						Notification
-					</a>
-				</li>
-			</ul>
-			<hr class="my-6" />
-			<div>
-				<!-- nav -->
-				<ul class="nav flex-column nav-pills nav-pills-dark">
-					<!-- nav item -->
-					<li class="nav-item">
-						<a class="nav-link" href="../index.html">
-							<i class="feather-icon icon-log-out me-2"></i>
-							Log out
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
 
 	<!-- Footer -->
 	<!-- footer -->
@@ -383,19 +195,19 @@
 						<ul class="list-inline mb-0">
 							<li class="list-inline-item text-dark">Payment Partners</li>
 							<li class="list-inline-item">
-								<a href="#!"><img src="../assets/images/payment/amazonpay.svg" alt=""></a>
+								<a href="#!"><img src="/user/template/user_ui/assets/images/payment/amazonpay.svg" alt=""></a>
 							</li>
 							<li class="list-inline-item">
-								<a href="#!"><img src="../assets/images/payment/american-express.svg" alt=""></a>
+								<a href="#!"><img src="/user/template/user_ui/assets/images/payment/american-express.svg" alt=""></a>
 							</li>
 							<li class="list-inline-item">
-								<a href="#!"><img src="../assets/images/payment//mastercard.svg" alt=""></a>
+								<a href="#!"><img src="/user/template/user_ui/assets/images/payment//mastercard.svg" alt=""></a>
 							</li>
 							<li class="list-inline-item">
-								<a href="#!"><img src="../assets/images/payment/paypal.svg" alt=""></a>
+								<a href="#!"><img src="/user/template/user_ui/assets/images/payment/paypal.svg" alt=""></a>
 							</li>
 							<li class="list-inline-item">
-								<a href="#!"><img src="../assets/images/payment/visa.svg" alt=""></a>
+								<a href="#!"><img src="/user/template/user_ui/assets/images/payment/visa.svg" alt=""></a>
 							</li>
 						</ul>
 					</div>
@@ -403,11 +215,11 @@
 						<ul class="list-inline mb-0 text-lg-end text-center">
 							<li class="list-inline-item mb-2 mb-md-0 text-dark">Get deliveries with FreshCart</li>
 							<li class="list-inline-item ms-4">
-								<a href="#!"> <img src="../assets/images/appbutton/appstore-btn.svg" alt=""
+								<a href="#!"> <img src="/user/template/user_ui/assets/images/appbutton/appstore-btn.svg" alt=""
 										style="width: 140px;"></a>
 							</li>
 							<li class="list-inline-item">
-								<a href="#!"> <img src="../assets/images/appbutton/googleplay-btn.svg" alt=""
+								<a href="#!"> <img src="/user/template/user_ui/assets/images/appbutton/googleplay-btn.svg" alt=""
 										style="width: 140px;"></a>
 							</li>
 						</ul>
@@ -457,12 +269,44 @@
 	</footer>
 	<!-- Javascript-->
 	<!-- Libs JS -->
-	<!-- <script src="../assets/libs/jquery/dist/jquery.min.js"></script> -->
-	<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="../assets/libs/simplebar/dist/simplebar.min.js"></script>
+	<script src="/user/template/user_ui/assets/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/user/template/user_ui/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/user/template/user_ui/assets/libs/simplebar/dist/simplebar.min.js"></script>
 
 	<!-- Theme JS -->
-	<script src="../assets/js/theme.min.js"></script>
+	<script src="/user/template/user_ui/assets/js/theme.min.js"></script>
+	
+	<script type="text/javascript">
+	
+		let goUrlXdmUele = "/usr/setting/AcoutUele";
+
+		const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+		const modalElement = document.getElementById("alertModal");
+		const modalMessage = document.getElementById("modalMessage");
+
+		const uelModal = new bootstrap.Modal(document.getElementById("uelModal"));
+		const uelElement = document.getElementById("uelModal");
+
+		document.getElementById("btnUel").onclick = function(uelEvent) {
+			event.preventDefault();
+
+			let click = true;
+
+			if (click) {
+				let alertModal = new bootstrap.Modal(document
+						.getElementById("uelModal"));
+				alertModal.show();
+			}
+
+		}
+		document.getElementById("btnUelSubmit").onclick = function() {
+// 			let seq = document.querySelector("input[name=ifcdSeq]");
+			let form = document.getElementById("form");
+			form.action = goUrlXdmUele;
+
+			form.submit();
+		}
+	</script>
 
 </body>
 

@@ -109,6 +109,14 @@ public class MemberController {
 		
 		MemberDto reMember = memberService.selectOneLogin(memberDto);
 		
+		if ("1".equals(reMember.getDelNy())) {
+		    returnMap.put("rt", "fail");
+		    returnMap.put("msg", "탈퇴한 계정입니다.");
+		    return returnMap;
+		}
+		
+		System.out.println("delNy 값: " + reMember.getDelNy());
+		
 		boolean check = matchesBcrypt(memberDto.getPassWord(), reMember.getPassWord(), 10);
 		
 		if(reMember != null && check)	{
@@ -222,10 +230,28 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/usr/setting/ChangePasswordUsrForm")
-	public String ChangePasswordUsrForm() {
+	public String changePasswordUsrForm() {
 		return "usr/setting/ChangePasswordUsrForm";
 	}
 	
+	@RequestMapping(value = "/usr/setting/AcountDelete")
+	public String acountDelete() {
+		return "usr/setting/AcountDelete";
+	}
+	
+	@RequestMapping(value = "/usr/setting/AcoutUele")
+	public String acountUele(MemberDto memberDto, HttpSession httpSession) {
+
+	    // 세션에서 사용자 seq 가져오기
+	    String sessSeqUsr = (String) httpSession.getAttribute("sessSeqUsr");
+
+	    // 로그인한 사용자의 seq 설정
+	    memberDto.setSeq(sessSeqUsr);
+
+		memberService.uelete(memberDto);
+		
+		return "redirect:/usr/signin/signinUsr";
+	}
 	
 	@RequestMapping(value = "/usr/member/MemberUsrUpdt")
 	public String memberUsrUpdt(MemberDto memberDto, HttpSession httpSession) {
