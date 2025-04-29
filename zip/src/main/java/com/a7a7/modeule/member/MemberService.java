@@ -1,14 +1,9 @@
 package com.a7a7.modeule.member;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.a7a7.modeule.code.CodeDto;
-
-import jakarta.annotation.PostConstruct;
 
 @Service
 public class MemberService {
@@ -47,8 +42,16 @@ public class MemberService {
 		return memberDao.checkId(memberDto);
 	}
 	
+	public MemberDto checkPassword(MemberDto memberDto) {
+		return memberDao.checkPassword(memberDto);
+	}
+	
 	public int userUpdate(MemberDto memberDto) {
 		return memberDao.userUpdate(memberDto);
+	}
+	
+	public int passwordChange(MemberDto memberDto) {
+		return memberDao.passwordChange(memberDto);
 	}
 	
 }

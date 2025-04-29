@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.a7a7.common.util.UtilDateTime;
+import com.a7a7.modeule.upload.UploadDto;
+import com.a7a7.modeule.upload.UploadService;
 
 
 
@@ -14,8 +16,15 @@ import com.a7a7.common.util.UtilDateTime;
 public class ProductController {
 	@Autowired
 	ProductService productService;
+	@Autowired
+	UploadService uploadService;
 	
 	private void setSearch(ProductVo vo) {
+		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
+		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
+	}
+//	-----
+	private void setSearchProduct(ProductListVo vo) {
 		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
 		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
 	}
@@ -36,20 +45,27 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/xdm/product/ProductXdmForm")
-	public String productXdmForm(@ModelAttribute("vo") ProductVo vo, ProductDto productDto, Model model) throws Exception{
+	public String productXdmForm(@ModelAttribute("vo") ProductVo vo, ProductDto productDto, UploadDto uploadDto, Model model) throws Exception {
 		
 		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
 //			insert mode
 		} else {
 //			update mode
+			uploadDto.setPseq(productDto.getSeq());
+			UploadDto dto = uploadService.selectOne(uploadDto);
+			System.out.println(dto.getPath());
+			
 			model.addAttribute("item", productService.selectOne(productDto));
+			model.addAttribute("itemFile", dto);
 		}
 		return "xdm/product/ProductXdmForm";
 	}
 	
 	@RequestMapping(value = "/xdm/product/ProductXdmInst")
-	public String productXdmInst(ProductDto productDto) {
+	public String productXdmInst(ProductDto productDto) throws Exception {
 		productService.insert(productDto);
+		
+		
 		
 		return "redirect:/xdm/product/ProductXdmList";
 	}
@@ -67,6 +83,24 @@ public class ProductController {
 		
 		return "redirect:/xdm/product/ProductXdmList";
 	}
+	
+	/* #######################################################
+	 					웹사이트
+	 ########################################################*/
+	
+	@RequestMapping(value = "/usr/product/ProductList")
+	public String productList(@ModelAttribute("vo") ProductListVo vo, @ModelAttribute("productVo") ProductVo productVo, ProductDto productDto, UploadDto uploadDto, Model model) throws Exception {
+		setSearchProduct(vo);
+		vo.setParamsPaging(productService.selectOneCount(productVo));
+		uploadDto.setPseq(productDto.getSeq());
+		UploadDto dto = uploadService.selectOne(uploadDto);
+		model.addAttribute("list", productService.selectProductList(vo));
+		model.addAttribute("item", productService.selectOne(productDto));
+		model.addAttribute("itemFile", dto);
+		
+		return "usr/product/ProductList";
+	}
+	
 	
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.a7a7.common.mail.MailService;
 import com.a7a7.common.util.UtilDateTime;
 import com.a7a7.modeule.code.CodeService;
 
@@ -23,6 +24,11 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	CodeService codeService;
+	@Autowired
+	MailService mailService;
+    
+    ////////////////////////////////////////////////////////////////////////////
+    ///
 	
 	public String encodeBcrypt(String planeText, int strength) {
 		  return new BCryptPasswordEncoder(strength).encode(planeText);
@@ -111,7 +117,7 @@ public class MemberController {
 		
 		if ("1".equals(reMember.getDelNy())) {
 		    returnMap.put("rt", "fail");
-		    returnMap.put("msg", "탈퇴한 계정입니다.");
+//		    returnMap.put("msg", "탈퇴한 계정입니다.");
 		    return returnMap;
 		}
 		
@@ -200,41 +206,76 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/usr/userUi/MemberUsrForm")
-	public String userUiSignup(@ModelAttribute("vo") MemberVo vo, MemberDto memberDto, Model model) throws Exception {
-		if(vo.getSeq() == null) {
-		    vo.setSeq("0");
-		}
-		
-		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
-//			insert mode
-		} else {
-//			update mode
-			model.addAttribute("item", memberService.selectOne(memberDto));
-		}
-		System.out.println("vo.getSeq() = " + vo.getSeq());
-		return "usr/userUi/MemberUsrForm";
+	public String userUiSignup(@ModelAttribute("vo") MemberVo vo, MemberDto memberDto, Model model, HttpSession httpSession) throws Exception {
+	    if(vo.getSeq() == null) {
+	        vo.setSeq("0");
+	    }
+
+	    if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
+	        // insert mode
+	    } else {
+	        // update mode
+	        model.addAttribute("item", memberService.selectOne(memberDto));
+
+	        // 세션에 사용자 정보 반영
+	        String sessSeqUsr = (String) httpSession.getAttribute("sessSeqUsr");
+	        if (sessSeqUsr != null) {
+	            // 이미 세션에 값이 존재한다면, 해당 정보를 가져와서 세션에 반영
+	            MemberDto user = memberService.selectOne(memberDto);
+	            httpSession.setAttribute("sessNameUsr", user.getName());
+	            httpSession.setAttribute("sessIdUsr", user.getiD());
+	            httpSession.setAttribute("sessPassWordUsr", user.getPassWord());
+	        }
+	    }
+	    System.out.println("vo.getSeq() = " + vo.getSeq());
+	    return "usr/userUi/MemberUsrForm";
 	}
 	
 	@RequestMapping(value = "/usr/userUi/MemberUsrInst")
-	public String memberUsrInst(MemberDto memberDto) {
+	public String memberUsrInst(MemberDto memberDto) throws Exception {
 		memberDto.setPassWord(encodeBcrypt(memberDto.getPassWord(), 10));
 		
-		memberService.insert(memberDto);
+		int count = memberService.insert(memberDto);
+		
+		if (count == 1) {
+			new Thread() {
+				public void run() {
+					try {
+						mailService.sendMailWelcome(memberDto);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}.start();
+		}
 		
 		return "redirect:/usr/signin/signinUsr";
 	}
 	
-	@RequestMapping(value = "/usr/setting/userUiSettings")
+	@RequestMapping(value = "/usr/setting/userUiUsrSettings")
 	public String memberUsrSettings() {
 		return "usr/setting/userUiSettings";
 	}
 	
-	@RequestMapping(value = "/usr/setting/ChangePasswordUsrForm")
-	public String changePasswordUsrForm() {
-		return "usr/setting/ChangePasswordUsrForm";
+	@RequestMapping(value = "/usr/setting/ChangeNewPasswordUsrForm")
+	public String changeNewPasswordUsrForm() {
+		return "usr/setting/ChangeNewPasswordUsrForm";
 	}
 	
-	@RequestMapping(value = "/usr/setting/AcountDelete")
+	@RequestMapping(value = "/usr/setting/ChangePasswordUsrForm")
+	public String changePasswordUsrForm(HttpSession httpSession) {
+		Boolean verified = (Boolean) httpSession.getAttribute("passwordVerified");
+
+		if (verified == null || !verified) {
+		    return "redirect:/usr/setting/ChangeNewPasswordUsrForm";
+		}
+
+		httpSession.removeAttribute("passwordVerified"); // ✅ 비밀번호 확인 재사용 방지
+
+	    return "usr/setting/ChangePasswordUsrForm";
+	}
+	
+	@RequestMapping(value = "/usr/setting/AcountUsrDelete")
 	public String acountDelete() {
 		return "usr/setting/AcountDelete";
 	}
@@ -269,7 +310,83 @@ public class MemberController {
 	    httpSession.setAttribute("sessNameUsr", memberDto.getName());
 
 		
-		return "redirect:/usr/setting/userUiSettings";
+		return "redirect:/usr/setting/userUiUsrSettings";
 	}
 	
+	@RequestMapping(value = "/usr/member/MemberUsrPasswordChange")
+	public String memberUsrPasswordChange(MemberDto memberDto, HttpSession httpSession) {
+		
+		// 세션에서 사용자 seq 가져오기
+		String sessSeqUsr = (String) httpSession.getAttribute("sessSeqUsr");
+		
+		// 로그인한 사용자의 seq 설정
+		memberDto.setSeq(sessSeqUsr);
+		
+		
+		memberDto.setPassWord(encodeBcrypt(memberDto.getPassWord(), 10));
+		
+		// 정보 수정
+		memberService.passwordChange(memberDto);
+		
+	    // 비밀번호 변경 후 세션에 반영
+	    httpSession.setAttribute("sessPassWordUsr", memberDto.getPassWord());
+		
+		return "redirect:/usr/setting/ChangePasswordUsrForm";
+	}
+	
+//	@ResponseBody
+//	@RequestMapping("/usr/userUi/checkPassword")
+//	public Map<String, Object> checkPassword(MemberDto memberDto, HttpSession httpSession) {
+//	    Map<String, Object> result = new HashMap<>();
+//
+//	    // 세션에서 사용자 seq 가져오기
+//	    String sessSeqUsr = (String) httpSession.getAttribute("sessSeqUsr");
+//
+//	    if (sessSeqUsr == null) {
+//	        result.put("exists", false);
+//	        return result;
+//	    }
+//
+//	    // DB에서 해당 사용자 정보 조회
+//	    memberDto.setSeq(sessSeqUsr);
+//	    MemberDto dbMember = memberService.selectOne(memberDto);
+//	    
+//	    boolean check = matchesBcrypt(memberDto.getPassWord(), dbMember.getPassWord(), 10);
+//	    if (dbMember != null && check) {
+//	        result.put("exists", false);
+//	        return result;
+//	    }
+//
+//
+//	    result.put("exists", check); // 일치하면 true, 아니면 false
+//	    return result;
+//	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/usr/userUi/checkPassword")
+	public Map<String, Object> checkPassword(MemberDto memberDto, HttpSession httpSession) throws Exception {
+	    Map<String, Object> returnMap = new HashMap<>();
+
+	    String sessIdUsr = (String) httpSession.getAttribute("sessIdUsr");
+
+	    if (sessIdUsr == null) {
+	        returnMap.put("rt", "fail");
+	        return returnMap;
+	    }
+
+	    MemberDto param = new MemberDto();
+	    param.setiD(sessIdUsr);
+	    MemberDto reMember = memberService.checkPassword(param);
+
+	    boolean check = matchesBcrypt(memberDto.getPassWord(), reMember.getPassWord(), 10);
+
+	    if (reMember != null && check) {
+	        httpSession.setAttribute("passwordVerified", true); // ✅ 여기 추가
+	        returnMap.put("rt", "success");
+	    } else {
+	        returnMap.put("rt", "fail");
+	    }
+
+	    return returnMap;
+	}
 }

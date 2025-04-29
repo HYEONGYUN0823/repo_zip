@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.a7a7.modeule.code.CodeDto;
-
 @Repository
 public interface MemberDao {
 
@@ -25,5 +23,10 @@ public interface MemberDao {
 	
 	public int checkId(MemberDto memberDto);
 	
+	public MemberDto checkPassword(MemberDto memberDto);
+	
 	public int userUpdate(MemberDto memberDto);
+
+	public int passwordChange(MemberDto memberDto);
+
 }

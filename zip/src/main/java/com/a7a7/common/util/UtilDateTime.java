@@ -1,5 +1,6 @@
 package com.a7a7.common.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -17,6 +18,11 @@ public class UtilDateTime {
 		return date + " " + localDateTimeString;
 	}
 	
+	public static String nowString() {
+		LocalDate today = LocalDate.now();
+		
+		return today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	}
 	
 	public static String add00TimeString(String date) {
 		return date + " 00:00:00";

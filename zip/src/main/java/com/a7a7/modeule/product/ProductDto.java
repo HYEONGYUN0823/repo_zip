@@ -1,6 +1,8 @@
 package com.a7a7.modeule.product;
 
-public class ProductDto {
+import com.a7a7.modeule.upload.UploadDto;
+
+public class ProductDto extends UploadDto {
 	
 	private String seq;
 	private int brandName;
@@ -14,6 +16,15 @@ public class ProductDto {
 	private String userUi_seq;
 	private String mealRegDateTime;
 	private String mealModDateTime;
+	
+//	-----
+	
+	private String path;
+	
+//	-----
+	
+	private int uploadImg1Type = 1001;
+	private int uploadImg1MaxNumber = 1001;
 	
 //	-----
 	
@@ -88,6 +99,24 @@ public class ProductDto {
 	}
 	public void setMealModDateTime(String mealModDateTime) {
 		this.mealModDateTime = mealModDateTime;
+	}
+	public int getUploadImg1Type() {
+		return uploadImg1Type;
+	}
+	public void setUploadImg1Type(int uploadImg1Type) {
+		this.uploadImg1Type = uploadImg1Type;
+	}
+	public int getUploadImg1MaxNumber() {
+		return uploadImg1MaxNumber;
+	}
+	public void setUploadImg1MaxNumber(int uploadImg1MaxNumber) {
+		this.uploadImg1MaxNumber = uploadImg1MaxNumber;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 	

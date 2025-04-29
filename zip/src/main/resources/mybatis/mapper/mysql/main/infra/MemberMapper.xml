@@ -49,6 +49,7 @@
 			    a.btd,
 			    a.iD,
 			    a.passWord,
+			    a.email,
 			    a.delNy,
 			    a.admSignin,
 			    a.mobileCarrier,
@@ -75,6 +76,7 @@
 			btd,
 			iD,
 			passWord,
+			email,
 			delNy,
 			admSignin,
 			mobileCarrier,
@@ -98,6 +100,17 @@
 		WHERE 1=1
 			AND a.iD = #{iD}
 <!-- 			<if test="passWord != null and !passWord.equals('')">AND a.passWord = #{passWord}</if> -->
+	</select>
+		
+	<select id="checkPassword" resultMap="resultMapObj">
+		SELECT
+			a.seq,
+			a.iD,
+			a.passWord,
+			a.name,
+			a.delNy
+		FROM userUi a
+		WHERE a.iD = #{iD}
 	</select>
 	
 <!-- 	<select id="selectTwo" resultMap="resultMapObj"> -->
@@ -129,6 +142,7 @@
 			btd,
 			iD,
 			passWord,
+			email,
 			delNy,
 			mobileCarrier,
 			phoneNumber,
@@ -141,6 +155,7 @@
 			#{btd},
 			#{iD},
 			#{passWord},
+			#{email},
 			#{delNy},
 			#{mobileCarrier},
 			#{phoneNumber},
@@ -156,6 +171,7 @@
 			btd = #{btd},
 			iD = #{iD},
 			passWord = #{passWord},
+			email = #{email},
 			delNy = #{delNy},
 			mobileCarrier = #{mobileCarrier},
 			phoneNumber = #{phoneNumber},
@@ -173,6 +189,7 @@
 	<select id="checkId" resultType="int">
 		SELECT COUNT(*) FROM userUi WHERE iD = #{iD}
 	</select>
+
 	
 	<update id="userUpdate">
 		UPDATE userUi SET
@@ -192,16 +209,10 @@
 		WHERE seq = #{seq}
 	</update>
 	
-	<update id="addressUpdate">
+	<update id="passwordChange">
 		UPDATE userUi SET
-			zipCode = #{zipCode},
-			roadNameAddress = #{roadNameAddress},
-			Address = #{Address},
-			detailedAddress = #{detailedAddress},
-			referenceItem = #{referenceItem},
-			longitude = #{longitude},
-			latitude = #{latitude},
-			modDateTime = now()
+			passWord = #{passWord}
+			,modDateTime = now()
 		WHERE seq = #{seq}
 	</update>
 

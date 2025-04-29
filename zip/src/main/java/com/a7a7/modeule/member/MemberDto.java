@@ -14,6 +14,8 @@ public class MemberDto {
 	private String phoneNumber;
 	private String regDateTime;
 	private String modDateTime;
+	private String email;
+	private String currentPassword; // 현재 비밀번호
 	
 	// 우편번호
 	private String zipCode;
@@ -194,6 +196,24 @@ public class MemberDto {
 
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCurrentPassword() {
+		return currentPassword;
+	}
+
+	public void setCurrentPassword(String currentPassword) {
+		this.currentPassword = currentPassword;
 	}	
+	
+	
 	
 }

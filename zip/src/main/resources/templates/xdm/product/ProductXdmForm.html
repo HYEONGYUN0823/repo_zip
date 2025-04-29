@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <!-- row -->
-                <form method="post" id="form">
+                <form method="post" id="form" enctype="multipart/form-data">
                 <input type="hidden" name="seq" th:value="${vo.seq}">
                 <div class="row">
                     <div class="col-lg-12">
@@ -158,6 +158,16 @@
 														id="ingredient" name="ingredient" type="text"
 														th:text="${item?.ingredient}" placeholder="재료, 재료, 재료"></textarea>
 														<div id="ingredientError" class="errorText"></div>
+												</td>
+												<td colspan="2">
+												  <input type="file" class="form-control" id="uploadImg1" name="uploadImg1" onchange="previewImage(event)">
+												  <br>
+												  <img id="previewImg2" src="#" alt="이미지 미리보기" style="max-width: 200px; display: none; margin-top: 10px;">
+												  <img id="previewImg1"
+													   th:if="${itemFile?.path != null}"
+													   th:src="${itemFile?.path}"
+													   alt="기존 업로드 이미지"
+													   style="max-height: 100px; margin-top: 10px;" />
 												</td>
 											</tr>
                                         </tbody>
@@ -348,6 +358,25 @@
 	    }
 
 	    form.submit();
+	}
+	
+	function previewImage(event) {
+	    const input = event.target;
+	    const preview = document.getElementById('previewImg2');
+
+	    if (input.files && input.files[0]) {
+	        const reader = new FileReader();
+
+	        reader.onload = function(e) {
+	            preview.src = e.target.result;
+	            preview.style.display = "block";
+	        };
+
+	        reader.readAsDataURL(input.files[0]);
+	    } else {
+	        preview.src = "#";
+	        preview.style.display = "none";
+	    }
 	}
 	
 	</script>

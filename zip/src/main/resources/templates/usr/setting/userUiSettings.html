@@ -32,21 +32,21 @@
 								
 								<!-- nav item -->
 								<li class="nav-item">
-									<a class="nav-link active" href="/usr/setting/userUiSettings">
+									<a class="nav-link active" href="/usr/setting/userUiUsrSettings">
 										<i class="feather-icon icon-settings me-2"></i>
 										계정 설정
 									</a>
 								</li>
 								<!-- nav item -->
 								<li class="nav-item">
-									<a class="nav-link" href="/usr/setting/ChangePasswordUsrForm">
+									<a class="nav-link" href="/usr/setting/ChangeNewPasswordUsrForm">
 										<i class="feather-icon icon-map-pin me-2"></i>
 										비밀번호 변경
 									</a>
 								</li>
 								<!-- nav item -->
 								<li class="nav-item">
-									<a class="nav-link" href="/usr/setting/AcountDelete">
+									<a class="nav-link" href="/usr/setting/AcountUsrDelete">
 										<i class="feather-icon icon-credit-card me-2"></i>
 										회원탈퇴
 									</a>
@@ -144,11 +144,31 @@
 											</div>
 											<!-- button -->
 											<div class="mb-3">
-												<button class="btn btn-primary" id="btnSave">저장</button>
+												<button type="button" class="btn btn-primary" id="btnSave">저장</button>
 											</div>
-												<input class="form-control" type="text" id="longitude" name="longitude" th:value="${item?.longitude}" placeholder="경도">
-												<input class="form-control" type="text" id="latitude" name="latitude" th:value="${item?.latitude}" placeholder="위도">
+												<input class="form-control" type="hidden" id="longitude" name="longitude" th:value="${item?.longitude}" placeholder="경도">
+												<input class="form-control" type="hidden" id="latitude" name="latitude" th:value="${item?.latitude}" placeholder="위도">
 											<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+											
+											<!-- 저장 확인 모달 -->
+											<div class="modal fade" id="saveConfirmModal" tabindex="-1" aria-labelledby="saveConfirmModalLabel" aria-hidden="true">
+											  <div class="modal-dialog">
+											    <div class="modal-content rounded-3">
+											      <div class="modal-header">
+											        <h5 class="modal-title" id="saveConfirmModalLabel">저장 확인</h5>
+											        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+											      </div>
+											      <div class="modal-body">
+											        저장하시겠습니까?
+											      </div>
+											      <div class="modal-footer">
+											        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+											        <button type="button" class="btn btn-primary" id="confirmSaveBtn">확인</button>
+											      </div>
+											    </div>
+											  </div>
+											</div>
+											
 										</form>
 									</div>
 								</div>
@@ -186,25 +206,103 @@
 	
 	const btnSave = document.getElementById("btnSave");
     const form = document.getElementById("form");
+    const confirmSaveBtn = document.getElementById("confirmSaveBtn");
+    
+    let check = false;
+    
+    function validateForm() {
+    	  const name = document.getElementById("name");
+    	  const gender = document.getElementById("gender");
+    	  const btd = document.getElementById("btd");
+    	  const mobileCarrier = document.getElementById("mobileCarrier");
+    	  const phoneNumber = document.getElementById("phoneNumber");
+    	  const zipCode = document.getElementById("zipCode");
+    	  const roadNameAddress = document.getElementById("roadNameAddress");
+    	  const detailedAddress = document.getElementById("detailedAddress");
 
-    // 저장 버튼 클릭 시
-    btnSave.addEventListener("click", function () {
+    	  // 이름 검사 (2~20자 한글 또는 영문)
+    	  const nameRegex = /^[가-힣a-zA-Z]{2,20}$/;
+    	  if (!nameRegex.test(name.value.trim())) {
+    	    alert("이름을 입력해주세요.");
+    	    name.focus();
+    	    return false;
+    	  }
+
+    	  // 성별 선택
+    	  if (gender == "") {
+    	    alert("성별을 선택하세요.");
+    	    gender.focus();
+    	    return false;
+    	  }
+
+    	  // 생년월일 yyyy-mm-dd 형식 검사
+    	  const btdRegex = /^\d{4}-\d{2}-\d{2}$/;
+    	  if (!btdRegex.test(btd.value.trim())) {
+    	    alert("생년월일을 한번 클릭해주세요.");
+    	    btd.focus();
+    	    return false;
+    	  }
+
+    	  // 통신사 선택
+    	  if (mobileCarrier == "") {
+    	    alert("통신사를 선택하세요.");
+    	    mobileCarrier.focus();
+    	    return false;
+    	  }
+
+    	  // 휴대폰 번호 검사
+    	  const phoneRegex = /^010\d{7,8}$/;
+    	  if (!phoneRegex.test(phoneNumber.value.trim())) {
+    	    alert("휴대폰 번호를 제대로 입력해주세요.");
+    	    phoneNumber.focus();
+    	    return false;
+    	  }
+
+    	  // 우편번호 검사 (5자리 숫자)
+    	  const zipRegex = /^\d{5}$/;
+    	  if (!zipRegex.test(zipCode.value.trim())) {
+    	    alert("우편번호는 5자리 숫자여야 합니다.");
+    	    zipCode.focus();
+    	    return false;
+    	  }
+
+    	  // 도로명주소 입력 확인
+    	  if (roadNameAddress == "") {
+    	    alert("도로명 주소를 입력하세요.");
+    	    roadNameAddress.focus();
+    	    return false;
+    	  }
+
+    	  // 상세주소 입력 확인
+    	  if (detailedAddress == "") {
+    	    alert("상세주소를 입력하세요.");
+    	    detailedAddress.focus();
+    	    return false;
+    	  }
+
+    	  // 모두 통과 시 true 반환
+    	  check = true;
+    	  return true;
+    	}
+
+//     // 저장 버튼 클릭 시
+//     btnSave.addEventListener("click", function () {
      
-      if (!form.checkValidity()) {
-        form.classList.add('was-validated');
-        return false;
-      }
+//       if (!form.checkValidity()) {
+//         form.classList.add('was-validated');
+//         return false;
+//       }
 	
-      const seq = document.querySelector("input[name=seq]");
+//       const seq = document.querySelector("input[name=seq]");
 
-      if (seq && (seq.value == "0" || seq.value == "")) {
-        form.action = "";
-      } else {
-        form.action = goUrlXdmUpdt;
-      }
+//       if (seq && (seq.value == "0" || seq.value == "")) {
+//         form.action = "";
+//       } else {
+//         form.action = goUrlXdmUpdt;
+//       }
 
-      form.submit();
-    });
+//       form.submit();
+//     });
 	  
 	  jQuery.datetimepicker.setLocale('ko');
 
@@ -318,9 +416,34 @@
             }
         }).open();
     }
+ // 저장 버튼 클릭 시: 유효성 검사 후 모달 열기
+btnSave.addEventListener("click", function (event) {
+  event.preventDefault(); // 기본 submit 막기
+
+  if (!validateForm()) {
+    return; // 유효성 통과 못하면 여기서 끝
+  }
+
+  // 모달 열기
+  const saveModal = new bootstrap.Modal(document.getElementById('saveConfirmModal'));
+  saveModal.show();
+});
+
+// 모달 '확인' 버튼 클릭 시 실제 submit
+confirmSaveBtn.addEventListener("click", function () {
+  const seq = document.querySelector("input[name=seq]");
+
+  if (seq && (seq.value == "0" || seq.value == "")) {
+    form.action = "";
+  } else {
+    form.action = goUrlXdmUpdt;
+  }
+
+  form.submit();
+});
 
 	</script>
 
-</body>
+<div th:replace="~{usr/include/footer :: footer}"></div>
 
 </html>

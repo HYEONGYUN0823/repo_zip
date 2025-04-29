@@ -8,6 +8,7 @@
 	<sql id = "selectCommon">
 		FROM mealKit as a
 		WHERE 1=1
+		AND a.mealDelNy = 0
 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.mealUseNy = #{shUseNy}</if>
         <if test="shDelNy != null and !shDelNy.equals('')">AND a.mealDelNy = #{shDelNy}</if>
  				
@@ -72,7 +73,6 @@
 	
 	<insert id="insert">
 		INSERT INTO mealKit (
-			seq,
 			brandName,
 			mealKitName,
 			stock,
@@ -83,7 +83,6 @@
 			mealUseNy,
 			mealRegDateTime
 		) values (
-			#{seq},
 			#{brandName},
 			#{mealKitName},
 			#{stock},
@@ -94,6 +93,9 @@
 			#{mealUseNy},
 			now()
 		)
+		<selectKey resultType="String" keyProperty="seq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
 	</insert>
 	
 	<update id="update">
@@ -116,5 +118,31 @@
 			mealModDateTime = now()
 		WHERE seq = #{seq}
 	</update>
+	
+	<select id="selectProductList" resultMap="resultMapObj">
+	    SELECT aa.* FROM (
+	        SELECT
+	            a.seq,
+	            a.brandName,
+	            a.mealKitName,
+	            a.stock,
+	            a.price,
+	            a.score,
+	            a.ingredient,
+	            a.mealDelNy,
+	            a.mealUseNy,
+	            a.mealRegDateTime,
+	            a.mealModDateTime,
+	            (
+	                SELECT b.path
+	                FROM fileUploaded b
+	                WHERE b.pseq = a.seq
+	                ORDER BY b.sort DESC
+	                LIMIT 1
+	            ) path
+	        <include refid="selectCommon"></include>
+	    ) aa
+	    limit #{rowNumToShow} offset #{startRnumForMysql}
+	</select>
 
 </mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a7a7.modeule.upload.UploadDao">
+	
+	<resultMap id="resultMapObj" type="com.a7a7.modeule.upload.UploadDto"/>
+	
+	<!-- uploaded s -->
+	<insert id="insertUploaded">
+		INSERT INTO fileUploaded (
+			type
+			,defaultNy
+			,sort
+			,path
+			,originalName
+			,uuidName
+			,ext
+			,size
+			,delNy
+			
+			,pseq
+		) values (
+			#{type}
+			,#{defaultNy}
+			,#{sort}
+			,#{path}
+			,#{originalName}
+			,#{uuidName}
+			,#{ext}
+			,#{size}
+			,0
+			
+			,#{pseq}
+		)
+	</insert>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+			type
+			,defaultNy
+			,sort
+			,path
+			,originalName
+			,uuidName
+			,ext
+			,size
+			,delNy
+			,pseq
+		FROM
+			fileUploaded
+		WHERE 1=1
+			AND pseq = #{pseq}
+	</select>
+	
+</mapper>

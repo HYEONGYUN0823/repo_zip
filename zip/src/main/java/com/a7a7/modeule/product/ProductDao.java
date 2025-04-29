@@ -10,6 +10,7 @@ import com.a7a7.modeule.codegroup.CodeGroupDto;
 public interface ProductDao {
 	
 	public List<CodeGroupDto> selectList(ProductVo vo);
+	public List<CodeGroupDto> selectProductList(ProductListVo vo);
 	
 	public ProductDto selectOne(ProductDto productDtoo);
 	

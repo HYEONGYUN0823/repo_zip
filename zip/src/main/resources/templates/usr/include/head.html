@@ -33,7 +33,7 @@
 			<div class="row w-100 align-items-center gx-3">
 				<div class="col-xl-7 col-lg-8">
 					<div class="d-flex align-items-center">
-						<a class="navbar-brand d-none d-lg-block" href="../pages/index-4.html">
+						<a class="navbar-brand d-none d-lg-block" href="/usr/index/Index">
 							<img src="/user/template/user_ui/assets/images/logo/freshcart-logo.svg" alt="eCommerce HTML Template" />
 						</a>
 						<div class="w-100 ms-4 d-none d-lg-block">
@@ -58,7 +58,7 @@
 						</div>
 					</div>
 					<div class="d-flex justify-content-between align-items-center w-100 d-lg-none">
-						<a class="navbar-brand mb-0" href="../pages/index-4.html">
+						<a class="navbar-brand mb-0" href="/usr/index/Index">
 							<img src="/user/template/user_ui/assets/images/logo/freshcart-logo.svg" alt="eCommerce HTML Template" />
 						</a>
 
@@ -285,7 +285,7 @@
     <span th:text="${session.sessNameUsr} + '님 환영합니다'">OOO님 환영합니다</span>
 </div>
 <div th:if="${session.sessIdUsr != null}" class="list-inline-item me-3">
-    <a href="/usr/setting/userUiSettings" class="button">마이페이지</a>
+    <a href="/usr/setting/userUiUsrSettings" class="button">마이페이지</a>
 </div>
 <div th:if="${session.sessIdUsr != null}" class="list-inline-item me-3">
     <a id="btnSignout" href="javascript:void(0);" class="btn btn-dark d-none d-xl-block">로그아웃</a>
@@ -342,7 +342,7 @@
 								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 									aria-expanded="false">메뉴</a>
 								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="../pages/shop-grid.html">밀키트</a>
+									<li><a class="dropdown-item" href="/usr/product/ProductList">밀키트</a>
 									</li>
 									<li><a class="dropdown-item" href="../pages/blog-category.html">레시피 게시판</a>
 									</li>
