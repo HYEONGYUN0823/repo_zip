@@ -8,7 +8,7 @@
 	<sql id = "selectCommon">
 		FROM mealKit as a
 		WHERE 1=1
-		AND a.mealDelNy = 0
+<!-- 		AND a.mealDelNy = 0 -->
 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.mealUseNy = #{shUseNy}</if>
         <if test="shDelNy != null and !shDelNy.equals('')">AND a.mealDelNy = #{shDelNy}</if>
  				

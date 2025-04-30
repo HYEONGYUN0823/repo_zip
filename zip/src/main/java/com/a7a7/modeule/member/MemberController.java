@@ -115,6 +115,12 @@ public class MemberController {
 		
 		MemberDto reMember = memberService.selectOneLogin(memberDto);
 		
+		if (reMember == null) {
+		    returnMap.put("rt", "fail");
+		    // returnMap.put("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+		    return returnMap;
+		}
+		
 		if ("1".equals(reMember.getDelNy())) {
 		    returnMap.put("rt", "fail");
 //		    returnMap.put("msg", "탈퇴한 계정입니다.");

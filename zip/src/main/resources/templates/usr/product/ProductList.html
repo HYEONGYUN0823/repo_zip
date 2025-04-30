@@ -68,7 +68,7 @@
                            <h5 class="mb-3">밀키트</h5>
                            <div class="my-4">
                               <!-- input -->
-                              <input type="search" class="form-control" placeholder="셰프 검색" />
+                              <input type="search" class="form-control" placeholder="밀키트 검색" />
                            </div>
                            <!-- form check -->
                            <div class="form-check mb-2">
@@ -247,7 +247,7 @@
                               <!-- badge -->
                               <div class="text-center position-relative">
                                  <div class="position-absolute top-0 start-0">
-                                    <span class="badge bg-danger">Sale</span>
+<!--                                     <span class="badge bg-danger">Sale</span> -->
                                  </div>
                                  <div style="display:none;" th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></div>
                                  <a href="javascript:void(0);" th:attr="onclick=|goForm('${list.seq}')|">
@@ -265,7 +265,9 @@
                               </div>
                               <!-- heading -->
                               <div class="text-small mb-1">
-                                 <a href="#!" class="text-decoration-none text-muted"><small th:text="${list.brandName}">백종원 레시피</small></a>
+                                 <a href="#!" class="text-decoration-none text-muted"><small th:each="codeList : ${@codeService.selectListCachedCode(3)}"
+                                                	th:if="${#strings.equals(codeList.ifcdSeq, list.brandName)}"
+                                                	th:text="${codeList.ifcdName}">백종원 레시피</small></a>
                               </div>
                               <h2 class="fs-6"><a href="javascript:void(0);" class="text-inherit text-decoration-none"
 										             th:text="${list.mealKitName}"
@@ -284,8 +286,8 @@
                               <!-- price -->
                               <div class="d-flex justify-content-between align-items-center mt-3">
                                  <div>
-                                    <span class="text-dark" th:text="${list.price}">3,500￦</span>
-                                    <span class="text-decoration-line-through text-muted">4,000￦</span>
+                                    <span class="text-dark" th:text="${#numbers.formatInteger(list.price, 0, 'COMMA') + '원'}">3,500￦</span>
+<!--                                     <span class="text-decoration-line-through text-muted">4,000￦</span> -->
                                  </div>
                                  <!-- btn -->
                                  <div>
