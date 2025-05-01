@@ -101,6 +101,14 @@ public class ProductController {
 		return "usr/product/ProductList";
 	}
 	
+	@RequestMapping(value = "/usr/product/ProductView")
+	public String productView() {
+		
+		
+		return "usr/product/ProductView";
+	}
+	
+	
 	
 	
 }

@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{usr/include/head :: head}"></div>
+
+
+<script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
+
+		<main>
+		<form name="formList" id="formList" method="post" autocomplete="off">
+		<input type="hidden" name="seq">
+			<div class="mt-4">
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<!-- col -->
+						<div class="col-12">
+							<!-- breadcrumb -->
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb mb-0">
+									<li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
+									<li class="breadcrumb-item"><a href="/usr/product/ProductList">밀키트</a></li>
+
+									<li class="breadcrumb-item active" aria-current="page">계란볶음밥</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+<section class="mt-8">
+  <div class="container">
+    <div class="row align-items-start"> <!-- row 시작 -->
+
+      <!-- 왼쪽 이미지 영역 -->
+      <div class="col-md-5 col-xl-6">
+        <div class="product" id="product">
+          <div class="zoom" onmousemove="zoom(event)"
+               style="background-image: url(/user/template/user_ui/assets/images/products/product-single-img-1.jpg)">
+            <img src="/user/template/user_ui/assets/images/products/product-single-img-1.jpg"
+                 style="height: 675px" alt="" />
+          </div>
+        </div>
+
+        <!-- 썸네일 영역 -->
+        <div class="product-tools mt-3">
+          <div class="thumbnails row g-3" id="productThumbnails">
+            <div class="col-3">
+              <div class="thumbnails-img">
+                <img src="/user/template/user_ui/assets/images/products/product-single-img-1.jpg"
+                     data-large="/user/template/user_ui/assets/images/products/product-single-img-1.jpg" 
+                     alt="" class="active" />
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="thumbnails-img">
+                <img src="/user/template/user_ui/assets/images/products/product-single-img-2.jpg"
+                     data-large="/user/template/user_ui/assets/images/products/product-single-img-2.jpg" alt="" />
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="thumbnails-img">
+                <img src="/user/template/user_ui/assets/images/products/product-single-img-3.jpg"
+                     data-large="/user/template/user_ui/assets/images/products/product-single-img-3.jpg" alt="" />
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="thumbnails-img">
+                <img src="/user/template/user_ui/assets/images/products/product-single-img-4.jpg"
+                     data-large="/user/template/user_ui/assets/images/products/product-single-img-4.jpg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 오른쪽 상품 정보 영역 -->
+      <div class="col-md-7 col-xl-6">
+        <div class="ps-lg-10 mt-4 mt-md-0"> <!-- 필요 없으면 mt-4 빼도 됨 -->
+          <a href="#!" class="mb-4 d-block">백종원 레시피</a>
+          <h1 class="mb-1">계란볶음밥</h1>
+
+          <div class="mb-4">
+            <small class="text-warning">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </small>
+            <a href="#" class="ms-2">리뷰 (30건)</a>
+          </div>
+
+          <div class="fs-4">
+            <span class="fw-bold text-dark">3,500￦</span>
+            <span class="text-decoration-line-through text-muted">4,000￦</span>
+            <span><small class="fs-6 ms-2 text-danger">12.5% sale</small></span>
+          </div>
+
+          <hr class="my-6" />
+
+          <div>
+            <table class="table table-borderless mb-0">
+              <tbody>
+                <tr>
+                  <td>제품 코드:</td>
+                  <td>FBB00255</td>
+                </tr>
+                <tr>
+                  <td>재고:</td>
+                  <td>있음</td>
+                </tr>
+                <tr>
+                  <td>재료:</td>
+                  <td>밥, 파, 당근, 달걀, 간장, 식용유, 참기름, 통깨, 소금, 후추</td>
+                </tr>
+                <tr>
+                  <td>배송:</td>
+                  <td>
+                    <small>
+                      택배
+                      <span class="text-muted">(무료배송)</span>
+                    </small>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-8">
+            <div>
+              <div class="input-group input-spinner">
+                <input type="button" value="-" class="button-minus btn btn-sm" data-field="quantity" />
+                <input type="number" step="1" max="10" value="1" name="quantity"
+                       class="quantity-field form-control-sm form-input" />
+                <input type="button" value="+" class="button-plus btn btn-sm" data-field="quantity" />
+              </div>
+            </div>
+
+            <div class="mt-3 row justify-content-start g-2 align-items-center">
+              <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
+                <button type="button" onclick="location.href='shop-cart.html'"
+                        class="btn btn-primary" href="shop-cart.html">
+                  <i class="feather-icon icon-shopping-bag me-2"></i>
+                  장바구니에 넣기
+                </button>
+              </div>
+              <div class="col-md-4 col-4">
+                <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip"
+                   data-bs-html="true" aria-label="Wishlist">
+                  <i class="feather-icon icon-heart"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- row 끝 -->
+  </div>
+</section>
+			
+			
+			
+			
+			
+			<section class="mt-lg-14 mt-8">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="nav nav-pills nav-lb-tab" id="myTab" role="tablist">
+								<!-- nav item -->
+								<li class="nav-item" role="presentation">
+									<!-- btn -->
+									<button class="nav-link active" id="product-tab" data-bs-toggle="tab"
+										data-bs-target="#product-tab-pane" type="button" role="tab"
+										aria-controls="product-tab-pane" aria-selected="true">
+										조리순서
+									</button>
+								</li>
+								<!-- nav item -->
+								<li class="nav-item" role="presentation">
+									<!-- btn -->
+									<button class="nav-link" id="details-tab" data-bs-toggle="tab"
+										data-bs-target="#details-tab-pane" type="button" role="tab"
+										aria-controls="details-tab-pane" aria-selected="false">
+										재료
+									</button>
+								</li>
+								<!-- nav item -->
+								<li class="nav-item" role="presentation">
+									<!-- btn -->
+									<button class="nav-link" id="reviews-tab" data-bs-toggle="tab"
+										data-bs-target="#reviews-tab-pane" type="button" role="tab"
+										aria-controls="reviews-tab-pane" aria-selected="false">
+										요리 후기
+									</button>
+								</li>
+								<!-- nav item -->
+								<li class="nav-item" role="presentation">
+									<!-- btn -->
+									<button class="nav-link" id="sellerInfo-tab" data-bs-toggle="tab"
+										data-bs-target="#sellerInfo-tab-pane" type="button" role="tab"
+										aria-controls="sellerInfo-tab-pane" aria-selected="false" disabled>
+									</button>
+								</li>
+							</ul>
+							<!-- tab content -->
+							<div class="tab-content" id="myTabContent">
+								<!-- tab pane -->
+								<div class="tab-pane fade show active" id="product-tab-pane" role="tabpanel"
+									aria-labelledby="product-tab" tabindex="0">
+									<div class="my-8">
+										<div class="mb-5">
+											<!-- text -->
+											<h5 class="mb-1">1. 당근과 대파 준비</h5>
+											<p class="mb-0">
+												당근은 작은 크기로 다지고 대파는 송송 썰어 준비한다.
+											</p>
+										</div>
+										<div class="mb-5">
+											<h5 class="mb-1">2. 팬에 파 볶아내기</h5>
+											<p class="mb-0">
+												달군 팬에 식용유를 넣고 송송 썬 파를 넣어 볶아 향을 낸다.
+											</p>
+										</div>
+										<!-- content -->
+										<div class="mb-5">
+											<h5 class="mb-1">3. 당근을 넣고 달걀 3개 준비</h5>
+											<p class="mb-0">파를 한쪽으로 밀어내고 당근을 올린다.
+												밀어 낸 공간에 달걀 3개를 깨트려 넣는다.</p>
+										</div>
+										<div class="mb-5">
+											<h5 class="mb-1">4. 스크램블로 만들기</h5>
+											<p class="mb-0">계란은 주걱으로 빠르게 저어가며 스크램블을 만든다.</p>
+										</div>
+										<div class="mb-5">
+											<h5 class="mb-1">5. 스크램블과 야채 섞기</h5>
+											<p class="mb-0">스크램블이 만들어지면 미리 볶아둔 야채와 고루 섞어준다.</p>
+										</div>
+										<div class="mb-5">
+											<h5 class="mb-1">6. 간장을 태워 재료와 섞기</h5>
+											<p class="mb-0">내용물을 한쪽으로 밀어둔 뒤 간장을 부어 넣고 끓인 뒤 재료와 함께 고루 섞는다.</p>
+										</div>
+										<div class="mb-5">
+											<h5 class="mb-1">7. 맛보고 간하기</h5>
+											<p class="mb-0">밥을 넣고 주걱으로 으깨어 가며 볶고 모자란 간은 소금, 후추로 더한다.</p>
+										</div>
+										<div class="mb-5">
+											<h5 class="mb-1">8. 참기름으로 향을 더하기</h5>
+											<p class="mb-0">참기름을 넣고 섞어 마무리 한다.</p>
+										</div>
+										<div class="mb-5">
+											<h5 class="mb-1">9. 완성된 밥에 깨 넣기</h5>
+											<p class="mb-0">접시에 볶아진 밥을 담고 통깨를 솔솔 뿌려 마무리 한다.</p>
+										</div>
+
+									</div>
+								</div>
+								<!-- tab pane -->
+								<div class="tab-pane fade" id="details-tab-pane" role="tabpanel"
+									aria-labelledby="details-tab" tabindex="0">
+									<div class="my-8">
+										<div class="row">
+											<div class="col-12">
+												<h4 class="mb-4">필수 재료</h4>
+											</div>
+											<div class="col-12 col-lg-6">
+												<table class="table table-striped">
+													<!-- table -->
+													<tbody>
+														<tr>
+															<th>밥</th>
+															<td>1.5공기</td>
+														</tr>
+														<tr>
+															<th>송송 썬 파(200ml)</th>
+															<td>1컵</td>
+														</tr>
+														<tr>
+															<th>다진 당근</th>
+															<td>1소주컵</td>
+														</tr>
+														<tr>
+															<th>달걀</th>
+															<td>3개</td>
+														</tr>
+														<tr></tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="col-12 col-lg-6">
+												<table class="table table-striped">
+													<!-- table -->
+													<tbody>
+														<tr>
+															<th>간장</th>
+															<td>1/3소주컵</td>
+														</tr>
+														<tr>
+															<th>식용유</th>
+															<td>1/3소주컵</td>
+														</tr>
+														<tr>
+															<th>참기름</th>
+															<td>1/2TS</td>
+														</tr>
+														<tr>
+															<th>통깨</th>
+															<td>조금</td>
+														</tr>
+														<tr>
+															<th>소금</th>
+															<td>약간</td>
+														</tr>
+														<tr>
+															<th>후추</th>
+															<td>약간</td>
+														</tr>
+														<tr></tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- tab pane -->
+								<div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel"
+									aria-labelledby="reviews-tab" tabindex="0">
+									<div class="my-8">
+										<!-- row -->
+										<div class="row">
+											<div class="col-md-4">
+												<div class="me-lg-12 mb-6 mb-md-0">
+													<div class="mb-5">
+														<!-- title -->
+														<h4 class="mb-3">고객 리뷰</h4>
+														<span>
+															<!-- rating -->
+															<small class="text-warning">
+																<i class="bi bi-star-fill"></i>
+																<i class="bi bi-star-fill"></i>
+																<i class="bi bi-star-fill"></i>
+																<i class="bi bi-star-fill"></i>
+																<i class="bi bi-star-half"></i>
+															</small>
+															<span class="ms-3">5점 만점에 4.1점</span>
+															<small class="ms-3">11,130개의 글로벌 평가</small>
+														</span>
+													</div>
+													<div class="mb-8">
+														<!-- progress -->
+														<div class="d-flex align-items-center mb-2">
+															<div class="text-nowrap me-3 text-muted">
+																<span
+																	class="d-inline-block align-middle text-muted">5</span>
+																<i class="bi bi-star-fill ms-1 small text-warning"></i>
+															</div>
+															<div class="w-100">
+																<div class="progress" style="height: 6px">
+																	<div class="progress-bar bg-warning"
+																		role="progressbar" style="width: 60%"
+																		aria-valuenow="60" aria-valuemin="0"
+																		aria-valuemax="100"></div>
+																</div>
+															</div>
+															<span class="text-muted ms-3">53%</span>
+														</div>
+														<!-- progress -->
+														<div class="d-flex align-items-center mb-2">
+															<div class="text-nowrap me-3 text-muted">
+																<span
+																	class="d-inline-block align-middle text-muted">4</span>
+																<i class="bi bi-star-fill ms-1 small text-warning"></i>
+															</div>
+															<div class="w-100">
+																<div class="progress" style="height: 6px">
+																	<div class="progress-bar bg-warning"
+																		role="progressbar" style="width: 50%"
+																		aria-valuenow="50" aria-valuemin="0"
+																		aria-valuemax="50"></div>
+																</div>
+															</div>
+															<span class="text-muted ms-3">22%</span>
+														</div>
+														<!-- progress -->
+														<div class="d-flex align-items-center mb-2">
+															<div class="text-nowrap me-3 text-muted">
+																<span
+																	class="d-inline-block align-middle text-muted">3</span>
+																<i class="bi bi-star-fill ms-1 small text-warning"></i>
+															</div>
+															<div class="w-100">
+																<div class="progress" style="height: 6px">
+																	<div class="progress-bar bg-warning"
+																		role="progressbar" style="width: 35%"
+																		aria-valuenow="35" aria-valuemin="0"
+																		aria-valuemax="35"></div>
+																</div>
+															</div>
+															<span class="text-muted ms-3">14%</span>
+														</div>
+														<!-- progress -->
+														<div class="d-flex align-items-center mb-2">
+															<div class="text-nowrap me-3 text-muted">
+																<span
+																	class="d-inline-block align-middle text-muted">2</span>
+																<i class="bi bi-star-fill ms-1 small text-warning"></i>
+															</div>
+															<div class="w-100">
+																<div class="progress" style="height: 6px">
+																	<div class="progress-bar bg-warning"
+																		role="progressbar" style="width: 22%"
+																		aria-valuenow="22" aria-valuemin="0"
+																		aria-valuemax="22"></div>
+																</div>
+															</div>
+															<span class="text-muted ms-3">5%</span>
+														</div>
+														<!-- progress -->
+														<div class="d-flex align-items-center mb-2">
+															<div class="text-nowrap me-3 text-muted">
+																<span
+																	class="d-inline-block align-middle text-muted">1</span>
+																<i class="bi bi-star-fill ms-1 small text-warning"></i>
+															</div>
+															<div class="w-100">
+																<div class="progress" style="height: 6px">
+																	<div class="progress-bar bg-warning"
+																		role="progressbar" style="width: 14%"
+																		aria-valuenow="14" aria-valuemin="0"
+																		aria-valuemax="14"></div>
+																</div>
+															</div>
+															<span class="text-muted ms-3">7%</span>
+														</div>
+													</div>
+													<div class="d-grid">
+														<h4>이 제품을 리뷰하세요</h4>
+														<p class="mb-0">다른 고객과 생각을 공유해 보세요.</p>
+														<a href="#" class="btn btn-outline-gray-400 mt-4 text-muted">리뷰를
+															작성하세요.</a>
+													</div>
+												</div>
+											</div>
+											<!-- col -->
+											<div class="col-md-8">
+												<div class="mb-10">
+													<div class="d-flex justify-content-between align-items-center mb-8">
+														<div>
+															<!-- heading -->
+															<h4>요리 후기</h4>
+														</div>
+														<div>
+															<select class="form-select">
+																<option selected>인기 리뷰</option>
+																<option value="Most Recent">최근 리뷰</option>
+															</select>
+														</div>
+													</div>
+													<div class="d-flex border-bottom pb-6 mb-6">
+														<!-- img -->
+														<!-- img -->
+														<img src="/user/template/user_ui/assets/images/avatar/avatar-10.jpg" alt=""
+															class="rounded-circle avatar-lg" />
+														<div class="ms-5">
+															<h6 class="mb-1">a</h6>
+															<!-- select option -->
+															<!-- content -->
+															<p class="small">
+																<span class="text-muted">30 December 2022</span>
+																<span class="text-primary ms-3 fw-bold">검증된 회원</span>
+															</p>
+															<!-- rating -->
+															<div class="mb-2">
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<span class="ms-3 text-dark fw-bold">오늘 첫 요리 후기</span>
+															</div>
+															<!-- text-->
+															<p>
+																진짜 대박!! 저는 스팸을 더 넣고 해서 조금 짰어요 ᄒᄒ
+																그냥 볶음밥만으로는 진짜 최고예요ᄒᄒ
+																앞으로 중국집에서 못시켜먹겠네요ㅎㅎ
+															</p>
+															<div>
+																<div class="border icon-shape icon-lg border-2">
+																	<!-- img -->
+																	<img src="/user/template/user_ui/assets/images/products/product-img-1.jpg"
+																		alt="" class="img-fluid" />
+																</div>
+																<div class="border icon-shape icon-lg border-2 ms-1">
+																	<!-- img -->
+																	<img src="/user/template/user_ui/assets/images/products/product-img-2.jpg"
+																		alt="" class="img-fluid" />
+																</div>
+																<div class="border icon-shape icon-lg border-2 ms-1">
+																	<!-- img -->
+																	<img src="/user/template/user_ui/assets/images/products/product-img-3.jpg"
+																		alt="" class="img-fluid" />
+																</div>
+															</div>
+															<!-- icon -->
+															<div class="d-flex justify-content-end mt-4">
+																<a href="#" class="text-muted">
+																	<i class="feather-icon icon-thumbs-up me-1"></i>
+																	좋아요
+																</a>
+																<a href="#" class="text-muted ms-4">
+																	<i class="feather-icon icon-flag me-2"></i>
+																	신고
+																</a>
+															</div>
+														</div>
+													</div>
+													<div class="d-flex border-bottom pb-6 mb-6 pt-4">
+														<!-- img -->
+														<img src="/user/template/user_ui/assets/images/avatar/avatar-12.jpg" alt=""
+															class="rounded-circle avatar-lg" />
+														<div class="ms-5">
+															<h6 class="mb-1">Robert Thomas</h6>
+															<!-- content -->
+															<p class="small">
+																<span class="text-muted">29 December 2022</span>
+																<span class="text-primary ms-3 fw-bold">검증된 회원</span>
+															</p>
+															<!-- rating -->
+															<div class="mb-2">
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star text-warning"></i>
+																<span class="ms-3 text-dark fw-bold">OOO</span>
+															</div>
+
+															<p>
+																진짜 대박!! 저는 스팸을 더 넣고 해서 조금 짰어요 ᄒᄒ 그냥 볶음밥만으로는 진짜 최고예요ᄒᄒ
+																앞으로 중국집에서 못시켜먹겠네요ㅎㅎ
+															</p>
+
+															<!-- icon -->
+															<div class="d-flex justify-content-end mt-4">
+																<a href="#" class="text-muted">
+																	<i class="feather-icon icon-thumbs-up me-1"></i>
+																	좋아요
+																</a>
+																<a href="#" class="text-muted ms-4">
+																	<i class="feather-icon icon-flag me-2"></i>
+																	신고
+																</a>
+															</div>
+														</div>
+													</div>
+													<div class="d-flex border-bottom pb-6 mb-6 pt-4">
+														<!-- img -->
+														<img src="/user/template/user_ui/assets/images/avatar/avatar-9.jpg" alt=""
+															class="rounded-circle avatar-lg" />
+														<div class="ms-5">
+															<h6 class="mb-1">Barbara Tay</h6>
+															<!-- content -->
+															<p class="small">
+																<span class="text-muted">28 December 2022</span>
+																<span class="text-danger ms-3 fw-bold">검증되지 않은 회원</span>
+															</p>
+															<!-- rating -->
+															<div class="mb-2">
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star text-warning"></i>
+																<span class="ms-3 text-dark fw-bold">OOO</span>
+															</div>
+
+															<p>
+																쉽고 맛있네요. 중국집 볶음밥 흉내를 좀더 내려고 저는 3분 짜장을 후라이팬에 붓고 설탕 1/3큰술
+																넣어서
+																끓인 후 볶음밥 옆에 부어줬어요. 그럴 듯해요
+															</p>
+
+															<!-- icon -->
+															<div class="d-flex justify-content-end mt-4">
+																<a href="#" class="text-muted">
+																	<i class="feather-icon icon-thumbs-up me-1"></i>
+																	좋아요
+																</a>
+																<a href="#" class="text-muted ms-4">
+																	<i class="feather-icon icon-flag me-2"></i>
+																	신고
+																</a>
+															</div>
+														</div>
+													</div>
+													<div class="d-flex border-bottom pb-6 mb-6 pt-4">
+														<!-- img -->
+														<img src="/user/template/user_ui/assets/images/avatar/avatar-8.jpg" alt=""
+															class="rounded-circle avatar-lg" />
+														<div class="ms-5 flex-grow-1">
+															<h6 class="mb-1">Sandra Langevin</h6>
+															<!-- content -->
+															<p class="small">
+																<span class="text-muted">8 December 2022</span>
+																<span class="text-danger ms-3 fw-bold">검증되지 않은 회원</span>
+															</p>
+															<!-- rating -->
+															<div class="mb-2">
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star-fill text-warning"></i>
+																<i class="bi bi-star text-warning"></i>
+																<span class="ms-3 text-dark fw-bold">OOO</span>
+															</div>
+
+															<p>남편이랑 맛나게 먹었어요..쉽구요.. 중국집꺼는 느끼한데 요거는 파가 들어가서 그런지 깔끔..저는
+																여러가지
+																야채를 좀 많이 넣었어요.. </p>
+
+															<!-- icon -->
+															<div class="d-flex justify-content-end mt-4">
+																<a href="#" class="text-muted">
+																	<i class="feather-icon icon-thumbs-up me-1"></i>
+																	좋아요
+																</a>
+																<a href="#" class="text-muted ms-4">
+																	<i class="feather-icon icon-flag me-2"></i>
+																	신고
+																</a>
+															</div>
+														</div>
+													</div>
+													<div>
+														<a href="#" class="btn btn-outline-gray-400 text-muted">더 많은 리뷰
+															읽기</a>
+													</div>
+												</div>
+												<div>
+													<!-- rating -->
+													<h3 class="mb-5">리뷰 작성</h3>
+													<div class="border-bottom py-4 mb-4">
+														<h4 class="mb-3">전체 평가</h4>
+														<div class="rater"></div>
+													</div>
+													<div class="border-bottom py-4 mb-4">
+														<h4 class="mb-0">맛 평가</h4>
+														<div class="my-5">
+															<h5>맛</h5>
+															<div class="rater"></div>
+														</div>
+														<div class="my-5">
+															<h5>가격 대비</h5>
+															<div class="rater"></div>
+														</div>
+														<div class="my-5">
+															<h5>향</h5>
+															<div class="rater"></div>
+														</div>
+													</div>
+													<!-- form control -->
+													<div class="border-bottom py-4 mb-4">
+														<h5>제목</h5>
+														<input type="text" class="form-control"
+															placeholder="오늘도 한끼 식사 해결!" />
+													</div>
+													<!-- <div class="border-bottom py-4 mb-4"> -->
+													<!-- <h5>사진이나 비디오를 추가하세요</h5> -->
+													<!-- <p>쇼핑객들은 텍스트만 보는 것보다 이미지와 비디오를 보는 것이 더 도움이 된다고 생각합니다.</p> -->
+
+													<!-- <div id="my-dropzone"
+														class="dropzone mt-4 border-dashed rounded-2 min-h-0"></div> -->
+													<!-- </div> -->
+													<div class="py-4 mb-4">
+														<!-- heading -->
+														<h5>작성된 리뷰를 추가하세요</h5>
+														<textarea class="form-control" rows="3"
+															placeholder="어떤점이 괜찮았나요? 이 제품에 대해 알려주세요!"></textarea>
+													</div>
+													<!-- button -->
+													<div class="d-flex justify-content-end">
+														<a href="#" class="btn btn-primary">제출</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- tab pane -->
+								<div class="tab-pane fade" id="sellerInfo-tab-pane" role="tabpanel"
+									aria-labelledby="sellerInfo-tab" tabindex="0">...</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- section -->
+			<section class="my-lg-14 my-14">
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<div class="col-12">
+							<!-- heading -->
+							<h3>관련 항목</h3>
+						</div>
+					</div>
+					<!-- row -->
+					<div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2">
+						<!-- col -->
+						<div class="col">
+							<div class="card card-product">
+								<div class="card-body">
+									<!-- badge -->
+
+									<div class="text-center position-relative">
+										<div class="position-absolute top-0 start-0">
+											<span class="badge bg-danger">Sale</span>
+										</div>
+										<a href="#!">
+											<!-- img -->
+											<img src="/user/template/user_ui/assets/images/products/product-img-1.jpg"
+												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
+										</a>
+										<!-- action btn -->
+										<div class="card-product-action">
+											<!-- <a href="#!" class="btn-action" data-bs-toggle="modal"
+											data-bs-target="#quickViewModal">
+											<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
+												title="Quick View"></i>
+										</a> -->
+											<a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
+												data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
+											<!-- <a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
+											title="Compare"><i class="bi bi-arrow-left-right"></i></a> -->
+										</div>
+									</div>
+									<!-- heading -->
+									<div class="text-small mb-1">
+										<a href="#!" class="text-decoration-none text-muted"><small>백종원 레시피</small></a>
+									</div>
+									<h2 class="fs-6"><a href="#!" class="text-inherit text-decoration-none">계란 볶음밥</a>
+									</h2>
+									<div>
+										<!-- rating -->
+										<small class="text-warning">
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-half"></i>
+										</small>
+										<span class="text-muted small">4.5(149)</span>
+									</div>
+									<!-- price -->
+									<div class="d-flex justify-content-between align-items-center mt-3">
+										<div>
+											<span class="text-dark">3,500￦</span>
+											<span class="text-decoration-line-through text-muted">4,000￦</span>
+										</div>
+										<!-- btn -->
+										<div>
+											<a href="#!" class="btn btn-primary btn-sm">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="feather feather-plus">
+													<line x1="12" y1="5" x2="12" y2="19"></line>
+													<line x1="5" y1="12" x2="19" y2="12"></line>
+												</svg>
+												추가
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- col -->
+						<div class="col">
+							<div class="card card-product">
+								<div class="card-body">
+									<!-- badge -->
+									<div class="text-center position-relative">
+										<a href="#!"><img src="/user/template/user_ui/assets/images/products/product-img-2.jpg"
+												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
+										<!-- action btn -->
+										<div class="card-product-action">
+											<a href="#!" class="btn-action" data-bs-toggle="modal"
+												data-bs-target="#quickViewModal">
+												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
+													title="Quick View"></i>
+											</a>
+											<a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
+												data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
+											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
+												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
+										</div>
+									</div>
+									<!-- heading -->
+									<div class="text-small mb-1">
+										<a href="#!" class="text-decoration-none text-muted"><small>Bakery &
+												Biscuits</small></a>
+									</div>
+									<h2 class="fs-6"><a href="#!" class="text-inherit text-decoration-none">NutriChoice
+											Digestive</a></h2>
+									<div class="text-warning">
+										<small>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-half"></i>
+										</small>
+										<span class="text-muted small">4.5 (25)</span>
+									</div>
+									<!-- price -->
+									<div class="d-flex justify-content-between align-items-center mt-3">
+										<div><span class="text-dark">$24</span></div>
+										<!-- btn -->
+										<div>
+											<a href="#!" class="btn btn-primary btn-sm">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="feather feather-plus">
+													<line x1="12" y1="5" x2="12" y2="19"></line>
+													<line x1="5" y1="12" x2="19" y2="12"></line>
+												</svg>
+												Add
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- col -->
+						<div class="col">
+							<div class="card card-product">
+								<div class="card-body">
+									<!-- badge -->
+									<div class="text-center position-relative">
+										<a href="#!"><img src="/user/template/user_ui/assets/images/products/product-img-3.jpg"
+												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
+										<!-- action btn -->
+										<div class="card-product-action">
+											<a href="#!" class="btn-action" data-bs-toggle="modal"
+												data-bs-target="#quickViewModal">
+												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
+													title="Quick View"></i>
+											</a>
+											<a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
+												data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
+											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
+												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
+										</div>
+									</div>
+									<!-- heading -->
+									<div class="text-small mb-1">
+										<a href="#!" class="text-decoration-none text-muted"><small>Bakery &
+												Biscuits</small></a>
+									</div>
+									<h2 class="fs-6"><a href="#!" class="text-inherit text-decoration-none">Cadbury 5
+											Star
+											Chocolate</a></h2>
+									<div class="text-warning">
+										<small>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+										</small>
+										<span class="text-muted small">5 (469)</span>
+									</div>
+									<!-- price -->
+									<div class="d-flex justify-content-between align-items-center mt-3">
+										<div>
+											<span class="text-dark">$32</span>
+											<span class="text-decoration-line-through text-muted">$35</span>
+										</div>
+										<!-- btn -->
+										<div>
+											<a href="#!" class="btn btn-primary btn-sm">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="feather feather-plus">
+													<line x1="12" y1="5" x2="12" y2="19"></line>
+													<line x1="5" y1="12" x2="19" y2="12"></line>
+												</svg>
+												Add
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- col -->
+						<div class="col">
+							<div class="card card-product">
+								<div class="card-body">
+									<!-- badge -->
+									<div class="text-center position-relative">
+										<a href="#!"><img src="/user/template/user_ui/assets/images/products/product-img-4.jpg"
+												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
+										<!-- action btn -->
+										<div class="card-product-action">
+											<a href="#!" class="btn-action" data-bs-toggle="modal"
+												data-bs-target="#quickViewModal">
+												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
+													title="Quick View"></i>
+											</a>
+											<a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
+												data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
+											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
+												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
+										</div>
+									</div>
+									<!-- heading -->
+									<div class="text-small mb-1">
+										<a href="#!" class="text-decoration-none text-muted"><small>Snack &
+												Munchies</small></a>
+									</div>
+									<h2 class="fs-6"><a href="#!" class="text-inherit text-decoration-none">Onion
+											Flavour
+											Potato</a></h2>
+									<div class="text-warning">
+										<small>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-half"></i>
+											<i class="bi bi-star"></i>
+										</small>
+										<span class="text-muted small">3.5 (456)</span>
+									</div>
+									<!-- price -->
+									<div class="d-flex justify-content-between align-items-center mt-3">
+										<div>
+											<span class="text-dark">$3</span>
+											<span class="text-decoration-line-through text-muted">$5</span>
+										</div>
+										<!-- btn -->
+										<div>
+											<a href="#!" class="btn btn-primary btn-sm">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="feather feather-plus">
+													<line x1="12" y1="5" x2="12" y2="19"></line>
+													<line x1="5" y1="12" x2="19" y2="12"></line>
+												</svg>
+												Add
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- col -->
+						<div class="col">
+							<div class="card card-product">
+								<div class="card-body">
+									<!-- badge -->
+									<div class="text-center position-relative">
+										<a href="#!"><img src="/user/template/user_ui/assets/images/products/product-img-9.jpg"
+												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
+										<!-- action btn -->
+										<div class="card-product-action">
+											<a href="#!" class="btn-action" data-bs-toggle="modal"
+												data-bs-target="#quickViewModal">
+												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
+													title="Quick View"></i>
+											</a>
+											<a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
+												data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
+											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
+												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
+										</div>
+									</div>
+									<!-- heading -->
+									<div class="text-small mb-1">
+										<a href="#!" class="text-decoration-none text-muted"><small>Snack &
+												Munchies</small></a>
+									</div>
+									<h2 class="fs-6"><a href="#!" class="text-inherit text-decoration-none">Slurrp
+											Millet
+											Chocolate</a></h2>
+									<div class="text-warning">
+										<small>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-fill"></i>
+											<i class="bi bi-star-half"></i>
+										</small>
+										<span class="text-muted small">4.5 (67)</span>
+									</div>
+									<!-- price -->
+									<div class="d-flex justify-content-between align-items-center mt-3">
+										<div>
+											<span class="text-dark">$6</span>
+											<span class="text-decoration-line-through text-muted">$10</span>
+										</div>
+										<!-- btn -->
+										<div>
+											<a href="#!" class="btn btn-primary btn-sm">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="feather feather-plus">
+													<line x1="12" y1="5" x2="12" y2="19"></line>
+													<line x1="5" y1="12" x2="19" y2="12"></line>
+												</svg>
+												Add
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			</form>
+		</main>
+		
+	<script type="text/javascript">
+		
+	const thumbnails = document.querySelectorAll('#productThumbnails img');
+	const zoomDiv = document.querySelector('.zoom');
+	const zoomImg = zoomDiv.querySelector('img');
+
+	thumbnails.forEach(thumbnail => {
+	  thumbnail.addEventListener('click', () => {
+	    const largeSrc = thumbnail.getAttribute('data-large');
+
+	    // 큰 이미지 변경
+	    zoomDiv.style.backgroundImage = `url(${largeSrc})`;
+	    zoomImg.src = largeSrc;
+
+	    // 썸네일 테두리 active 변경
+	    thumbnails.forEach(img => img.classList.remove('active'));
+	    thumbnail.classList.add('active');
+	  });
+	});
+		
+	</script>	
+		<!-- Footer -->
+<div th:replace="~{usr/include/footer :: footer}"></div>
+		<!-- footer -->
+	
+
+</html>
