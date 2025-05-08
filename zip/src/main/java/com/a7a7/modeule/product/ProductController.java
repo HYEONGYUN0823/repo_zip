@@ -108,16 +108,16 @@ public class ProductController {
 		return "usr/product/ProductList";
 	}
 	
-	@RequestMapping(value = "/usr/product/ProductView")
+	@RequestMapping(value = "/usr/product/ProductUsrView")
 	public String productView(@ModelAttribute("vo") MemberVo vo, ProductDto productDto, Model model) throws Exception {
-		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
-//			insert mode
-		} else {
-//			update mode
-			model.addAttribute("item", productService.selectOne(productDto));
-		}
+//		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
+////			insert mode
+//		} else {
+////			update mode
+//			model.addAttribute("item", productService.selectOne(productDto));
+//		}
 		
-		return "usr/product/ProductView";
+		return "usr/product/ProductUsrView";
 	}
 	
 //	@GetMapping("/product/filter")
