@@ -488,6 +488,16 @@
 
 	let seq = document.querySelector("input[name=seq]");
 	let form = document.querySelector("form[name=formList]");
+	
+	document.getElementById("btnForm").onclick = function () {
+	    goForm(0);
+	}
+
+	goForm = function (keyValue) {
+	    seq.value = keyValue;
+	    form.action = goUrlXdmForm;
+	    form.submit();
+	}
 		
 	  const priceSlider = document.getElementById('priceRange');
 	  const priceValue = document.getElementById('priceRange-value');

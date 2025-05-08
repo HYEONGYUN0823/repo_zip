@@ -105,7 +105,7 @@ public class ProductController {
 		model.addAttribute("item", productService.selectOne(productDto));
 		model.addAttribute("itemFile", dto);
 		
-		return "usr/product/ProductList";
+		return "usr/product/ProductUsrList";
 	}
 	
 	@RequestMapping(value = "/usr/product/ProductUsrView")
