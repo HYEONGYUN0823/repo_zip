@@ -22,4 +22,6 @@ public interface ProductDao {
 	
 	public int selectOneCount(ProductVo vo);
 	
+//	public List<ProductDto> filterProducts(int minPrice, int maxPrice, List<Integer> ratings);
+	
 }

@@ -56,6 +56,10 @@ public class ProductService extends UploadService {
 	public int uelete(ProductDto productDto) {
 		return dao.uelete(productDto);
 	}
+
+//	public List<ProductDto> filterProducts(int minPrice, int maxPrice, List<Integer> ratings) {
+//	    return dao.filterProducts(minPrice, maxPrice, ratings);
+//	}
 	
 	
 	

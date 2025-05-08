@@ -7,9 +7,9 @@ public class ProductDto extends UploadDto {
 	private String seq;
 	private int brandName;
 	private String mealKitName;
-	private String stock;
-	private String price;
-	private String score;
+	private Integer stock;
+	private Integer price;
+	private double score;
 	private String ingredient;
 	private String mealDelNy;
 	private String mealUseNy;
@@ -46,22 +46,22 @@ public class ProductDto extends UploadDto {
 	public void setMealKitName(String mealKitName) {
 		this.mealKitName = mealKitName;
 	}
-	public String getStock() {
+	public Integer getStock() {
 		return stock;
 	}
-	public void setStock(String stock) {
+	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
-	public String getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
-	public String getScore() {
+	public double getScore() {
 		return score;
 	}
-	public void setScore(String score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 	public String getIngredient() {

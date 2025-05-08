@@ -1,12 +1,19 @@
 package com.a7a7.modeule.product;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a7a7.common.util.UtilDateTime;
+import com.a7a7.modeule.member.MemberDto;
+import com.a7a7.modeule.member.MemberVo;
 import com.a7a7.modeule.upload.UploadDto;
 import com.a7a7.modeule.upload.UploadService;
 
@@ -88,7 +95,7 @@ public class ProductController {
 	 					웹사이트
 	 ########################################################*/
 	
-	@RequestMapping(value = "/usr/product/ProductList")
+	@RequestMapping(value = "/usr/product/ProductUsrList")
 	public String productList(@ModelAttribute("vo") ProductListVo vo, @ModelAttribute("productVo") ProductVo productVo, ProductDto productDto, UploadDto uploadDto, Model model) throws Exception {
 		setSearchProduct(vo);
 		vo.setParamsPaging(productService.selectOneCount(productVo));
@@ -102,13 +109,24 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/usr/product/ProductView")
-	public String productView() {
-		
+	public String productView(@ModelAttribute("vo") MemberVo vo, ProductDto productDto, Model model) throws Exception {
+		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
+//			insert mode
+		} else {
+//			update mode
+			model.addAttribute("item", productService.selectOne(productDto));
+		}
 		
 		return "usr/product/ProductView";
 	}
 	
-	
+//	@GetMapping("/product/filter")
+//	@ResponseBody
+//	public List<ProductDto> filterProducts(@RequestParam int minPrice,
+//	                                       @RequestParam int maxPrice,
+//	                                       @RequestParam List<Integer> ratings) {
+//	    return productService.filterProducts(minPrice, maxPrice, ratings);
+//	}
 	
 	
 }

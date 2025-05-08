@@ -144,5 +144,17 @@
 	    ) aa
 	    limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
+	
+<!-- 	<select id="filterProducts" resultType="resultMapObj"> -->
+<!-- 	    SELECT *  -->
+<!-- 	    FROM mealKit -->
+<!-- 	    WHERE price BETWEEN #{minPrice} AND #{maxPrice} -->
+<!-- 	    <if test="ratings != null and ratings.size() > 0"> -->
+<!-- 	        AND rating IN -->
+<!-- 	        <foreach collection="ratings" item="rating" open="(" separator="," close=")"> -->
+<!-- 	            #{rating} -->
+<!-- 	        </foreach> -->
+<!-- 	    </if> -->
+<!-- 	</select> -->
 
 </mapper>
