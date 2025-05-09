@@ -109,24 +109,16 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/usr/product/ProductUsrView")
-	public String productView(@ModelAttribute("vo") MemberVo vo, ProductDto productDto, Model model) throws Exception {
-//		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
-////			insert mode
-//		} else {
-////			update mode
-//			model.addAttribute("item", productService.selectOne(productDto));
-//		}
-		
+	public String productView(@ModelAttribute("vo") MemberVo vo, ProductDto productDto, UploadDto uploadDto, Model model) throws Exception {
+		// 상품 정보
+		model.addAttribute("item", productService.selectOne(productDto));
+
+		// 이미지 정보
+		uploadDto.setPseq(productDto.getSeq());
+		UploadDto itemFile = uploadService.selectOne(uploadDto);
+		model.addAttribute("itemFile", itemFile);
+
 		return "usr/product/ProductUsrView";
 	}
-	
-//	@GetMapping("/product/filter")
-//	@ResponseBody
-//	public List<ProductDto> filterProducts(@RequestParam int minPrice,
-//	                                       @RequestParam int maxPrice,
-//	                                       @RequestParam List<Integer> ratings) {
-//	    return productService.filterProducts(minPrice, maxPrice, ratings);
-//	}
-	
 	
 }

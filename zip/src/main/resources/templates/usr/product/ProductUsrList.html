@@ -215,13 +215,12 @@
 <!--                                     <span class="badge bg-danger">Sale</span> -->
                                  </div>
                                  <div style="display:none;" th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></div>
-                                 <a href="javascript:void(0);" th:attr="onclick=|goForm('${list.seq}')|">
-                                    <!-- img -->
-                                    <img id="previewImg1"
-                                    	 th:src="@{${list.path}}" 
-						                 alt="밀키트 이미지"
-						                 class="mb-3 img-fluid" />
-                                 </a>
+<a th:href="@{/usr/product/ProductUsrView(seq=${list.seq})}">
+    <img id="previewImg1"
+         th:src="@{${list.path}}" 
+         alt="밀키트 이미지"
+         class="mb-3 img-fluid" />
+</a>
                                  <!-- action btn -->
                                  <div class="card-product-action">
                                     <a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
@@ -234,9 +233,11 @@
                                                 	th:if="${#strings.equals(codeList.ifcdSeq, list.brandName)}"
                                                 	th:text="${codeList.ifcdName}">백종원 레시피</small></a>
 								</div>
-                              <h2 class="fs-6"><a href="javascript:void(0);" class="text-inherit text-decoration-none"
-										             th:text="${list.mealKitName}"
-										             th:attr="onclick=|goForm('${list.seq}')|">계란볶음밥</a></h2>
+<h2 class="fs-6">
+    <a th:href="@{/usr/product/ProductUsrView(seq=${list.seq})}"
+       class="text-inherit text-decoration-none"
+       th:text="${list.mealKitName}">계란볶음밥</a>
+</h2>
                               <div>
                                  <!-- rating -->
                                  <small class="text-warning">
@@ -488,16 +489,6 @@
 
 	let seq = document.querySelector("input[name=seq]");
 	let form = document.querySelector("form[name=formList]");
-	
-	document.getElementById("btnForm").onclick = function () {
-	    goForm(0);
-	}
-
-	goForm = function (keyValue) {
-	    seq.value = keyValue;
-	    form.action = goUrlXdmForm;
-	    form.submit();
-	}
 		
 	  const priceSlider = document.getElementById('priceRange');
 	  const priceValue = document.getElementById('priceRange-value');
