@@ -3,7 +3,6 @@
 
 <div th:replace="~{usr/include/head :: head}"></div>
 
-
 <script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
 
 		<main>
@@ -22,7 +21,7 @@
 									<li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
 									<li class="breadcrumb-item"><a href="/usr/product/ProductUsrList">밀키트</a></li>
 
-									<li class="breadcrumb-item active" aria-current="page">계란볶음밥</li>
+									<li class="breadcrumb-item active" aria-current="page" th:text=${item.mealKitName}>계란볶음밥</li>
 								</ol>
 							</nav>
 						</div>
@@ -98,7 +97,7 @@
           </div>
 
           <div class="fs-4">
-            <span class="fw-bold text-dark" th:text=${item.price}>3,500￦</span>
+<!--             <span class="fw-bold text-dark" th:text=${item.price}>3,500￦</span> -->
 <!--             <span class="text-decoration-line-through text-muted">4,000￦</span> -->
 <!--             <span><small class="fs-6 ms-2 text-danger">12.5% sale</small></span> -->
           </div>
@@ -134,18 +133,19 @@
           </div>
 
 <div class="mt-8">
-<div class="d-flex align-items-center gap-3 mb-3">
+<div class="product-item d-flex align-items-center gap-3 mb-3">
   <!-- 가격 -->
-  <div class="fs-3 fw-bold text-dark" id="total-price">
+  <div class="fs-3 fw-bold text-dark total-price">
     <span th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')} + '원'">3,500원</span>
   </div>
 
   <!-- 수량 -->
   <div class="input-group input-spinner w-auto">
-    <input type="button" value="-" class="button-minus btn btn-sm" data-field="quantity" />
-    <input type="number" step="1" max="10" value="1" name="quantity"
-           class="quantity-field form-control-sm form-input" id="quantity" data-price="3500" />
-    <input type="button" value="+" class="button-plus btn btn-sm" data-field="quantity" />
+    <input type="button" value="-" class="button-minus btn btn-sm" />
+	<input type="number" step="1" max="10" value="1"
+	       class="quantity-field form-control-sm form-input"
+	       th:attr="data-price=${item.price}" />
+    <input type="button" value="+" class="button-plus btn btn-sm" />
   </div>
 </div>
 
@@ -172,7 +172,6 @@
       </div>
 
     </div> <!-- row 끝 -->
-  </div>
 </section>
 			
 			
@@ -1062,38 +1061,52 @@
 	  });
 	});
 	
-	// 수량 변경 시 총 가격을 업데이트하는 함수
-	function updateTotalPrice() {
-	  // 수량 가져오기
-	  let quantity = parseInt(document.getElementById('quantity').value);
-	  // 원래 가격 가져오기
-	  let unitPrice = parseInt(document.getElementById('quantity').getAttribute('data-price'));
-	  // 총 가격 계산
-	  let totalPrice = unitPrice * quantity;
-	  // 총 가격 업데이트
-	  document.getElementById('total-price').innerText = totalPrice.toLocaleString() + '원';
+	// 수량 변경 시 총 가격 업데이트 함수
+	function updateTotalPrice(container) {
+	  const quantityInput = container.querySelector('.quantity-field');
+	  const quantity = parseInt(quantityInput.value);
+	  const unitPrice = parseInt(quantityInput.getAttribute('data-price'));
+	  const totalPrice = unitPrice * quantity;
+	  container.querySelector('.total-price span').innerText = totalPrice.toLocaleString() + '원';
 	}
 
-	// 수량이 변경될 때마다 실행
-	document.getElementById('quantity').addEventListener('input', updateTotalPrice);
-
-	// 수량 +, - 버튼에 이벤트 추가
-	document.querySelector('.button-minus').addEventListener('click', function() {
-	  let quantity = parseInt(document.getElementById('quantity').value);
-	  if (quantity > 1) {
-	    document.getElementById('quantity').value = quantity - 1;
-	    updateTotalPrice();
-	  }
+	// + 버튼 클릭 이벤트
+	document.querySelectorAll('.button-plus').forEach(button => {
+	  button.addEventListener('click', function(e) {
+	    e.preventDefault();
+	    const container = this.closest('.product-item');
+	    const quantityInput = container.querySelector('.quantity-field');
+	    quantityInput.value = parseInt(quantityInput.value) + 1;
+	    updateTotalPrice(container);
+	  });
 	});
 
-	document.querySelector('.button-plus').addEventListener('click', function() {
-	  let quantity = parseInt(document.getElementById('quantity').value);
-	  document.getElementById('quantity').value = quantity + 1;
-	  updateTotalPrice();
+	// - 버튼 클릭 이벤트
+	document.querySelectorAll('.button-minus').forEach(button => {
+	  button.addEventListener('click', function(e) {
+	    e.preventDefault();
+	    const container = this.closest('.product-item');
+	    const quantityInput = container.querySelector('.quantity-field');
+	    const quantity = parseInt(quantityInput.value);
+	    if (quantity > 1) {
+	      quantityInput.value = quantity - 1;
+	      updateTotalPrice(container);
+	    }
+	  });
 	});
 
-	// 초기 금액 계산
-	updateTotalPrice();
+	// 수량 직접 입력 시
+	document.querySelectorAll('.quantity-field').forEach(input => {
+	  input.addEventListener('input', function() {
+	    const container = this.closest('.product-item');
+	    updateTotalPrice(container);
+	  });
+	});
+
+	// 페이지 로드시 초기 총 가격 세팅
+	document.querySelectorAll('.product-item').forEach(item => {
+	  updateTotalPrice(item);
+	});
 		
 	</script>	
 		<!-- Footer -->
