@@ -9,28 +9,34 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class CartService {
-
+	
+	private static final String CART_SESSION_KEY = "cart";
+	
     // 장바구니에 상품 추가
     public void addToCart(HttpSession session, CartDto item) {
-        List<CartDto> cart = (List<CartDto>) session.getAttribute("cart");
+        List<CartDto> cart = (List<CartDto>) session.getAttribute(CART_SESSION_KEY);
         if (cart == null) {
             cart = new ArrayList<>();
         }
         cart.add(item);
-        session.setAttribute("cart", cart);  // 세션에 장바구니 다시 저장
+        session.setAttribute(CART_SESSION_KEY, cart);  // 세션에 장바구니 다시 저장
     }
 
     // 장바구니에서 상품 제거
-    public void removeFromCart(HttpSession session, String productId) {
-        List<CartDto> cart = (List<CartDto>) session.getAttribute("cart");
+    public void removeFromCart(HttpSession session, String productSeq) {  // productId -> productSeq로 변경
+        List<CartDto> cart = (List<CartDto>) session.getAttribute(CART_SESSION_KEY);
         if (cart != null) {
-            cart.removeIf(item -> item.getProductId().equals(productId));  // 해당 상품 제거
-            session.setAttribute("cart", cart);  // 세션에 장바구니 다시 저장
+            cart.removeIf(item -> item.getProductSeq().equals(productSeq));  // 해당 상품 제거
+            session.setAttribute(CART_SESSION_KEY, cart);  // 세션에 장바구니 다시 저장
         }
     }
 
     // 장바구니 조회
     public List<CartDto> getCart(HttpSession session) {
-        return (List<CartDto>) session.getAttribute("cart");
+        List<CartDto> cart = (List<CartDto>) session.getAttribute(CART_SESSION_KEY);
+        if (cart == null) {
+            cart = new ArrayList<>();
+        }
+        return cart;
     }
 }

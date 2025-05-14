@@ -142,28 +142,25 @@
   <!-- 수량 -->
   <div class="input-group input-spinner w-auto">
     <input type="button" value="-" class="button-minus btn btn-sm" />
-	<input type="number" step="1" max="10" value="1"
+	<input type="number" id="quantity" value="1" min="1" max="10"
 	       class="quantity-field form-control-sm form-input"
 	       th:attr="data-price=${item.price}" />
     <input type="button" value="+" class="button-plus btn btn-sm" />
   </div>
 </div>
 
-  <!-- 장바구니 & 찜 버튼 -->
-  <div class="mt-3 row justify-content-start g-2 align-items-center">
-    <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
-      <button type="button" onclick="location.href='shop-cart.html'"
-              class="btn btn-primary" href="shop-cart.html">
-        <i class="feather-icon icon-shopping-bag me-2"></i>
-        장바구니에 넣기
-      </button>
-    </div>
-    <div class="col-md-4 col-4">
-      <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip"
-         data-bs-html="true" aria-label="Wishlist">
-        <i class="feather-icon icon-heart"></i>
-      </a>
-    </div>
+<!-- 장바구니 & 찜 버튼 -->
+<div class="mt-3 row justify-content-start g-2 align-items-center">
+  <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
+    <!-- 기존 버튼을 <input>으로 변경 -->
+<input type="button" value="장바구니에 넣기" class="btn btn-primary"
+       onclick="addToCart('${item.seq}', '${item.mealKitName}', document.getElementById('quantity').value, parseInt('${item.price}'))" />
+  </div>
+  <div class="col-md-4 col-4">
+    <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip"
+       data-bs-html="true" aria-label="Wishlist">
+      <i class="feather-icon icon-heart"></i>
+    </a>
   </div>
 </div>
 
@@ -1108,7 +1105,31 @@
 	  updateTotalPrice(item);
 	});
 		
-	</script>	
+	</script>
+	
+	<script type="text/javascript">
+		
+	fetch("/cart/add", {
+		  method: "POST",
+		  headers: { "Content-Type": "application/json" },
+		  body: JSON.stringify({
+		    productId,
+		    productName,
+		    productPrice,
+		    quantity
+		  })
+		})
+		.then(res => res.json())
+		.then(data => {
+		  if (data.success) {
+		    alert("장바구니에 담겼습니다!");
+		    location.href = "/cart/view";
+		  } else {
+		    alert("장바구니 담기 실패");
+		  }
+		});
+		
+	</script>
 		<!-- Footer -->
 <div th:replace="~{usr/include/footer :: footer}"></div>
 		<!-- footer -->

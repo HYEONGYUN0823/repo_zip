@@ -7,12 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
 
-@Controller  // @Controller는 그대로 사용
+@Controller
 public class CartController {
 
     @Autowired
@@ -21,26 +21,24 @@ public class CartController {
     // 장바구니에 상품 추가
     @PostMapping("/cart/add")
     @ResponseBody
-    public String addToCart(@RequestParam String productId, @RequestParam int quantity,
-                            @RequestParam int price, HttpSession session) {
-        CartDto item = new CartDto(productId, quantity, price);
-        cartService.addToCart(session, item);  // 서비스 호출
-        return "ok";  // 응답 본문에 "ok" 문자열을 반환
-    }
+    public String addToCart(@RequestBody CartDto cartDto, HttpSession session) {
+        // 로그인 여부 체크
+        String loginId = (String) session.getAttribute("loginId");
+        if (loginId == null) {
+            return "not_logged_in";  // 로그인하지 않았으면 처리하지 않음
+        }
 
-    // 장바구니에서 상품 제거
-    @PostMapping("/cart/remove")
-    @ResponseBody
-    public String removeFromCart(@RequestParam String productId, HttpSession session) {
-        cartService.removeFromCart(session, productId);  // 서비스 호출
-        return "ok";  // 응답 본문에 "ok" 문자열을 반환
+        // 장바구니에 상품 추가
+        cartService.addToCart(session, cartDto); 
+
+        return "ok";  // 성공 메시지
     }
 
     // 장바구니 조회
-    @GetMapping("/cart")
+    @GetMapping("/usr/cart/CartUsrList")
     public String viewCart(HttpSession session, Model model) {
-        List<CartDto> cart = cartService.getCart(session);  // 서비스 호출
-        model.addAttribute("cart", cart);  // 장바구니 목록을 뷰에 전달
-        return "cart/viewCart";  // 장바구니 페이지로 이동
+        List<CartDto> cart = cartService.getCart(session);  // 세션에서 장바구니 가져오기
+        model.addAttribute("cart", cart);  // 장바구니 데이터 모델에 추가
+        return "usr/cart/CartUsrList";  // 장바구니 목록 페이지로 이동
     }
 }
