@@ -87,7 +87,7 @@ public class MemberController {
 	@RequestMapping(value = "/xdm/signin/signinXdm")
 	public String memberXdmList(HttpSession httpSession, MemberDto memberDto) throws Exception {
 		
-		return "xdm/signin/signinXdm";
+		return "xdm/signin/SigninXdm";
 	}
 
 	
@@ -297,7 +297,7 @@ public class MemberController {
 
 		memberService.uelete(memberDto);
 		
-		return "redirect:/usr/signin/signinUsr";
+		return "redirect:/usr/signin/SigninUsr";
 	}
 	
 	@RequestMapping(value = "/usr/member/MemberUsrUpdt")

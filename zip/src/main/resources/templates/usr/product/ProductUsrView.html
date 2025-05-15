@@ -43,37 +43,6 @@
        alt="" />
 </div>
         </div>
-
-        <!-- 썸네일 영역 -->
-<!--         <div class="product-tools mt-3"> -->
-<!--           <div class="thumbnails row g-3" id="productThumbnails"> -->
-<!--             <div class="col-3"> -->
-<!--               <div class="thumbnails-img"> -->
-<!--                 <img src="/user/template/user_ui/assets/images/products/product-single-img-1.jpg" -->
-<!--                      data-large="/user/template/user_ui/assets/images/products/product-single-img-1.jpg"  -->
-<!--                      alt="" class="active" /> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--             <div class="col-3"> -->
-<!--               <div class="thumbnails-img"> -->
-<!--                 <img src="/user/template/user_ui/assets/images/products/product-single-img-2.jpg" -->
-<!--                      data-large="/user/template/user_ui/assets/images/products/product-single-img-2.jpg" alt="" /> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--             <div class="col-3"> -->
-<!--               <div class="thumbnails-img"> -->
-<!--                 <img src="/user/template/user_ui/assets/images/products/product-single-img-3.jpg" -->
-<!--                      data-large="/user/template/user_ui/assets/images/products/product-single-img-3.jpg" alt="" /> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--             <div class="col-3"> -->
-<!--               <div class="thumbnails-img"> -->
-<!--                 <img src="/user/template/user_ui/assets/images/products/product-single-img-4.jpg" -->
-<!--                      data-large="/user/template/user_ui/assets/images/products/product-single-img-4.jpg" alt="" /> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--           </div> -->
-<!--         </div> -->
       </div>
 
       <!-- 오른쪽 상품 정보 영역 -->
@@ -109,15 +78,15 @@
               <tbody>
                 <tr>
                   <td>제품 코드:</td>
-                  <td th:text=${item.seq}>FBB00255</td>
+                  <td th:text="${item.seq}">FBB00255</td>
                 </tr>
                 <tr>
                   <td>재고:</td>
-                  <td>있음</td>
+                  <td th:text="${item.stock} + '개'">있음</td>
                 </tr>
                 <tr>
                   <td>재료:</td>
-                  <td th:text=${item.ingredient}>밥, 파, 당근, 달걀, 간장, 식용유, 참기름, 통깨, 소금, 후추</td>
+                  <td th:text="${item.ingredient}">밥, 파, 당근, 달걀, 간장, 식용유, 참기름, 통깨, 소금, 후추</td>
                 </tr>
                 <tr>
                   <td>배송:</td>
@@ -153,8 +122,12 @@
 <div class="mt-3 row justify-content-start g-2 align-items-center">
   <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
     <!-- 기존 버튼을 <input>으로 변경 -->
-<input type="button" value="장바구니에 넣기" class="btn btn-primary"
-       onclick="addToCart('${item.seq}', '${item.mealKitName}', document.getElementById('quantity').value, parseInt('${item.price}'))" />
+<!-- 결제용 폼 -->
+
+  <input type="hidden" name="quantity" id="formQuantity" value="1">
+  <input type="hidden" name="totalPrice" id="formTotalPrice" value="3500">
+  <input type="submit" value="결제하기" class="btn btn-primary">
+
   </div>
   <div class="col-md-4 col-4">
     <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip"
@@ -167,7 +140,7 @@
           </div>
         </div>
       </div>
-
+</div>
     </div> <!-- row 끝 -->
 </section>
 			
@@ -1105,30 +1078,18 @@
 	  updateTotalPrice(item);
 	});
 		
-	</script>
 	
-	<script type="text/javascript">
-		
-	fetch("/cart/add", {
-		  method: "POST",
-		  headers: { "Content-Type": "application/json" },
-		  body: JSON.stringify({
-		    productId,
-		    productName,
-		    productPrice,
-		    quantity
-		  })
-		})
-		.then(res => res.json())
-		.then(data => {
-		  if (data.success) {
-		    alert("장바구니에 담겼습니다!");
-		    location.href = "/cart/view";
-		  } else {
-		    alert("장바구니 담기 실패");
-		  }
-		});
-		
+	// 결제 submit 시 수량과 총 가격 설정
+	document.getElementById('formList').addEventListener('submit', function(e) {
+	  const quantityInput = document.querySelector('.quantity-field');
+	  const quantity = parseInt(quantityInput.value);
+	  const unitPrice = parseInt(quantityInput.getAttribute('data-price'));
+	  const totalPrice = unitPrice * quantity;
+
+	  document.getElementById('formQuantity').value = quantity;
+	  document.getElementById('formTotalPrice').value = totalPrice;
+	});
+	
 	</script>
 		<!-- Footer -->
 <div th:replace="~{usr/include/footer :: footer}"></div>
