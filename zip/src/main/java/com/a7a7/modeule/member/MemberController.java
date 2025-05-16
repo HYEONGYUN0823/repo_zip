@@ -258,6 +258,12 @@ public class MemberController {
 		return "redirect:/usr/signin/signinUsr";
 	}
 	
+	@RequestMapping(value = "/usr/setting/AccountOrdersUsrList")
+	public String accountOrdersUsrList() {
+		return "usr/setting/AccountOrders";
+	}
+	
+	
 	@RequestMapping(value = "/usr/setting/userUiUsrSettings")
 	public String memberUsrSettings() {
 		return "usr/setting/userUiSettings";
@@ -387,7 +393,7 @@ public class MemberController {
 	    boolean check = matchesBcrypt(memberDto.getPassWord(), reMember.getPassWord(), 10);
 
 	    if (reMember != null && check) {
-	        httpSession.setAttribute("passwordVerified", true); // ✅ 여기 추가
+	        httpSession.setAttribute("passwordVerified", true);
 	        returnMap.put("rt", "success");
 	    } else {
 	        returnMap.put("rt", "fail");

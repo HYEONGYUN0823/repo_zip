@@ -16,8 +16,8 @@
 						<!-- breadcrumb -->
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0">
-								<li class="breadcrumb-item"><a href="#!">홈</a></li>
-								<li class="breadcrumb-item"><a href="#!">상점</a></li>
+								<li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
+								<li class="breadcrumb-item"><a href="/usr/product/ProductUsrList">밀키트</a></li>
 								<li class="breadcrumb-item active" aria-current="page">결제하기</li>
 							</ol>
 						</nav>
@@ -76,16 +76,15 @@
 														</div>
 														<!-- address -->
 														<address>
-															<strong>김OO</strong>
+															<a>이름 : </a><a th:text="${user.name}">김OO</a>
 															<br />
-
-															서울특별시 도봉구 OO동 OO길 32
+<!-- 															주소 -->
+															<a th:text="${user.roadNameAddress} + ' '"></a><a th:text="${user.detailedAddress}"></a>
 															<br />
-
-															OO아파트 OO동 OO호
+<!-- 															상세주소 -->
+															<a th:text="'(' + ${user.zipCode} + ')'"></a>
 															<br />
-
-															<abbr title="Phone">전화번호 : 010-0000-1111</abbr>
+															<abbr title="Phone" th:text="'휴대전화번호 : ' + ${user.phoneNumber}">전화번호 : 010-0000-1111</abbr>
 														</address>
 														<span class="text-danger">기본 주소</span>
 													</div>
@@ -1305,7 +1304,7 @@
 														aria-expanded="false" aria-controls="flush-collapseThree">
 														이전
 													</a>
-													<a href="#" class="btn btn-primary ms-2">주문하기</a>
+													<a href="/usr/setting/AccountOrdersUsrList" class="btn btn-primary ms-2">주문하기</a>
 												</div>
 											</div>
 										</div>
