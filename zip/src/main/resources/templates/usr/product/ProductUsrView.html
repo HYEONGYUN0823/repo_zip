@@ -38,7 +38,7 @@
 <div class="zoom"
      onmousemove="zoom(event)"
      th:style="|background-image: url('${itemFile.path}')|">
-  <img th:src="@{${itemFile.path}}"
+  <img id="productImage" th:src="@{${itemFile.path}}"
        style="height: 675px"
        alt="" />
 </div>
@@ -48,11 +48,11 @@
       <!-- 오른쪽 상품 정보 영역 -->
       <div class="col-md-7 col-xl-6">
         <div class="ps-lg-10 mt-4 mt-md-0"> <!-- 필요 없으면 mt-4 빼도 됨 -->
-<a href="#!" class="mb-4 d-block"
+<a href="#!" id="brandName" class="mb-4 d-block"
    th:each="codeList : ${@codeService.selectListCachedCode(3)}"
    th:if="${#strings.equals(codeList.ifcdSeq, item.brandName)}"
    th:text="${codeList.ifcdName}">브랜드명</a>
-          <h1 class="mb-1" th:text=${item.mealKitName}>계란볶음밥</h1>
+          <h1 id="mealKitName" class="mb-1" th:text=${item.mealKitName}>계란볶음밥</h1>
 
           <div class="mb-4">
             <small class="text-warning">
@@ -124,9 +124,10 @@
     <!-- 기존 버튼을 <input>으로 변경 -->
 <!-- 결제용 폼 -->
 
-  <input type="hidden" name="quantity" id="formQuantity" value="1">
+  <input type="hidden" name="seq" id="formSeq" th:value="${item.seq}">
+<!--   <input type="number" name="quantity" id="quantity" class="quantity-field" data-price="3500" value="1" min="1"> -->
   <input type="hidden" name="totalPrice" id="formTotalPrice" value="3500">
-  <button type="button" class="btn btn-primary" onclick="location.href='/usr/checkout/CheckoutUsrList'">결제하기</button>
+  <button id="checkoutLink" class="btn btn-primary" type="button" onclick="goToCheckout()">결제하기</button>
 <!--   <input type="submit" value="결제하기" class="btn btn-primary"> -->
 
   </div>
@@ -1082,14 +1083,24 @@
 	
 	// 결제 submit 시 수량과 총 가격 설정
 	document.getElementById('formList').addEventListener('submit', function(e) {
-	  const quantityInput = document.querySelector('.quantity-field');
+	  const quantityInput = document.getElementById('quantity');
 	  const quantity = parseInt(quantityInput.value);
 	  const unitPrice = parseInt(quantityInput.getAttribute('data-price'));
 	  const totalPrice = unitPrice * quantity;
-
-	  document.getElementById('formQuantity').value = quantity;
+	
 	  document.getElementById('formTotalPrice').value = totalPrice;
 	});
+	
+	function goToCheckout() {
+	  const quantityInput = document.getElementById('quantity');
+	  const quantity = quantityInput.value;
+	  const price = quantityInput.getAttribute('data-price');
+	  const seq = document.getElementById('formSeq').value;
+	  const totalPrice = quantity * price;
+	
+	  // URL에 seq도 넣어서 이동
+	  location.href = `/usr/checkout/CheckoutUsrList?seq=${seq}&quantity=${quantity}&totalPrice=${totalPrice}`;
+	}
 	
 	</script>
 		<!-- Footer -->
