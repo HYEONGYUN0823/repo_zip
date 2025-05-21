@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{usr/include/head :: head}"></div>
+
+<main>
+  <div class="mt-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
+              <li class="breadcrumb-item"><a href="/usr/product/ProductUsrList">밀키트</a></li>
+              <li class="breadcrumb-item active" aria-current="page">결제 실패</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="mb-lg-14 mb-8 mt-8">
+    <div class="container text-center">
+      <h1 class="fw-bold text-danger mb-4">결제가 실패했습니다.</h1>
+      <p class="mb-3">사유: <strong th:text="${message}">카드 한도 초과</strong></p>
+      <p class="mb-3">에러코드: <strong th:text="${code}">ERROR_CODE</strong></p>
+      <a href="/usr/product/ProductUsrList" class="btn btn-outline-danger mt-4">상품 다시 보기</a>
+    </div>
+  </section>
+</main>
+
+<div th:replace="~{usr/include/footer :: footer}"></div>
+</html>

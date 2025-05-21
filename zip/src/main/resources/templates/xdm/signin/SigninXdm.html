@@ -175,6 +175,25 @@
 	}
     	
     </script>
+    
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const idInput = document.getElementById("iD");
+    const passwordInput = document.getElementById("passWord");
+    const loginButton = document.getElementById("buttonSignIn");
+
+    function handleEnterKey(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        loginButton.click();
+      }
+    }
+
+    idInput.addEventListener("keydown", handleEnterKey);
+    passwordInput.addEventListener("keydown", handleEnterKey);
+  });
+</script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Required vendors -->
 </body>
