@@ -3,6 +3,17 @@
 
 <div th:replace="~{usr/include/head :: head}"></div>
 
+<style>
+  .garo {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .fail-icon {
+    font-size: 80px;
+    color: #e74c3c;
+  }
+</style>
+
 <main>
   <div class="mt-4">
     <div class="container">
@@ -20,15 +31,19 @@
     </div>
   </div>
 
-  <section class="mb-lg-14 mb-8 mt-8">
-    <div class="container text-center">
-      <h1 class="fw-bold text-danger mb-4">결제가 실패했습니다.</h1>
-      <p class="mb-3">사유: <strong th:text="${message}">카드 한도 초과</strong></p>
-      <p class="mb-3">에러코드: <strong th:text="${code}">ERROR_CODE</strong></p>
-      <a href="/usr/product/ProductUsrList" class="btn btn-outline-danger mt-4">상품 다시 보기</a>
+
+  <div class="container garo text-center py-5">
+    <div class="mb-4">
+      <i class="fail-icon">&#10060;</i> <!-- 유니코드 X 아이콘 -->
     </div>
-  </section>
-</main>
+    <h1 class="mb-3">결제에 실패했습니다</h1>
+    <p class="lead mb-4">죄송합니다. 결제 과정에서 오류가 발생했습니다.<br>다시 시도하거나 고객센터에 문의해 주세요.</p>
+
+    <div class="d-flex justify-content-center gap-3">
+      <a href="/usr/product/ProductUsrList" class="btn btn-outline-danger">돌아가기</a>
+    </div>
+  </div>
+  </main>
 
 <div th:replace="~{usr/include/footer :: footer}"></div>
 </html>

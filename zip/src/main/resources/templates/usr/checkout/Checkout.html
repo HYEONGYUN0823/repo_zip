@@ -275,6 +275,16 @@
 	
       <script>
       
+      /*<![CDATA[*/
+      const totalPrice = [[${totalPrice}]];
+      const rawPhone = /*[[${sessPhoneUsr != null}]]*/ false ? '[[${sessPhoneUsr}]]' : '';
+      console.log("원본 폰번호:", rawPhone);
+
+      const customerMobilePhone = rawPhone.replace(/[^0-9]/g, '');
+      console.log("특수문자 제거 후:", customerMobilePhone);
+      console.log("최종 결제에 넘길 전화번호:", customerMobilePhone);
+      /*]]>*/
+      
       const productType = "mealKit";  // 실제로 결제하는 상품 타입으로 바꿔주세요
       const productId = "12";           // 실제 상품 ID 값으로 바꿔주세요
       
@@ -298,10 +308,10 @@
           method: "CARD", // 카드 결제
           amount: {
             currency: "KRW",
-            value: 1,
+            value: totalPrice,
           },
-          orderId: "n1CJ-fTjD3R4SkDDHoa8s", // 고유 주문번호
-          orderName: "토스 티셔츠 외 2건",
+          orderId: "mealKit-12-" + new Date().getTime(), // 예시: mealKit-12-시간값
+          orderName: document.getElementById("mealKitName").textContent,
           successUrl: window.location.origin + "/usr/payment/PaymentUsrSuccess", // 결제 요청이 성공하면 리다이렉트되는 URL,
           failUrl: window.location.origin + "/usr/payment/PaymentUsrFail", // 결제 요청이 실패하면 리다이렉트되는 URL,
           customerEmail: "customer123@gmail.com",
