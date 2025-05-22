@@ -40,6 +40,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-aws
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 	
+	// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.5'
+	
 }
 
 tasks.named('test') {

@@ -246,9 +246,9 @@
                                             class="fa-regular fa-trash-can"></i></button>
                                     <button type="button" id="btnForm" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
-                                    <button type="button" class="btn btn-success"
+                                    <a href="#" id="btnExcel" class="btn btn-success"
                                         style="float: right; margin-right: 4px;"><i
-                                            class="fa-regular fa-file-excel"></i></button>
+                                            class="fa-regular fa-file-excel"></i></a>
                                     <button type="button" class="btn btn-primary"
                                         style="float: right; margin-right: 4px;"><i class="fa-solid fa-u"></i></button>
                                         
@@ -333,6 +333,12 @@
 		        form.action = goUrlXdmUele;
 		        form.submit();
 		    }
+		}
+		
+		document.getElementById("btnExcel").onclick = function(e) {
+		    e.preventDefault();
+		    const rowNum = document.getElementById("changeRowNum").value;
+		    window.location.href = "/excelDownload?rowNumToShow=" + rowNum;
 		}
 	</script>
 	<div th:replace="~{xdm/include/checkBox :: checkBox}"></div>
