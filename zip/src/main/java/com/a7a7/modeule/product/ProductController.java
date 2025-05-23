@@ -1,14 +1,5 @@
 package com.a7a7.modeule.product;
 
-import java.util.List;
-
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.a7a7.common.util.UtilDateTime;
-import com.a7a7.modeule.codegroup.CodeGroupDto;
 import com.a7a7.modeule.member.MemberVo;
 import com.a7a7.modeule.upload.UploadDto;
 import com.a7a7.modeule.upload.UploadService;
-
-import jakarta.servlet.http.HttpServletResponse;
 
 
 
@@ -163,55 +151,61 @@ public class ProductController {
 //			for (int i = 0; i < list.size(); i++) {
 //			    row = sheet.createRow(rowNum++);
 //
-//			    // 0. 사용 여부
-////			    cell = row.createCell(1);
+//			    // 0. 코드
+////			    cell = row.createCell(0);
 ////			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
 ////			    cell.setCellStyle(cellStyle);
 ////			    cell.setCellValue(Integer.parseInt(list.get(i).getSeq()));
 ////			    }
 //
-//			    // 1. 코드그룹 코드
+//			    // 1. 브랜드
 //			    cell = row.createCell(1);
 //			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
 //			    cell.setCellStyle(cellStyle);
 //			    cell.setCellValue(list.get(i).getBrandName());
 //
-//			    // 2. 코드그룹 이름
+//			    // 2. 밀키트 이름
 //			    cell = row.createCell(2);
+//			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
+//			    cell.setCellStyle(cellStyle);
+//			    cell.setCellValue(list.get(i).getMealKitName());
+//
+//			    // 3. 재고
+//			    cell = row.createCell(3);
 //			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
 //			    cell.setCellStyle(cellStyle);
 //			    cell.setCellValue(list.get(i).getStock());
 //
-//			    // 3. 코드 이름
-//			    cell = row.createCell(3);
+//			    // 4. 가격
+//			    cell = row.createCell(4);
 //			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
 //			    cell.setCellStyle(cellStyle);
 //			    cell.setCellValue(list.get(i).getPrice());
 //			    
-//			    // 3. 코드 이름
-//			    cell = row.createCell(3);
+//			    // 5. 평점
+//			    cell = row.createCell(5);
 //			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
 //			    cell.setCellStyle(cellStyle);
 //			    cell.setCellValue(list.get(i).getScore());
 //
-//			    // 4. 삭제 여부
-//			    cell = row.createCell(4);
+//			    // 6. 사용 여부
+//			    cell = row.createCell(6);
 //			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
 //			    cell.setCellStyle(cellStyle);
 //			    if (list.get(i).getMealDelNy() != null) {
 //			        cell.setCellValue("0".equals(list.get(i).getMealDelNy()) ? "N" : "Y");
 //			    }
 //
-//			    // 5. 등록일
-//			    cell = row.createCell(5);
+//			    // 7. 등록일
+//			    cell = row.createCell(7);
 //			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
 //			    cell.setCellStyle(cellStyle);
 //			    if (list.get(i).getMealRegDateTime() != null) {
 //			    	cell.setCellValue(list.get(i).getMealRegDateTime());
 //			    }
 //
-//			    // 6. 수정일
-//			    cell = row.createCell(6);
+//			    // 8. 수정일
+//			    cell = row.createCell(8);
 //			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
 //			    cell.setCellStyle(cellStyle);
 //			    if (list.get(i).getMealModDateTime() != null) {
