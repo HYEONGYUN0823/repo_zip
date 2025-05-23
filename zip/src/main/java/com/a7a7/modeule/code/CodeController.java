@@ -95,7 +95,7 @@ public class CodeController {
 		return "redirect:/xdm/code/CodeXdmList";
 	}
 	
-	@RequestMapping("/excelDownload")
+	@RequestMapping("/xdm/code/excelDownload")
     public void excelDownload(CodeVo vo, HttpServletResponse httpServletResponse) throws Exception {
 	    
 		setSearch(vo);

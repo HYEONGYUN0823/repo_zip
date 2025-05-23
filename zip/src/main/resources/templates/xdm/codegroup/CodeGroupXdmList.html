@@ -262,7 +262,7 @@
 <!--                                             class="fa-solid fa-plus"></i></button> -->
                                             <button type="button" id="btnForm" class="btn btn-primary" style="float: right;"><i
                                             class="fa-solid fa-plus"></i></button>
-                                    <button type="button" class="btn btn-success"
+                                    <button type="button" id="btnExcel" class="btn btn-success"
                                         style="float: right; margin-right: 4px;"><i
                                             class="fa-regular fa-file-excel"></i></button>
                                     <button type="button" class="btn btn-primary"
@@ -377,7 +377,12 @@
 	    }
 	}
     
-    
+	
+	document.getElementById("btnExcel").onclick = function(e) {
+	    e.preventDefault();
+	    const rowNum = document.getElementById("changeRowNum").value;
+	    window.location.href = "/xdm/codeGroup/excelDownload?rowNumToShow=" + rowNum;
+	}
 
 </script>
 

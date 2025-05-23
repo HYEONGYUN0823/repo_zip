@@ -338,7 +338,7 @@
 		document.getElementById("btnExcel").onclick = function(e) {
 		    e.preventDefault();
 		    const rowNum = document.getElementById("changeRowNum").value;
-		    window.location.href = "/excelDownload?rowNumToShow=" + rowNum;
+		    window.location.href = "/xdm/code/excelDownload?rowNumToShow=" + rowNum;
 		}
 	</script>
 	<div th:replace="~{xdm/include/checkBox :: checkBox}"></div>
