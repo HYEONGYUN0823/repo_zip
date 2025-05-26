@@ -27,4 +27,10 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto> getOrderListByUser(String userUiSeq) {
         return orderDao.selectOrderListByUser(userUiSeq);
     }
+    
+    @Override
+    public List<OrderDto> getOrdersByUserSeq(String userUiSeq) {
+        return orderDao.getOrdersByUserSeq(userUiSeq);
+    }
+    
 }

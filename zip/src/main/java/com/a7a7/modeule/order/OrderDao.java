@@ -9,4 +9,6 @@ public interface OrderDao {
     int insertOrderItem(OrderDto orderDto);     // 주문 아이템 테이블
 
     List<OrderDto> selectOrderListByUser(String userUiSeq); // 유저별 주문 내역 조회
+    List<OrderDto> getOrdersByUserSeq(String userSeq);
+    
 }

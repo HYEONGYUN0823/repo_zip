@@ -51,5 +51,20 @@
         WHERE o.userUi_seq = #{userUiSeq}
         ORDER BY o.orderDate DESC
     </select>
+    
+<select id="getOrdersByUserSeq" parameterType="String" resultType="com.a7a7.modeule.order.OrderDto">
+    SELECT 
+        oi.seq AS seq,
+        oi.quantity AS quantity,
+        oi.price AS price,
+        o.seq AS orderId,
+        o.orderDate AS orderDate,
+        mk.name AS productName
+    FROM `orderItem` oi
+    JOIN `order` o ON oi.order_seq = o.seq
+    JOIN `mealKit` mk ON oi.mealKit_seq = mk.seq
+    WHERE o.userUi_seq = #{userUiSeq}
+    ORDER BY o.orderDate DESC
+</select>
 
 </mapper>

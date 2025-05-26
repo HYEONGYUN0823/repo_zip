@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.HttpStatus;
+import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +26,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.a7a7.modeule.order.OrderDto;
+import com.a7a7.modeule.order.OrderService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -33,6 +35,9 @@ public class PaymentController {
 
     @Value("${tossPay_api}")
     private String tossPay_api;
+    
+    @Autowired
+    OrderService orderService;
 
     @GetMapping("/usr/payment/PaymentUsrSuccess")
     public String paymentSuccess(
@@ -91,7 +96,7 @@ public class PaymentController {
             // 1. 토스 결제 승인 요청
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            String secretKey = "YOUR_TOSS_SECRET_KEY"; // 실제 키로 바꾸세요
+            String secretKey = tossPay_api; // 실제 키로 바꾸세요
             String auth = Base64.getEncoder().encodeToString((secretKey + ":").getBytes(StandardCharsets.UTF_8));
             headers.set("Authorization", "Basic " + auth);
 
@@ -135,6 +140,5 @@ public class PaymentController {
                                  .body("에러 발생: " + e.getMessage());
         }
     }
-
 
 }

@@ -1,7 +1,5 @@
 package com.a7a7.modeule.member;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +16,7 @@ import com.a7a7.common.mail.MailService;
 import com.a7a7.common.util.UtilDateTime;
 import com.a7a7.modeule.code.CodeService;
 import com.a7a7.modeule.order.OrderDto;
+import com.a7a7.modeule.order.OrderService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -30,6 +29,8 @@ public class MemberController {
 	CodeService codeService;
 	@Autowired
 	MailService mailService;
+	@Autowired
+	OrderService orderService;
     
     ////////////////////////////////////////////////////////////////////////////
     ///
@@ -265,32 +266,16 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/usr/setting/AccountOrdersUsrList")
-    public String accountOrdersUsrList(Model model) {
+    public String accountOrdersUsrList(HttpSession session, Model model) {
         
-        // 예시: 주문 리스트 생성 (실제로는 DB에서 조회)
-        List<OrderDto> orderList = new ArrayList<>();
+	    // 로그인된 사용자 seq 가져오기
+	    String userUiSeq = (String) session.getAttribute("sessSeqUsr");
 
-        // 예시 주문 1
-        OrderDto order1 = new OrderDto();
-        order1.setOrderId("mealKit-12-" + System.currentTimeMillis());
-        order1.setProductName("한식 도시락");
-        order1.setQuantity(2);
-        order1.setPrice(29600);
-        order1.setOrderDate(LocalDate.now().toString());
-        orderList.add(order1);
+	    // 사용자 주문 리스트 조회
+	    List<OrderDto> orderList = orderService.getOrdersByUserSeq(userUiSeq);
+	    model.addAttribute("orderList", orderList);
 
-        // 예시 주문 2
-        OrderDto order2 = new OrderDto();
-        order2.setOrderId("mealKit-15-" + System.currentTimeMillis());
-        order2.setProductName("양식 도시락");
-        order2.setQuantity(1);
-        order2.setPrice(19800);
-        order2.setOrderDate(LocalDate.now().minusDays(1).toString());
-        orderList.add(order2);
-
-        // 모델에 주문 리스트를 담아 뷰에 전달
-        model.addAttribute("orderList", orderList);
-
+	    
         // 뷰 이름 반환
         return "usr/setting/AccountOrders";
     }
