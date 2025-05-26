@@ -331,6 +331,23 @@
           },
         });
       }
+      
+      fetch('/confirm-payment', {
+    	  method: 'POST',
+    	  headers: {
+    	    'Content-Type': 'application/json',
+    	  },
+    	  body: JSON.stringify({
+    	    paymentKey: urlParams.get('paymentKey'),
+    	    orderId: urlParams.get('orderId'),
+    	    amount: urlParams.get('amount'),
+    	  }),
+    	})
+    	.then(res => res.json())
+    	.then(data => {
+    	  // 결과 처리
+    	})
+      
     </script>
 
 	<!-- Footer -->

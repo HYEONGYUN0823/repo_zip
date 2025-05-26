@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a7a7.modeule.order.OrderDao">
+
+    <!-- 주문 등록 -->
+    <insert id="insertOrder" parameterType="com.a7a7.modeule.order.OrderDto">
+        INSERT INTO `order` (
+            total_price,
+            orderDate,
+            status,
+            userUi_seq
+        ) VALUES (
+            #{total_price},
+            now(),
+            #{status},
+            #{userUiSeq}
+        )
+        <selectKey keyProperty="seq" resultType="String" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!-- 주문 상세 등록 -->
+    <insert id="insertOrderItem" parameterType="com.a7a7.modeule.order.OrderDto">
+        INSERT INTO orderItem (
+            quantity,
+            price,
+            order_seq,
+            mealKit_seq
+        ) VALUES (
+            #{quantity},
+            #{price},
+            #{seq},         <!-- order_seq -->
+            #{productName}  <!-- 여기엔 mealKit_seq가 실제로 들어가야 함 -->
+        )
+    </insert>
+
+    <!-- 유저별 주문 내역 조회 -->
+    <select id="selectOrderListByUser" resultType="com.a7a7.modeule.order.OrderDto">
+        SELECT 
+            o.seq,
+            o.total_price,
+            o.orderDate,
+            o.status,
+            oi.quantity,
+            oi.price,
+            oi.mealKit_seq as productName  <!-- 임시로 productName에 담음 -->
+        FROM `order` o
+        JOIN orderItem oi ON o.seq = oi.order_seq
+        WHERE o.userUi_seq = #{userUiSeq}
+        ORDER BY o.orderDate DESC
+    </select>
+
+</mapper>
