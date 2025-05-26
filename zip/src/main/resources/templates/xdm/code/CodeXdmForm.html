@@ -133,6 +133,11 @@
 														class="form-control" id="description"
 														style="height: 100px"></textarea></td>
 											</tr>
+											<tr>
+												<td class="input-group mb-3">
+													<input type="file" class="form-control" id="inputGroupFile01" accept=".xls,.xlsx">
+												</td>
+											</tr>
 										</tbody>
 									</table>
 									<button type="button"
@@ -166,6 +171,29 @@
 	<div th:replace="~{xdm/include/footer :: footer}"></div>
 
 	<script type="text/javascript">
+	
+    const xls = new RegExp('\.xls$', 'i');
+    const xlsx = new RegExp('\.xlsx$', 'i');
+    
+    const fileInput = document.getElementById('inputGroupFile01');
+
+    fileInput.addEventListener('change', function () {
+      const file = fileInput.files[0];
+
+      if (!file) return
+
+      const fileName = file.name;
+
+      if (xls.test(fileName) || xlsx.test(fileName)) {
+        alert('올바른 엑셀 파일이 선택되었습니다.');
+      } else {
+        alert('엑셀 파일 (.xls 또는 .xlsx)만 업로드할 수 있습니다.');
+        fileInput.value = ''; // 파일 입력 초기화
+      }
+    });
+	
+	
+	
 		let goUrlXdmInst = "/xdm/code/CodeXdmInst";
 		let goUrlXdmUpdt = "/xdm/code/CodeXdmUpdt";
 		let goUrlXdmUele = "/xdm/code/CodeXdmUele";
