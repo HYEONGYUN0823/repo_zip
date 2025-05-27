@@ -1,70 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.a7a7.modeule.order.OrderDao">
+<mapper namespace="com.a7a7.modeule.order.OrderDao"> <!-- 실제 OrderDao 패키지 경로 -->
 
-    <!-- 주문 등록 -->
+    <resultMap id="orderResultMap" type="com.a7a7.modeule.order.OrderDto"> <!-- 실제 OrderDto 패키지 경로 -->
+        <id property="seq" column="order_pk_alias"/>
+        <result property="orderDate" column="order_date_alias"/>
+        <result property="total_price" column="order_total_price_alias"/>
+        <result property="status" column="order_status_alias"/>
+        <result property="orderId" column="toss_order_id_alias"/>
+        <result property="userUiSeq" column="userUi_seq_alias"/>
+        <result property="quantity" column="item_quantity_alias"/>
+        <result property="price" column="item_price_alias"/>
+        <result property="productName" column="product_name_alias"/>
+        <result property="mealKitSeq" column="meal_kit_pk_alias"/>
+        <result property="productImageUrl" column="product_image_path_alias"/>
+    </resultMap>
+
+    <!-- insertOrder, insertOrderItem은 이전과 동일하게 유지 -->
     <insert id="insertOrder" parameterType="com.a7a7.modeule.order.OrderDto">
-        INSERT INTO `order` (
-            total_price,
-            orderDate,
-            status,
-            userUi_seq
-        ) VALUES (
-            #{total_price},
-            now(),
-            #{status},
-            #{userUiSeq}
-        )
+        INSERT INTO `order` (total_price, orderDate, status, userUi_seq, toss_order_id)
+        VALUES (#{total_price}, NOW(), #{status}, #{userUiSeq}, #{orderId})
         <selectKey keyProperty="seq" resultType="String" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
 
-    <!-- 주문 상세 등록 -->
     <insert id="insertOrderItem" parameterType="com.a7a7.modeule.order.OrderDto">
-        INSERT INTO orderItem (
-            quantity,
-            price,
-            order_seq,
-            mealKit_seq
-        ) VALUES (
-            #{quantity},
-            #{price},
-            #{seq},         <!-- order_seq -->
-            #{productName}  <!-- 여기엔 mealKit_seq가 실제로 들어가야 함 -->
-        )
+        INSERT INTO orderItem (quantity, price, order_seq, mealKit_seq)
+        VALUES (#{quantity}, #{price}, #{seq}, #{mealKitSeq})
     </insert>
 
-    <!-- 유저별 주문 내역 조회 -->
-    <select id="selectOrderListByUser" resultType="com.a7a7.modeule.order.OrderDto">
-        SELECT 
-            o.seq,
-            o.total_price,
-            o.orderDate,
-            o.status,
-            oi.quantity,
-            oi.price,
-            oi.mealKit_seq as productName  <!-- 임시로 productName에 담음 -->
+    <select id="getOrdersByUserSeq" resultMap="orderResultMap">
+        SELECT
+            o.seq AS order_pk_alias,
+            o.orderDate AS order_date_alias,
+            o.total_price AS order_total_price_alias,
+            o.status AS order_status_alias,
+            o.toss_order_id AS toss_order_id_alias,
+            o.userUi_seq AS userUi_seq_alias,
+            oi.quantity AS item_quantity_alias,
+            oi.price AS item_price_alias,
+            mk.mealKitName AS product_name_alias,
+            mk.seq AS meal_kit_pk_alias,
+            -- fileUploaded 테이블에서 이미지 경로를 가져오기 위한 서브쿼리 사용
+            -- pseq에 해당하는 이미지가 여러 개일 경우, 이 서브쿼리는 하나의 path만 반환해야 함
+            -- (예: 가장 낮은 sort 값 또는 가장 최근 regDateTime, 또는 특정 type)
+            -- 여기서는 가장 간단하게 LIMIT 1을 사용한 예시 (DB 및 정렬에 따라 결과가 달라질 수 있음, 비권장)
+            -- 더 나은 방법은 fileUploaded에 대표이미지 여부 컬럼(defaultNy)을 활용하거나,
+            -- 특정 type (예: 상품 썸네일 타입)으로 필터링하는 것입니다.
+            (SELECT fu.path FROM fileUploaded fu WHERE fu.pseq = mk.seq ORDER BY fu.sort ASC, fu.seq ASC LIMIT 1) AS product_image_path_alias
+            -- 만약 fileUploaded 테이블에 defaultNy (1: 대표, 0: 일반) 컬럼이 있다면 아래와 같이 수정 가능:
+            -- (SELECT fu.path FROM fileUploaded fu WHERE fu.pseq = mk.seq AND fu.defaultNy = 1 LIMIT 1) AS product_image_path_alias
+            -- 또는 특정 type으로 대표 이미지를 구분한다면:
+            -- (SELECT fu.path FROM fileUploaded fu WHERE fu.pseq = mk.seq AND fu.type = 특정_대표이미지_타입코드 LIMIT 1) AS product_image_path_alias
         FROM `order` o
         JOIN orderItem oi ON o.seq = oi.order_seq
+        JOIN `mealKit` mk ON oi.mealKit_seq = mk.seq
+        -- LEFT JOIN fileUploaded fu ON mk.seq = fu.pseq
         WHERE o.userUi_seq = #{userUiSeq}
         ORDER BY o.orderDate DESC
     </select>
-    
-<select id="getOrdersByUserSeq" parameterType="String" resultType="com.a7a7.modeule.order.OrderDto">
-    SELECT 
-        oi.seq AS seq,
-        oi.quantity AS quantity,
-        oi.price AS price,
-        o.seq AS orderId,
-        o.orderDate AS orderDate,
-        mk.name AS productName
-    FROM `orderItem` oi
-    JOIN `order` o ON oi.order_seq = o.seq
-    JOIN `mealKit` mk ON oi.mealKit_seq = mk.seq
-    WHERE o.userUi_seq = #{userUiSeq}
-    ORDER BY o.orderDate DESC
-</select>
 
 </mapper>

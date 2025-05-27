@@ -3,131 +3,150 @@
 
 <div th:replace="~{usr/include/head :: head}"></div>
 
-	<script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
-	
-	<main>
-		<!-- section -->
-		<section>
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<!-- col -->
-					<div class="col-12">
-						<div class="d-flex justify-content-between align-items-center d-md-none py-4">
-							<!-- heading -->
-							<h3 class="fs-5 mb-0">Account Setting</h3>
-							<!-- button -->
-							<button class="btn btn-outline-gray-400 text-muted d-md-none btn-icon btn-sm ms-3"
-								type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAccount"
-								aria-controls="offcanvasAccount">
-								<i class="bi bi-text-indent-left fs-3"></i>
-							</button>
-						</div>
-					</div>
-					<!-- col -->
-					<div class="col-lg-3 col-md-4 col-12 border-end d-none d-md-block">
-						<div class="pt-10 pe-lg-10">
-							<!-- nav -->
-							<ul class="nav flex-column nav-pills nav-pills-dark">
-								<!-- nav item -->
-								<li class="nav-item">
-									<a class="nav-link active" aria-current="page" href="/usr/setting/AccountOrdersUsrList">
-										<i class="feather-icon icon-shopping-bag me-2"></i>
-										주문 내역
-									</a>
-								</li>
-								<!-- nav item -->
-								<li class="nav-item">
-									<a class="nav-link" href="/usr/setting/userUiUsrSettings">
-										<i class="feather-icon icon-settings me-2"></i>
-										계정 설정
-									</a>
-								</li>
-								<!-- nav item -->
-<li class="nav-item">
-    <a class="nav-link" href="/usr/setting/ChangeNewPasswordUsrForm">
-        <i class="feather-icon icon-map-pin me-2"></i>
-        비밀번호 변경
-    </a>
-</li>
-								<!-- nav item -->
-								<li class="nav-item">
-									<a class="nav-link" href="/usr/setting/AcountUsrDelete">
-										<i class="feather-icon icon-credit-card me-2"></i>
-										회원탈퇴
-									</a>
-								</li>
-								
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-9 col-md-8 col-12">
-						<div class="py-6 p-md-6 p-lg-10">
-							<!-- heading -->
-							<h2 class="mb-6">주문 내역</h2>
+<!-- 필요하다면 추가적인 CSS/JS 링크 -->
 
-							<div class="table-responsive-xxl border-0">
-								<!-- Table -->
-								<table class="table mb-0 text-nowrap table-centered">
-									<!-- Table Head -->
-									<thead class="bg-light">
-										<tr>
-											<th>&nbsp;</th>
-											<th>상품명</th>
-											<th>주문번호</th>
-											<th>주문날짜</th>
-											<th>개수</th>
-											<th>가격</th>
+<main>
+    <!-- section -->
+    <section>
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center d-md-none py-4">
+                        <!-- heading -->
+                        <h3 class="fs-5 mb-0">Account Setting</h3>
+                        <!-- button -->
+                        <button class="btn btn-outline-gray-400 text-muted d-md-none btn-icon btn-sm ms-3"
+                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAccount"
+                                aria-controls="offcanvasAccount">
+                            <i class="bi bi-text-indent-left fs-3"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- col -->
+                <div class="col-lg-3 col-md-4 col-12 border-end d-none d-md-block">
+                    <div class="pt-10 pe-lg-10">
+                        <!-- nav -->
+                        <ul class="nav flex-column nav-pills nav-pills-dark">
+                            <!-- nav item -->
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/usr/setting/AccountOrdersUsrList">
+                                    <i class="feather-icon icon-shopping-bag me-2"></i>
+                                    주문 내역
+                                </a>
+                            </li>
+                            <!-- nav item -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/usr/setting/userUiUsrSettings">
+                                    <i class="feather-icon icon-settings me-2"></i>
+                                    계정 설정
+                                </a>
+                            </li>
+                            <!-- nav item -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/usr/setting/ChangeNewPasswordUsrForm">
+                                    <i class="feather-icon icon-map-pin me-2"></i>
+                                    비밀번호 변경
+                                </a>
+                            </li>
+                            <!-- nav item -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/usr/setting/AcountUsrDelete">
+                                    <i class="feather-icon icon-credit-card me-2"></i>
+                                    회원탈퇴
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8 col-12">
+                    <div class="py-6 p-md-6 p-lg-10">
+                        <!-- heading -->
+                        <h2 class="mb-6">주문 내역</h2>
 
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										<!-- Table body -->
-<tr th:each="order : ${orderList}">
-    <td class="align-middle border-top-0 w-0">
-        <a href="#">
-            <img src="../assets/images/products/product-img-1.jpg" alt="Ecommerce" class="icon-shape icon-xl" />
-        </a>
-    </td>
-    <td class="align-middle border-top-0" th:text="${order.productName}">
-        <a href="#" class="fw-semibold text-inherit">
-            <h6 class="mb-0" th:text="${order.productName}">상품명</h6>
-        </a>
-        <span><small class="text-muted">400g</small></span>  <!-- 필요시 변경 -->
-    </td>
-    <td class="align-middle border-top-0" th:text="${order.seq}">주문번호</td>
-    <td class="align-middle border-top-0" th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd')}">주문날짜</td>
-    <td class="align-middle border-top-0" th:text="${order.quantity}">개수</td>
-    <td class="align-middle border-top-0" th:text="${order.price}">가격</td>
-    <td class="text-muted align-middle border-top-0">
-        <a href="#" class="text-inherit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
-            <i class="feather-icon icon-eye"></i>
-        </a>
-    </td>
-</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</main>
+                        <div class="table-responsive-xxl border-0">
+                            <!-- 주문 내역이 있을 경우에만 테이블 표시 -->
+                            <div th:if="${orderList != null and not #lists.isEmpty(orderList)}">
+                                <table class="table mb-0 text-nowrap table-centered">
+                                    <!-- Table Head -->
+                                    <thead class="bg-light">
+                                    <tr>
+                                        <th> </th> <!-- 상품 이미지 -->
+                                        <th>상품명</th>
+                                        <th>주문번호</th> <!-- 주문(order) 테이블의 PK -->
+                                        <th>주문날짜</th>
+                                        <th>개수</th>
+                                        <th>가격 (항목별)</th>
+                                        <th></th> <!-- 상세 보기 등 -->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Table body -->
+                                    <tr th:each="orderItem : ${orderList}"> <!-- 변수명을 orderItem으로 변경하여 명확화 -->
+                                        <td class="align-middle border-top-0 w-0">
+                                            <!-- 상품 상세 페이지로 링크 (OrderDto의 mealKitSeq 사용) -->
+                                            <a th:href="@{/usr/product/ProductUsrView(seq=${orderItem.mealKitSeq})}">
+                                                <!-- OrderDto의 productImageUrl 사용, 없을 경우 기본 이미지 -->
+                                                <img th:src="${orderItem.productImageUrl ?: '/user/template/user_ui/assets/images/products/product-img-default.jpg'}"
+                                                     alt="상품 이미지" class="icon-shape icon-xl"/>
+                                            </a>
+                                        </td>
+                                        <td class="align-middle border-top-0">
+                                            <a th:href="@{/usr/product/ProductUsrView(seq=${orderItem.mealKitSeq})}" class="fw-semibold text-inherit">
+                                                <h6 class="mb-0" th:text="${orderItem.productName}">상품명</h6>
+                                            </a>
+                                            <!-- 상품 스펙 (OrderDto에 productSpec 필드 및 getter가 있다면) -->
+                                            <!-- <span><small class="text-muted" th:text="${orderItem.productSpec ?: ''}"></small></span> -->
+                                        </td>
+                                        <!-- 주문번호: order 테이블의 PK (OrderDto의 seq 필드) -->
+                                        <td class="align-middle border-top-0" th:text="${orderItem.seq}">주문번호</td>
+                                        <!-- orderDate가 String 타입이고 'YYYY-MM-DD HH:MM:SS' 형태라고 가정. Date 타입이면 #dates.format 사용 -->
+                                        <td class="align-middle border-top-0"
+                                            th:text="${orderItem.orderDate != null ? (#strings.length(orderItem.orderDate) >= 10 ? #strings.substring(orderItem.orderDate, 0, 10) : orderItem.orderDate) : '날짜 없음'}">주문날짜</td>
+                                        <td class="align-middle border-top-0" th:text="${orderItem.quantity}">개수</td>
+                                        <!-- 주문 아이템의 단가 -->
+                                        <td class="align-middle border-top-0" th:text="${#numbers.formatInteger(orderItem.price, 0, 'COMMA')} + '원'">가격</td>
+                                        <td class="text-muted align-middle border-top-0">
+                                            <!-- TODO: 주문 상세 보기 페이지 링크 구현 (orderItem.seq는 주문 PK) -->
+                                            <a th:href="@{/usr/setting/OrderDetailPageExample(orderSeq=${orderItem.seq})}" class="text-inherit" data-bs-toggle="tooltip"
+                                               data-bs-placement="top" data-bs-title="상세보기">
+                                                <i class="feather-icon icon-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-	<!-- Footer -->
-	<!-- footer -->
+                            <!-- 주문 내역이 없을 경우 메시지 표시 -->
+                            <div th:if="${orderList == null or #lists.isEmpty(orderList)}" class="text-center py-5">
+                                <i class="bi bi-basket fs-1 text-muted mb-3 d-block"></i> <!-- Bootstrap Icons 사용 예시 -->
+                                <p class="text-muted">주문 내역이 없습니다.</p>
+                                <a href="/usr/product/ProductUsrList" class="btn btn-primary">상품 보러 가기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 
-	<!-- Javascript-->
-	<!-- Libs JS -->
-	
-	<script type="text/javascript">
-		
-		
-		
-	</script>
-
+<!-- Footer -->
 <div th:replace="~{usr/include/footer :: footer}"></div>
+
+<!-- Javascript-->
+<!-- 페이지 하단에 필요한 스크립트가 있다면 여기에 추가 -->
+<script type="text/javascript">
+    // 페이지 로드 시 툴팁 초기화 (Bootstrap 5 기준)
+    // 이 코드는 Bootstrap JS가 로드된 이후에 실행되어야 합니다.
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
+</script>
 
 </html>

@@ -1,5 +1,6 @@
 package com.a7a7.modeule.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -265,18 +266,50 @@ public class MemberController {
 		return "redirect:/usr/signin/signinUsr";
 	}
 	
-	@RequestMapping(value = "/usr/setting/AccountOrdersUsrList")
+    @RequestMapping(value = "/usr/setting/AccountOrdersUsrList")
     public String accountOrdersUsrList(HttpSession session, Model model) {
-        
-	    // 로그인된 사용자 seq 가져오기
-	    String userUiSeq = (String) session.getAttribute("sessSeqUsr");
 
-	    // 사용자 주문 리스트 조회
-	    List<OrderDto> orderList = orderService.getOrdersByUserSeq(userUiSeq);
-	    model.addAttribute("orderList", orderList);
+        String userUiSeq = (String) session.getAttribute("sessSeqUsr"); // 인터셉터가 처리했다면 null이 아니어야 함
+        System.out.println("### MemberController - 조회할 사용자 userUiSeq: " + userUiSeq);
 
-	    
-        // 뷰 이름 반환
+        if (userUiSeq == null) { // 만약을 위한 방어 코드 (인터셉터가 확실하다면 생략 가능)
+            System.err.println("### MemberController - userUiSeq가 null입니다. 로그인 상태를 확인해주세요.");
+            // return "redirect:/usr/member/login"; // 로그인 페이지로 리다이렉트
+            // 또는 빈 리스트를 전달하여 "주문 내역 없음"을 표시하도록 할 수도 있습니다.
+            model.addAttribute("orderList", new ArrayList<OrderDto>());
+            return "usr/setting/AccountOrders";
+        }
+
+        List<OrderDto> orderList = orderService.getOrdersByUserSeq(userUiSeq);
+        model.addAttribute("orderList", orderList); // 모델에 항상 추가 (null이거나 비어있을 수 있음)
+
+        if (orderList == null) {
+            System.out.println("### MemberController - orderService.getOrdersByUserSeq()가 null을 반환했습니다.");
+        } else {
+            System.out.println("### MemberController - 조회된 주문 목록 개수: " + orderList.size());
+            if (orderList.isEmpty()) {
+                System.out.println("### MemberController - 해당 사용자의 주문 내역이 없습니다.");
+            } else {
+                System.out.println("### MemberController - 조회된 주문 상세 내역:");
+                int itemCount = 0;
+                for (OrderDto order : orderList) {
+                    itemCount++;
+                    System.out.println("  --- 주문 아이템 " + itemCount + " ---");
+                    System.out.println("    OrderDto.seq (주문 PK 또는 주문아이템 PK?): " + order.getSeq()); // XML의 order_seq_alias
+                    System.out.println("    OrderDto.productName: " + order.getProductName());             // XML의 product_name_alias
+                    System.out.println("    OrderDto.orderDate: " + order.getOrderDate());                 // XML의 order_date_alias
+                    System.out.println("    OrderDto.quantity: " + order.getQuantity());                   // XML의 item_quantity_alias
+                    System.out.println("    OrderDto.price (주문아이템 단가): " + order.getPrice());           // XML의 item_price_alias
+                    System.out.println("    OrderDto.mealKitSeq (상품 PK): " + order.getMealKitSeq());       // XML의 meal_kit_seq_alias
+                    System.out.println("    OrderDto.orderId (Toss 주문 ID): " + order.getOrderId());     // XML의 toss_order_id_alias
+                    System.out.println("    OrderDto.total_price (주문 총액): " + order.getTotal_price()); // XML의 total_price_alias
+                    System.out.println("    OrderDto.status (주문 상태): " + order.getStatus());             // XML의 status_alias
+                    // HTML에서 사용하려는 추가 필드가 있다면 여기서 로깅
+                    // System.out.println("    OrderDto.productImageUrl: " + order.getProductImageUrl());
+                    // System.out.println("    OrderDto.productSpec: " + order.getProductSpec());
+                }
+            }
+        }
         return "usr/setting/AccountOrders";
     }
 	

@@ -4,8 +4,8 @@
 <div th:replace="~{usr/include/head :: head}"></div>
 
 <script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
-<script src="https://js.tosspayments.com/v2/standard"></script>
-
+<script src="https://js.tosspayments.com/v1"></script>
+<input type="hidden" id="customerName" th:value="${user.name}" />
 	<main>
 		<!-- section-->
 		<div class="mt-4">
@@ -261,94 +261,42 @@
 	</main>
 	
 <script>
-  // 주문하기 버튼 클릭 시
-  document.getElementById("orderButton").addEventListener("click", function () {
-    const tosspayRadio = document.getElementById("tosspay");
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof TossPayments === 'undefined') {
+    console.error('TossPayments 스크립트가 로드되지 않았습니다.');
+    return;
+  }
 
-    if (tosspayRadio.checked) {
-      requestPayment();
-    } else {
-      alert("결제 수단을 선택해주세요.");
-    }
-  });
-</script>
+  const orderButton = document.getElementById('orderButton');
+  if (!orderButton) return;
 
-<script th:inline="javascript">
-	const totalPrice = /*[[${totalPrice}]]*/ 0;
-</script>
+  const tp = TossPayments('test_ck_nRQoOaPz8Lxz2KndYGEe8y47BMw6');  // 여기 변수명 'tp'
+  console.log(tp);
+  console.log(typeof tp.requestPayment);
 
-	
-      <script>
-      
-      /*<![CDATA[*/
-//       const totalPrice = [[${totalPrice}]];
-      const rawPhone = /*[[${sessPhoneUsr != null}]]*/ false ? '[[${sessPhoneUsr}]]' : '';
-      console.log("원본 폰번호:", rawPhone);
+  orderButton.addEventListener('click', function () {
+    let priceText = document.getElementById('price').innerText;
+    let amount = parseInt(priceText.replace(/[^0-9]/g, ''), 10);
 
-      const customerMobilePhone = rawPhone.replace(/[^0-9]/g, '');
-      console.log("특수문자 제거 후:", customerMobilePhone);
-      console.log("최종 결제에 넘길 전화번호:", customerMobilePhone);
-      /*]]>*/
-      
-      const productType = "mealKit";  // 실제로 결제하는 상품 타입으로 바꿔주세요
-      const productId = "12";           // 실제 상품 ID 값으로 바꿔주세요
-      
-      // ------  SDK 초기화 ------
-      // @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
-      const clientKey = "test_ck_nRQoOaPz8Lxz2KndYGEe8y47BMw6";
-      const customerKey = "haiwcxeVmfIN3FzlmAmV7";
-      const tossPayments = TossPayments(clientKey);
-      // 회원 결제
-      // @docs https://docs.tosspayments.com/sdk/v2/js#tosspaymentspayment
-      const payment = tossPayments.payment({ customerKey });
-      // 비회원 결제
-      // const payment = tossPayments.payment({customerKey: TossPayments.ANONYMOUS})
-
-      // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-      // @docs https://docs.tosspayments.com/sdk/v2/js#paymentrequestpayment
-      async function requestPayment() {
-        // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
-        // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
-        await payment.requestPayment({
-          method: "CARD", // 카드 결제
-          amount: {
-            currency: "KRW",
-            value: totalPrice,
-          },
-          orderId: "mealKit-12-" + new Date().getTime(), // 예시: mealKit-12-시간값
-          orderName: document.getElementById("mealKitName").textContent,
-          successUrl: window.location.origin + "/usr/payment/PaymentUsrSuccess", // 결제 요청이 성공하면 리다이렉트되는 URL,
-          failUrl: window.location.origin + "/usr/payment/PaymentUsrFail", // 결제 요청이 실패하면 리다이렉트되는 URL,
-          customerEmail: "customer123@gmail.com",
-          customerName: "김토스",
-          customerMobilePhone: "01012341234",
-          // 카드 결제에 필요한 정보
-          card: {
-            useEscrow: false,
-            flowMode: "DEFAULT", // 통합결제창 여는 옵션
-            useCardPoint: false,
-            useAppCardOnly: false,
-          },
-        });
+    tp.requestPayment('카드', {  // 여기서도 'tp'로 호출해야 함
+      amount: amount,
+      orderId: 'order_' + new Date().getTime(),
+      orderName: document.getElementById('mealKitName').innerText || '주문상품',
+      customerName: document.getElementById('customerName').value || '고객',
+      successUrl: window.location.origin + '/usr/payment/PaymentUsrSuccess',
+      failUrl: window.location.origin + '/usr/payment/PaymentUsrFail'
+    })
+    .catch(function (error) {
+      if (error.code === 'USER_CANCEL') {
+        alert('사용자가 결제를 취소했습니다.');
+      } else {
+        alert('결제 중 오류가 발생했습니다: ' + error.message);
       }
-      
-      fetch('/confirm-payment', {
-    	  method: 'POST',
-    	  headers: {
-    	    'Content-Type': 'application/json',
-    	  },
-    	  body: JSON.stringify({
-    	    paymentKey: urlParams.get('paymentKey'),
-    	    orderId: urlParams.get('orderId'),
-    	    amount: urlParams.get('amount'),
-    	  }),
-    	})
-    	.then(res => res.json())
-    	.then(data => {
-    	  // 결과 처리
-    	})
-      
-    </script>
+      console.error(error);
+    });
+  });
+});
+</script>
 
 	<!-- Footer -->
 	<!-- footer -->
