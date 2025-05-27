@@ -1,6 +1,7 @@
 package com.a7a7.modeule.product;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +22,8 @@ public interface ProductDao {
 	public int uelete(ProductDto productDto);
 	
 	public int selectOneCount(ProductVo vo);
+	
+	public int updateStockDecrease(Map<String, Object> params);
 	
 //	public List<ProductDto> filterProducts(int minPrice, int maxPrice, List<Integer> ratings);
 	
