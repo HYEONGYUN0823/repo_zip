@@ -260,6 +260,10 @@
 		</section>
 	</main>
 	
+	<script th:inline="javascript">
+		const clientKeyFromJava = /*[[${tossPaymentsClientKeyForJs}]]*/ '';
+	</script>
+	
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   if (typeof TossPayments === 'undefined') {
@@ -270,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const orderButton = document.getElementById('orderButton');
   if (!orderButton) return;
 
-  const tp = TossPayments('test_ck_nRQoOaPz8Lxz2KndYGEe8y47BMw6');  // 여기 변수명 'tp'
+  const tp = TossPayments(clientKeyFromJava);  // 여기 변수명 'tp'
   console.log(tp);
   console.log(typeof tp.requestPayment);
 

@@ -7,8 +7,10 @@
 
 		<main>
 		<form name="formList" id="formList" method="post" autocomplete="off">
-		<input type="hidden" name="seq" th:value="${vo.seq}">
-		<input type="hidden" name="seq">
+		<!-- vo.seq는 어떤 용도인지 명확하지 않아 일단 유지합니다. item.seq와 다를 수 있습니다. -->
+		<input type="hidden" name="vo_seq" th:value="${vo != null ? vo.seq : ''}">
+		<!-- 이 input type="hidden" name="seq"는 중복되는 것 같아 보입니다. formSeq로 대체될 수 있습니다. -->
+		<!-- <input type="hidden" name="seq"> -->
 			<div class="mt-4">
 				<div class="container">
 					<!-- row -->
@@ -21,7 +23,7 @@
 									<li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
 									<li class="breadcrumb-item"><a href="/usr/product/ProductUsrList">밀키트</a></li>
 
-									<li class="breadcrumb-item active" aria-current="page" th:text=${item.mealKitName}>계란볶음밥</li>
+									<li class="breadcrumb-item active" aria-current="page" th:text="${item.mealKitName}">계란볶음밥</li>
 								</ol>
 							</nav>
 						</div>
@@ -35,24 +37,24 @@
       <!-- 왼쪽 이미지 영역 -->
       <div class="col-md-5 col-xl-6">
         <div class="product" id="product">
-<div class="zoom"
-     onmousemove="zoom(event)"
-     th:style="|background-image: url('${itemFile.path}')|">
-  <img id="productImage" th:src="@{${itemFile.path}}"
-       style="height: 675px"
-       alt="" />
-</div>
+					<div class="zoom"
+					     onmousemove="zoom(event)"
+					     th:style="|background-image: url('${itemFile != null ? itemFile.path : '/default/image/path.jpg'}')|">
+					  <img id="productImage" th:src="@{${itemFile != null ? itemFile.path : '/default/image/path.jpg'}}"
+					       style="height: 675px"
+					       alt="상품 이미지" />
+					</div>
         </div>
       </div>
 
       <!-- 오른쪽 상품 정보 영역 -->
       <div class="col-md-7 col-xl-6">
         <div class="ps-lg-10 mt-4 mt-md-0"> <!-- 필요 없으면 mt-4 빼도 됨 -->
-<a href="#!" id="brandName" class="mb-4 d-block"
-   th:each="codeList : ${@codeService.selectListCachedCode(3)}"
-   th:if="${#strings.equals(codeList.ifcdSeq, item.brandName)}"
-   th:text="${codeList.ifcdName}">브랜드명</a>
-          <h1 id="mealKitName" class="mb-1" th:text=${item.mealKitName}>계란볶음밥</h1>
+					<a href="#!" id="brandName" class="mb-4 d-block"
+					   th:each="codeList : ${@codeService.selectListCachedCode(3)}"
+					   th:if="${#strings.equals(codeList.ifcdSeq, item.brandName)}"
+					   th:text="${codeList.ifcdName}">브랜드명</a>
+          <h1 id="mealKitName" class="mb-1" th:text="${item.mealKitName}">계란볶음밥</h1>
 
           <div class="mb-4">
             <small class="text-warning">
@@ -66,9 +68,7 @@
           </div>
 
           <div class="fs-4">
-<!--             <span class="fw-bold text-dark" th:text=${item.price}>3,500￦</span> -->
-<!--             <span class="text-decoration-line-through text-muted">4,000￦</span> -->
-<!--             <span><small class="fs-6 ms-2 text-danger">12.5% sale</small></span> -->
+						<!-- 가격 표시는 아래 수량 조절 부분에서 함께 처리 -->
           </div>
 
           <hr class="my-6" />
@@ -82,7 +82,8 @@
                 </tr>
                 <tr>
                   <td>재고:</td>
-                  <td th:text="${item.stock} + '개'">있음</td>
+                  <!-- 재고 값을 JavaScript에서 쉽게 접근할 수 있도록 id 및 data 속성 추가 -->
+                  <td id="stockDisplay" th:data-stock="${item.stock}" th:text="${item.stock > 0 ? item.stock + '개' : '품절'}">있음</td>
                 </tr>
                 <tr>
                   <td>재료:</td>
@@ -101,49 +102,44 @@
             </table>
           </div>
 
-<div class="mt-8">
-<div class="product-item d-flex align-items-center gap-3 mb-3">
-  <!-- 가격 -->
-  <div class="fs-3 fw-bold text-dark total-price">
-    <span th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')} + '원'">3,500원</span>
-  </div>
+					<div class="mt-8">
+						<!-- 수량 및 가격 표시 영역에 id 부여 -->
+						<div id="quantityAndPriceSection" class="product-item d-flex align-items-center gap-3 mb-3">
+						  <!-- 가격 -->
+						  <div class="fs-3 fw-bold text-dark total-price">
+						    <span th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')} + '원'">3,500원</span>
+						  </div>
 
-  <!-- 수량 -->
-  <div class="input-group input-spinner w-auto">
-    <input type="button" value="-" class="button-minus btn btn-sm" />
-	<input type="number" id="quantity" value="1" min="1" max="10"
-	       class="quantity-field form-control-sm form-input"
-	       th:attr="data-price=${item.price}" />
-    <input type="button" value="+" class="button-plus btn btn-sm" />
-  </div>
-</div>
+						  <!-- 수량 (id 부여) -->
+						  <div id="quantitySpinner" class="input-group input-spinner w-auto">
+						    <input type="button" value="-" class="button-minus btn btn-sm" />
+							<input type="number" id="quantity" value="1" min="1"
+							       class="quantity-field form-control-sm form-input"
+							       th:attr="data-price=${item.price}" /> <!-- max는 JS에서 동적으로 설정 -->
+						    <input type="button" value="+" class="button-plus btn btn-sm" />
+						  </div>
+						</div>
 
-<!-- 장바구니 & 찜 버튼 -->
-<div class="mt-3 row justify-content-start g-2 align-items-center">
-  <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
-    <!-- 기존 버튼을 <input>으로 변경 -->
-<!-- 결제용 폼 -->
-
-  <input type="hidden" name="seq" id="formSeq" th:value="${item.seq}">
-<!--   <input type="number" name="quantity" id="quantity" class="quantity-field" data-price="3500" value="1" min="1"> -->
-  <input type="hidden" name="totalPrice" id="formTotalPrice" value="3500">
-  <button id="checkoutLink" class="btn btn-primary" type="button" onclick="goToCheckout()">결제하기</button>
-<!--   <input type="submit" value="결제하기" class="btn btn-primary"> -->
-
-  </div>
-  <div class="col-md-4 col-4">
-    <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip"
-       data-bs-html="true" aria-label="Wishlist">
-      <i class="feather-icon icon-heart"></i>
-    </a>
-  </div>
-</div>
-
-          </div>
+						<!-- 장바구니 & 찜 버튼 -->
+						<div class="mt-3 row justify-content-start g-2 align-items-center">
+						  <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
+						  	<input type="hidden" name="seq" id="formSeq" th:value="${item.seq}"> <!-- 이 seq는 mealKit의 seq (상품 seq) -->
+						  	<input type="hidden" name="totalPrice" id="formTotalPrice" th:value="${item.price}"> <!-- 초기값은 단가 -->
+						  	<!-- 결제하기 버튼에 id 부여 -->
+						  	<button id="checkoutButton" class="btn btn-primary" type="button">결제하기</button>
+						  </div>
+						  <div class="col-md-4 col-4">
+						    <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip"
+						       data-bs-html="true" aria-label="Wishlist">
+						      <i class="feather-icon icon-heart"></i>
+						    </a>
+						  </div>
+						</div>
+					</div>
         </div>
       </div>
-</div>
-    </div> <!-- row 끝 -->
+		</div> <!-- .row align-items-start 끝 -->
+  </div> <!-- .container 끝 -->
 </section>
 			
 			
@@ -1014,94 +1010,221 @@
 		</main>
 		
 	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+		// 썸네일 이미지 로직 (존재한다면)
+		const thumbnails = document.querySelectorAll('#productThumbnails img'); // 만약 #productThumbnails ID를 가진 요소가 있다면
+		const zoomDiv = document.querySelector('.zoom'); // .zoom 클래스를 가진 요소
+		const zoomImg = zoomDiv ? zoomDiv.querySelector('img') : null; // .zoom 내부의 img
+
+		if (thumbnails.length > 0 && zoomDiv && zoomImg) {
+			thumbnails.forEach(thumbnail => {
+			  thumbnail.addEventListener('click', () => {
+			    const largeSrc = thumbnail.getAttribute('data-large'); // data-large 속성이 썸네일에 있어야 함
+			    if (largeSrc) {
+				    zoomDiv.style.backgroundImage = `url(${largeSrc})`;
+				    zoomImg.src = largeSrc;
+
+				    thumbnails.forEach(img => img.classList.remove('active'));
+				    thumbnail.classList.add('active');
+			    }
+			  });
+			});
+		} else {
+			// console.log("썸네일 또는 줌 관련 요소가 페이지에 없습니다.");
+		}
+
+		// --- 재고 관리 및 UI 업데이트 로직 ---
+		const stockDisplay = document.getElementById('stockDisplay');
+		const stock = stockDisplay ? parseInt(stockDisplay.getAttribute('data-stock')) : 0;
+
+		const quantitySpinner = document.getElementById('quantitySpinner');
+		const checkoutButton = document.getElementById('checkoutButton');
+		const quantityInput = document.getElementById('quantity');
+		const formTotalPriceInput = document.getElementById('formTotalPrice');
+		const totalPriceDisplayElement = document.querySelector('#quantityAndPriceSection .total-price span');
+
+		function updateTotalPrice() {
+			if (!quantityInput || !totalPriceDisplayElement || !formTotalPriceInput) return;
+
+			const quantity = parseInt(quantityInput.value) || 0; // NaN 방지
+			const unitPrice = parseInt(quantityInput.getAttribute('data-price')) || 0; // NaN 방지
+			const totalPrice = unitPrice * quantity;
+
+			totalPriceDisplayElement.innerText = totalPrice.toLocaleString() + '원';
+			formTotalPriceInput.value = totalPrice;
+		}
 		
-	const thumbnails = document.querySelectorAll('#productThumbnails img');
-	const zoomDiv = document.querySelector('.zoom');
-	const zoomImg = zoomDiv.querySelector('img');
+		function goToCheckout() {
+			if (stock <= 0) {
+				alert('해당 상품은 품절되어 구매할 수 없습니다.');
+				return;
+			}
 
-	thumbnails.forEach(thumbnail => {
-	  thumbnail.addEventListener('click', () => {
-	    const largeSrc = thumbnail.getAttribute('data-large');
+			if (!quantityInput) {
+			    alert('수량 정보를 찾을 수 없습니다.');
+			    return;
+			}
 
-	    // 큰 이미지 변경
-	    zoomDiv.style.backgroundImage = `url(${largeSrc})`;
-	    zoomImg.src = largeSrc;
+			const currentQuantity = parseInt(quantityInput.value);
+			if (isNaN(currentQuantity) || currentQuantity < 1) {
+			    alert('올바른 수량을 선택해주세요.');
+			    return;
+			}
+			if (currentQuantity > stock) {
+			    alert('선택하신 수량이 재고를 초과합니다. 현재 재고: ' + stock + '개');
+			    quantityInput.value = stock; // 재고 수량으로 조정
+			    updateTotalPrice();
+			    return;
+			}
 
-	    // 썸네일 테두리 active 변경
-	    thumbnails.forEach(img => img.classList.remove('active'));
-	    thumbnail.classList.add('active');
-	  });
-	});
-	
-	// 수량 변경 시 총 가격 업데이트 함수
-	function updateTotalPrice(container) {
-	  const quantityInput = container.querySelector('.quantity-field');
-	  const quantity = parseInt(quantityInput.value);
-	  const unitPrice = parseInt(quantityInput.getAttribute('data-price'));
-	  const totalPrice = unitPrice * quantity;
-	  container.querySelector('.total-price span').innerText = totalPrice.toLocaleString() + '원';
-	}
 
-	// + 버튼 클릭 이벤트
-	document.querySelectorAll('.button-plus').forEach(button => {
-	  button.addEventListener('click', function(e) {
-	    e.preventDefault();
-	    const container = this.closest('.product-item');
-	    const quantityInput = container.querySelector('.quantity-field');
-	    quantityInput.value = parseInt(quantityInput.value) + 1;
-	    updateTotalPrice(container);
-	  });
-	});
+			const price = quantityInput.getAttribute('data-price');
+			const seq = document.getElementById('formSeq').value;
+			const finalTotalPrice = currentQuantity * parseInt(price); // 최종 가격은 현재 수량으로 다시 계산
 
-	// - 버튼 클릭 이벤트
-	document.querySelectorAll('.button-minus').forEach(button => {
-	  button.addEventListener('click', function(e) {
-	    e.preventDefault();
-	    const container = this.closest('.product-item');
-	    const quantityInput = container.querySelector('.quantity-field');
-	    const quantity = parseInt(quantityInput.value);
-	    if (quantity > 1) {
-	      quantityInput.value = quantity - 1;
-	      updateTotalPrice(container);
-	    }
-	  });
-	});
+			// URL에 seq도 넣어서 이동
+			location.href = `/usr/checkout/CheckoutUsrList?seq=${seq}&quantity=${currentQuantity}&totalPrice=${finalTotalPrice}`;
+		}
 
-	// 수량 직접 입력 시
-	document.querySelectorAll('.quantity-field').forEach(input => {
-	  input.addEventListener('input', function() {
-	    const container = this.closest('.product-item');
-	    updateTotalPrice(container);
-	  });
-	});
+		// checkoutButton에 이벤트 리스너 연결
+		if (checkoutButton) {
+		    checkoutButton.addEventListener('click', goToCheckout);
+		}
 
-	// 페이지 로드시 초기 총 가격 세팅
-	document.querySelectorAll('.product-item').forEach(item => {
-	  updateTotalPrice(item);
-	});
-		
-	
-	// 결제 submit 시 수량과 총 가격 설정
-	document.getElementById('formList').addEventListener('submit', function(e) {
-	  const quantityInput = document.getElementById('quantity');
-	  const quantity = parseInt(quantityInput.value);
-	  const unitPrice = parseInt(quantityInput.getAttribute('data-price'));
-	  const totalPrice = unitPrice * quantity;
-	
-	  document.getElementById('formTotalPrice').value = totalPrice;
-	});
-	
-	function goToCheckout() {
-	  const quantityInput = document.getElementById('quantity');
-	  const quantity = quantityInput.value;
-	  const price = quantityInput.getAttribute('data-price');
-	  const seq = document.getElementById('formSeq').value;
-	  const totalPrice = quantity * price;
-	
-	  // URL에 seq도 넣어서 이동
-	  location.href = `/usr/checkout/CheckoutUsrList?seq=${seq}&quantity=${quantity}&totalPrice=${totalPrice}`;
-	}
-	
+
+		if (stock <= 0) {
+			// 재고가 0이거나 그 이하일 경우
+			if (quantitySpinner) {
+				quantitySpinner.style.display = 'none';
+			}
+
+			if (checkoutButton) {
+				checkoutButton.textContent = '품절';
+				checkoutButton.classList.remove('btn-primary');
+				checkoutButton.classList.add('btn-secondary', 'disabled');
+				checkoutButton.disabled = true;
+				// 이미 goToCheckout 함수 내에서 재고 체크를 하므로, 여기서는 버튼 비활성화만 해도 충분합니다.
+                // checkoutButton.removeEventListener('click', goToCheckout); // 기존 이벤트 제거
+				// checkoutButton.onclick = function(event) { // 새 이벤트 할당
+				// 	event.preventDefault();
+				// 	alert('해당 상품은 품절되었습니다.');
+				// };
+			}
+
+			if (totalPriceDisplayElement) {
+				// 가격 대신 "품절" 표시 또는 특정 스타일 적용 가능
+				// totalPriceDisplayElement.closest('#quantityAndPriceSection').innerHTML = '<div class="fs-3 fw-bold text-danger">품절된 상품입니다.</div>';
+			}
+			
+		} else {
+			// 재고가 있을 경우
+			if (quantityInput) {
+				quantityInput.setAttribute('max', stock); // 최대 수량을 재고만큼 설정
+
+				// + 버튼 클릭 이벤트
+				const plusButton = quantitySpinner ? quantitySpinner.querySelector('.button-plus') : null;
+				if (plusButton) {
+					plusButton.addEventListener('click', function(e) {
+						e.preventDefault();
+						let currentValue = parseInt(quantityInput.value);
+						if (currentValue < stock) {
+							quantityInput.value = currentValue + 1;
+							updateTotalPrice();
+						} else {
+							// alert('최대 재고 수량을 초과할 수 없습니다.');
+						}
+					});
+				}
+
+				// - 버튼 클릭 이벤트
+				const minusButton = quantitySpinner ? quantitySpinner.querySelector('.button-minus') : null;
+				if (minusButton) {
+					minusButton.addEventListener('click', function(e) {
+						e.preventDefault();
+						let currentValue = parseInt(quantityInput.value);
+						if (currentValue > 1) {
+							quantityInput.value = currentValue - 1;
+							updateTotalPrice();
+						}
+					});
+				}
+
+				// 수량 직접 입력 시
+				quantityInput.addEventListener('input', function() {
+					let currentValue = parseInt(this.value);
+					if (isNaN(currentValue) || currentValue < 1) {
+						// this.value = 1; // 1보다 작거나 숫자가 아니면 1로 강제 (또는 빈 값 허용시 다른 처리)
+                        // 사용자가 지우는 중일 수 있으므로, 포커스 아웃 시점에 처리하거나, checkout 시점에 최종 유효성 검사
+					} else if (currentValue > stock) {
+						this.value = stock;
+						// alert('최대 재고 수량을 초과할 수 없습니다.');
+					}
+					updateTotalPrice(); // 입력할 때마다 총 가격 업데이트
+				});
+				
+				quantityInput.addEventListener('change', function() { // 포커스 아웃 또는 엔터 시
+				    let currentValue = parseInt(this.value);
+				    if (isNaN(currentValue) || currentValue < 1) {
+				        this.value = 1; // 잘못된 값이면 1로 설정
+				    } else if (currentValue > stock) {
+				        this.value = stock; // 재고 초과 시 재고로 설정
+				    }
+				    updateTotalPrice();
+				});
+			}
+			// 페이지 로드시 초기 총 가격 세팅 (재고가 있을 때만)
+			updateTotalPrice();
+		}
+
+		// 폼 제출 관련 로직 (만약 form을 직접 submit 한다면)
+		const formList = document.getElementById('formList');
+		if (formList) {
+			formList.addEventListener('submit', function(e) {
+				// goToCheckout 함수에서 이미 URL로 이동하므로, form submit은 기본적으로 사용되지 않을 수 있습니다.
+				// 만약 form submit을 사용한다면, 여기서도 재고 체크 및 최종 가격 설정이 필요합니다.
+				if (stock <= 0) {
+					e.preventDefault();
+					alert('해당 상품은 품절되어 구매할 수 없습니다.');
+					return;
+				}
+				// 최종 수량과 가격을 다시 한번 확인하고 formTotalPriceInput에 설정
+				if(quantityInput && formTotalPriceInput){
+				    const finalQuantity = parseInt(quantityInput.value);
+				    const unitPrice = parseInt(quantityInput.getAttribute('data-price'));
+				    if(!isNaN(finalQuantity) && !isNaN(unitPrice) && finalQuantity > 0){
+				        formTotalPriceInput.value = finalQuantity * unitPrice;
+				    } else {
+				        e.preventDefault();
+				        alert('올바른 상품 정보를 확인해주세요.');
+				        return;
+				    }
+				}
+			});
+		}
+
+		// 이미지 줌 효과 (기존 코드)
+		const productZoomDiv = document.querySelector('.zoom'); // 이미 위에서 zoomDiv로 선언함
+		if(productZoomDiv) {
+			productZoomDiv.addEventListener('mousemove', function(e) {
+				// zoom 함수가 전역에 정의되어 있거나, 이 스코프 내에 정의되어야 합니다.
+				// 예시: zoom(e);
+				// zoom 함수가 외부에 있다면, 해당 함수를 호출합니다.
+				// zoom 함수가 제공되지 않았으므로, 이 부분은 주석 처리하거나 실제 zoom 함수를 구현해야 합니다.
+				// console.log('Zoom mousemove event:', e); 
+			});
+		}
+		// 전역에 zoom 함수가 없으면 아래처럼 간단히 구현하거나, 기존 zoom 함수를 사용하세요.
+		// function zoom(e) {
+		//   const zoomer = e.currentTarget;
+		//   const offsetX = e.offsetX || e.touches[0].pageX;
+		//   const offsetY = e.offsetY || e.touches[0].pageY;
+		//   const x = offsetX / zoomer.offsetWidth * 100;
+		//   const y = offsetY / zoomer.offsetHeight * 100;
+		//   zoomer.style.backgroundPosition = x + '% ' + y + '%';
+		// }
+		// window.zoom = zoom; // 전역에서 onmousemove="zoom(event)"가 호출할 수 있도록
+
+	}); // DOMContentLoaded 끝
 	</script>
 		<!-- Footer -->
 <div th:replace="~{usr/include/footer :: footer}"></div>

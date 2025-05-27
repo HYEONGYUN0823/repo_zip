@@ -9,6 +9,7 @@ import com.a7a7.modeule.upload.UploadDto;       // UploadDto 실제 경로로 �
 import com.a7a7.modeule.upload.UploadService;   // UploadService 실제 경로로 수정 필요
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,9 @@ import java.util.List;
 
 @Controller
 public class CheckoutController {
+	
+    @Value("${tossPay_cli_api}")
+    private String tossPaymentsClientKey;
 
     @Autowired
     private MemberService memberService; // final 키워드 사용 고려 (생성자 주입 시)
@@ -37,6 +41,9 @@ public class CheckoutController {
             HttpSession session) {
 
         System.out.println("### CheckoutController.prepareCheckoutPage - Product Seq: " + productSeq + ", Quantity: " + quantity);
+
+        
+        model.addAttribute("tossPaymentsClientKeyForJs", this.tossPaymentsClientKey);
 
         // 1. 상품 상세 정보 조회
         ProductDto productParamDto = new ProductDto(); // DTO 객체명에 Dto 접미사 사용 권장

@@ -77,13 +77,14 @@
                                         <th>주문번호</th> <!-- 주문(order) 테이블의 PK -->
                                         <th>주문날짜</th>
                                         <th>개수</th>
-                                        <th>가격 (항목별)</th>
-                                        <th></th> <!-- 상세 보기 등 -->
+                                        <th>가격</th>
+                                        <th>주문 상태</th> <!-- 상세 보기 등 -->
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <!-- Table body -->
                                     <tr th:each="orderItem : ${orderList}"> <!-- 변수명을 orderItem으로 변경하여 명확화 -->
+										<input type="hidden" name="orderPk" th:value="${orderItem.seq}" />
                                         <td class="align-middle border-top-0 w-0">
                                             <!-- 상품 상세 페이지로 링크 (OrderDto의 mealKitSeq 사용) -->
                                             <a th:href="@{/usr/product/ProductUsrView(seq=${orderItem.mealKitSeq})}">
@@ -100,7 +101,11 @@
                                             <!-- <span><small class="text-muted" th:text="${orderItem.productSpec ?: ''}"></small></span> -->
                                         </td>
                                         <!-- 주문번호: order 테이블의 PK (OrderDto의 seq 필드) -->
-                                        <td class="align-middle border-top-0" th:text="${orderItem.seq}">주문번호</td>
+                                         <td class="align-middle border-top-0"
+                                            th:if="${orderItem.orderId != null and #strings.startsWith(orderItem.orderId, 'order_')}"
+                                            th:text="${#strings.substringAfter(orderItem.orderId, 'order_')}">
+                                            <!-- 숫자만 표시될 것임 -->
+                                        </td>
                                         <!-- orderDate가 String 타입이고 'YYYY-MM-DD HH:MM:SS' 형태라고 가정. Date 타입이면 #dates.format 사용 -->
                                         <td class="align-middle border-top-0"
                                             th:text="${orderItem.orderDate != null ? (#strings.length(orderItem.orderDate) >= 10 ? #strings.substring(orderItem.orderDate, 0, 10) : orderItem.orderDate) : '날짜 없음'}">주문날짜</td>
@@ -108,11 +113,12 @@
                                         <!-- 주문 아이템의 단가 -->
                                         <td class="align-middle border-top-0" th:text="${#numbers.formatInteger(orderItem.price, 0, 'COMMA')} + '원'">가격</td>
                                         <td class="text-muted align-middle border-top-0">
+                                        	<span th:text="${orderItem.status}">주문 상태</span>
                                             <!-- TODO: 주문 상세 보기 페이지 링크 구현 (orderItem.seq는 주문 PK) -->
-                                            <a th:href="@{/usr/setting/OrderDetailPageExample(orderSeq=${orderItem.seq})}" class="text-inherit" data-bs-toggle="tooltip"
-                                               data-bs-placement="top" data-bs-title="상세보기">
-                                                <i class="feather-icon icon-eye"></i>
-                                            </a>
+<!--                                             <a th:href="@{/usr/setting/OrderDetailPageExample(orderSeq=${orderItem.seq})}" class="text-inherit" data-bs-toggle="tooltip" -->
+<!--                                                data-bs-placement="top" data-bs-title="상세보기"> -->
+<!--                                                 <i class="feather-icon icon-eye"></i> -->
+<!--                                             </a> -->`
                                         </td>
                                     </tr>
                                     </tbody>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.a7a7.modeule.order.OrderDao"> <!-- 실제 OrderDao 패키지 경로 -->
+<mapper namespace="com.a7a7.modeule.order.OrderDao">
 
-    <resultMap id="orderResultMap" type="com.a7a7.modeule.order.OrderDto"> <!-- 실제 OrderDto 패키지 경로 -->
+    <resultMap id="orderResultMap" type="com.a7a7.modeule.order.OrderDto">
         <id property="seq" column="order_pk_alias"/>
         <result property="orderDate" column="order_date_alias"/>
         <result property="total_price" column="order_total_price_alias"/>
@@ -17,10 +17,15 @@
         <result property="productImageUrl" column="product_image_path_alias"/>
     </resultMap>
 
-    <!-- insertOrder, insertOrderItem은 이전과 동일하게 유지 -->
     <insert id="insertOrder" parameterType="com.a7a7.modeule.order.OrderDto">
         INSERT INTO `order` (total_price, orderDate, status, userUi_seq, toss_order_id)
-        VALUES (#{total_price}, NOW(), #{status}, #{userUiSeq}, #{orderId})
+        VALUES (
+            #{total_price},
+            CONVERT_TZ(NOW(), 'UTC', 'Asia/Seoul'),
+            #{status},
+            #{userUiSeq},
+            #{orderId}
+        )
         <selectKey keyProperty="seq" resultType="String" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
@@ -43,23 +48,12 @@
             oi.price AS item_price_alias,
             mk.mealKitName AS product_name_alias,
             mk.seq AS meal_kit_pk_alias,
-            -- fileUploaded 테이블에서 이미지 경로를 가져오기 위한 서브쿼리 사용
-            -- pseq에 해당하는 이미지가 여러 개일 경우, 이 서브쿼리는 하나의 path만 반환해야 함
-            -- (예: 가장 낮은 sort 값 또는 가장 최근 regDateTime, 또는 특정 type)
-            -- 여기서는 가장 간단하게 LIMIT 1을 사용한 예시 (DB 및 정렬에 따라 결과가 달라질 수 있음, 비권장)
-            -- 더 나은 방법은 fileUploaded에 대표이미지 여부 컬럼(defaultNy)을 활용하거나,
-            -- 특정 type (예: 상품 썸네일 타입)으로 필터링하는 것입니다.
             (SELECT fu.path FROM fileUploaded fu WHERE fu.pseq = mk.seq ORDER BY fu.sort ASC, fu.seq ASC LIMIT 1) AS product_image_path_alias
-            -- 만약 fileUploaded 테이블에 defaultNy (1: 대표, 0: 일반) 컬럼이 있다면 아래와 같이 수정 가능:
-            -- (SELECT fu.path FROM fileUploaded fu WHERE fu.pseq = mk.seq AND fu.defaultNy = 1 LIMIT 1) AS product_image_path_alias
-            -- 또는 특정 type으로 대표 이미지를 구분한다면:
-            -- (SELECT fu.path FROM fileUploaded fu WHERE fu.pseq = mk.seq AND fu.type = 특정_대표이미지_타입코드 LIMIT 1) AS product_image_path_alias
         FROM `order` o
         JOIN orderItem oi ON o.seq = oi.order_seq
         JOIN `mealKit` mk ON oi.mealKit_seq = mk.seq
-        -- LEFT JOIN fileUploaded fu ON mk.seq = fu.pseq
         WHERE o.userUi_seq = #{userUiSeq}
-        ORDER BY o.orderDate DESC
+        ORDER BY o.seq DESC
     </select>
 
 </mapper>
