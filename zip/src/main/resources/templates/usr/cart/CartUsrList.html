@@ -2,16 +2,28 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{usr/include/head :: head}"></head>
-<!-- <title>장바구니</title> -->
+<!-- 가정: theme.min.js 또는 bootstrap.bundle.min.js가 head에 포함됨 -->
 
 <body>
-    <!-- validation.js 로드 위치는 head 또는 body 최하단이 일반적 -->
-    <!-- <script src="/user/template/user_ui/assets/js/vendors/validation.js"></script> -->
-
-    <!-- ★★★ 테마 JS 임시 주석 처리 (테스트용) ★★★ -->
-    <!-- <script src="/path/to/your/theme.min.js"></script> -->
-    <!-- 위 경로를 실제 theme.min.js 경로로 바꾸고, 문제가 theme.min.js 때문인지 확인하기 위해 주석 처리해보세요. -->
-
+    <!-- 재사용 가능한 Bootstrap 모달 -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">알림</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="cartModalMessage">
+                    <!-- 메시지가 여기에 동적으로 삽입됩니다 -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cartModalCancel">취소</button>
+                    <button type="button" class="btn btn-primary" id="cartModalConfirm" style="display: none;">확인</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="cartModalOk" style="display: none;">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- 오프캔버스 (헤더에 있다고 가정) -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -37,8 +49,8 @@
         </div>
     </div>
 
-	<main>
-		<div class="mt-4"><div class="container"><div class="row"><div class="col-12">
+    <main>
+        <div class="mt-4"><div class="container"><div class="row"><div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="/">홈</a></li>
@@ -47,7 +59,7 @@
                 </ol>
             </nav>
         </div></div></div></div>
-		<section class="mb-lg-14 mb-8 mt-8"><div class="container">
+        <section class="mb-lg-14 mb-8 mt-8"><div class="container">
             <div class="row"><div class="col-12"><div class="card py-1 border-0 mb-8"><div><h1 class="fw-bold">장바구니</h1></div></div></div></div>
             <div class="row">
                 <div class="col-lg-8 col-md-7"><div class="py-3">
@@ -77,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-6 mt-2 mt-md-0">
-                                    <div class="input-group input-spinner"> <!-- 테마가 이 클래스에 반응할 수 있음 -->
+                                    <div class="input-group input-spinner">
                                         <input type="button" value="-" class="button-minus btn btn-sm" th:attr="data-product-seq=${item.productSeq}" />
                                         <input type="number" step="1" min="1" th:value="${item.quantity}" name="quantity"
                                                class="quantity-field form-control-sm form-input"
@@ -129,158 +141,239 @@
                 </div>
             </div>
         </div></section>
-	</main>
-	
-	<script type="text/javascript" th:inline="javascript">
-	/*<![CDATA[*/
-	document.addEventListener('DOMContentLoaded', function() {
-	    console.log("CartUsrList.html DOMContentLoaded - Script Start v3 (theme.min.js check)");
+    </main>
 
-	    const csrfTokenMeta = document.querySelector('meta[name="_csrf"]');
-	    const csrfHeaderMeta = document.querySelector('meta[name="_csrf_header"]');
-	    const csrfHeaders = { 'Content-Type': 'application/x-www-form-urlencoded' };
-	    if (csrfTokenMeta && csrfHeaderMeta && csrfTokenMeta.content && csrfHeaderMeta.content) {
-	        csrfHeaders[csrfHeaderMeta.content] = csrfTokenMeta.content;
-	    } else {
-	        console.warn("CSRF meta tags not found for CartUsrList.");
-	    }
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("CartUsrList.html DOMContentLoaded - Script Start v4 (with modal)");
 
-	    function updateQuantityOnCartPage(productSeq, newQuantity) {
-	        console.log(`CartUsrList: Attempting to update quantity. ProductSeq: [${productSeq}], NewQuantity: [${newQuantity}]`);
-	        if (!productSeq || typeof newQuantity !== 'number' || newQuantity < 0) {
-	            console.error("updateQuantityOnCartPage: Invalid arguments.", { productSeq, newQuantity });
-	            alert("올바르지 않은 수량 정보입니다. 페이지를 새로고침 해주세요.");
-	            return;
-	        }
-	        fetch('/usr/cart/updateQuantity', {
-	            method: 'POST', headers: csrfHeaders,
-	            body: new URLSearchParams({ 'productSeq': productSeq, 'quantity': newQuantity })
-	        })
-	        .then(response => {
-	            if (!response.ok) { return response.json().then(errData => { throw new Error(errData.message || `서버 오류: ${response.status}`); }); }
-	            return response.json();
-	        })
-	        .then(data => {
-	            console.log('CartUsrList: Update quantity response data:', data);
-	            if (data.success) { location.reload(); }
-	            else { alert('수량 변경 실패: ' + (data.message || '알 수 없는 오류.')); }
-	        })
-	        .catch(error => { console.error('CartUsrList: Fetch error during updateQuantity:', error); alert('수량 변경 중 오류: ' + error.message); });
-	    }
-
-	    const minusButtons = document.querySelectorAll('.button-minus');
-	    console.log(`Found ${minusButtons.length} minus buttons.`);
-	    minusButtons.forEach(button => {
-	        button.addEventListener('click', function(event) { // 이벤트 객체 받기
-                // event.stopPropagation(); // ★★★ 테마 JS와의 충돌 방지를 위해 시도해볼 수 있음 ★★★
-	            const productSeq = this.dataset.productSeq;
-	            const quantityField = document.querySelector(`.quantity-field[data-product-seq="${productSeq}"]`);
-	            console.log(`Minus button clicked for seq: ${productSeq}. Quantity field:`, quantityField);
-	            if (!quantityField) { console.error("수량 필드 못찾음 (minus)"); return; }
-	            let currentValue = parseInt(quantityField.value);
-	            if (isNaN(currentValue)) { console.error("현재 수량 NaN (minus)"); return; }
-	            if (currentValue > 1) { updateQuantityOnCartPage(productSeq, currentValue - 1); }
-	            else if (currentValue === 1) { if (confirm('상품을 장바구니에서 삭제하시겠습니까?')) { removeItemFromCartPage(productSeq); } }
-	        });
-	    });
-
-	    const plusButtons = document.querySelectorAll('.button-plus');
-	    console.log(`Found ${plusButtons.length} plus buttons.`);
-	    plusButtons.forEach(button => {
-	        button.addEventListener('click', function(event) { // 이벤트 객체 받기
-                // event.stopPropagation(); // ★★★ 테마 JS와의 충돌 방지를 위해 시도해볼 수 있음 ★★★
-	            const productSeq = this.dataset.productSeq;
-	            const quantityField = document.querySelector(`.quantity-field[data-product-seq="${productSeq}"]`);
-	            console.log(`Plus button clicked for seq: ${productSeq}. Quantity field:`, quantityField);
-	            if (!quantityField) { console.error("수량 필드 못찾음 (plus)"); return; }
-	            let currentValue = parseInt(quantityField.value);
-	            if (isNaN(currentValue)) { console.error("현재 수량 NaN (plus)"); return; }
-	            const maxStock = parseInt(quantityField.getAttribute('max')) || 999;
-	            if (currentValue < maxStock) { updateQuantityOnCartPage(productSeq, currentValue + 1); }
-	            else { alert('더 이상 수량을 늘릴 수 없습니다.'); }
-	        });
-	    });
-
-	    const quantityFields = document.querySelectorAll('.quantity-field');
-	    console.log(`Found ${quantityFields.length} quantity fields.`);
-	    quantityFields.forEach(input => {
-	        input.addEventListener('change', function() {
-	            const productSeq = this.dataset.productSeq;
-	            let newQuantity = parseInt(this.value);
-	            const minQuantity = parseInt(this.min) || 1;
-	            const maxQuantity = parseInt(this.getAttribute('max')) || 999;
-	            console.log(`Quantity field changed for seq: ${productSeq}. NewValue: ${newQuantity}`);
-	            if (isNaN(newQuantity) || newQuantity < minQuantity) { this.value = minQuantity; newQuantity = minQuantity; }
-	            else if (newQuantity > maxQuantity) { alert('최대 주문 가능 수량을 초과했습니다.'); this.value = maxQuantity; newQuantity = maxQuantity; }
-	            updateQuantityOnCartPage(productSeq, newQuantity);
-	        });
-	    });
-
-	    function removeItemFromCartPage(productSeq) {
-            fetch('/usr/cart/removeItem', { method: 'POST', headers: csrfHeaders, body: new URLSearchParams({ 'productSeq': productSeq }) })
-            .then(response => { if (!response.ok) { return response.json().then(err => { throw err; }); } return response.json(); })
-            .then(data => { if (data.success) { location.reload(); } else { alert('상품 삭제 실패: ' + (data.message || '오류')); }})
-            .catch(error => { console.error('상품 삭제 오류:', error); alert('상품 삭제 중 오류: ' + error.message); });
+        // CSRF 설정
+        const csrfTokenMeta = document.querySelector('meta[name="_csrf"]');
+        const csrfHeaderMeta = document.querySelector('meta[name="_csrf_header"]');
+        const csrfHeaders = { 'Content-Type': 'application/x-www-form-urlencoded' };
+        if (csrfTokenMeta && csrfHeaderMeta && csrfTokenMeta.content && csrfHeaderMeta.content) {
+            csrfHeaders[csrfHeaderMeta.content] = csrfTokenMeta.content;
+        } else {
+            console.warn("CSRF meta tags not found for CartUsrList.");
         }
-	    document.querySelectorAll('.remove-item-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault(); // a 태그 기본 동작 방지
-                // event.stopPropagation(); // ★★★ 테마 JS와의 충돌 방지를 위해 시도해볼 수 있음 ★★★
-                const listItem = this.closest('li[data-product-seq]');
-                if(!listItem) { console.error("삭제 버튼의 부모 li를 찾을 수 없습니다."); return; }
-                const productSeq = listItem.dataset.productSeq;
-                if (confirm('이 상품을 장바구니에서 삭제하시겠습니까?')) { removeItemFromCartPage(productSeq); }
+
+        // 모달 표시 함수 (단순 알림)
+        function showModal(message) {
+            const modalMessage = document.getElementById('cartModalMessage');
+            const confirmButton = document.getElementById('cartModalConfirm');
+            const okButton = document.getElementById('cartModalOk');
+            if (modalMessage && confirmButton && okButton) {
+                modalMessage.textContent = message;
+                confirmButton.style.display = 'none'; // 확인 버튼 숨김
+                okButton.style.display = 'inline-block'; // 단순 확인 버튼 표시
+                const modal = new bootstrap.Modal(document.getElementById('cartModal'), { keyboard: true });
+                modal.show();
+            } else {
+                console.error("Modal elements not found!");
+                alert(message); // 폴백
+            }
+        }
+
+        // 모달 표시 함수 (확인/취소)
+        function showConfirmModal(message, onConfirm) {
+            const modalMessage = document.getElementById('cartModalMessage');
+            const confirmButton = document.getElementById('cartModalConfirm');
+            const okButton = document.getElementById('cartModalOk');
+            if (modalMessage && confirmButton && okButton) {
+                modalMessage.textContent = message;
+                confirmButton.style.display = 'inline-block'; // 확인 버튼 표시
+                okButton.style.display = 'none'; // 단순 확인 버튼 숨김
+                const modal = new bootstrap.Modal(document.getElementById('cartModal'), { keyboard: true });
+                
+                // 기존 이벤트 제거 (중복 방지)
+                const newConfirmButton = confirmButton.cloneNode(true);
+                confirmButton.parentNode.replaceChild(newConfirmButton, confirmButton);
+                
+                // 확인 버튼 이벤트
+                newConfirmButton.addEventListener('click', () => {
+                    modal.hide();
+                    onConfirm();
+                });
+                
+                modal.show();
+            } else {
+                console.error("Modal elements not found!");
+                if (confirm(message)) { // 폴백
+                    onConfirm();
+                }
+            }
+        }
+
+        function updateQuantityOnCartPage(productSeq, newQuantity) {
+            console.log(`CartUsrList: Attempting to update quantity. ProductSeq: [${productSeq}], NewQuantity: [${newQuantity}]`);
+            if (!productSeq || typeof newQuantity !== 'number' || newQuantity < 0) {
+                console.error("updateQuantityOnCartPage: Invalid arguments.", { productSeq, newQuantity });
+                showModal("올바르지 않은 수량 정보입니다. 페이지를 새로고침 해주세요.");
+                return;
+            }
+            fetch('/usr/cart/updateQuantity', {
+                method: 'POST', headers: csrfHeaders,
+                body: new URLSearchParams({ 'productSeq': productSeq, 'quantity': newQuantity })
+            })
+            .then(response => {
+                if (!response.ok) { return response.json().then(errData => { throw new Error(errData.message || `서버 오류: ${response.status}`); }); }
+                return response.json();
+            })
+            .then(data => {
+                console.log('CartUsrList: Update quantity response data:', data);
+                if (data.success) { location.reload(); }
+                else { showModal('수량 변경 실패: ' + (data.message || '알 수 없는 오류.')); }
+            })
+            .catch(error => {
+                console.error('CartUsrList: Fetch error during updateQuantity:', error);
+                showModal('수량 변경 중 오류: ' + error.message);
+            });
+        }
+
+        const minusButtons = document.querySelectorAll('.button-minus');
+        console.log(`Found ${minusButtons.length} minus buttons.`);
+        minusButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const productSeq = this.dataset.productSeq;
+                const quantityField = document.querySelector(`.quantity-field[data-product-seq="${productSeq}"]`);
+                console.log(`Minus button clicked for seq: ${productSeq}. Quantity field:`, quantityField);
+                if (!quantityField) { console.error("수량 필드 못찾음 (minus)"); return; }
+                let currentValue = parseInt(quantityField.value);
+                if (isNaN(currentValue)) { console.error("현재 수량 NaN (minus)"); return; }
+                if (currentValue > 1) { updateQuantityOnCartPage(productSeq, currentValue - 1); }
+                else if (currentValue === 1) {
+                    showConfirmModal('상품을 장바구니에서 삭제하시겠습니까?', () => {
+                        removeItemFromCartPage(productSeq);
+                    });
+                }
             });
         });
 
-	    const clearCartButton = document.querySelector('.clear-cart-btn');
-	    if (clearCartButton) {
-            clearCartButton.addEventListener('click', function(event) {
-                // event.stopPropagation(); // ★★★ 테마 JS와의 충돌 방지를 위해 시도해볼 수 있음 ★★★
-                if (confirm('장바구니의 모든 상품을 삭제하시겠습니까?')) {
-                    fetch('/usr/cart/clearCart', { method: 'POST', headers: csrfHeaders })
-                    .then(response => { if (!response.ok) { return response.json().then(err => { throw err; }); } return response.json(); })
-                    .then(data => { if (data.success) { location.reload(); } else { alert('장바구니 비우기 실패: ' + (data.message || '오류')); }})
-                    .catch(error => { console.error('장바구니 비우기 오류:', error); alert('장바구니 비우기 중 오류: ' + (error.message || '통신 오류')); });
+        const plusButtons = document.querySelectorAll('.button-plus');
+        console.log(`Found ${plusButtons.length} plus buttons.`);
+        plusButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const productSeq = this.dataset.productSeq;
+                const quantityField = document.querySelector(`.quantity-field[data-product-seq="${productSeq}"]`);
+                console.log(`Plus button clicked for seq: ${productSeq}. Quantity field:`, quantityField);
+                if (!quantityField) { console.error("수량 필드 못찾음 (plus)"); return; }
+                let currentValue = parseInt(quantityField.value);
+                if (isNaN(currentValue)) { console.error("현재 수량 NaN (plus)"); return; }
+                const maxStock = parseInt(quantityField.getAttribute('max')) || 999;
+                if (currentValue < maxStock) { updateQuantityOnCartPage(productSeq, currentValue + 1); }
+                else { showModal('더 이상 수량을 늘릴 수 없습니다.'); }
+            });
+        });
+
+        const quantityFields = document.querySelectorAll('.quantity-field');
+        console.log(`Found ${quantityFields.length} quantity fields.`);
+        quantityFields.forEach(input => {
+            input.addEventListener('change', function() {
+                const productSeq = this.dataset.productSeq;
+                let newQuantity = parseInt(this.value);
+                const minQuantity = parseInt(this.min) || 1;
+                const maxQuantity = parseInt(this.getAttribute('max')) || 999;
+                console.log(`Quantity field changed for seq: ${productSeq}. NewValue: ${newQuantity}`);
+                if (isNaN(newQuantity) || newQuantity < minQuantity) { this.value = minQuantity; newQuantity = minQuantity; }
+                else if (newQuantity > maxQuantity) {
+                    showModal('최대 주문 가능 수량을 초과했습니다.');
+                    this.value = maxQuantity;
+                    newQuantity = maxQuantity;
                 }
+                updateQuantityOnCartPage(productSeq, newQuantity);
+            });
+        });
+
+        function removeItemFromCartPage(productSeq) {
+            fetch('/usr/cart/removeItem', {
+                method: 'POST', headers: csrfHeaders,
+                body: new URLSearchParams({ 'productSeq': productSeq })
+            })
+            .then(response => {
+                if (!response.ok) { return response.json().then(err => { throw err; }); }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) { location.reload(); }
+                else { showModal('상품 삭제 실패: ' + (data.message || '오류')); }
+            })
+            .catch(error => {
+                console.error('상품 삭제 오류:', error);
+                showModal('상품 삭제 중 오류: ' + error.message);
             });
         }
-	    
-	    const mainCheckoutButton = document.getElementById('mainCheckoutButton');
-	    if (mainCheckoutButton) {
-	        console.log("Main Checkout button (CartUsrList) found:", mainCheckoutButton, "Initial Disabled State:", mainCheckoutButton.disabled);
-	        mainCheckoutButton.addEventListener('click', function(event) {
-	            console.log("Main Checkout button clicked! Current Disabled State:", this.disabled);
-                // event.stopPropagation(); // ★★★ 테마 JS와의 충돌 방지를 위해 시도해볼 수 있음 ★★★
-	            if (this.disabled) {
-	                alert('장바구니에 상품이 없거나 결제할 금액이 없습니다.');
-	                event.preventDefault(); return;
-	            }
-	            const summaryTotalAmountElement = document.getElementById('summaryTotalAmount');
-                if (!summaryTotalAmountElement) { alert('주문 요약 총액 정보를 찾을 수 없습니다.'); console.error("ID 'summaryTotalAmount' 없음!"); return; }
-	            const currentTotalAmountText = summaryTotalAmountElement.innerText;
-	            const currentTotalAmount = parseInt(currentTotalAmountText.replace(/[^0-9]/g, ''), 10);
-	            if (currentTotalAmount > 0) {
-	                console.log("CartUsrList - Navigating to /usr/checkout/CheckoutUsrList");
-	                window.location.href = '/usr/checkout/CheckoutUsrList';
-	            } else {
-	                alert('결제할 상품이 없습니다. 장바구니를 확인해주세요.');
+
+        document.querySelectorAll('.remove-item-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const listItem = this.closest('li[data-product-seq]');
+                if (!listItem) { console.error("삭제 버튼의 부모 li를 찾을 수 없습니다."); return; }
+                const productSeq = listItem.dataset.productSeq;
+                showConfirmModal('이 상품을 장바구니에서 삭제하시겠습니까?', () => {
+                    removeItemFromCartPage(productSeq);
+                });
+            });
+        });
+
+        const clearCartButton = document.querySelector('.clear-cart-btn');
+        if (clearCartButton) {
+            clearCartButton.addEventListener('click', function(event) {
+                showConfirmModal('장바구니의 모든 상품을 삭제하시겠습니까?', () => {
+                    fetch('/usr/cart/clearCart', {
+                        method: 'POST', headers: csrfHeaders
+                    })
+                    .then(response => {
+                        if (!response.ok) { return response.json().then(err => { throw err; }); }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) { location.reload(); }
+                        else { showModal('장바구니 비우기 실패: ' + (data.message || '오류')); }
+                    })
+                    .catch(error => {
+                        console.error('장바구니 비우기 오류:', error);
+                        showModal('장바구니 비우기 중 오류: ' + (error.message || '통신 오류'));
+                    });
+                });
+            });
+        }
+
+        const mainCheckoutButton = document.getElementById('mainCheckoutButton');
+        if (mainCheckoutButton) {
+            console.log("Main Checkout button (CartUsrList) found:", mainCheckoutButton, "Initial Disabled State:", mainCheckoutButton.disabled);
+            mainCheckoutButton.addEventListener('click', function(event) {
+                console.log("Main Checkout button clicked! Current Disabled State:", this.disabled);
+                if (this.disabled) {
+                    showModal('장바구니에 상품이 없거나 결제할 금액이 없습니다.');
+                    event.preventDefault();
+                    return;
+                }
+                const summaryTotalAmountElement = document.getElementById('summaryTotalAmount');
+                if (!summaryTotalAmountElement) {
+                    showModal('주문 요약 총액 정보를 찾을 수 없습니다.');
+                    console.error("ID 'summaryTotalAmount' 없음!");
+                    return;
+                }
+                const currentTotalAmountText = summaryTotalAmountElement.innerText;
+                const currentTotalAmount = parseInt(currentTotalAmountText.replace(/[^0-9]/g, ''), 10);
+                if (currentTotalAmount > 0) {
+                    console.log("CartUsrList - Navigating to /usr/checkout/CheckoutUsrList");
+                    window.location.href = '/usr/checkout/CheckoutUsrList';
+                } else {
+                    showModal('결제할 상품이 없습니다. 장바구니를 확인해주세요.');
                     console.log("Checkout prevented: Total amount is not greater than 0.");
-	            }
-	        });
-	    } else {
+                }
+            });
+        } else {
             console.error("Main Checkout button with ID 'mainCheckoutButton' not found on CartUsrList!");
         }
-	    
-	    // --- 오프캔버스 로직 (이 페이지에서는 간략화 또는 분리 권장) ---
-        // ... (이전 ProductUsrView.html의 오프캔버스 JS 참고하여 필요시 여기에 맞게 구현)
 
-	    console.log("CartUsrList.html JavaScript execution finished. v3");
-	});
-	/*]]>*/
-	</script>
-	
-	<div th:replace="~{usr/include/footer :: footer}"></div>
+        console.log("CartUsrList.html JavaScript execution finished. v4");
+    });
+    /*]]>*/
+    </script>
 
+    <div th:replace="~{usr/include/footer :: footer}"></div>
 </body>
 </html>
