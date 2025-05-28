@@ -172,26 +172,34 @@
 
 	<script type="text/javascript">
 	
-    const xls = new RegExp('\.xls$', 'i');
-    const xlsx = new RegExp('\.xlsx$', 'i');
-    
-    const fileInput = document.getElementById('inputGroupFile01');
-
-    fileInput.addEventListener('change', function () {
-      const file = fileInput.files[0];
-
-      if (!file) return
-
-      const fileName = file.name;
-
-      if (xls.test(fileName) || xlsx.test(fileName)) {
-        alert('올바른 엑셀 파일이 선택되었습니다.');
-      } else {
-        alert('엑셀 파일 (.xls 또는 .xlsx)만 업로드할 수 있습니다.');
-        fileInput.value = ''; // 파일 입력 초기화
-      }
-    });
+		const xls = new RegExp('\.xls$', 'i');
+		const xlsx = new RegExp('\.xlsx$', 'i');
+		const maxFileSize = 5 * 1024 * 1024; // 5MB (바이트 단위: 5 * 1024 * 1024)
 	
+		const fileInput = document.getElementById('inputGroupFile01');
+	
+		fileInput.addEventListener('change', function () {
+		  const file = fileInput.files[0];
+	
+		  if (!file) return;
+	
+		  const fileName = file.name;
+		  const fileSize = file.size; // 파일 크기 (바이트 단위)
+	
+		  // 확장자 체크
+		  if (!xls.test(fileName) && !xlsx.test(fileName)) {
+		    alert('엑셀 파일 (.xls 또는 .xlsx)만 업로드할 수 있습니다.');
+		    fileInput.value = ''; // 파일 입력 초기화
+		    return;
+		  }
+	
+		  // 파일 용량 체크
+		  if (fileSize > maxFileSize) {
+		    alert('파일 크기는 5MB 이하여야 합니다.');
+		    fileInput.value = ''; // 파일 입력 초기화
+		    return;
+		  }
+		});
 	
 	
 		let goUrlXdmInst = "/xdm/code/CodeXdmInst";

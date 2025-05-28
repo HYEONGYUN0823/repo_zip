@@ -34,42 +34,49 @@
 		<include refid="selectCommon"></include>
 	</select>
 	
-	<select id="selectList" resultMap="resultMapObj">
-		SELECT aa.* FROM (
-			SELECT
-				a.seq,
-				a.brandName,
-				a.mealKitName,
-				a.stock,
-				a.price,
-				a.score,
-				a.ingredient,
-				a.mealDelNy,
-				a.mealUseNy,
-				a.mealRegDateTime,
-				a.mealModDateTime
-		<include refid="selectCommon"></include>
-		) aa
-		limit #{rowNumToShow} offset #{startRnumForMysql}
-	</select>
+<select id="selectList" resultMap="resultMapObj">
+    SELECT aa.* FROM (
+        SELECT
+            a.seq,
+            a.brandName,
+            a.mealKitName,
+            a.stock,
+            a.price,
+            a.score,
+            a.ingredient,
+            a.mealDelNy,
+            a.mealUseNy,
+            a.mealRegDateTime,
+            a.mealModDateTime,
+            (SELECT COUNT(*) FROM review r WHERE r.mealKit_seq = a.seq) AS reviewCount
+    <include refid="selectCommon"></include>
+    ) aa
+    limit #{rowNumToShow} offset #{startRnumForMysql}
+</select>
 	
-	<select id="selectOne" resultMap="resultMapObj">
-		SELECT
-			seq,
-			brandName,
-			mealKitName,
-			stock,
-			price,
-			score,
-			ingredient,
-			mealDelNy,
-			mealUseNy
-		FROM
-			mealKit
-		WHERE 1=1
-			AND seq = #{seq}
-		ORDER BY seq DESC
-	</select>
+<select id="selectOne" resultMap="resultMapObj">
+    SELECT
+        mk.seq,
+        mk.brandName,
+        mk.mealKitName,
+        mk.stock,
+        mk.price,
+        mk.score,
+        mk.ingredient,
+        mk.mealDelNy,
+        mk.mealUseNy,
+        (SELECT COUNT(*) FROM review r WHERE r.mealKit_seq = mk.seq) AS reviewCount,
+        <!-- ★★★ 상품 대표 이미지 경로 조회 추가 ★★★ -->
+        (SELECT fu.path
+         FROM fileUploaded fu
+         WHERE fu.pseq = mk.seq
+         ORDER BY fu.sort ASC, fu.seq ASC <!-- 대표 이미지 선정 기준 -->
+         LIMIT 1) AS path
+    FROM
+        mealKit mk
+    WHERE 1=1
+        AND mk.seq = #{seq}
+</select>
 	
 	<insert id="insert">
 		INSERT INTO mealKit (
@@ -119,31 +126,32 @@
 		WHERE seq = #{seq}
 	</update>
 	
-	<select id="selectProductList" resultMap="resultMapObj">
-	    SELECT aa.* FROM (
-	        SELECT
-	            a.seq,
-	            a.brandName,
-	            a.mealKitName,
-	            a.stock,
-	            a.price,
-	            a.score,
-	            a.ingredient,
-	            a.mealDelNy,
-	            a.mealUseNy,
-	            a.mealRegDateTime,
-	            a.mealModDateTime,
-	            (
-	                SELECT b.path
-	                FROM fileUploaded b
-	                WHERE b.pseq = a.seq
-	                ORDER BY b.sort DESC
-	                LIMIT 1
-	            ) path
-	        <include refid="selectCommon"></include>
-	    ) aa
-	    limit #{rowNumToShow} offset #{startRnumForMysql}
-	</select>
+<select id="selectProductList" resultMap="resultMapObj">
+    SELECT aa.* FROM (
+        SELECT
+            a.seq,
+            a.brandName,
+            a.mealKitName,
+            a.stock,
+            a.price,
+            a.score,
+            a.ingredient,
+            a.mealDelNy,
+            a.mealUseNy,
+            a.mealRegDateTime,
+            a.mealModDateTime,
+            (SELECT COUNT(*) FROM review r WHERE r.mealKit_seq = a.seq) AS reviewCount,
+            (
+                SELECT b.path
+                FROM fileUploaded b
+                WHERE b.pseq = a.seq
+                ORDER BY b.sort ASC, b.seq ASC
+                LIMIT 1
+            ) path
+    <include refid="selectCommon"></include>
+    ) aa
+    limit #{rowNumToShow} offset #{startRnumForMysql}
+</select>
 	
     <update id="updateStockDecrease">
         UPDATE mealKit

@@ -1,1234 +1,446 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="~{usr/include/head :: head}"></div>
+<head th:replace="~{usr/include/head :: head}"></head>
+<!-- <title th:text="${item != null ? item.mealKitName + ' - 상품 상세' : '상품 상세'}"></title> -->
 
-<script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
+<body>
 
-		<main>
-		<form name="formList" id="formList" method="post" autocomplete="off">
-		<!-- vo.seq는 어떤 용도인지 명확하지 않아 일단 유지합니다. item.seq와 다를 수 있습니다. -->
-		<input type="hidden" name="vo_seq" th:value="${vo != null ? vo.seq : ''}">
-		<!-- 이 input type="hidden" name="seq"는 중복되는 것 같아 보입니다. formSeq로 대체될 수 있습니다. -->
-		<!-- <input type="hidden" name="seq"> -->
-			<div class="mt-4">
-				<div class="container">
-					<!-- row -->
-					<div class="row">
-						<!-- col -->
-						<div class="col-12">
-							<!-- breadcrumb -->
-							<nav aria-label="breadcrumb">
-								<ol class="breadcrumb mb-0">
-									<li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
-									<li class="breadcrumb-item"><a href="/usr/product/ProductUsrList">밀키트</a></li>
-
-									<li class="breadcrumb-item active" aria-current="page" th:text="${item.mealKitName}">계란볶음밥</li>
-								</ol>
-							</nav>
-						</div>
-					</div>
-				</div>
-			</div>
-<section class="mt-8">
-  <div class="container">
-    <div class="row align-items-start"> <!-- row 시작 -->
-
-      <!-- 왼쪽 이미지 영역 -->
-      <div class="col-md-5 col-xl-6">
-        <div class="product" id="product">
-					<div class="zoom"
-					     onmousemove="zoom(event)"
-					     th:style="|background-image: url('${itemFile != null ? itemFile.path : '/default/image/path.jpg'}')|">
-					  <img id="productImage" th:src="@{${itemFile != null ? itemFile.path : '/default/image/path.jpg'}}"
-					       style="height: 675px"
-					       alt="상품 이미지" />
-					</div>
+    <script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
+    <!-- 오프캔버스 장바구니 -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header border-bottom">
+            <div class="text-start"><h5 id="offcanvasRightLabel" class="mb-0 fs-4">장바구니</h5></div>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-      </div>
-
-      <!-- 오른쪽 상품 정보 영역 -->
-      <div class="col-md-7 col-xl-6">
-        <div class="ps-lg-10 mt-4 mt-md-0"> <!-- 필요 없으면 mt-4 빼도 됨 -->
-					<a href="#!" id="brandName" class="mb-4 d-block"
-					   th:each="codeList : ${@codeService.selectListCachedCode(3)}"
-					   th:if="${#strings.equals(codeList.ifcdSeq, item.brandName)}"
-					   th:text="${codeList.ifcdName}">브랜드명</a>
-          <h1 id="mealKitName" class="mb-1" th:text="${item.mealKitName}">계란볶음밥</h1>
-
-          <div class="mb-4">
-            <small class="text-warning">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-half"></i>
-            </small>
-            <a href="#" class="ms-2">리뷰 (30건)</a>
-          </div>
-
-          <div class="fs-4">
-						<!-- 가격 표시는 아래 수량 조절 부분에서 함께 처리 -->
-          </div>
-
-          <hr class="my-6" />
-
-          <div>
-            <table class="table table-borderless mb-0">
-              <tbody>
-                <tr>
-                  <td>제품 코드:</td>
-                  <td th:text="${item.seq}">FBB00255</td>
-                </tr>
-                <tr>
-                  <td>재고:</td>
-                  <!-- 재고 값을 JavaScript에서 쉽게 접근할 수 있도록 id 및 data 속성 추가 -->
-                  <td id="stockDisplay" th:data-stock="${item.stock}" th:text="${item.stock > 0 ? item.stock + '개' : '품절'}">있음</td>
-                </tr>
-                <tr>
-                  <td>재료:</td>
-                  <td th:text="${item.ingredient}">밥, 파, 당근, 달걀, 간장, 식용유, 참기름, 통깨, 소금, 후추</td>
-                </tr>
-                <tr>
-                  <td>배송:</td>
-                  <td>
-                    <small>
-                      택배
-                      <span class="text-muted">(무료배송)</span>
-                    </small>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-					<div class="mt-8">
-						<!-- 수량 및 가격 표시 영역에 id 부여 -->
-						<div id="quantityAndPriceSection" class="product-item d-flex align-items-center gap-3 mb-3">
-						  <!-- 가격 -->
-						  <div class="fs-3 fw-bold text-dark total-price">
-						    <span th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')} + '원'">3,500원</span>
-						  </div>
-
-						  <!-- 수량 (id 부여) -->
-						  <div id="quantitySpinner" class="input-group input-spinner w-auto">
-						    <input type="button" value="-" class="button-minus btn btn-sm" />
-							<input type="number" id="quantity" value="1" min="1"
-							       class="quantity-field form-control-sm form-input"
-							       th:attr="data-price=${item.price}" /> <!-- max는 JS에서 동적으로 설정 -->
-						    <input type="button" value="+" class="button-plus btn btn-sm" />
-						  </div>
-						</div>
-
-						<!-- 장바구니 & 찜 버튼 -->
-						<div class="mt-3 row justify-content-start g-2 align-items-center">
-						  <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
-						  	<input type="hidden" name="seq" id="formSeq" th:value="${item.seq}"> <!-- 이 seq는 mealKit의 seq (상품 seq) -->
-						  	<input type="hidden" name="totalPrice" id="formTotalPrice" th:value="${item.price}"> <!-- 초기값은 단가 -->
-						  	<!-- 결제하기 버튼에 id 부여 -->
-						  	<button id="checkoutButton" class="btn btn-primary" type="button">결제하기</button>
-						  </div>
-						  <div class="col-md-4 col-4">
-						    <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip"
-						       data-bs-html="true" aria-label="Wishlist">
-						      <i class="feather-icon icon-heart"></i>
-						    </a>
-						  </div>
-						</div>
-					</div>
+        <div class="offcanvas-body">
+            <div>
+                <ul class="list-group list-group-flush" id="offcanvasCartItemsContainer"><li class="list-group-item text-center text-muted small py-4">로딩 중...</li></ul>
+                <div class="d-flex justify-content-between fw-bold mt-4" id="offcanvasSubtotalSection" style="display: none;">
+                    <span>소계:</span><span id="offcanvasSubtotalValue">0원</span>
+                </div>
+                <div class="d-grid mt-4">
+                    <a href="/usr/cart/CartUsrList" class="btn btn-primary mb-2">장바구니 보기</a>
+                    <a href="/usr/checkout/CheckoutUsrList" class="btn btn-dark" id="offcanvasCheckoutBtn" style="display: none;">결제하기</a>
+                </div>
+            </div>
         </div>
-      </div>
-		</div> <!-- .row align-items-start 끝 -->
-  </div> <!-- .container 끝 -->
+    </div>
+
+    <!-- 장바구니 추가 확인 모달 (Bootstrap 5 Modal) -->
+    <div class="modal fade" id="addToCartConfirmModal" tabindex="-1" aria-labelledby="addToCartConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addToCartConfirmModalLabel">장바구니 추가 완료</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    상품이 장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <a href="/usr/cart/CartUsrList" class="btn btn-primary">장바구니로 이동</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">계속 쇼핑하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <form name="formList" id="formList" method="post" autocomplete="off">
+            <input type="hidden" name="vo_seq" th:value="${vo != null ? vo.seq : ''}">
+            <div class="mt-4">
+                <div class="container">
+                    <div class="row"><div class="col-12"><nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
+                            <li class="breadcrumb-item"><a href="/usr/product/ProductUsrList">밀키트</a></li>
+                            <li class="breadcrumb-item active" aria-current="page" th:text="${item.mealKitName}">상품명</li>
+                        </ol>
+                    </nav></div></div>
+                </div>
+            </div>
+            <section class="mt-8">
+                <div class="container">
+                    <div class="row align-items-start">
+                        <div class="col-md-5 col-xl-6">
+                            <div class="product" id="product">
+                                <div class="zoom" onmousemove="zoom(event)"
+                                     th:style="'background-image: url(\'' + (${itemFile != null && itemFile.path != null ? itemFile.path : '/user/template/user_ui/assets/images/products/product-img-default.jpg'}) + '\');'">
+                                    <img id="productImage"
+                                         th:src="${itemFile != null && itemFile.path != null ? itemFile.path : '/user/template/user_ui/assets/images/products/product-img-default.jpg'}"
+                                         style="height: 675px; width: 100%; object-fit: cover;" alt="상품 이미지" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-xl-6">
+                            <div class="ps-lg-10 mt-4 mt-md-0">
+                                <a href="#!" id="brandName" class="mb-4 d-block"
+                                   th:each="codeList : ${@codeService.selectListCachedCode(3)}"
+                                   th:if="${item.brandName != 0 and codeList.ifcdSeq != null and #strings.equals(codeList.ifcdSeq, #strings.toString(item.brandName))}"
+                                   th:text="${codeList.ifcdName}">브랜드명</a>
+                                <h1 id="productDetailName" class="mb-1" th:text="${item.mealKitName}">상품명</h1>
+                                <div class="mb-4">
+                                    <small class="text-warning">
+                                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                                    </small>
+                                    <a href="#" class="ms-2">리뷰 (<span th:text="${item.reviewCount != null ? item.reviewCount : 0}">0</span>건)</a>
+                                </div>
+                                <hr class="my-6" />
+                                <div>
+                                    <table class="table table-borderless mb-0">
+                                        <tbody>
+                                            <tr><td>제품 코드:</td><td id="productDetailSeq" th:text="${item.seq}">FBB00255</td></tr>
+                                            <tr><td>재고:</td><td id="stockDisplay" th:data-stock="${item.stock}" th:text="${item.stock != null && item.stock > 0 ? item.stock + '개' : '품절'}">있음</td></tr>
+                                            <tr><td>재료:</td><td th:text="${item.ingredient}">재료 정보</td></tr>
+                                            <tr><td>배송:</td><td><small>택배<span class="text-muted">(무료배송)</span></small></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mt-8">
+                                    <div id="quantityAndPriceSection" class="product-item d-flex align-items-center gap-3 mb-3">
+                                        <div class="fs-3 fw-bold text-dark total-price">
+                                            <span th:text="${item.price != null ? #numbers.formatInteger(item.price, 0, 'COMMA') : 0} + '원'">0원</span>
+                                        </div>
+                                        <div id="quantitySpinner" class="input-group input-spinner w-auto"
+                                             th:style="${item.stock != null && item.stock > 0 ? '' : 'display:none;'}">
+                                            <input type="button" value="-" class="button-minus btn btn-sm" />
+                                            <input type="number" id="quantity" value="1" min="1"
+                                                   class="quantity-field form-control-sm form-input"
+                                                   th:attr="data-price=${item.price}, data-product-seq=${item.seq}, max=${item.stock != null && item.stock > 0 ? item.stock : 1}" />
+                                            <input type="button" value="+" class="button-plus btn btn-sm" />
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 row justify-content-start g-2 align-items-center">
+                                        <!-- 품절 시 버튼 -->
+                                        <div th:if="${item.stock == null or item.stock <= 0}" class="col-xxl-8 col-lg-8 col-md-10 col-10 d-grid">
+                                            <button class="btn btn-secondary" type="button" disabled>품절</button>
+                                        </div>
+                                        <!-- 재고 있을 시 버튼 (장바구니 담기 먼저, 그다음 바로 구매) -->
+                                        <th:block th:if="${item.stock != null and item.stock > 0}">
+                                            <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
+                                                <input type="hidden" name="seq" id="formSeqForBuyNow" th:value="${item.seq}" />
+                                                <input type="hidden" name="totalPrice" id="formTotalPriceForBuyNow" th:value="${item.price}" />
+                                                <button id="buyNowButton" class="btn btn-primary" type="button">바로 구매</button>
+                                            </div>
+                                            <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
+                                                <button id="addToCartButton" class="btn btn-dark" type="button">장바구니 담기</button>
+                                            </div>
+                                        </th:block>
+<!--                                         <div class="col-md-4 col-4"> -->
+<!--                                             <a class="btn btn-light" href="#" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Wishlist"> -->
+<!--                                                 <i class="feather-icon icon-heart"></i> -->
+<!--                                             </a> -->
+<!--                                         </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+<section class="mt-lg-14 mt-8">
+<div class="container"><div class="row"><div class="col-md-12">
+    <ul class="nav nav-pills nav-lb-tab" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation"><button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product-tab-pane" type="button" role="tab" aria-controls="product-tab-pane" aria-selected="true">조리순서</button></li>
+        <li class="nav-item" role="presentation"><button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details-tab-pane" type="button" role="tab" aria-controls="details-tab-pane" aria-selected="false">재료</button></li>
+        <li class="nav-item" role="presentation"><button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane" type="button" role="tab" aria-controls="reviews-tab-pane" aria-selected="false">요리 후기</button></li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="product-tab-pane" role="tabpanel" aria-labelledby="product-tab" tabindex="0">
+            <div class="my-8">
+                <div class="mb-5"><h5 class="mb-1">1. 당근과 대파 준비</h5><p class="mb-0">당근은 작은 크기로 다지고 대파는 송송 썰어 준비한다.</p></div>
+                <div class="mb-5"><h5 class="mb-1">2. 팬에 파 볶아내기</h5><p class="mb-0">달군 팬에 식용유를 넣고 송송 썬 파를 넣어 볶아 향을 낸다.</p></div>
+                <div class="mb-5"><h5 class="mb-1">3. 당근을 넣고 달걀 3개 준비</h5><p class="mb-0">파를 한쪽으로 밀어내고 당근을 올린다. 밀어 낸 공간에 달걀 3개를 깨트려 넣는다.</p></div>
+                <div class="mb-5"><h5 class="mb-1">4. 스크램블로 만들기</h5><p class="mb-0">계란은 주걱으로 빠르게 저어가며 스크램블을 만든다.</p></div>
+                <div class="mb-5"><h5 class="mb-1">5. 스크램블과 야채 섞기</h5><p class="mb-0">스크램블이 만들어지면 미리 볶아둔 야채와 고루 섞어준다.</p></div>
+                <div class="mb-5"><h5 class="mb-1">6. 간장을 태워 재료와 섞기</h5><p class="mb-0">내용물을 한쪽으로 밀어둔 뒤 간장을 부어 넣고 끓인 뒤 재료와 함께 고루 섞는다.</p></div>
+                <div class="mb-5"><h5 class="mb-1">7. 맛보고 간하기</h5><p class="mb-0">밥을 넣고 주걱으로 으깨어 가며 볶고 모자란 간은 소금, 후추로 더한다.</p></div>
+                <div class="mb-5"><h5 class="mb-1">8. 참기름으로 향을 더하기</h5><p class="mb-0">참기름을 넣고 섞어 마무리 한다.</p></div>
+                <div class="mb-5"><h5 class="mb-1">9. 완성된 밥에 깨 넣기</h5><p class="mb-0">접시에 볶아진 밥을 담고 통깨를 솔솔 뿌려 마무리 한다.</p></div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
+            <div class="my-8"><div class="row">
+                <div class="col-12"><h4 class="mb-4">필수 재료</h4></div>
+                <div class="col-12 col-lg-6"><table class="table table-striped"><tbody><tr><th>밥</th><td>1.5공기</td></tr><tr><th>송송 썬 파(200ml)</th><td>1컵</td></tr><tr><th>다진 당근</th><td>1소주컵</td></tr><tr><th>달걀</th><td>3개</td></tr></tbody></table></div>
+                <div class="col-12 col-lg-6"><table class="table table-striped"><tbody><tr><th>간장</th><td>1/3소주컵</td></tr><tr><th>식용유</th><td>1/3소주컵</td></tr><tr><th>참기름</th><td>1/2TS</td></tr><tr><th>통깨</th><td>조금</td></tr><tr><th>소금</th><td>약간</td></tr><tr><th>후추</th><td>약간</td></tr></tbody></table></div>
+            </div></div>
+        </div>
+        <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel"	aria-labelledby="reviews-tab" tabindex="0">
+            <div class="my-8"><div class="row">
+                <div class="col-md-4"><!-- 리뷰 통계 --></div>
+                <div class="col-md-8"><!-- 리뷰 목록 및 작성 --></div>
+            </div></div>
+        </div>
+    </div>
+</div></div></div>
 </section>
-			
-			
-			
-			
-			
-			<section class="mt-lg-14 mt-8">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<ul class="nav nav-pills nav-lb-tab" id="myTab" role="tablist">
-								<!-- nav item -->
-								<li class="nav-item" role="presentation">
-									<!-- btn -->
-									<button class="nav-link active" id="product-tab" data-bs-toggle="tab"
-										data-bs-target="#product-tab-pane" type="button" role="tab"
-										aria-controls="product-tab-pane" aria-selected="true">
-										조리순서
-									</button>
-								</li>
-								<!-- nav item -->
-								<li class="nav-item" role="presentation">
-									<!-- btn -->
-									<button class="nav-link" id="details-tab" data-bs-toggle="tab"
-										data-bs-target="#details-tab-pane" type="button" role="tab"
-										aria-controls="details-tab-pane" aria-selected="false">
-										재료
-									</button>
-								</li>
-								<!-- nav item -->
-								<li class="nav-item" role="presentation">
-									<!-- btn -->
-									<button class="nav-link" id="reviews-tab" data-bs-toggle="tab"
-										data-bs-target="#reviews-tab-pane" type="button" role="tab"
-										aria-controls="reviews-tab-pane" aria-selected="false">
-										요리 후기
-									</button>
-								</li>
-								<!-- nav item -->
-								<li class="nav-item" role="presentation">
-									<!-- btn -->
-									<button class="nav-link" id="sellerInfo-tab" data-bs-toggle="tab"
-										data-bs-target="#sellerInfo-tab-pane" type="button" role="tab"
-										aria-controls="sellerInfo-tab-pane" aria-selected="false" disabled>
-									</button>
-								</li>
-							</ul>
-							<!-- tab content -->
-							<div class="tab-content" id="myTabContent">
-								<!-- tab pane -->
-								<div class="tab-pane fade show active" id="product-tab-pane" role="tabpanel"
-									aria-labelledby="product-tab" tabindex="0">
-									<div class="my-8">
-										<div class="mb-5">
-											<!-- text -->
-											<h5 class="mb-1">1. 당근과 대파 준비</h5>
-											<p class="mb-0">
-												당근은 작은 크기로 다지고 대파는 송송 썰어 준비한다.
-											</p>
-										</div>
-										<div class="mb-5">
-											<h5 class="mb-1">2. 팬에 파 볶아내기</h5>
-											<p class="mb-0">
-												달군 팬에 식용유를 넣고 송송 썬 파를 넣어 볶아 향을 낸다.
-											</p>
-										</div>
-										<!-- content -->
-										<div class="mb-5">
-											<h5 class="mb-1">3. 당근을 넣고 달걀 3개 준비</h5>
-											<p class="mb-0">파를 한쪽으로 밀어내고 당근을 올린다.
-												밀어 낸 공간에 달걀 3개를 깨트려 넣는다.</p>
-										</div>
-										<div class="mb-5">
-											<h5 class="mb-1">4. 스크램블로 만들기</h5>
-											<p class="mb-0">계란은 주걱으로 빠르게 저어가며 스크램블을 만든다.</p>
-										</div>
-										<div class="mb-5">
-											<h5 class="mb-1">5. 스크램블과 야채 섞기</h5>
-											<p class="mb-0">스크램블이 만들어지면 미리 볶아둔 야채와 고루 섞어준다.</p>
-										</div>
-										<div class="mb-5">
-											<h5 class="mb-1">6. 간장을 태워 재료와 섞기</h5>
-											<p class="mb-0">내용물을 한쪽으로 밀어둔 뒤 간장을 부어 넣고 끓인 뒤 재료와 함께 고루 섞는다.</p>
-										</div>
-										<div class="mb-5">
-											<h5 class="mb-1">7. 맛보고 간하기</h5>
-											<p class="mb-0">밥을 넣고 주걱으로 으깨어 가며 볶고 모자란 간은 소금, 후추로 더한다.</p>
-										</div>
-										<div class="mb-5">
-											<h5 class="mb-1">8. 참기름으로 향을 더하기</h5>
-											<p class="mb-0">참기름을 넣고 섞어 마무리 한다.</p>
-										</div>
-										<div class="mb-5">
-											<h5 class="mb-1">9. 완성된 밥에 깨 넣기</h5>
-											<p class="mb-0">접시에 볶아진 밥을 담고 통깨를 솔솔 뿌려 마무리 한다.</p>
-										</div>
 
-									</div>
-								</div>
-								<!-- tab pane -->
-								<div class="tab-pane fade" id="details-tab-pane" role="tabpanel"
-									aria-labelledby="details-tab" tabindex="0">
-									<div class="my-8">
-										<div class="row">
-											<div class="col-12">
-												<h4 class="mb-4">필수 재료</h4>
-											</div>
-											<div class="col-12 col-lg-6">
-												<table class="table table-striped">
-													<!-- table -->
-													<tbody>
-														<tr>
-															<th>밥</th>
-															<td>1.5공기</td>
-														</tr>
-														<tr>
-															<th>송송 썬 파(200ml)</th>
-															<td>1컵</td>
-														</tr>
-														<tr>
-															<th>다진 당근</th>
-															<td>1소주컵</td>
-														</tr>
-														<tr>
-															<th>달걀</th>
-															<td>3개</td>
-														</tr>
-														<tr></tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="col-12 col-lg-6">
-												<table class="table table-striped">
-													<!-- table -->
-													<tbody>
-														<tr>
-															<th>간장</th>
-															<td>1/3소주컵</td>
-														</tr>
-														<tr>
-															<th>식용유</th>
-															<td>1/3소주컵</td>
-														</tr>
-														<tr>
-															<th>참기름</th>
-															<td>1/2TS</td>
-														</tr>
-														<tr>
-															<th>통깨</th>
-															<td>조금</td>
-														</tr>
-														<tr>
-															<th>소금</th>
-															<td>약간</td>
-														</tr>
-														<tr>
-															<th>후추</th>
-															<td>약간</td>
-														</tr>
-														<tr></tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- tab pane -->
-								<div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel"
-									aria-labelledby="reviews-tab" tabindex="0">
-									<div class="my-8">
-										<!-- row -->
-										<div class="row">
-											<div class="col-md-4">
-												<div class="me-lg-12 mb-6 mb-md-0">
-													<div class="mb-5">
-														<!-- title -->
-														<h4 class="mb-3">고객 리뷰</h4>
-														<span>
-															<!-- rating -->
-															<small class="text-warning">
-																<i class="bi bi-star-fill"></i>
-																<i class="bi bi-star-fill"></i>
-																<i class="bi bi-star-fill"></i>
-																<i class="bi bi-star-fill"></i>
-																<i class="bi bi-star-half"></i>
-															</small>
-															<span class="ms-3">5점 만점에 4.1점</span>
-															<small class="ms-3">11,130개의 글로벌 평가</small>
-														</span>
-													</div>
-													<div class="mb-8">
-														<!-- progress -->
-														<div class="d-flex align-items-center mb-2">
-															<div class="text-nowrap me-3 text-muted">
-																<span
-																	class="d-inline-block align-middle text-muted">5</span>
-																<i class="bi bi-star-fill ms-1 small text-warning"></i>
-															</div>
-															<div class="w-100">
-																<div class="progress" style="height: 6px">
-																	<div class="progress-bar bg-warning"
-																		role="progressbar" style="width: 60%"
-																		aria-valuenow="60" aria-valuemin="0"
-																		aria-valuemax="100"></div>
-																</div>
-															</div>
-															<span class="text-muted ms-3">53%</span>
-														</div>
-														<!-- progress -->
-														<div class="d-flex align-items-center mb-2">
-															<div class="text-nowrap me-3 text-muted">
-																<span
-																	class="d-inline-block align-middle text-muted">4</span>
-																<i class="bi bi-star-fill ms-1 small text-warning"></i>
-															</div>
-															<div class="w-100">
-																<div class="progress" style="height: 6px">
-																	<div class="progress-bar bg-warning"
-																		role="progressbar" style="width: 50%"
-																		aria-valuenow="50" aria-valuemin="0"
-																		aria-valuemax="50"></div>
-																</div>
-															</div>
-															<span class="text-muted ms-3">22%</span>
-														</div>
-														<!-- progress -->
-														<div class="d-flex align-items-center mb-2">
-															<div class="text-nowrap me-3 text-muted">
-																<span
-																	class="d-inline-block align-middle text-muted">3</span>
-																<i class="bi bi-star-fill ms-1 small text-warning"></i>
-															</div>
-															<div class="w-100">
-																<div class="progress" style="height: 6px">
-																	<div class="progress-bar bg-warning"
-																		role="progressbar" style="width: 35%"
-																		aria-valuenow="35" aria-valuemin="0"
-																		aria-valuemax="35"></div>
-																</div>
-															</div>
-															<span class="text-muted ms-3">14%</span>
-														</div>
-														<!-- progress -->
-														<div class="d-flex align-items-center mb-2">
-															<div class="text-nowrap me-3 text-muted">
-																<span
-																	class="d-inline-block align-middle text-muted">2</span>
-																<i class="bi bi-star-fill ms-1 small text-warning"></i>
-															</div>
-															<div class="w-100">
-																<div class="progress" style="height: 6px">
-																	<div class="progress-bar bg-warning"
-																		role="progressbar" style="width: 22%"
-																		aria-valuenow="22" aria-valuemin="0"
-																		aria-valuemax="22"></div>
-																</div>
-															</div>
-															<span class="text-muted ms-3">5%</span>
-														</div>
-														<!-- progress -->
-														<div class="d-flex align-items-center mb-2">
-															<div class="text-nowrap me-3 text-muted">
-																<span
-																	class="d-inline-block align-middle text-muted">1</span>
-																<i class="bi bi-star-fill ms-1 small text-warning"></i>
-															</div>
-															<div class="w-100">
-																<div class="progress" style="height: 6px">
-																	<div class="progress-bar bg-warning"
-																		role="progressbar" style="width: 14%"
-																		aria-valuenow="14" aria-valuemin="0"
-																		aria-valuemax="14"></div>
-																</div>
-															</div>
-															<span class="text-muted ms-3">7%</span>
-														</div>
-													</div>
-													<div class="d-grid">
-														<h4>이 제품을 리뷰하세요</h4>
-														<p class="mb-0">다른 고객과 생각을 공유해 보세요.</p>
-														<a href="#" class="btn btn-outline-gray-400 mt-4 text-muted">리뷰를
-															작성하세요.</a>
-													</div>
-												</div>
-											</div>
-											<!-- col -->
-											<div class="col-md-8">
-												<div class="mb-10">
-													<div class="d-flex justify-content-between align-items-center mb-8">
-														<div>
-															<!-- heading -->
-															<h4>요리 후기</h4>
-														</div>
-														<div>
-															<select class="form-select">
-																<option selected>인기 리뷰</option>
-																<option value="Most Recent">최근 리뷰</option>
-															</select>
-														</div>
-													</div>
-													<div class="d-flex border-bottom pb-6 mb-6">
-														<!-- img -->
-														<!-- img -->
-														<img src="/user/template/user_ui/assets/images/avatar/avatar-10.jpg" alt=""
-															class="rounded-circle avatar-lg" />
-														<div class="ms-5">
-															<h6 class="mb-1">a</h6>
-															<!-- select option -->
-															<!-- content -->
-															<p class="small">
-																<span class="text-muted">30 December 2022</span>
-																<span class="text-primary ms-3 fw-bold">검증된 회원</span>
-															</p>
-															<!-- rating -->
-															<div class="mb-2">
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<span class="ms-3 text-dark fw-bold">오늘 첫 요리 후기</span>
-															</div>
-															<!-- text-->
-															<p>
-																진짜 대박!! 저는 스팸을 더 넣고 해서 조금 짰어요 ᄒᄒ
-																그냥 볶음밥만으로는 진짜 최고예요ᄒᄒ
-																앞으로 중국집에서 못시켜먹겠네요ㅎㅎ
-															</p>
-															<div>
-																<div class="border icon-shape icon-lg border-2">
-																	<!-- img -->
-																	<img src="/user/template/user_ui/assets/images/products/product-img-1.jpg"
-																		alt="" class="img-fluid" />
-																</div>
-																<div class="border icon-shape icon-lg border-2 ms-1">
-																	<!-- img -->
-																	<img src="/user/template/user_ui/assets/images/products/product-img-2.jpg"
-																		alt="" class="img-fluid" />
-																</div>
-																<div class="border icon-shape icon-lg border-2 ms-1">
-																	<!-- img -->
-																	<img src="/user/template/user_ui/assets/images/products/product-img-3.jpg"
-																		alt="" class="img-fluid" />
-																</div>
-															</div>
-															<!-- icon -->
-															<div class="d-flex justify-content-end mt-4">
-																<a href="#" class="text-muted">
-																	<i class="feather-icon icon-thumbs-up me-1"></i>
-																	좋아요
-																</a>
-																<a href="#" class="text-muted ms-4">
-																	<i class="feather-icon icon-flag me-2"></i>
-																	신고
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="d-flex border-bottom pb-6 mb-6 pt-4">
-														<!-- img -->
-														<img src="/user/template/user_ui/assets/images/avatar/avatar-12.jpg" alt=""
-															class="rounded-circle avatar-lg" />
-														<div class="ms-5">
-															<h6 class="mb-1">Robert Thomas</h6>
-															<!-- content -->
-															<p class="small">
-																<span class="text-muted">29 December 2022</span>
-																<span class="text-primary ms-3 fw-bold">검증된 회원</span>
-															</p>
-															<!-- rating -->
-															<div class="mb-2">
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star text-warning"></i>
-																<span class="ms-3 text-dark fw-bold">OOO</span>
-															</div>
-
-															<p>
-																진짜 대박!! 저는 스팸을 더 넣고 해서 조금 짰어요 ᄒᄒ 그냥 볶음밥만으로는 진짜 최고예요ᄒᄒ
-																앞으로 중국집에서 못시켜먹겠네요ㅎㅎ
-															</p>
-
-															<!-- icon -->
-															<div class="d-flex justify-content-end mt-4">
-																<a href="#" class="text-muted">
-																	<i class="feather-icon icon-thumbs-up me-1"></i>
-																	좋아요
-																</a>
-																<a href="#" class="text-muted ms-4">
-																	<i class="feather-icon icon-flag me-2"></i>
-																	신고
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="d-flex border-bottom pb-6 mb-6 pt-4">
-														<!-- img -->
-														<img src="/user/template/user_ui/assets/images/avatar/avatar-9.jpg" alt=""
-															class="rounded-circle avatar-lg" />
-														<div class="ms-5">
-															<h6 class="mb-1">Barbara Tay</h6>
-															<!-- content -->
-															<p class="small">
-																<span class="text-muted">28 December 2022</span>
-																<span class="text-danger ms-3 fw-bold">검증되지 않은 회원</span>
-															</p>
-															<!-- rating -->
-															<div class="mb-2">
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star text-warning"></i>
-																<span class="ms-3 text-dark fw-bold">OOO</span>
-															</div>
-
-															<p>
-																쉽고 맛있네요. 중국집 볶음밥 흉내를 좀더 내려고 저는 3분 짜장을 후라이팬에 붓고 설탕 1/3큰술
-																넣어서
-																끓인 후 볶음밥 옆에 부어줬어요. 그럴 듯해요
-															</p>
-
-															<!-- icon -->
-															<div class="d-flex justify-content-end mt-4">
-																<a href="#" class="text-muted">
-																	<i class="feather-icon icon-thumbs-up me-1"></i>
-																	좋아요
-																</a>
-																<a href="#" class="text-muted ms-4">
-																	<i class="feather-icon icon-flag me-2"></i>
-																	신고
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="d-flex border-bottom pb-6 mb-6 pt-4">
-														<!-- img -->
-														<img src="/user/template/user_ui/assets/images/avatar/avatar-8.jpg" alt=""
-															class="rounded-circle avatar-lg" />
-														<div class="ms-5 flex-grow-1">
-															<h6 class="mb-1">Sandra Langevin</h6>
-															<!-- content -->
-															<p class="small">
-																<span class="text-muted">8 December 2022</span>
-																<span class="text-danger ms-3 fw-bold">검증되지 않은 회원</span>
-															</p>
-															<!-- rating -->
-															<div class="mb-2">
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star-fill text-warning"></i>
-																<i class="bi bi-star text-warning"></i>
-																<span class="ms-3 text-dark fw-bold">OOO</span>
-															</div>
-
-															<p>남편이랑 맛나게 먹었어요..쉽구요.. 중국집꺼는 느끼한데 요거는 파가 들어가서 그런지 깔끔..저는
-																여러가지
-																야채를 좀 많이 넣었어요.. </p>
-
-															<!-- icon -->
-															<div class="d-flex justify-content-end mt-4">
-																<a href="#" class="text-muted">
-																	<i class="feather-icon icon-thumbs-up me-1"></i>
-																	좋아요
-																</a>
-																<a href="#" class="text-muted ms-4">
-																	<i class="feather-icon icon-flag me-2"></i>
-																	신고
-																</a>
-															</div>
-														</div>
-													</div>
-													<div>
-														<a href="#" class="btn btn-outline-gray-400 text-muted">더 많은 리뷰
-															읽기</a>
-													</div>
-												</div>
-												<div>
-													<!-- rating -->
-													<h3 class="mb-5">리뷰 작성</h3>
-													<div class="border-bottom py-4 mb-4">
-														<h4 class="mb-3">전체 평가</h4>
-														<div class="rater"></div>
-													</div>
-													<div class="border-bottom py-4 mb-4">
-														<h4 class="mb-0">맛 평가</h4>
-														<div class="my-5">
-															<h5>맛</h5>
-															<div class="rater"></div>
-														</div>
-														<div class="my-5">
-															<h5>가격 대비</h5>
-															<div class="rater"></div>
-														</div>
-														<div class="my-5">
-															<h5>향</h5>
-															<div class="rater"></div>
-														</div>
-													</div>
-													<!-- form control -->
-													<div class="border-bottom py-4 mb-4">
-														<h5>제목</h5>
-														<input type="text" class="form-control"
-															placeholder="오늘도 한끼 식사 해결!" />
-													</div>
-													<!-- <div class="border-bottom py-4 mb-4"> -->
-													<!-- <h5>사진이나 비디오를 추가하세요</h5> -->
-													<!-- <p>쇼핑객들은 텍스트만 보는 것보다 이미지와 비디오를 보는 것이 더 도움이 된다고 생각합니다.</p> -->
-
-													<!-- <div id="my-dropzone"
-														class="dropzone mt-4 border-dashed rounded-2 min-h-0"></div> -->
-													<!-- </div> -->
-													<div class="py-4 mb-4">
-														<!-- heading -->
-														<h5>작성된 리뷰를 추가하세요</h5>
-														<textarea class="form-control" rows="3"
-															placeholder="어떤점이 괜찮았나요? 이 제품에 대해 알려주세요!"></textarea>
-													</div>
-													<!-- button -->
-													<div class="d-flex justify-content-end">
-														<a href="#" class="btn btn-primary">제출</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- tab pane -->
-								<div class="tab-pane fade" id="sellerInfo-tab-pane" role="tabpanel"
-									aria-labelledby="sellerInfo-tab" tabindex="0">...</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			<!-- section -->
-			<section class="my-lg-14 my-14">
-				<div class="container">
-					<!-- row -->
-					<div class="row">
-						<div class="col-12">
-							<!-- heading -->
-							<h3>관련 항목</h3>
-						</div>
-					</div>
-					<!-- row -->
-					<div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2">
-						<!-- col -->
-						<div class="col">
-							<div class="card card-product">
-								<div class="card-body">
-									<!-- badge -->
-
-									<div class="text-center position-relative">
-										<div class="position-absolute top-0 start-0">
-											<span class="badge bg-danger">Sale</span>
-										</div>
-										<a href="#!">
-											<!-- img -->
-											<img src="/user/template/user_ui/assets/images/products/product-img-1.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
-										</a>
-										<!-- action btn -->
-										<div class="card-product-action">
-											<!-- <a href="#!" class="btn-action" data-bs-toggle="modal"
-											data-bs-target="#quickViewModal">
-											<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Quick View"></i>
-										</a> -->
-											<a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
-												data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
-											<!-- <a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-											title="Compare"><i class="bi bi-arrow-left-right"></i></a> -->
-										</div>
-									</div>
-									<!-- heading -->
-									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>백종원 레시피</small></a>
-									</div>
-									<h2 class="fs-6"><a href="#!" class="text-inherit text-decoration-none">계란 볶음밥</a>
-									</h2>
-									<div>
-										<!-- rating -->
-										<small class="text-warning">
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-half"></i>
-										</small>
-										<span class="text-muted small">4.5(149)</span>
-									</div>
-									<!-- price -->
-									<div class="d-flex justify-content-between align-items-center mt-3">
-										<div>
-											<span class="text-dark">3,500￦</span>
-											<span class="text-decoration-line-through text-muted">4,000￦</span>
-										</div>
-										<!-- btn -->
-										<div>
-											<a href="#!" class="btn btn-primary btn-sm">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-													viewBox="0 0 24 24" fill="none" stroke="currentColor"
-													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-													class="feather feather-plus">
-													<line x1="12" y1="5" x2="12" y2="19"></line>
-													<line x1="5" y1="12" x2="19" y2="12"></line>
-												</svg>
-												추가
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- col -->
-						<div class="col">
-							<div class="card card-product">
-								<div class="card-body">
-									<!-- badge -->
-									<div class="text-center position-relative">
-										<a href="#!"><img src="/user/template/user_ui/assets/images/products/product-img-2.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
-										<!-- action btn -->
-										<div class="card-product-action">
-											<a href="#!" class="btn-action" data-bs-toggle="modal"
-												data-bs-target="#quickViewModal">
-												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
-													title="Quick View"></i>
-											</a>
-											<a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
-												data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
-										</div>
-									</div>
-									<!-- heading -->
-									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>Bakery &
-												Biscuits</small></a>
-									</div>
-									<h2 class="fs-6"><a href="#!" class="text-inherit text-decoration-none">NutriChoice
-											Digestive</a></h2>
-									<div class="text-warning">
-										<small>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-half"></i>
-										</small>
-										<span class="text-muted small">4.5 (25)</span>
-									</div>
-									<!-- price -->
-									<div class="d-flex justify-content-between align-items-center mt-3">
-										<div><span class="text-dark">$24</span></div>
-										<!-- btn -->
-										<div>
-											<a href="#!" class="btn btn-primary btn-sm">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-													viewBox="0 0 24 24" fill="none" stroke="currentColor"
-													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-													class="feather feather-plus">
-													<line x1="12" y1="5" x2="12" y2="19"></line>
-													<line x1="5" y1="12" x2="19" y2="12"></line>
-												</svg>
-												Add
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- col -->
-						<div class="col">
-							<div class="card card-product">
-								<div class="card-body">
-									<!-- badge -->
-									<div class="text-center position-relative">
-										<a href="#!"><img src="/user/template/user_ui/assets/images/products/product-img-3.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
-										<!-- action btn -->
-										<div class="card-product-action">
-											<a href="#!" class="btn-action" data-bs-toggle="modal"
-												data-bs-target="#quickViewModal">
-												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
-													title="Quick View"></i>
-											</a>
-											<a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
-												data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
-										</div>
-									</div>
-									<!-- heading -->
-									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>Bakery &
-												Biscuits</small></a>
-									</div>
-									<h2 class="fs-6"><a href="#!" class="text-inherit text-decoration-none">Cadbury 5
-											Star
-											Chocolate</a></h2>
-									<div class="text-warning">
-										<small>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-										</small>
-										<span class="text-muted small">5 (469)</span>
-									</div>
-									<!-- price -->
-									<div class="d-flex justify-content-between align-items-center mt-3">
-										<div>
-											<span class="text-dark">$32</span>
-											<span class="text-decoration-line-through text-muted">$35</span>
-										</div>
-										<!-- btn -->
-										<div>
-											<a href="#!" class="btn btn-primary btn-sm">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-													viewBox="0 0 24 24" fill="none" stroke="currentColor"
-													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-													class="feather feather-plus">
-													<line x1="12" y1="5" x2="12" y2="19"></line>
-													<line x1="5" y1="12" x2="19" y2="12"></line>
-												</svg>
-												Add
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- col -->
-						<div class="col">
-							<div class="card card-product">
-								<div class="card-body">
-									<!-- badge -->
-									<div class="text-center position-relative">
-										<a href="#!"><img src="/user/template/user_ui/assets/images/products/product-img-4.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
-										<!-- action btn -->
-										<div class="card-product-action">
-											<a href="#!" class="btn-action" data-bs-toggle="modal"
-												data-bs-target="#quickViewModal">
-												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
-													title="Quick View"></i>
-											</a>
-											<a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
-												data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
-										</div>
-									</div>
-									<!-- heading -->
-									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>Snack &
-												Munchies</small></a>
-									</div>
-									<h2 class="fs-6"><a href="#!" class="text-inherit text-decoration-none">Onion
-											Flavour
-											Potato</a></h2>
-									<div class="text-warning">
-										<small>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-half"></i>
-											<i class="bi bi-star"></i>
-										</small>
-										<span class="text-muted small">3.5 (456)</span>
-									</div>
-									<!-- price -->
-									<div class="d-flex justify-content-between align-items-center mt-3">
-										<div>
-											<span class="text-dark">$3</span>
-											<span class="text-decoration-line-through text-muted">$5</span>
-										</div>
-										<!-- btn -->
-										<div>
-											<a href="#!" class="btn btn-primary btn-sm">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-													viewBox="0 0 24 24" fill="none" stroke="currentColor"
-													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-													class="feather feather-plus">
-													<line x1="12" y1="5" x2="12" y2="19"></line>
-													<line x1="5" y1="12" x2="19" y2="12"></line>
-												</svg>
-												Add
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- col -->
-						<div class="col">
-							<div class="card card-product">
-								<div class="card-body">
-									<!-- badge -->
-									<div class="text-center position-relative">
-										<a href="#!"><img src="/user/template/user_ui/assets/images/products/product-img-9.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
-										<!-- action btn -->
-										<div class="card-product-action">
-											<a href="#!" class="btn-action" data-bs-toggle="modal"
-												data-bs-target="#quickViewModal">
-												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
-													title="Quick View"></i>
-											</a>
-											<a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip"
-												data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
-										</div>
-									</div>
-									<!-- heading -->
-									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>Snack &
-												Munchies</small></a>
-									</div>
-									<h2 class="fs-6"><a href="#!" class="text-inherit text-decoration-none">Slurrp
-											Millet
-											Chocolate</a></h2>
-									<div class="text-warning">
-										<small>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-fill"></i>
-											<i class="bi bi-star-half"></i>
-										</small>
-										<span class="text-muted small">4.5 (67)</span>
-									</div>
-									<!-- price -->
-									<div class="d-flex justify-content-between align-items-center mt-3">
-										<div>
-											<span class="text-dark">$6</span>
-											<span class="text-decoration-line-through text-muted">$10</span>
-										</div>
-										<!-- btn -->
-										<div>
-											<a href="#!" class="btn btn-primary btn-sm">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-													viewBox="0 0 24 24" fill="none" stroke="currentColor"
-													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-													class="feather feather-plus">
-													<line x1="12" y1="5" x2="12" y2="19"></line>
-													<line x1="5" y1="12" x2="19" y2="12"></line>
-												</svg>
-												Add
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			</form>
-		</main>
+<section class="my-lg-14 my-14">
+<div class="container"><div class="row"><div class="col-12"><h3>관련 항목</h3></div></div>
+<div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2">
+    <!-- 관련 상품 카드 예시 -->
+</div></div>
+</section>
+</form>
+</main>
 		
-	<script type="text/javascript">
+	<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+	// 전역 zoom 함수
+	function zoom(e) {
+	  const zoomer = e.currentTarget;
+	  const rect = zoomer.getBoundingClientRect();
+	  const x = (e.clientX - rect.left) / zoomer.offsetWidth * 100;
+	  const y = (e.clientY - rect.top) / zoomer.offsetHeight * 100;
+	  zoomer.style.backgroundPosition = x + '% ' + y + '%';
+	  zoomer.style.backgroundSize = '200%';
+	}
+    const zoomDivGlobal = document.querySelector('.zoom');
+    if(zoomDivGlobal){
+        zoomDivGlobal.onmouseleave = function() {
+            this.style.backgroundPosition = 'center';
+            this.style.backgroundSize = 'cover';
+        }
+    }
+
 	document.addEventListener('DOMContentLoaded', function() {
-		// 썸네일 이미지 로직 (존재한다면)
-		const thumbnails = document.querySelectorAll('#productThumbnails img'); // 만약 #productThumbnails ID를 가진 요소가 있다면
-		const zoomDiv = document.querySelector('.zoom'); // .zoom 클래스를 가진 요소
-		const zoomImg = zoomDiv ? zoomDiv.querySelector('img') : null; // .zoom 내부의 img
+	    console.log("ProductUsrView.html DOMContentLoaded - Script Start");
+	    const csrfTokenMeta = document.querySelector('meta[name="_csrf"]');
+	    const csrfHeaderMeta = document.querySelector('meta[name="_csrf_header"]');
+	    const csrfHeaders = { 'Content-Type': 'application/x-www-form-urlencoded' };
+	    if (csrfTokenMeta && csrfHeaderMeta && csrfTokenMeta.content && csrfHeaderMeta.content) {
+	        csrfHeaders[csrfHeaderMeta.content] = csrfTokenMeta.content;
+	    } else { console.warn("CSRF meta tags not found."); }
 
-		if (thumbnails.length > 0 && zoomDiv && zoomImg) {
-			thumbnails.forEach(thumbnail => {
-			  thumbnail.addEventListener('click', () => {
-			    const largeSrc = thumbnail.getAttribute('data-large'); // data-large 속성이 썸네일에 있어야 함
-			    if (largeSrc) {
-				    zoomDiv.style.backgroundImage = `url(${largeSrc})`;
-				    zoomImg.src = largeSrc;
+	    const stockDisplay = document.getElementById('stockDisplay');
+	    const currentStock = stockDisplay ? parseInt(stockDisplay.getAttribute('data-stock')) : 0;
+	    const quantitySpinner = document.getElementById('quantitySpinner');
+	    const addToCartButton = document.getElementById('addToCartButton');
+        const buyNowButton = document.getElementById('buyNowButton');
+	    const quantityInput = document.getElementById('quantity');
+	    const productDetailPriceElement = document.querySelector('#quantityAndPriceSection .total-price span');
+	    const unitPrice = quantityInput ? parseInt(quantityInput.getAttribute('data-price')) : 0;
+        const productDetailSeqElement = document.getElementById('productDetailSeq');
+        const formTotalPriceForBuyNow = document.getElementById('formTotalPriceForBuyNow');
 
-				    thumbnails.forEach(img => img.classList.remove('active'));
-				    thumbnail.classList.add('active');
-			    }
-			  });
-			});
-		} else {
-			// console.log("썸네일 또는 줌 관련 요소가 페이지에 없습니다.");
-		}
+        const addToCartModalElement = document.getElementById('addToCartConfirmModal');
+        const addToCartModal = addToCartModalElement ? new bootstrap.Modal(addToCartModalElement) : null;
+        if (!addToCartModal) {
+            console.warn("addToCartConfirmModal not found, will use alert fallback.");
+        }
 
-		// --- 재고 관리 및 UI 업데이트 로직 ---
-		const stockDisplay = document.getElementById('stockDisplay');
-		const stock = stockDisplay ? parseInt(stockDisplay.getAttribute('data-stock')) : 0;
+	    function updateProductDetailTotalPrice() {
+            if (!quantityInput || !productDetailPriceElement || isNaN(unitPrice)) return;
+	        const currentQuantity = parseInt(quantityInput.value) || 1;
+	        const totalPrice = unitPrice * currentQuantity;
+	        productDetailPriceElement.innerText = totalPrice.toLocaleString() + '원';
+            if (formTotalPriceForBuyNow) { formTotalPriceForBuyNow.value = totalPrice; }
+        }
 
-		const quantitySpinner = document.getElementById('quantitySpinner');
-		const checkoutButton = document.getElementById('checkoutButton');
-		const quantityInput = document.getElementById('quantity');
-		const formTotalPriceInput = document.getElementById('formTotalPrice');
-		const totalPriceDisplayElement = document.querySelector('#quantityAndPriceSection .total-price span');
+	    if (quantityInput) {
+            if (currentStock > 0) {
+                quantityInput.setAttribute('max', currentStock);
+            } else {
+                quantityInput.value = 0;
+                quantityInput.disabled = true;
+                if (quantitySpinner) quantitySpinner.style.display = 'none';
+            }
+            updateProductDetailTotalPrice();
+        }
 
-		function updateTotalPrice() {
-			if (!quantityInput || !totalPriceDisplayElement || !formTotalPriceInput) return;
+	    if (quantitySpinner && quantityInput && !quantityInput.disabled) {
+            const plusButton = quantitySpinner.querySelector('.button-plus');
+            const minusButton = quantitySpinner.querySelector('.button-minus');
 
-			const quantity = parseInt(quantityInput.value) || 0; // NaN 방지
-			const unitPrice = parseInt(quantityInput.getAttribute('data-price')) || 0; // NaN 방지
-			const totalPrice = unitPrice * quantity;
+            if (plusButton) {
+                plusButton.addEventListener('click', function() {
+                    let val = parseInt(quantityInput.value);
+                    if (val < currentStock) {
+                        quantityInput.value = val + 1;
+                        updateProductDetailTotalPrice();
+                    } else { alert('최대 재고 수량입니다.'); }
+                });
+            }
+            if (minusButton) {
+                minusButton.addEventListener('click', function() {
+                    let val = parseInt(quantityInput.value);
+                    if (val > 1) {
+                        quantityInput.value = val - 1;
+                        updateProductDetailTotalPrice();
+                    }
+                });
+            }
+            quantityInput.addEventListener('input', function() {
+                let val = parseInt(this.value);
+                if (this.value === '') return;
+                if (isNaN(val) || val < 1) { /* 입력 중일 수 있으므로 change에서 최종 처리 */ }
+                else if (val > currentStock) { this.value = currentStock; alert('최대 재고 수량입니다.'); }
+                updateProductDetailTotalPrice();
+            });
+            quantityInput.addEventListener('change', function() {
+                let val = parseInt(this.value);
+                if (isNaN(val) || val < 1) { this.value = 1; }
+                else if (val > currentStock) { this.value = currentStock; }
+                updateProductDetailTotalPrice();
+            });
+        }
 
-			totalPriceDisplayElement.innerText = totalPrice.toLocaleString() + '원';
-			formTotalPriceInput.value = totalPrice;
-		}
-		
-		function goToCheckout() {
-			if (stock <= 0) {
-				alert('해당 상품은 품절되어 구매할 수 없습니다.');
-				return;
-			}
+	    if (addToCartButton) {
+            addToCartButton.addEventListener('click', function() {
+	            if (this.disabled) { alert('품절된 상품입니다.'); return; }
+	            if (!productDetailSeqElement || !quantityInput) { alert('상품 정보를 가져올 수 없습니다.'); return; }
+	            const productSeq = productDetailSeqElement.innerText.trim();
+	            const currentQuantity = parseInt(quantityInput.value);
+	            if (isNaN(currentQuantity) || currentQuantity < 1) { alert('올바른 수량을 선택해주세요.'); quantityInput.value = 1; updateProductDetailTotalPrice(); return; }
 
-			if (!quantityInput) {
-			    alert('수량 정보를 찾을 수 없습니다.');
-			    return;
-			}
+	            fetch('/usr/cart/addItem', { method: 'POST', headers: csrfHeaders, body: new URLSearchParams({ 'productSeq': productSeq, 'quantity': currentQuantity }) })
+	            .then(response => {
+	                if (!response.ok) { return response.json().then(errData => { throw new Error(errData.message || `서버 오류: ${response.status}`); }); }
+	                return response.json();
+	            })
+	            .then(data => {
+	                if (data.success) {
+                        if (addToCartModal) {
+                            addToCartModal.show();
+                        } else {
+                            if (confirm( (data.message || '상품이 장바구니에 추가되었습니다.') + ' 장바구니로 이동하시겠습니까?')) {
+                                window.location.href = '/usr/cart/CartUsrList';
+                            }
+                        }
+	                    loadOffcanvasCart();
+	                    updateHeaderCartCount(data.cartItemCount);
+	                } else {
+	                    alert('장바구니 추가 실패: ' + (data.message || '알 수 없는 오류.'));
+	                }
+	            })
+	            .catch(error => { console.error('장바구니 추가 오류:', error); alert('장바구니 추가 오류: ' + error.message); });
+	        });
+        }
 
-			const currentQuantity = parseInt(quantityInput.value);
-			if (isNaN(currentQuantity) || currentQuantity < 1) {
-			    alert('올바른 수량을 선택해주세요.');
-			    return;
-			}
-			if (currentQuantity > stock) {
-			    alert('선택하신 수량이 재고를 초과합니다. 현재 재고: ' + stock + '개');
-			    quantityInput.value = stock; // 재고 수량으로 조정
-			    updateTotalPrice();
-			    return;
-			}
+        if (buyNowButton) {
+            buyNowButton.addEventListener('click', function() {
+                if (this.disabled) { alert('품절된 상품은 바로 구매할 수 없습니다.'); return; }
+                if (!quantityInput) { alert('수량 정보를 찾을 수 없습니다.'); return; }
+                const currentQuantity = parseInt(quantityInput.value);
+                if (isNaN(currentQuantity) || currentQuantity < 1) { alert('올바른 수량을 선택해주세요.'); return; }
+                if (currentQuantity > currentStock) { alert('선택하신 수량이 재고를 초과합니다.'); quantityInput.value = currentStock; updateProductDetailTotalPrice(); return; }
+                
+                const seqForBuyNow = document.getElementById('formSeqForBuyNow').value;
+                location.href = `/usr/checkout/CheckoutUsrList?seq=${seqForBuyNow}&quantity=${currentQuantity}`;
+            });
+        }
 
+	    const offcanvasElement = document.getElementById('offcanvasRight');
+	    const offcanvasItemsContainer = document.getElementById('offcanvasCartItemsContainer');
+	    const offcanvasSubtotalSection = document.getElementById('offcanvasSubtotalSection');
+	    const offcanvasSubtotalValue = document.getElementById('offcanvasSubtotalValue');
+        const offcanvasCheckoutBtn = document.getElementById('offcanvasCheckoutBtn');
 
-			const price = quantityInput.getAttribute('data-price');
-			const seq = document.getElementById('formSeq').value;
-			const finalTotalPrice = currentQuantity * parseInt(price); // 최종 가격은 현재 수량으로 다시 계산
+	    async function loadOffcanvasCart() {
+            if (!offcanvasItemsContainer || !offcanvasSubtotalSection || !offcanvasSubtotalValue || !offcanvasCheckoutBtn) {
+                console.warn("오프캔버스 관련 HTML 요소가 페이지에 없습니다. (ProductUsrView)");
+                updateHeaderCartCountOnly();
+                return;
+            }
+            try {
+	            const response = await fetch('/usr/cart/getCartSummary');
+	            if (!response.ok) {
+	                console.error("오프캔버스 로드 실패, 상태: " + response.status);
+                    offcanvasItemsContainer.innerHTML = '<li class="list-group-item text-muted small">장바구니를 불러오지 못했습니다.</li>';
+	                return;
+	            }
+	            const data = await response.json();
+	            offcanvasItemsContainer.innerHTML = '';
+	            if (data.cartItems && data.cartItems.length > 0) {
+	                data.cartItems.forEach(item => {
+	                    const li = document.createElement('li');
+	                    li.className = 'list-group-item py-3 ps-0 border-top';
+	                    li.setAttribute('data-product-seq-offcanvas', item.productSeq);
+	                    li.innerHTML = `
+	                        <div class="row align-items-center">
+	                            <div class="col-7"> <div class="d-flex">
+	                                <img src="${item.productImageUrl || '/user/template/user_ui/assets/images/products/product-img-default.jpg'}" alt="${item.productName}" class="icon-shape icon-xxl object-fit-cover" />
+	                                <div class="ms-3">
+	                                    <a href="/usr/product/ProductUsrView?seq=${item.productSeq}" class="text-inherit"><h6 class="mb-0 small text-truncate" style="max-width: 120px;">${item.productName}</h6></a>
+	                                    <span><small class="text-muted">수량: ${item.quantity}</small></span>
+	                                    <div class="mt-1 small lh-1">
+	                                        <a href="javascript:void(0);" class="text-decoration-none text-inherit remove-from-offcanvas-cart-btn">
+	                                            <span class="me-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></span>
+	                                            <span class="text-muted small">삭제</span>
+	                                        </a>
+	                                    </div></div></div></div>
+	                            <div class="col-5 text-lg-end text-start text-md-end">
+	                                <span class="fw-bold text-dark small">${(item.price != null && item.quantity != null ? item.price * item.quantity : 0).toLocaleString()}원</span>
+	                            </div></div>`;
+	                    offcanvasItemsContainer.appendChild(li);
+	                });
+	                offcanvasSubtotalSection.style.display = 'flex';
+	                offcanvasSubtotalValue.innerText = (data.totalAmount || 0).toLocaleString() + '원';
+                    if(offcanvasCheckoutBtn) offcanvasCheckoutBtn.style.display = (data.cartItemCount > 0 ? 'block' : 'none');
+	                bindOffcanvasRemoveButtons();
+	            } else {
+	                offcanvasItemsContainer.innerHTML = '<li class="list-group-item text-center text-muted small py-4">장바구니가 비어있습니다.</li>';
+	                offcanvasSubtotalSection.style.display = 'none';
+                    if(offcanvasCheckoutBtn) offcanvasCheckoutBtn.style.display = 'none';
+	            }
+	            updateHeaderCartCount(data.cartItemCount || 0);
+	        } catch (error) {
+	            console.error('오프캔버스 로드 중 오류:', error);
+                if (offcanvasItemsContainer) { offcanvasItemsContainer.innerHTML = '<li class="list-group-item text-muted small">장바구니 로드 오류.</li>';}
+	        }
+        }
+	    function bindOffcanvasRemoveButtons() {
+            document.querySelectorAll('.remove-from-offcanvas-cart-btn').forEach(button => {
+	            const newButton = button.cloneNode(true);
+	            button.parentNode.replaceChild(newButton, button);
+	            newButton.addEventListener('click', function(e) {
+	                e.preventDefault();
+	                const listItem = this.closest('li[data-product-seq-offcanvas]');
+	                const productSeq = listItem.dataset.productSeqOffcanvas;
+	                if (confirm('이 상품을 장바구니에서 삭제하시겠습니까?')) { removeItemAndReloadOffcanvas(productSeq); }
+	            });
+	        });
+        }
+	    async function removeItemAndReloadOffcanvas(productSeq) {
+            try {
+	            const response = await fetch('/usr/cart/removeItem', { method: 'POST', headers: csrfHeaders, body: new URLSearchParams({'productSeq': productSeq }) });
+	            const data = await response.json();
+	            if (data.success) {
+	                loadOffcanvasCart();
+	                if (window.location.pathname.endsWith('/usr/cart/CartUsrList')) { setTimeout(() => location.reload(), 200); }
+	            } else { alert('상품 삭제 실패: ' + data.message); }
+	        } catch (error) { console.error('오프캔버스 상품 삭제 오류:', error); alert('상품 삭제 중 오류.'); }
+        }
+	    if (offcanvasElement) {
+	        offcanvasElement.addEventListener('show.bs.offcanvas', loadOffcanvasCart);
+	    }
+        function updateHeaderCartCount(count) {
+            const cartCountElement = document.getElementById('headerCartItemCount'); // 실제 헤더의 카운트 요소 ID
+            if (cartCountElement) {
+                cartCountElement.innerText = count > 0 ? String(count) : '';
+                cartCountElement.style.display = count > 0 ? 'inline-block' : 'none';
+            }
+        }
+        async function updateHeaderCartCountOnly() {
+            try {
+                const response = await fetch('/usr/cart/getCartSummary');
+                if (response.ok) {
+                    const data = await response.json();
+                    updateHeaderCartCount(data.cartItemCount || 0);
+                } else { console.warn("헤더 카운트용 getCartSummary 실패:", response.status); }
+            } catch (error) { console.warn("헤더 카운트 업데이트 오류:", error.message); }
+        }
+        if (offcanvasElement) { loadOffcanvasCart(); }
+        else { updateHeaderCartCountOnly(); }
 
-			// URL에 seq도 넣어서 이동
-			location.href = `/usr/checkout/CheckoutUsrList?seq=${seq}&quantity=${currentQuantity}&totalPrice=${finalTotalPrice}`;
-		}
-
-		// checkoutButton에 이벤트 리스너 연결
-		if (checkoutButton) {
-		    checkoutButton.addEventListener('click', goToCheckout);
-		}
-
-
-		if (stock <= 0) {
-			// 재고가 0이거나 그 이하일 경우
-			if (quantitySpinner) {
-				quantitySpinner.style.display = 'none';
-			}
-
-			if (checkoutButton) {
-				checkoutButton.textContent = '품절';
-				checkoutButton.classList.remove('btn-primary');
-				checkoutButton.classList.add('btn-secondary', 'disabled');
-				checkoutButton.disabled = true;
-				// 이미 goToCheckout 함수 내에서 재고 체크를 하므로, 여기서는 버튼 비활성화만 해도 충분합니다.
-                // checkoutButton.removeEventListener('click', goToCheckout); // 기존 이벤트 제거
-				// checkoutButton.onclick = function(event) { // 새 이벤트 할당
-				// 	event.preventDefault();
-				// 	alert('해당 상품은 품절되었습니다.');
-				// };
-			}
-
-			if (totalPriceDisplayElement) {
-				// 가격 대신 "품절" 표시 또는 특정 스타일 적용 가능
-				// totalPriceDisplayElement.closest('#quantityAndPriceSection').innerHTML = '<div class="fs-3 fw-bold text-danger">품절된 상품입니다.</div>';
-			}
-			
-		} else {
-			// 재고가 있을 경우
-			if (quantityInput) {
-				quantityInput.setAttribute('max', stock); // 최대 수량을 재고만큼 설정
-
-				// + 버튼 클릭 이벤트
-				const plusButton = quantitySpinner ? quantitySpinner.querySelector('.button-plus') : null;
-				if (plusButton) {
-					plusButton.addEventListener('click', function(e) {
-						e.preventDefault();
-						let currentValue = parseInt(quantityInput.value);
-						if (currentValue < stock) {
-							quantityInput.value = currentValue + 1;
-							updateTotalPrice();
-						} else {
-							// alert('최대 재고 수량을 초과할 수 없습니다.');
-						}
-					});
-				}
-
-				// - 버튼 클릭 이벤트
-				const minusButton = quantitySpinner ? quantitySpinner.querySelector('.button-minus') : null;
-				if (minusButton) {
-					minusButton.addEventListener('click', function(e) {
-						e.preventDefault();
-						let currentValue = parseInt(quantityInput.value);
-						if (currentValue > 1) {
-							quantityInput.value = currentValue - 1;
-							updateTotalPrice();
-						}
-					});
-				}
-
-				// 수량 직접 입력 시
-				quantityInput.addEventListener('input', function() {
-					let currentValue = parseInt(this.value);
-					if (isNaN(currentValue) || currentValue < 1) {
-						// this.value = 1; // 1보다 작거나 숫자가 아니면 1로 강제 (또는 빈 값 허용시 다른 처리)
-                        // 사용자가 지우는 중일 수 있으므로, 포커스 아웃 시점에 처리하거나, checkout 시점에 최종 유효성 검사
-					} else if (currentValue > stock) {
-						this.value = stock;
-						// alert('최대 재고 수량을 초과할 수 없습니다.');
-					}
-					updateTotalPrice(); // 입력할 때마다 총 가격 업데이트
-				});
-				
-				quantityInput.addEventListener('change', function() { // 포커스 아웃 또는 엔터 시
-				    let currentValue = parseInt(this.value);
-				    if (isNaN(currentValue) || currentValue < 1) {
-				        this.value = 1; // 잘못된 값이면 1로 설정
-				    } else if (currentValue > stock) {
-				        this.value = stock; // 재고 초과 시 재고로 설정
-				    }
-				    updateTotalPrice();
-				});
-			}
-			// 페이지 로드시 초기 총 가격 세팅 (재고가 있을 때만)
-			updateTotalPrice();
-		}
-
-		// 폼 제출 관련 로직 (만약 form을 직접 submit 한다면)
-		const formList = document.getElementById('formList');
-		if (formList) {
-			formList.addEventListener('submit', function(e) {
-				// goToCheckout 함수에서 이미 URL로 이동하므로, form submit은 기본적으로 사용되지 않을 수 있습니다.
-				// 만약 form submit을 사용한다면, 여기서도 재고 체크 및 최종 가격 설정이 필요합니다.
-				if (stock <= 0) {
-					e.preventDefault();
-					alert('해당 상품은 품절되어 구매할 수 없습니다.');
-					return;
-				}
-				// 최종 수량과 가격을 다시 한번 확인하고 formTotalPriceInput에 설정
-				if(quantityInput && formTotalPriceInput){
-				    const finalQuantity = parseInt(quantityInput.value);
-				    const unitPrice = parseInt(quantityInput.getAttribute('data-price'));
-				    if(!isNaN(finalQuantity) && !isNaN(unitPrice) && finalQuantity > 0){
-				        formTotalPriceInput.value = finalQuantity * unitPrice;
-				    } else {
-				        e.preventDefault();
-				        alert('올바른 상품 정보를 확인해주세요.');
-				        return;
-				    }
-				}
-			});
-		}
-
-		// 이미지 줌 효과 (기존 코드)
-		const productZoomDiv = document.querySelector('.zoom'); // 이미 위에서 zoomDiv로 선언함
-		if(productZoomDiv) {
-			productZoomDiv.addEventListener('mousemove', function(e) {
-				// zoom 함수가 전역에 정의되어 있거나, 이 스코프 내에 정의되어야 합니다.
-				// 예시: zoom(e);
-				// zoom 함수가 외부에 있다면, 해당 함수를 호출합니다.
-				// zoom 함수가 제공되지 않았으므로, 이 부분은 주석 처리하거나 실제 zoom 함수를 구현해야 합니다.
-				// console.log('Zoom mousemove event:', e); 
-			});
-		}
-		// 전역에 zoom 함수가 없으면 아래처럼 간단히 구현하거나, 기존 zoom 함수를 사용하세요.
-		// function zoom(e) {
-		//   const zoomer = e.currentTarget;
-		//   const offsetX = e.offsetX || e.touches[0].pageX;
-		//   const offsetY = e.offsetY || e.touches[0].pageY;
-		//   const x = offsetX / zoomer.offsetWidth * 100;
-		//   const y = offsetY / zoomer.offsetHeight * 100;
-		//   zoomer.style.backgroundPosition = x + '% ' + y + '%';
-		// }
-		// window.zoom = zoom; // 전역에서 onmousemove="zoom(event)"가 호출할 수 있도록
-
-	}); // DOMContentLoaded 끝
+	});
+	/*]]>*/
 	</script>
-		<!-- Footer -->
-<div th:replace="~{usr/include/footer :: footer}"></div>
-		<!-- footer -->
-	
+		
+	<div th:replace="~{usr/include/footer :: footer}"></div>
 
+</body>
 </html>

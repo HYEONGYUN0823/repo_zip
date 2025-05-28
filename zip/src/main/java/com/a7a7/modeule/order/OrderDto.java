@@ -7,6 +7,7 @@ public class OrderDto {
     private Integer quantity;
     private Integer price;      // 주문 아이템의 단가
     private String mealKitSeq;  // ★★★ mealKit 테이블의 PK를 참조하는 ID (orderItem.mealKit_seq 컬럼에 저장될 값) ★★★
+    private String brandNameDisplay;
 
     // order 테이블 정보
     private String seq;         // ★ order 테이블의 PK (DB 자동 생성, 조회 시 주문 대표 번호로 사용 가능)
@@ -60,6 +61,14 @@ public class OrderDto {
 
 	public void setProductImageUrl(String productImageUrl) {
 		this.productImageUrl = productImageUrl;
+	}
+
+	public String getBrandNameDisplay() {
+		return brandNameDisplay;
+	}
+
+	public void setBrandNameDisplay(String brandNameDisplay) {
+		this.brandNameDisplay = brandNameDisplay;
 	}
     
     

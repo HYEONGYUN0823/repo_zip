@@ -1,310 +1,225 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="~{usr/include/head :: head}"></div>
+<head th:replace="~{usr/include/head :: head}"></head>
+<!-- <title>결제하기</title> -->
 
-<script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
-<script src="https://js.tosspayments.com/v1"></script>
-<input type="hidden" id="customerName" th:value="${user.name}" />
+<body>
+
+    <script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
+    <script src="https://js.tosspayments.com/v1"></script>
+
+    <input type="hidden" id="customerNameForToss" th:value="${user != null ? user.name : '고객'}" />
+    <input type="hidden" id="clientOrderIdForToss" th:value="${clientOrderId}" />
+
 	<main>
-		<!-- section-->
-		<div class="mt-4">
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<!-- col -->
-					<div class="col-12">
-						<!-- breadcrumb -->
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb mb-0">
-								<li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
-								<li class="breadcrumb-item"><a href="/usr/product/ProductUsrList">밀키트</a></li>
-								<li class="breadcrumb-item active" aria-current="page">결제하기</li>
-							</ol>
-						</nav>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- section -->
-		<section class="mb-lg-14 mb-8 mt-8">
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<!-- col -->
-					<div class="col-12">
-						<div>
-							<div class="mb-8">
-								<!-- text -->
-								<h1 class="fw-bold mb-0">결제하기</h1>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div>
-					<!-- row -->
-					<div class="row">
-						<div class="col-xl-7 col-lg-6 col-md-12">
-							<!-- accordion -->
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<!-- accordion item -->
-								<div class="accordion-item py-4">
-									<div class="d-flex justify-content-between align-items-center">
-										<!-- heading one -->
-										<a href="#" class="fs-5 text-inherit collapsed h4" data-bs-toggle="collapse"
-											data-bs-target="#flush-collapseOne" aria-expanded="true"
-											aria-controls="flush-collapseOne">
-											<i class="feather-icon icon-map-pin me-2 text-muted"></i>
-											배송지 주소 추가
-										</a>
-										<!-- btn -->
-<!-- 										<a href="#" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" -->
-<!-- 											data-bs-target="#addAddressModal">새로운 주소 추가</a> -->
-										<!-- collapse -->
-									</div>
-									<div id="flush-collapseOne" class="accordion-collapse collapse show"
-										data-bs-parent="#accordionFlushExample">
-										<div class="mt-5">
-											<div class="row">
-												<div class="col-xl-6 col-lg-12 col-md-6 col-12 mb-4">
-													<!-- form -->
-													<div class="card card-body p-6">
-														<div class="form-check mb-4">
-															<input class="form-check-input" type="radio"
-																name="flexRadioDefault" id="homeRadio" checked />
-															<label class="form-check-label text-dark"
-																for="homeRadio" th:text="${user.name} + '님의 주소'">우리집</label>
-														</div>
-														<!-- address -->
-														<address>
-															<a>이름 : </a><a th:text="${user.name}">김OO</a>
-															<br />
-<!-- 															주소 -->
-															<a th:text="${user.roadNameAddress} + ' '"></a><a th:text="${user.detailedAddress}"></a>
-															<br />
-<!-- 															상세주소 -->
-															<a th:text="'(' + ${user.zipCode} + ')'"></a>
-															<br />
-															<abbr title="Phone" th:text="'휴대전화번호 : ' + ${user.phoneNumber}">전화번호 : 010-0000-1111</abbr>
-														</address>
-														<span class="text-danger">기본 주소</span>
-													</div>
-												</div>
-												<div class="col-xl-6 col-lg-12 col-md-6 col-12 mb-4">
-													<!-- input -->
-													<div class="card card-body p-6">
-														<div class="form-check mb-4">
-															<input class="form-check-input" type="radio"
-																name="flexRadioDefault" id="officeRadio" />
-															<label class="form-check-label text-dark"
-																for="officeRadio">회사</label>
-														</div>
-														<address>
-															<strong>OOOO</strong>
-															<br />
-															서울특별시 도봉구 OO동 OO길 3
-															<br />
-															OO동 OO호
-															<br />
+		<div class="mt-4"><div class="container"><div class="row"><div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
+                    <li class="breadcrumb-item"><a href="/usr/product/ProductUsrList">밀키트</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">결제하기</li>
+                </ol>
+            </nav>
+        </div></div></div></div>
 
-															<abbr title="Phone">P: 02-776-1106</abbr>
-														</address>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+		<section class="mb-lg-14 mb-8 mt-8"><div class="container">
+            <div class="row"><div class="col-12"><div><div class="mb-8">
+                <h1 class="fw-bold mb-0">결제하기</h1>
+            </div></div></div></div>
+            <div><div class="row">
+                <div class="col-xl-7 col-lg-6 col-md-12">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item py-4"> <!-- 배송지 정보 -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="#" class="fs-5 text-inherit collapsed h4" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                                    <i class="feather-icon icon-map-pin me-2 text-muted"></i> 배송지 정보
+                                </a>
+                            </div>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
+                                <div class="mt-5"><div class="row"><div class="col-12 mb-4">
+                                    <div class="card card-body p-6">
+                                        <div class="form-check mb-4">
+                                            <input class="form-check-input" type="radio" name="shippingAddress" id="defaultAddress" checked />
+                                            <label class="form-check-label text-dark" for="defaultAddress" th:text="${user != null ? user.name + '님의 주소' : '기본 배송지'}"></label>
+                                        </div>
+                                        <address th:if="${user != null}">
+                                            <strong>이름 : </strong> <span th:text="${user.name}"></span><br />
+                                            <strong>주소 : </strong> <span th:text="${user.roadNameAddress}"></span> <span th:text="${user.detailedAddress}"></span><br />
+                                            (<span th:text="${user.zipCode}"></span>)<br />
+                                            <abbr title="Phone"><strong>휴대전화 : </strong></abbr> <span th:text="${user.phoneNumber}"></span>
+                                        </address>
+                                        <p th:unless="${user != null}" class="text-muted">로그인 후 배송지 정보를 확인할 수 있습니다.</p>
+                                    </div>
+                                </div></div></div>
+                            </div>
+                        </div>
+                        <div class="accordion-item py-4"> <!-- 배송 요청사항 -->
+                            <a href="#" class="text-inherit h5" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                <i class="feather-icon icon-shopping-bag me-2 text-muted"></i> 배송 요청사항
+                            </a>
+                            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                <div class="mt-5">
+                                    <textarea class="form-control" id="DeliveryInstructions" rows="3" placeholder="배송요청을 작성해주세요"></textarea>
+                                    <p class="form-text">배송 기사님께 전달할 메시지를 남겨주세요.</p>
+                                    <div class="mt-5 d-flex justify-content-end">
+                                        <a href="#" class="btn btn-outline-gray-400 text-muted" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">이전</a>
+                                        <a href="#" class="btn btn-primary ms-2" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">다음</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ★★★ 결제 방법 섹션 스타일 수정 ★★★ -->
+                        <div class="accordion-item py-4">
+                            <a href="#" class="text-inherit h5" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseFour" aria-expanded="false"
+                                aria-controls="flush-collapseFour">
+                                <i class="feather-icon icon-credit-card me-2 text-muted"></i>
+                                결제 방법
+                            </a>
+                            <div id="flush-collapseFour" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFlushExample">
+                                <div class="mt-5">
+                                    <div>
+                                        <div class="card card-bordered shadow-none mb-2">
+                                            <div class="card-body p-6">
+                                                <div class="d-flex align-items-center"> <!-- align-items-center 추가 -->
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="paymentMethod" id="tosspay" checked/>
+                                                        <label class="form-check-label ms-2" for="tosspay">토스페이</label>
+                                                    </div>
+                                                    <div class="ms-3 flex-grow-1"> <!-- 텍스트 영역이 남은 공간을 차지하도록 flex-grow-1 추가 (선택적) -->
+                                                        <h5 class="mb-1 h6">토스페이로 결제</h5>
+                                                        <p class="mb-0 small">안전하게 구매완료하기 위해 Toss Payments로 이동합니다.</p>
+                                                    </div>
+                                                    <!-- 이미지를 d-flex의 자식으로, ms-auto로 오른쪽 정렬 -->
+                                                    <img src="/user/template/user_ui/assets/images/payment/toss.png" alt="Toss Payments" height="45" class="ms-auto" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 d-flex justify-content-end">
+                                             <a href="#" class="btn btn-outline-gray-400 text-muted" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">이전</a>
+                                            <button type="button" class="btn btn-primary ms-2" id="orderButton">주문하기</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-								<!-- accordion item -->
-								<div class="accordion-item py-4">
-									<a href="#" class="text-inherit h5" data-bs-toggle="collapse"
-										data-bs-target="#flush-collapseThree" aria-expanded="false"
-										aria-controls="flush-collapseThree">
-										<i class="feather-icon icon-shopping-bag me-2 text-muted"></i>
-										배송 요청
-										<!-- collapse -->
-									</a>
-									<div id="flush-collapseThree" class="accordion-collapse collapse"
-										data-bs-parent="#accordionFlushExample">
-										<div class="mt-5">
-											<label for="DeliveryInstructions" class="form-label sr-only">배송 요청</label>
-											<textarea class="form-control" id="DeliveryInstructions" rows="3"
-												placeholder="배송요청을 작성해주세요"></textarea>
-											<p class="form-text">주문 및 배송 방법에 대한 지침을 추가하세요.</p>
-											<div class="mt-5 d-flex justify-content-end">
-												<a href="#" class="btn btn-outline-gray-400 text-muted"
-													data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
-													aria-expanded="false" aria-controls="flush-collapseTwo">
-													이전
-												</a>
-												<a href="#" class="btn btn-primary ms-2" data-bs-toggle="collapse"
-													data-bs-target="#flush-collapseFour" aria-expanded="false"
-													aria-controls="flush-collapseFour">다음</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- accordion item -->
-								<div class="accordion-item py-4">
-									<a href="#" class="text-inherit h5" data-bs-toggle="collapse"
-										data-bs-target="#flush-collapseFour" aria-expanded="false"
-										aria-controls="flush-collapseFour">
-										<i class="feather-icon icon-credit-card me-2 text-muted"></i>
-										결제 방법
-										<!-- collapse -->
-									</a>
-									<div id="flush-collapseFour" class="accordion-collapse collapse"
-										data-bs-parent="#accordionFlushExample">
-										<div class="mt-5">
-											<div>
-												<div class="card card-bordered shadow-none mb-2">
-													<!-- card body -->
-  <div class="card-body p-6">
-    <div class="d-flex">
-      <div class="form-check">
-        <!-- radio -->
-        <input class="form-check-input" type="radio" name="paymentMethod" id="tosspay" />
-        <label class="form-check-label ms-2" for="tosspay">토스페이</label>
-      </div>
-      <div class="ms-3">
-        <h5 class="mb-1 h6">토스페이로 결제</h5>
-        <p class="mb-0 small">안전하게 구매완료하기 위해 Toss Payments로 이동합니다.</p>
-      </div>
-    </div>
-  </div>
-												</div>
-												<!-- card -->
+                <div class="col-md-12 offset-xl-1 col-xl-4 col-lg-6">
+                    <div class="mt-4 mt-lg-0"><div class="card shadow-sm">
+                        <h5 class="px-6 py-4 bg-transparent mb-0">주문 요약</h5>
+                        <ul class="list-group list-group-flush">
+                            <!-- ★★★ 주문 상품 목록 표시 수정 (핵심) ★★★ -->
+                            <th:block th:if="${orderItemsForDisplay != null and not #lists.isEmpty(orderItemsForDisplay)}">
+                                <li class="list-group-item px-4 py-3" th:each="orderItem, iterStat : ${orderItemsForDisplay}">
+                                    <div class="row align-items-center">
+                                        <div class="col-2 col-md-2">
+                                            <img th:if="${orderItem.productImageUrl != null}"
+                                                 th:src="@{${orderItem.productImageUrl}}"
+                                                 th:alt="${orderItem.productName}"
+                                                 class="img-fluid rounded" />
+                                            <img th:unless="${orderItem.productImageUrl != null}"
+                                                 th:src="@{/user/template/user_ui/assets/images/products/product-img-default.jpg}"
+                                                 th:alt="${orderItem.productName}"
+                                                 class="img-fluid rounded" />
+                                        </div>
+                                        <div class="col-5 col-md-5">
+                                            <small class="text-muted" th:if="${orderItem.brandNameDisplay != null}" th:text="${orderItem.brandNameDisplay}"></small>
+                                            <h6 class="mb-0 small" th:text="${orderItem.productName}">상품명</h6>
+                                            <!-- 브랜드명 등은 OrderDto에 필드가 있다면 여기에 표시 -->
+                                        </div>
+                                        <div class="col-2 col-md-2 text-center text-muted">
+                                            <span th:text="${orderItem.quantity} + '개'">1</span>
+                                        </div>
+                                        <div class="col-3 text-lg-end text-start text-md-end col-md-3">
+                                            <span class="fw-bold small" th:text="${orderItem.price != null && orderItem.quantity != null ? #numbers.formatInteger(orderItem.price * orderItem.quantity, 0, 'COMMA') : 0} + '원'">0원</span>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" th:if="${iterStat.first}" id="orderNameForTossBase" th:value="${orderItem.productName}"/>
+                                    <input type="hidden" th:if="${iterStat.first && #lists.size(orderItemsForDisplay) > 1}" id="orderNameForTossSuffix" th:value="' 외 ' + (${#lists.size(orderItemsForDisplay)} - 1) + '건'"/>
+                                </li>
+                            </th:block>
+                            <li th:unless="${orderItemsForDisplay != null and not #lists.isEmpty(orderItemsForDisplay)}" class="list-group-item px-4 py-3 text-center text-muted">
+                                주문할 상품이 없습니다.
+                            </li>
 
-												<!-- Button -->
-												<div class="mt-5 d-flex justify-content-end">
-													<a href="#" class="btn btn-outline-gray-400 text-muted"
-														data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
-														aria-expanded="false" aria-controls="flush-collapseThree">
-														이전
-													</a>
-													<button type="button" class="btn btn-primary ms-2" id="orderButton">주문하기</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-12 offset-xl-1 col-xl-4 col-lg-6">
-							<div class="mt-4 mt-lg-0">
-								<div class="card shadow-sm">
-									<h5 class="px-6 py-4 bg-transparent mb-0">주문 정보</h5>
-									<ul class="list-group list-group-flush">
-										<!-- list group item -->
-										<li class="list-group-item px-4 py-3">
-											<div class="row align-items-center">
-												<div class="col-2 col-md-2">
-													<img th:src="@{${productImage.path}}"
-														alt="Ecommerce" class="img-fluid" />
-												</div>
-												<div class="col-5 col-md-5">
-													<span>
-													    <small class="text-muted"
-													           th:each="codeList : ${@codeService.selectListCachedCode(3)}"
-													           th:if="${#strings.equals(codeList.ifcdSeq, product.brandName)}"
-													           th:text="${codeList.ifcdName}">브랜드 이름</small>
-													</span>
-													<h6 id="mealKitName" class="mb-0" th:text="${product.mealKitName}">계란볶음밥</h6>
-												</div>
-												<div class="col-2 col-md-2 text-center text-muted">
-													<span th:text="${quantity} + '개'">1</span>
-												</div>
-												<div class="col-3 text-lg-end text-start text-md-end col-md-3">
-													<span class="fw-bold" th:text="${#numbers.formatInteger({product.price}, 0, 'COMMA')} + '원'">3,500￦</span>
-<!-- 													<div class="text-decoration-line-through text-muted small">4,000￦ -->
-<!-- 													</div> -->
-												</div>
-											</div>
-										</li>
-
-										<!-- list group item -->
-										<li class="list-group-item px-4 py-3">
-											<div class="d-flex align-items-center justify-content-between mb-2">
-												<div>총 가격</div>
-												<div class="fw-bold" th:text="${#numbers.formatInteger(totalPrice, 3, 'COMMA')} + '원'">3,500￦</div>
-											</div>
-<!-- 											<div class="d-flex align-items-center justify-content-between mb-2"> -->
-<!-- 												<div> -->
-<!-- 													할인 -->
-<!-- 													<i class="feather-icon icon-info text-muted" -->
-<!-- 														data-bs-toggle="tooltip" title="Default tooltip"></i> -->
-<!-- 												</div> -->
-<!-- 												<div class="fw-bold">500￦</div> -->
-<!-- 											</div> -->
-											<div class="d-flex align-items-center justify-content-between mb-2">
-												<div>배달비</div>
-												<div class="fw-bold">0원</div>
-											</div>
-										</li>
-										<!-- list group item -->
-										<li class="list-group-item px-4 py-3">
-											<div class="d-flex align-items-center justify-content-between fw-bold">
-												<div>총 가격</div>
-												<div id="price" th:text="${#numbers.formatInteger(totalPrice, 3, 'COMMA')} + '원'">3,500￦</div>
-											</div>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+                            <li class="list-group-item px-4 py-3">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div>상품 총액</div>
+                                    <div class="fw-bold" th:text="${totalPrice != null ? #numbers.formatInteger(totalPrice, 0, 'COMMA') : 0} + '원'">0원</div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div>배송비</div><div class="fw-bold">0원</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item px-4 py-3">
+                                <div class="d-flex align-items-center justify-content-between fw-bold">
+                                    <div>총 결제 금액</div>
+                                    <div id="price" th:text="${totalPrice != null ? #numbers.formatInteger(totalPrice, 0, 'COMMA') : 0} + '원'">0원</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div></div>
+                </div>
+            </div></div>
+        </div></section>
 	</main>
 	
 	<script th:inline="javascript">
-		const clientKeyFromJava = /*[[${tossPaymentsClientKeyForJs}]]*/ '';
+	/*<![CDATA[*/
+		const tossPaymentsClientKey = /*[[${tossPaymentsClientKeyForJs}]]*/ null;
+	/*]]>*/
 	</script>
 	
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  if (typeof TossPayments === 'undefined') {
-    console.error('TossPayments 스크립트가 로드되지 않았습니다.');
-    return;
-  }
+    <script>
+    // JavaScript 코드는 이전 답변의 최종 버전을 그대로 사용합니다.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof TossPayments === 'undefined') { console.error('TossPayments 스크립트 로드 안됨'); alert('결제 시스템 오류1'); return; }
+      const orderButton = document.getElementById('orderButton');
+      if (!orderButton) { console.error('주문 버튼 없음'); return; }
+      if (!tossPaymentsClientKey) { console.error('Toss 키 없음'); alert('결제 설정 오류2'); orderButton.disabled = true; return; }
 
-  const orderButton = document.getElementById('orderButton');
-  if (!orderButton) return;
+      const tossPayments = TossPayments(tossPaymentsClientKey);
 
-  const tp = TossPayments(clientKeyFromJava);  // 여기 변수명 'tp'
-  console.log(tp);
-  console.log(typeof tp.requestPayment);
+      orderButton.addEventListener('click', function () {
+        const priceElement = document.getElementById('price');
+        const customerNameElement = document.getElementById('customerNameForToss');
+        const clientOrderIdElement = document.getElementById('clientOrderIdForToss');
+        const orderNameBaseElement = document.getElementById('orderNameForTossBase');
+        const orderNameSuffixElement = document.getElementById('orderNameForTossSuffix');
 
-  orderButton.addEventListener('click', function () {
-    let priceText = document.getElementById('price').innerText;
-    let amount = parseInt(priceText.replace(/[^0-9]/g, ''), 10);
+        if (!priceElement || !customerNameElement || !clientOrderIdElement || !orderNameBaseElement) {
+            alert('결제 필요 정보 누락3'); console.error("결제 정보 요소 누락:", {priceElement, customerNameElement, clientOrderIdElement, orderNameBaseElement}); return;
+        }
+        let priceText = priceElement.innerText;
+        let amount = parseInt(priceText.replace(/[^0-9]/g, ''), 10);
+        if (isNaN(amount) || amount <= 0) { alert('결제 금액 오류4'); return; }
 
-    tp.requestPayment('카드', {  // 여기서도 'tp'로 호출해야 함
-      amount: amount,
-      orderId: 'order_' + new Date().getTime(),
-      orderName: document.getElementById('mealKitName').innerText || '주문상품',
-      customerName: document.getElementById('customerName').value || '고객',
-      successUrl: window.location.origin + '/usr/payment/PaymentUsrSuccess',
-      failUrl: window.location.origin + '/usr/payment/PaymentUsrFail'
-    })
-    .catch(function (error) {
-      if (error.code === 'USER_CANCEL') {
-        alert('사용자가 결제를 취소했습니다.');
-      } else {
-        alert('결제 중 오류가 발생했습니다: ' + error.message);
-      }
-      console.error(error);
+        const customerName = customerNameElement.value || '고객';
+        const orderId = clientOrderIdElement.value;
+        let orderName = orderNameBaseElement.value;
+        if (orderNameSuffixElement && orderNameSuffixElement.value) { orderName += orderNameSuffixElement.value; }
+
+        console.log('Toss 결제 요청:', { amount, orderId, orderName, customerName });
+
+        tossPayments.requestPayment('카드', { // '카드' 외 '가상계좌', '계좌이체' 등 사용 가능
+          amount: amount, orderId: orderId, orderName: orderName, customerName: customerName,
+          successUrl: window.location.origin + '/usr/payment/PaymentUsrSuccess',
+          failUrl: window.location.origin + '/usr/payment/PaymentUsrFail'
+        })
+        .catch(function (error) {
+          console.error('Toss 결제 에러:', error);
+          if (error.code === 'USER_CANCEL') { alert('결제 취소됨.'); }
+          else { alert('결제 오류: ' + error.message + (error.code ? ` (코드: ${error.code})` : '')); }
+        });
+      });
     });
-  });
-});
-</script>
-
-	<!-- Footer -->
-	<!-- footer -->
+    </script>
 	
 	<div th:replace="~{usr/include/footer :: footer}"></div>
 
+</body>
 </html>

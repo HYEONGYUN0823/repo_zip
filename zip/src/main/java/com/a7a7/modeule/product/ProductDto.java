@@ -16,10 +16,11 @@ public class ProductDto extends UploadDto {
 	private String userUi_seq;
 	private String mealRegDateTime;
 	private String mealModDateTime;
+	private Integer reviewCount;
 	
 //	-----
 	
-	private String path;
+	private String path; // 이미지
 	
 //	-----
 	
@@ -117,6 +118,12 @@ public class ProductDto extends UploadDto {
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	public Integer getReviewCount() {
+		return reviewCount;
+	}
+	public void setReviewCount(Integer reviewCount) {
+		this.reviewCount = reviewCount;
 	}
 	
 	
