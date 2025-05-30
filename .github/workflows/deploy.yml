@@ -1,0 +1,71 @@
+name: Deploy Spring Boot (Gradle) to EC2
+
+on:
+  push:
+    branches:
+      - main # 또는 배포를 원하는 브랜치
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Java JDK 설정 (빌드에 필요)
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21' # build.gradle에 명시된 Java 버전
+        distribution: 'temurin' # 또는 'corretto', 'zulu' 등 선호하는 배포판
+        cache: 'gradle' # Gradle 사용 시 빌드 캐시
+
+    # Gradle Wrapper 실행 권한 부여 (중요!)
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+
+    # Gradle로 빌드 (실행 가능한 Jar 생성)
+    - name: Build with Gradle
+      run: ./gradlew bootJar # 또는 gradlew.bat bootJar (Windows Runner 고려 시)
+
+    - name: Deploy to EC2
+      uses: easingthemes/ssh-deploy@v5
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.EC2_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        SOURCE: "build/libs/" # Gradle 빌드 결과물이 있는 폴더
+        TARGET: "/root/zip" # EC2에 배포될 경로
+        ARGS: "--exclude='.git*' --exclude='Jenkinsfile' --exclude='.github/' --exclude='build/tmp/' --exclude='build/reports/'" # 불필요한 파일 제외
+        SCRIPT_AFTER: |
+          cd /root/zip # 배포된 경로로 이동
+
+          # 애플리케이션 포트 (application.properties 또는 yml 에서 설정된 포트)
+          # 만약 애플리케이션이 8080 포트가 아닌 다른 포트를 사용한다면 이 값을 수정해주세요.
+          APP_PORT=8080
+
+          # 해당 포트를 사용하는 기존 프로세스 종료
+          echo "Attempting to stop any process on port ${APP_PORT}..."
+          PID=$(sudo lsof -t -i:${APP_PORT})
+          if [ -n "$PID" ]; then
+            echo "Stopping process on port ${APP_PORT} (PID: $PID)"
+            sudo kill -9 $PID
+          else
+            echo "No process found running on port ${APP_PORT}."
+          fi
+
+          # 실행할 Jar 파일 이름을 명시적으로 설정합니다.
+          JAR_FILE_TO_EXECUTE="zip-0.0.1-SNAPSHOT.jar" # <<< 실제 Jar 파일 이름
+
+          # Jar 파일이 존재하는지 확인 후 실행
+          if [ -f "$JAR_FILE_TO_EXECUTE" ]; then
+            echo "Starting Spring Boot application: $JAR_FILE_TO_EXECUTE"
+            # --spring.profiles.active=prod 옵션 제거됨
+            nohup java -jar $JAR_FILE_TO_EXECUTE > /root/zip/app.log 2>&1 &
+            echo "Spring Boot application started. Check logs at /root/zip/app.log"
+          else
+            echo "ERROR: Specified JAR file '$JAR_FILE_TO_EXECUTE' not found in /root/zip."
+            echo "Listing files in /root/zip for debugging:"
+            ls -la /root/zip # 배포된 파일 목록을 보여줘서 디버깅에 도움
+            exit 1 # Jar 파일이 없으면 워크플로우 실패 처리
+          fi
