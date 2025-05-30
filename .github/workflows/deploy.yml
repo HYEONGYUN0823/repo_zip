@@ -31,7 +31,7 @@ jobs:
         ARGS: "--exclude='.git*' --exclude='Jenkinsfile' --exclude='.github/' --exclude='zip/build/tmp/' --exclude='zip/build/reports/'"
         SCRIPT_AFTER: |
           cd /root/zip
-          APP_PORT=81
+          APP_PORT=8080
           echo "Attempting to stop any process on port ${APP_PORT}..."
           PID=$(sudo lsof -t -i:${APP_PORT})
           if [ -n "$PID" ]; then
