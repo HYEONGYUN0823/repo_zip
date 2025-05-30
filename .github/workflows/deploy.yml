@@ -27,10 +27,10 @@ jobs:
         REMOTE_HOST: ${{ secrets.EC2_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USER }}
         SOURCE: zip/build/libs/
-        TARGET: /root/zip
+        TARGET: /home/ec2-user/zip
         ARGS: "--exclude='.git*' --exclude='Jenkinsfile' --exclude='.github/' --exclude='zip/build/tmp/' --exclude='zip/build/reports/'"
         SCRIPT_AFTER: |
-          cd /root/zip
+          cd /home/ec2-user/zip
           APP_PORT=8080
           echo "Attempting to stop any process on port ${APP_PORT}..."
           PID=$(sudo lsof -t -i:${APP_PORT})
@@ -43,10 +43,10 @@ jobs:
           JAR_FILE_TO_EXECUTE=$(ls *.jar | head -n 1)
           if [ -n "$JAR_FILE_TO_EXECUTE" ]; then
             echo "Starting Spring Boot application: $JAR_FILE_TO_EXECUTE"
-            nohup java -jar $JAR_FILE_TO_EXECUTE > /root/zip/app.log 2>&1 &
-            echo "Spring Boot application started. Check logs at /root/zip/app.log"
+            nohup java -jar $JAR_FILE_TO_EXECUTE > /home/ec2-user/zip/app.log 2>&1 &
+            echo "Spring Boot application started. Check logs at /home/ec2-user/zip/app.log"
           else
-            echo "ERROR: No JAR file found in /root/zip."
-            ls -la /root/zip
+            echo "ERROR: No JAR file found in /home/ec2-user/zip."
+            ls -la /home/ec2-user/zip
             exit 1
           fi
