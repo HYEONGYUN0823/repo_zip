@@ -25,7 +25,7 @@ jobs:
       with:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.EC2_HOST }}
-        REMOTE_USER: root
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
         SOURCE: zip/build/libs/
         TARGET: /root/zip
         ARGS: "--exclude='.git*' --exclude='Jenkinsfile' --exclude='.github/' --exclude='zip/build/tmp/' --exclude='zip/build/reports/'"
