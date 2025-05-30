@@ -1,30 +1,52 @@
-- name: Deploy to EC2
-  uses: easingthemes/ssh-deploy@v4.1.8   # 또는 @v4
-  with:
-    SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-    REMOTE_HOST: ${{ secrets.EC2_HOST }}
-    REMOTE_USER: ${{ secrets.REMOTE_USER }}
-    SOURCE: zip/build/libs/
-    TARGET: /root/zip
-    ARGS: "--exclude='.git*' --exclude='Jenkinsfile' --exclude='.github/' --exclude='zip/build/tmp/' --exclude='zip/build/reports/'"
-    SCRIPT_AFTER: |
-      cd /root/zip
-      APP_PORT=8080
-      echo "Attempting to stop any process on port ${APP_PORT}..."
-      PID=$(sudo lsof -t -i:${APP_PORT})
-      if [ -n "$PID" ]; then
-        echo "Stopping process on port ${APP_PORT} (PID: $PID)"
-        sudo kill -9 $PID
-      else
-        echo "No process found running on port ${APP_PORT}."
-      fi
-      JAR_FILE_TO_EXECUTE=$(ls *.jar | head -n 1)
-      if [ -n "$JAR_FILE_TO_EXECUTE" ]; then
-        echo "Starting Spring Boot application: $JAR_FILE_TO_EXECUTE"
-        nohup java -jar $JAR_FILE_TO_EXECUTE > /root/zip/app.log 2>&1 &
-        echo "Spring Boot application started. Check logs at /root/zip/app.log"
-      else
-        echo "ERROR: No JAR file found in /root/zip."
-        ls -la /root/zip
-        exit 1
-      fi
+name: Deploy Spring Boot (Gradle) to EC2
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'gradle'
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./zip/gradlew
+    - name: Build with Gradle
+      run: ./gradlew bootJar
+      working-directory: ./zip
+    - name: Deploy to EC2
+      uses: easingthemes/ssh-deploy@v4.1.8   # 또는 @v4
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.EC2_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        SOURCE: zip/build/libs/
+        TARGET: /root/zip
+        ARGS: "--exclude='.git*' --exclude='Jenkinsfile' --exclude='.github/' --exclude='zip/build/tmp/' --exclude='zip/build/reports/'"
+        SCRIPT_AFTER: |
+          cd /root/zip
+          APP_PORT=8080
+          echo "Attempting to stop any process on port ${APP_PORT}..."
+          PID=$(sudo lsof -t -i:${APP_PORT})
+          if [ -n "$PID" ]; then
+            echo "Stopping process on port ${APP_PORT} (PID: $PID)"
+            sudo kill -9 $PID
+          else
+            echo "No process found running on port ${APP_PORT}."
+          fi
+          JAR_FILE_TO_EXECUTE=$(ls *.jar | head -n 1)
+          if [ -n "$JAR_FILE_TO_EXECUTE" ]; then
+            echo "Starting Spring Boot application: $JAR_FILE_TO_EXECUTE"
+            nohup java -jar $JAR_FILE_TO_EXECUTE > /root/zip/app.log 2>&1 &
+            echo "Spring Boot application started. Check logs at /root/zip/app.log"
+          else
+            echo "ERROR: No JAR file found in /root/zip."
+            ls -la /root/zip
+            exit 1
+          fi
