@@ -56,7 +56,7 @@ jobs:
 
           if [ -f "$JAR_FILE_TO_EXECUTE" ]; then
             echo "Starting Spring Boot application: $JAR_FILE_TO_EXECUTE"
-            # ▼▼▼▼▼▼▼▼▼ 환경 변수 설정 부분 (application.properties의 플레이스홀더 및 external 파일의 키 이름과 동일하게) ▼▼▼▼▼▼▼▼▼
+            # ▼▼▼▼▼▼▼▼▼ 환경 변수 설정 부분 ▼▼▼▼▼▼▼▼▼
             export mysql_main_jdbc_url="${{ secrets.mysql_main_jdbc_url }}"
             export mysql_main_username="${{ secrets.mysql_main_username }}"
             export mysql_main_password="${{ secrets.mysql_main_password }}"
@@ -69,10 +69,22 @@ jobs:
             export cloud_aws_credentials_access_key="${{ secrets.cloud_aws_credentials_access_key }}"
             export cloud_aws_credentials_secret_access_key="${{ secrets.cloud_aws_credentials_secret_access_key }}"
 
-            # tossPay 관련 환경 변수 추가
             export tossPay_api="${{ secrets.tossPay_api }}"
             export tossPay_cli_api="${{ secrets.tossPay_cli_api }}"
             # ▲▲▲▲▲▲▲▲▲ 환경 변수 설정 부분 ▲▲▲▲▲▲▲▲▲
+
+            # ▼▼▼▼▼▼▼▼▼ 디버깅 로그 추가 ▼▼▼▼▼▼▼▼▼
+            echo "--- DEBUG: Environment Variables from Secrets ---"
+            echo "Secrets - mysql_main_jdbc_url: [${{ secrets.mysql_main_jdbc_url }}]"
+            echo "Secrets - mysql_main_username: [${{ secrets.mysql_main_username }}]"
+            # 필요한 다른 시크릿 값들도 이런 식으로 찍어볼 수 있습니다.
+
+            echo "--- DEBUG: Exported Environment Variables ---"
+            echo "Exported - mysql_main_jdbc_url: [$mysql_main_jdbc_url]"
+            echo "Exported - mysql_main_username: [$mysql_main_username]"
+            # 필요하다면 다른 export된 변수들도 찍어보세요.
+            echo "-------------------------------------------------"
+            # ▲▲▲▲▲▲▲▲▲ 디버깅 로그 추가 ▲▲▲▲▲▲▲▲▲
 
             # application.properties에 'spring.profiles.include=external'이 있으므로,
             # 실행 시 'external' 프로파일을 활성화합니다.
