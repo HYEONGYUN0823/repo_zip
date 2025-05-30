@@ -88,7 +88,7 @@ jobs:
 
             # application.properties에 'spring.profiles.include=external'이 있으므로,
             # 실행 시 'external' 프로파일을 활성화합니다.
-            nohup java -jar $JAR_FILE_TO_EXECUTE --spring.profiles.active=external > /home/ec2-user/zip/app.log 2>&1 &
+            nohup java -jar $JAR_FILE_TO_EXECUTE > /home/ec2-user/zip/app.log 2>&1 &
             echo "Spring Boot application started. Check logs at /home/ec2-user/zip/app.log"
           else
             echo "ERROR: Specified JAR file '$JAR_FILE_TO_EXECUTE' not found in /home/ec2-user/zip."
