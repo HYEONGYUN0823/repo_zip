@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a7a7.modeule.review.ReviewDao">
+    
+    <resultMap id="resultMapObj" type="com.a7a7.modeule.review.ReviewDto">
+        <id column="seq" property="seq" />
+        <result column="reviewTitle" property="reviewTitle" />
+        <result column="reviewContent" property="reviewContent" /> <!-- DB 컬럼이 review라면 AS reviewContent 또는 resultMap 수정 -->
+        <result column="rating" property="rating" />
+        <result column="mealKit_seq" property="mealKit_seq" />
+        <result column="userUi_seq" property="userUi_seq" />
+        <result column="recipePost_seq" property="recipePost_seq" />
+        <result column="userName" property="userName" />
+        <result column="userProfileImageUrl" property="userProfileImageUrl" />
+        <result column="regDate" property="regDate" />
+        <result column="modDate" property="modDate" />
+    </resultMap>
+    
+    <insert id="insertReview" parameterType="com.a7a7.modeule.review.ReviewDto" useGeneratedKeys="true" keyProperty="seq">
+        INSERT INTO review ( <!-- 실제 리뷰 테이블명으로 변경 -->
+            reviewTitle,
+            reviewContent, 
+            rating,
+            mealKit_seq,
+            userUi_seq,
+            recipePost_seq,
+            regDate,
+            modDate
+        ) VALUES (
+            #{reviewTitle},
+            #{reviewContent}, 
+            #{rating},
+            #{mealKit_seq},
+            #{userUi_seq},
+            #{recipePost_seq, jdbcType=VARCHAR},
+            NOW(),
+            NOW()
+        )
+    </insert>
+
+    <select id="findReviewsByMealKitSeq" resultMap="resultMapObj" parameterType="map">
+        SELECT
+            r.seq,
+            r.reviewTitle,
+            r.reviewContent, -- 만약 DB 컬럼명이 'review'라면 r.review AS reviewContent
+            r.rating,
+            r.mealKit_seq,
+            r.userUi_seq,
+            r.recipePost_seq,
+            r.regDate,
+            r.modDate,
+            u.userName,             
+            u.userProfileImageUrl  
+        FROM
+            review r 
+        LEFT JOIN
+            user_ui u ON r.userUi_seq = u.seq -- 실제 사용자 테이블 및 조인 조건 확인
+        WHERE
+            r.mealKit_seq = #{mealKitSeq}
+        ORDER BY
+            <choose>
+                <when test="sortProperty == 'rating' and sortDirection == 'DESC'">
+                    r.rating DESC, r.regDate DESC
+                </when>
+                <when test="sortProperty == 'rating' and sortDirection == 'ASC'">
+                    r.rating ASC, r.regDate DESC
+                </when>
+                <otherwise>
+                    r.regDate DESC
+                </otherwise>
+            </choose>
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="countReviewsByMealKitSeq" resultType="long" parameterType="String">
+        SELECT COUNT(*)
+        FROM review
+        WHERE mealKit_seq = #{mealKitSeq}
+    </select>
+    
+    <select id="getAverageRatingForMealKit" resultType="Double" parameterType="String"> <!-- resultType Double로 변경 -->
+        SELECT IFNULL(AVG(rating), 0.0)
+        FROM review
+        WHERE mealKit_seq = #{mealKitSeq}
+    </select>
+    
+    <select id="getRatingCountsForMealKit" resultType="map" parameterType="String">
+        SELECT
+            rating,
+            COUNT(*) AS count
+        FROM
+            review
+        WHERE
+            mealKit_seq = #{mealKitSeq}
+        GROUP BY
+            rating
+    </select>
+</mapper>
