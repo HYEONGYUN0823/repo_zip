@@ -26,6 +26,22 @@
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="/user/template/user_ui/assets/css/theme.min.css">
 	<link rel="stylesheet" type="text/css" href="/user/css/jquery.datetimepicker.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	
+	<style>
+		
+		.icon-button {
+		  color: #333;
+		  font-size: 1.5rem;
+		  transition: color 0.2s;
+		}
+		
+		.icon-button:hover {
+		  color: #007bff; /* hover 시 파란색 */
+		}
+		
+	</style>
 </head>
 
 <body>
@@ -287,7 +303,14 @@
     <span th:text="${session.sessNameUsr} + '님 환영합니다'">OOO님 환영합니다</span>
 </div>
 <div th:if="${session.sessIdUsr != null}" class="list-inline-item me-3">
-    <a href="/usr/setting/AccountOrdersUsrList" class="button">마이페이지</a>
+    <a href="/usr/cart/CartUsrList" class="button">
+        <i class="fas fa-shopping-cart icon-button"></i>
+    </a>
+</div>
+<div th:if="${session.sessIdUsr != null}" class="list-inline-item me-3">
+    <a href="/usr/setting/AccountOrdersUsrList" class="button">
+        <i class="fas fa-user-circle icon-button"></i>
+    </a>
 </div>
 <div th:if="${session.sessIdUsr != null}" class="list-inline-item me-3">
     <a id="btnSignout" href="javascript:void(0);" class="btn btn-dark d-none d-xl-block">로그아웃</a>
