@@ -92,7 +92,7 @@
                 },
                 body: JSON.stringify({
                     paymentKey: paymentKey,
-                    orderId: orderIdFromToss, // Toss에서 받은 orderId 전달
+                    orderId: orderIdFromToss.replace(/^order_/, ''), // Toss에서 받은 orderId 전달
                     amount: String(amount)    // 서버에서 문자열로 받는 경우 String으로 변환
                 }),
             })
