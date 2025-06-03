@@ -46,6 +46,12 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
 	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.5'
 	
+	tasks.withType(JavaCompile) { // 리뷰를 위한..
+    	options.compilerArgs << '-parameters'
+	}
+	
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	
 }
 
 tasks.named('test') {
