@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="~{xdm/include/head :: head}"></div>
+<head th:replace="~{xdm/include/head :: head}"></head>
 
 	<style>
 	    /* 글자색을 검정으로 변경 */
@@ -9,7 +9,7 @@
 	    .table-responsive-sm td {
 	        color: black !important;
 	    }
-	
+
 	    /* 테이블의 모든 선 제거 */
 	    .table,
 	    .table th,
@@ -18,11 +18,11 @@
 	    .table tbody td {
 	        border: none !important;
 	    }
-	
+
 	    .red {
 	        color: red;
 	    }
-	
+
 	    .table {
 	        width: 100%;
 	        table-layout: fixed;
@@ -30,12 +30,24 @@
 	</style>
 <body>
 
+<!-- 업로드 결과 메시지 표시 영역 -->
+<div class="container-fluid pt-2" th:if="${uploadMessage}">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <span th:utext="${#strings.replace(uploadMessage, '\n', '<br/>')}"></span> <!-- 개행문자를 <br/>로 변경 -->
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
 
-<form name="formList" id="formList" method="post" autocomplete="off">
+<!-- 기존 formList에 엑셀 업로드 관련 요소 추가 -->
+<form name="formList" id="formList" method="post" autocomplete="off" enctype="multipart/form-data">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
 		<input type="hidden" name="ifcdSeq">
 		<input type="hidden" name="ifcdDelNy">
+
+        <!-- 엑셀 업로드를 위한 숨겨진 파일 입력 필드 -->
+        <input type="file" name="file" id="hiddenFileInput" style="display: none;" accept=".xlsx, .xls"/>
+
         <!--**********************************
             Content body start
         ***********************************-->
@@ -66,7 +78,7 @@
                                                 <select id="shDelNy" name="shDelNy" class="form-select form-select-sm">
 													<option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
 													<option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
-													<option value="0" th:selected="${vo.shDelNy == 0}">N</option>            
+													<option value="0" th:selected="${vo.shDelNy == 0}">N</option>
 												</select>
                                             </td>
                                             <td class="p-2">
@@ -103,12 +115,12 @@
 												</select>
                                             </td>
                                             <td class="p-2">
-                                                <input type="text" 
-		                                               id="shValue" 
-		                                               name="shValue" 
-		                                               th:value="${vo.shValue}" 
-		                                               onkeyup="enterkey()" 
-		                                               placeholder="검색어" 
+                                                <input type="text"
+		                                               id="shValue"
+		                                               name="shValue"
+		                                               th:value="${vo.shValue}"
+		                                               onkeyup="enterkey()"
+		                                               placeholder="검색어"
 		                                               class="form-control form-control-sm">
 												<div class="invalid-feedback" id="shValueFeedback"></div>
                                             </td>
@@ -159,7 +171,7 @@
 														<option value="30" th:selected="${vo.rowNumToShow eq 30}">30</option>
 														<option value="50" th:selected="${vo.rowNumToShow eq 50}">50</option>
 														<option value="80" th:selected="${vo.rowNumToShow eq 80}">80</option>
-														<option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>       
+														<option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>
 													</select>
                                                 </td>
                                                 <td></td>
@@ -207,9 +219,9 @@
                                                 <td th:text="${list.ifcgSeq}">42</td>
                                                 <td th:text="${list.ifcgName}">작품.기타사이트유형</td>
                                                 <td class="ifcdName align-middle fw-semi-bold">
-	                                                <a 
-		                                                href="javascript:void(0);" 
-		                                                th:text="${list.ifcdName}" 
+	                                                <a
+		                                                href="javascript:void(0);"
+		                                                th:text="${list.ifcdName}"
 		                                                th:attr="onclick=|goForm('${list.ifcdSeq}')|">
 	                                                </a>
                                                 </td>
@@ -220,12 +232,12 @@
                                                 <td th:text=${list.ifcdRegDateTime}></td>
                                                 <td th:text=${list.ifcdModDateTime}></td>
                                             </tr>
-                                           
+
                                         </tbody>
                                     </table>
                                     <nav aria-label="Page navigation example">
                                         <ul class="pagination justify-content-center">
-                                                        
+
                                             <li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
 												<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
 													<i class="fa-solid fa-angle-left"></i>
@@ -249,9 +261,10 @@
                                     <a href="#" id="btnExcel" class="btn btn-success"
                                         style="float: right; margin-right: 4px;"><i
                                             class="fa-regular fa-file-excel"></i></a>
-                                    <button type="button" class="btn btn-primary"
+                                    <!-- 엑셀 업로드 버튼 -->
+                                    <button type="button" id="btnUpload" class="btn btn-primary"
                                         style="float: right; margin-right: 4px;"><i class="fa-solid fa-u"></i></button>
-                                        
+
                                         <!-- 모달 -->
                                         <div th:replace="~{xdm/include/modal :: modal}"></div>
                                 </div>
@@ -262,7 +275,7 @@
             </div>
         </div>
     </form>
-    
+
 
         <div th:replace="~{xdm/include/footer :: footer}"></div>
 
@@ -272,80 +285,126 @@
     <!-- Required vendors -->
 
      <script type="text/javascript">
-     
-     const xls = new RegExp('\.xls$', 'i');
-     const xlsx = new RegExp('\.xlsx$', 'i');
-     
-     
-     
+
+     const xls = new RegExp('\.xls$', 'i'); // 사용되지 않으므로 제거 가능
+     const xlsx = new RegExp('\.xlsx$', 'i'); // 사용되지 않으므로 제거 가능
+
  		let seq = document.querySelector("input[name=ifcdSeq]");
  		let form = document.getElementById("formList");  // form 요소 가져오기
- 		
+
  	    let seqInput = document.querySelector("input[name='ifcdSeq']");
  	    let delNyInput = document.querySelector("input[name='ifcdDelNy']");
- 		
+
  		let goUrlXdmList = "/xdm/code/CodeXdmList";
  		let goUrlXdmForm = "/xdm/code/CodeXdmForm";
  		let goUrlXdmUele = "/xdm/code/CodeXdmUele";
- 		
+        let goUrlXdmReadExcel = "/xdm/code/readExcel"; // 엑셀 업로드 URL
+
 		goList = function (thisPage) {
 		    document.querySelector("input[name=thisPage]").value = thisPage;
 		    form.action = goUrlXdmList;
+		    form.method = "post"; // 목록 조회도 POST로 통일 (기존 방식 유지)
+		    form.removeAttribute("enctype"); // 목록 조회 시에는 enctype 제거
 		    form.submit();
 		}
-		
+
 		document.getElementById("changeRowNum").onchange = function () {
 		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-		    form.action = goUrlXdmList;
-		    form.submit();
+		    goList(1); // 페이지 번호 표시 방식 변경 시 첫 페이지로
 		}
-		
+
 		document.getElementById("btnForm").onclick = function () {
 		    goForm(0);
 		}
 
 
 		goForm = function (keyValue) {
-			
 		    seq.value = keyValue;
 		    form.action = goUrlXdmForm;
+		    form.method = "post";
+            form.removeAttribute("enctype");
 		    form.submit();
 		}
-		
+
 	    document.getElementById("btnSearch").onclick = function () {
+            document.querySelector("input[name=thisPage]").value = "1"; // 검색 시 첫 페이지로
 	        form.action = goUrlXdmList;
+	        form.method = "post";
+            form.removeAttribute("enctype");
 	        form.submit();
 	    };
-		
-		    
+
+
 		//	    삭제 모달에서 삭제 버튼 클릭 시
 		document.getElementById("btnUelSubmit").onclick = function () {
 		    let seqValues = [];
 		    let delNyValues = [];
-		    
-		
+
+
 		//	        선택된 체크박스에서 ifcgSeq 값과 ifcgDelNy 값을 추출
 		    document.querySelectorAll("input[name='chk']:checked").forEach(function (checkbox) {
 		        seqValues.push(checkbox.value);  // 체크된 체크박스의 value 값 (ifcgSeq)
 		        delNyValues.push("1");  // ifcgDelNy 값 (삭제 표시)
 		    });
-		
+
 		    if (seqValues.length > 0) {
 		//	            ifcgSeq 값을 서버에 보내기 위해 연결
 		        document.querySelector("input[name='ifcdSeq']").value = seqValues.join(",");
 		        document.querySelector("input[name='ifcdDelNy']").value = delNyValues.join(","); // ifcgDelNy를 업데이트
-		
+
 		//	            폼을 제출하여 삭제 요청
 		        form.action = goUrlXdmUele;
+		        form.method = "post";
+                form.removeAttribute("enctype");
 		        form.submit();
-		    }
+		    } else {
+                alert("삭제할 항목을 선택해주세요."); // 선택된 항목이 없을 경우 알림
+            }
 		}
-		
+
 		document.getElementById("btnExcel").onclick = function(e) {
 		    e.preventDefault();
-		    const rowNum = document.getElementById("changeRowNum").value;
-		    window.location.href = "/xdm/code/excelDownload?rowNumToShow=" + rowNum;
+		    // 검색 조건들을 URL 파라미터로 만들어서 전달 (GET 방식)
+		    const params = new URLSearchParams();
+		    params.append('rowNumToShow', document.getElementById("rowNumToShow").value);
+		    params.append('shDelNy', document.getElementById("shDelNy").value);
+		    params.append('shUseNy', document.getElementById("shUseNy").value);
+		    params.append('shOptionDate', document.getElementById("shOptionDate").value);
+		    params.append('shDateStart', document.getElementById("shDateStart").value);
+		    params.append('shDateEnd', document.getElementById("shDateEnd").value);
+		    params.append('shOption', document.getElementById("shOption").value);
+		    params.append('shValue', document.getElementById("shValue").value);
+
+		    window.location.href = "/xdm/code/excelDownload?" + params.toString();
 		}
+
+        // 엑셀 업로드 버튼 클릭 이벤트
+        document.getElementById("btnUpload").onclick = function() {
+            document.getElementById("hiddenFileInput").click(); // 숨겨진 파일 입력창 클릭
+        };
+
+        // 숨겨진 파일 입력창 값 변경 시 (파일 선택 시)
+        document.getElementById("hiddenFileInput").onchange = function() {
+            if (this.files.length > 0) {
+                const fileName = this.files[0].name;
+                // 파일 확장자 검사
+                if (!fileName.toLowerCase().endsWith(".xlsx") && !fileName.toLowerCase().endsWith(".xls")) {
+                    alert("엑셀 파일(.xlsx 또는 .xls)만 업로드 가능합니다.");
+                    this.value = ""; // 파일 선택 초기화
+                    return;
+                }
+                // 파일이 선택되면 formList를 사용하여 업로드
+                if (confirm("'" + fileName + "' 파일을 업로드 하시겠습니까?")) {
+                    form.action = goUrlXdmReadExcel;
+                    form.method = "post"; // 엑셀 업로드는 POST
+                    form.enctype = "multipart/form-data"; // 파일 업로드에 필수
+                    form.submit();
+                } else {
+                     this.value = ""; // 사용자가 취소하면 파일 선택 초기화
+                }
+            }
+        };
+
 	</script>
 	<div th:replace="~{xdm/include/checkBox :: checkBox}"></div>
 	<div th:replace="~{xdm/include/calendar :: calendar}"></div>
