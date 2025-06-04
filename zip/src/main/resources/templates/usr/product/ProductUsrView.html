@@ -66,7 +66,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="reviewSubmitResultModalLabel">리뷰 등록 결과</h5>
+                    <h5 class="modal-title" id="reviewSubmitResultModalLabel">알림</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="reviewSubmitResultModalBody">
@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <!-- !!! 리뷰 삭제 확인 모달 추가 !!! -->
+    <!-- 리뷰 삭제 확인 모달 -->
     <div class="modal fade" id="reviewDeleteConfirmModal" tabindex="-1" aria-labelledby="reviewDeleteConfirmModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -100,7 +100,7 @@
 
 
     <main>
-        <form name="formList" id="formList" method="post" autocomplete="off">
+        <form name="formList" id="formList" method="post" autocomplete="off" novalidate> <!-- novalidate 속성 추가 -->
             <input type="hidden" name="vo_seq" th:value="${vo != null ? vo.seq : ''}">
             <div class="mt-4">
                 <div class="container">
@@ -289,12 +289,12 @@
 
                                                     <div class="border-bottom py-4 mb-4">
                                                         <h5>제목</h5>
-                                                        <input type="text" id="reviewTitleInput" name="reviewTitle_review" class="form-control" placeholder="오늘도 한끼 식사 해결!" required maxlength="100">
+                                                        <input type="text" id="reviewTitleInput" name="reviewTitle_review" class="form-control" placeholder="오늘도 한끼 식사 해결!" maxlength="100"> <!-- required 제거 -->
                                                     </div>
 
                                                     <div class="py-4 mb-4">
                                                         <h5>작성된 리뷰를 추가하세요</h5>
-                                                        <textarea id="reviewContentInput" name="reviewContent_review" class="form-control" rows="3" placeholder="어떤점이 괜찮았나요? 이 제품에 대해 알려주세요!" required maxlength="1000"></textarea>
+                                                        <textarea id="reviewContentInput" name="reviewContent_review" class="form-control" rows="3" placeholder="어떤점이 괜찮았나요? 이 제품에 대해 알려주세요!" maxlength="1000"></textarea> <!-- required 제거 -->
                                                     </div>
                                                     <div class="d-flex justify-content-end">
                                                         <button type="button" id="submitReviewButton" class="btn btn-primary">리뷰 제출</button>
@@ -385,14 +385,13 @@
         const reviewSubmitResultModalLabel = document.getElementById('reviewSubmitResultModalLabel');
         const reviewSubmitResultModalBody = document.getElementById('reviewSubmitResultModalBody');
 
-        // --- 리뷰 삭제 확인 모달 객체 생성 ---
         const reviewDeleteConfirmModalElement = document.getElementById('reviewDeleteConfirmModal');
         const reviewDeleteConfirmModal = reviewDeleteConfirmModalElement ? new bootstrap.Modal(reviewDeleteConfirmModalElement) : null;
-        const confirmDeleteReviewButton = document.getElementById('confirmDeleteReviewButton'); // 모달 안의 실제 삭제 버튼
-        let reviewSeqToDelete = null; // 삭제할 리뷰의 seq를 임시 저장할 변수
+        const confirmDeleteReviewButton = document.getElementById('confirmDeleteReviewButton');
+        let reviewSeqToDelete = null;
 
         if (!reviewSubmitResultModal) console.warn("reviewSubmitResultModal not found, will use alert fallback for review submission.");
-        if (!reviewDeleteConfirmModal) console.warn("reviewDeleteConfirmModal not found, will use confirm() fallback for review deletion.");
+        if (!reviewDeleteConfirmModal || !confirmDeleteReviewButton) console.warn("reviewDeleteConfirmModal or its confirm button not found, will use confirm() fallback for review deletion.");
 
 
         const averageRatingDisplay = document.getElementById('averageRatingDisplay');
@@ -439,7 +438,7 @@
                             const p = (cfs / revC) * 100;
                             const rb = document.getElementById(`ratingBar${i}`);
                             const rpt = document.getElementById(`ratingPercent${i}`);
-                            console.log(`Star ${i}: c=${cfs}, t=${revC}, p=${p.toFixed(0)}%`);
+                            console.log(`Star ${i}: count=${cfs}, total=${revC}, percentage=${p.toFixed(0)}%`);
                             if (rb) rb.style.width = p.toFixed(0) + '%'; if (rpt) rpt.innerText = p.toFixed(0) + '%';
                         }
                     } else {
@@ -469,13 +468,25 @@
         }
 
         function bindDeleteReviewButtons() {
-            document.querySelectorAll('.delete-review-btn').forEach(button => {
-                const newButton = button.cloneNode(true); button.parentNode.replaceChild(newButton, button);
-                newButton.addEventListener('click', function() {
-                    reviewSeqToDelete = this.getAttribute('data-review-seq'); // 삭제할 리뷰 seq 저장
+            console.log("bindDeleteReviewButtons 호출됨");
+            const deleteButtons = document.querySelectorAll('.delete-review-btn');
+            console.log("찾은 삭제 버튼 개수:", deleteButtons.length);
+
+            deleteButtons.forEach(button => {
+                // 이벤트 리스너 중복 등록을 피하기 위해 기존 버튼을 복제하고, 이전 버튼을 새 버튼으로 교체
+                const newButton = button.cloneNode(true);
+                button.parentNode.replaceChild(newButton, button);
+                
+                newButton.addEventListener('click', function(event) { // event 객체를 파라미터로 받음
+                    event.preventDefault(); // !!! 버튼 클릭의 기본 동작 방지 !!!
+
+                    reviewSeqToDelete = this.getAttribute('data-review-seq');
+                    console.log("삭제 버튼 클릭 - reviewSeqToDelete:", reviewSeqToDelete);
                     if (reviewDeleteConfirmModal) {
+                        console.log("삭제 확인 모달 보여주기 시도");
                         reviewDeleteConfirmModal.show();
-                    } else { // 모달 없을 시 confirm 사용 (폴백)
+                    } else {
+                        console.warn("reviewDeleteConfirmModal 없음, confirm 사용");
                         if (confirm('이 리뷰를 정말 삭제하시겠습니까?')) {
                             proceedDeleteReview(reviewSeqToDelete);
                         }
@@ -484,12 +495,13 @@
             });
         }
         
-        // --- 실제 삭제 로직을 수행하는 함수 ---
         function proceedDeleteReview(reviewSeq) {
-            if (!reviewSeq) return;
+            console.log("proceedDeleteReview 호출 - reviewSeq:", reviewSeq);
+            if (!reviewSeq) { console.error("proceedDeleteReview: reviewSeq가 없습니다."); return; }
             fetch('/usr/review/deleteReview', { method: 'POST', headers: commonAjaxHeaders, body: new URLSearchParams({ 'seq': reviewSeq }) })
-            .then(response => response.json())
+            .then(response => { console.log("삭제 요청 응답 상태:", response.status); return response.json();})
             .then(data => {
+                console.log("삭제 요청 응답 데이터:", data);
                 if (reviewSubmitResultModal && reviewSubmitResultModalLabel && reviewSubmitResultModalBody) {
                     reviewSubmitResultModalLabel.innerText = data.rt === 'success' ? "리뷰 삭제 완료" : "리뷰 삭제 실패";
                     reviewSubmitResultModalBody.innerText = data.message || (data.rt === 'success' ? '리뷰가 삭제되었습니다.' : '리뷰 삭제 중 문제가 발생했습니다.');
@@ -502,7 +514,7 @@
                 }
             })
             .catch(error => {
-                console.error('리뷰 삭제 오류:', error);
+                console.error('리뷰 삭제 fetch 오류:', error);
                 if (reviewSubmitResultModal && reviewSubmitResultModalLabel && reviewSubmitResultModalBody) {
                     reviewSubmitResultModalLabel.innerText = "삭제 처리 오류";
                     reviewSubmitResultModalBody.innerText = '리뷰 삭제 중 오류가 발생했습니다.';
@@ -511,16 +523,17 @@
                     alert('리뷰 삭제 중 오류가 발생했습니다.');
                 }
             });
-            reviewSeqToDelete = null; // 사용 후 초기화
+            reviewSeqToDelete = null;
         }
 
-        // --- 삭제 확인 모달의 "삭제" 버튼 이벤트 리스너 ---
+        // 삭제 확인 모달의 "삭제" 버튼에 대한 이벤트 리스너는 DOMContentLoaded 시점에 한 번만 등록
         if (confirmDeleteReviewButton && reviewDeleteConfirmModal) {
             confirmDeleteReviewButton.addEventListener('click', function() {
+                console.log("모달의 '삭제' 버튼 클릭됨 - reviewSeqToDelete:", reviewSeqToDelete);
                 if (reviewSeqToDelete) {
                     proceedDeleteReview(reviewSeqToDelete);
                 }
-                reviewDeleteConfirmModal.hide(); // 모달 닫기
+                reviewDeleteConfirmModal.hide();
             });
         }
 
@@ -547,9 +560,12 @@
                 }
                 let mSeqVal = mSeqIn.value.trim(); if(mSeqVal.includes(',')) mSeqVal=mSeqVal.split(',')[0];
                 const rVal = ratingInputElement.value; const rTitleVal = rTitleIn.value.trim(); const rContentVal = rContentIn.value.trim();
+                
+                // JavaScript 유효성 검사 (required 대신 사용)
                 if (!mSeqVal || !rVal || !rTitleVal || !rContentVal) {
-                    if(reviewSubmitResultModal){reviewSubmitResultModalLabel.innerText="입력오류"; reviewSubmitResultModalBody.innerText="모두 입력"; reviewSubmitResultModal.show();}else{alert("모두 입력");} return;
+                    if(reviewSubmitResultModal){reviewSubmitResultModalLabel.innerText="입력 필요"; reviewSubmitResultModalBody.innerText="별점, 제목, 내용을 모두 입력해주세요."; reviewSubmitResultModal.show();}else{alert("별점, 제목, 내용을 모두 입력해주세요.");} return;
                 }
+
                 const fd = new URLSearchParams(); fd.append('mealKit_seq',mSeqVal); fd.append('rating',rVal); fd.append('reviewTitle',rTitleVal); fd.append('reviewContent',rContentVal);
                 fetch('/usr/review/addReview', { method:'POST', headers:commonAjaxHeaders, body:fd.toString() })
                 .then(r => { if(!r.ok)return r.text().then(t=>{throw new Error(t||r.statusText);}); return r.json();})
