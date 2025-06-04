@@ -13,6 +13,7 @@ public class ReviewDto {
     private String userName;
     private Date regDate;
     private Date modDate;
+    private Integer delNy;
 
     // private Integer reviewCount;    // 밀키트 리뷰에서는 사용 안 함
     // private Integer recipePost_seq; // 밀키트 리뷰에서는 사용 안 함
@@ -38,6 +39,8 @@ public class ReviewDto {
     public void setModDate(Date modDate) { this.modDate = modDate; }
     public int getReviewCount() { return reviewCount; }
 	public void setReviewCount(int reviewCount) { this.reviewCount = reviewCount; }
+	public Integer getDelNy() { return delNy; }
+	public void setDelNy(Integer delNy) { this.delNy = delNy; }
 	@Override
     public String toString() {
         return "ReviewDto{" +

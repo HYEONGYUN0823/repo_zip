@@ -24,17 +24,22 @@ public class ReviewController {
     // 리뷰 목록 조회 (AJAX)
     @ResponseBody
     @RequestMapping("/getReviews")
-    public Map<String, Object> getReviews(@RequestParam("mealKitSeq") String mealKitSeq) {
+    public Map<String, Object> getReviews(@RequestParam("mealKitSeq") String mealKitSeq,
+                                          @RequestParam(value = "sortBy", defaultValue = "latest") String sortBy) {
         Map<String, Object> returnMap = new HashMap<>();
         try {
-            List<ReviewDto> reviews = reviewService.selectReviewsByMealKit(mealKitSeq);
-            Double averageRating = reviewService.getAverageRating(mealKitSeq);
+            List<ReviewDto> reviews = reviewService.selectReviewsByMealKitAndSort(mealKitSeq, sortBy);
+            Double averageRating = reviewService.getAverageRating(mealKitSeq); // 서비스에서 null 또는 값 반환
             int reviewCount = reviewService.getReviewCount(mealKitSeq);
+            Map<String, Integer> ratingDistribution = reviewService.getRatingDistribution(mealKitSeq);
+
             returnMap.put("rt", "success");
             returnMap.put("reviews", reviews);
-            returnMap.put("averageRating", averageRating);
+            returnMap.put("averageRating", averageRating == null ? 0.0 : averageRating); // null이면 0.0으로
             returnMap.put("reviewCount", reviewCount);
+            returnMap.put("ratingDistribution", ratingDistribution);
         } catch (Exception e) {
+            e.printStackTrace();
             returnMap.put("rt", "fail");
             returnMap.put("message", "리뷰 조회 중 오류가 발생했습니다.");
         }
@@ -65,11 +70,10 @@ public class ReviewController {
         }
 
         try {
-            reviewDto.setSeq(UUID.randomUUID().toString()); // UUID 설정
+            reviewDto.setSeq(UUID.randomUUID().toString());
             reviewDto.setUserUi_seq(userUiSeqFromSession);
             reviewDto.setUserName(userNameFromSession);
 
-            // 필수 값 검증 (밀키트 리뷰에 필요한 필드들)
             if (reviewDto.getMealKit_seq() == null || reviewDto.getMealKit_seq().isEmpty()) {
                 System.out.println("리뷰 등록 실패: mealKit_seq 누락");
                 returnMap.put("rt", "fail");
@@ -88,7 +92,6 @@ public class ReviewController {
                  returnMap.put("message", "리뷰 내용을 입력해주세요.");
                  return returnMap;
             }
-            // rating은 기본값이 폼에 설정되어 있으므로 별도 null 체크는 생략 가능 (필요시 추가)
 
             System.out.println("DB 삽입 전 최종 ReviewDto: " + reviewDto);
             reviewService.insertReview(reviewDto);
@@ -109,7 +112,7 @@ public class ReviewController {
     // 리뷰 삭제 (AJAX)
     @ResponseBody
     @RequestMapping("/deleteReview")
-    public Map<String, Object> deleteReview(@RequestParam("seq") String seq, HttpSession httpSession) {
+    public Map<String, Object> deleteReview(@RequestParam("seq") String reviewUuid, HttpSession httpSession) { // 파라미터명 명확히
         Map<String, Object> returnMap = new HashMap<>();
         String userUiSeq = (String) httpSession.getAttribute("sessSeqUsr");
 
@@ -120,21 +123,25 @@ public class ReviewController {
         }
 
         try {
-            int result = reviewService.deleteReview(seq, userUiSeq);
+            int result = reviewService.deleteReview(reviewUuid, userUiSeq);
             if (result > 0) {
                 returnMap.put("rt", "success");
                 returnMap.put("message", "리뷰가 삭제되었습니다.");
+            } else if (result == -1) {
+                returnMap.put("rt", "fail");
+                returnMap.put("message", "리뷰 삭제 권한이 없습니다.");
             } else {
                 returnMap.put("rt", "fail");
-                returnMap.put("message", "리뷰 삭제 권한이 없거나 리뷰가 존재하지 않습니다.");
+                returnMap.put("message", "삭제할 리뷰를 찾을 수 없거나 이미 삭제된 리뷰입니다.");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             returnMap.put("rt", "fail");
             returnMap.put("message", "리뷰 삭제 중 오류가 발생했습니다.");
         }
         return returnMap;
     }
-    
+
     @ResponseBody
     @RequestMapping("/checkSession")
     public Map<String, Object> checkSession(HttpSession session) {
@@ -143,5 +150,4 @@ public class ReviewController {
         map.put("sessNameUsr", session.getAttribute("sessNameUsr"));
         return map;
     }
-    
 }

@@ -9,70 +9,97 @@
         <result property="rating" column="rating"/>
         <result property="mealKit_seq" column="mealKit_seq"/>
         <result property="userUi_seq" column="userUi_seq"/>
-        <result property="userName" column="userName"/> <!-- JOIN된 userUi 테이블의 name -->
+        <result property="userName" column="userName"/>
         <result property="regDate" column="regDate"/>
         <result property="modDate" column="modDate"/>
-        <result property="reviewCount" column="reviewCount"/>
-        <result property="recipePost_seq" column="recipePost_seq"/>
+        <!-- <result property="delNy" column="delNy"/> DTO에 delNy가 있다면 매핑 -->
     </resultMap>
 
-    <select id="selectReviewsByMealKit" parameterType="String" resultMap="reviewResultMap">
-        SELECT
-            r.seq AS db_pk, <!-- DB의 실제 PK (INT) -->
-            r.review_uuid,  <!-- DTO의 seq (String UUID)와 매핑될 컬럼 -->
-            r.reviewTitle,
-            r.reviewContent,
-            r.rating,
-            r.mealKit_seq,  <!-- String으로 받아도 DB에서 INT와 비교 시 자동 형변환 기대 (또는 파라미터를 Integer로) -->
-            r.userUi_seq,
-            u.name AS userName,
-            r.regDate,
-            r.modDate,
-            r.reviewCount,
-            r.recipePost_seq
+    <sql id="reviewColumns">
+        r.review_uuid, r.reviewTitle, r.reviewContent, r.rating,
+        r.mealKit_seq, r.userUi_seq, u.name AS userName, r.regDate, r.modDate
+        <!-- , r.delNy -->
+    </sql>
+
+    <sql id="reviewJoins">
         FROM review r
-        JOIN userUi u ON r.userUi_seq = u.seq <!-- userUi.seq도 INT 타입인지 확인 -->
-        WHERE r.mealKit_seq = CAST(#{mealKitSeq} AS UNSIGNED) <!-- 명시적 형변환 고려 -->
+        JOIN userUi u ON r.userUi_seq = u.seq
+    </sql>
+
+    <sql id="commonWhereClause">
+        WHERE r.mealKit_seq = CAST(#{mealKitSeq} AS UNSIGNED)
+          AND r.delNy = 0 <!-- 삭제되지 않은 리뷰만 조회 -->
+    </sql>
+
+    <select id="selectReviewsByMealKitOrderByRegDateDesc" resultMap="reviewResultMap">
+        SELECT <include refid="reviewColumns" />
+        <include refid="reviewJoins" />
+        <include refid="commonWhereClause" />
         ORDER BY r.regDate DESC
     </select>
 
-    <select id="selectReviewBySeq" parameterType="String" resultMap="reviewResultMap">
-        SELECT
-            r.seq AS db_pk,
-            r.review_uuid,
-            r.reviewTitle,
-            r.reviewContent,
-            r.rating,
-            r.mealKit_seq,
-            r.userUi_seq,
-            r.regDate,
-            r.modDate,
-            r.reviewCount,
-            r.recipePost_seq
-            <!-- userUi.name을 가져오려면 JOIN 필요 -->
-        FROM review r
-        WHERE r.review_uuid = #{seq_uuid} <!-- 파라미터 이름을 명확히 (예: seq_uuid) -->
+    <select id="selectReviewsByMealKitOrderByRatingDesc" resultMap="reviewResultMap">
+        SELECT <include refid="reviewColumns" />
+        <include refid="reviewJoins" />
+        <include refid="commonWhereClause" />
+        ORDER BY r.rating DESC, r.regDate DESC
     </select>
 
-<insert id="insertReview" parameterType="com.a7a7.modeule.review.ReviewDto">
-    INSERT INTO review (
-        review_uuid, reviewTitle, reviewContent, rating, mealKit_seq, userUi_seq,
-        reviewCount, <!-- 이 부분 다시 추가 -->
-        regDate
-        <!-- recipePost_seq는 여전히 제외 (밀키트 리뷰와 무관하다면) -->
-    ) VALUES (
-        #{seq}, #{reviewTitle}, #{reviewContent}, #{rating, jdbcType=INTEGER},
-        #{mealKit_seq, jdbcType=INTEGER}, #{userUi_seq, jdbcType=INTEGER},
-        #{reviewCount, jdbcType=INTEGER}, <!-- 이 부분 다시 추가 -->
-        NOW()
-    )
-</insert>
+    <select id="selectReviewsByMealKitOrderByRatingAsc" resultMap="reviewResultMap">
+        SELECT <include refid="reviewColumns" />
+        <include refid="reviewJoins" />
+        <include refid="commonWhereClause" />
+        ORDER BY r.rating ASC, r.regDate DESC
+    </select>
 
-    <delete id="deleteReview" parameterType="String">
-        DELETE FROM review WHERE review_uuid = #{seq_uuid} <!-- 파라미터 이름을 명확히 (예: seq_uuid) -->
-    </delete>
-    
-    <select id="selectReviewCountByMealKit" parameterType="String" resultType="int">
-	    SELECT COUNT(*) FROM review WHERE mealKit_seq = CAST(#{mealKitSeq} AS UNSIGNED)
-	</select>
+<select id="selectReviewBySeq" resultMap="reviewResultMap">
+    SELECT
+        r.review_uuid, r.reviewTitle, r.reviewContent, r.rating,
+        r.mealKit_seq, r.userUi_seq, u.name AS userName, r.regDate, r.modDate, r.delNy
+    FROM review r
+    LEFT JOIN userUi u ON r.userUi_seq = u.seq <!-- 명시적으로 JOIN 사용 -->
+    WHERE r.review_uuid = #{reviewUuid}
+<!--     AND r.delNy = 0 필요에 따라 주석 해제 -->
+</select>
+
+    <insert id="insertReview" parameterType="com.a7a7.modeule.review.ReviewDto">
+        INSERT INTO review (
+            review_uuid, reviewTitle, reviewContent, rating,
+            mealKit_seq, userUi_seq, regDate, delNy
+        ) VALUES (
+            #{seq}, #{reviewTitle}, #{reviewContent},
+            #{rating, jdbcType=INTEGER},
+            #{mealKit_seq, jdbcType=INTEGER},
+            #{userUi_seq, jdbcType=INTEGER},
+            NOW(), 0 <!-- delNy 기본값 0으로 삽입 -->
+        )
+    </insert>
+
+    <update id="deleteReview">
+        UPDATE review
+        SET
+            delNy = 1,
+            modDate = NOW()
+        WHERE review_uuid = #{reviewUuid} AND delNy = 0
+    </update>
+
+    <select id="selectReviewCountByMealKit" resultType="int">
+        SELECT COUNT(*)
+        FROM review r <!-- 별칭 r 추가 -->
+        <include refid="commonWhereClause" />
+    </select>
+
+    <select id="getRatingCountsByMealKit" resultType="map">
+        SELECT rating, COUNT(*) as count
+        FROM review r <!-- 별칭 r 추가 -->
+        <include refid="commonWhereClause" />
+        GROUP BY rating
+    </select>
+
+    <update id="updateMealKitScore">
+        UPDATE mealKit
+        SET score = #{score, jdbcType=DOUBLE}
+        WHERE seq = CAST(#{mealKitSeq} AS UNSIGNED)
+    </update>
+
 </mapper>
