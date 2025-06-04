@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,27 +44,64 @@ public class ReviewController {
     // 리뷰 추가 (AJAX)
     @ResponseBody
     @RequestMapping("/addReview")
-    public Map<String, Object> addReview(ReviewDto reviewDto, HttpSession httpSession) {
-        Map<String, Object> returnMap = new HashMap<>();
-        String userUiSeq = (String) httpSession.getAttribute("sessSeqUsr");
-        String userName = (String) httpSession.getAttribute("sessNameUsr");
+    public Map<String, Object> addReview(@ModelAttribute ReviewDto reviewDto, HttpSession httpSession) {
+        System.out.println("===================================================");
+        System.out.println("ReviewController - addReview 메서드 진입");
+        System.out.println("요청으로 받은 ReviewDto (ModelAttribute 바인딩 후): " + reviewDto);
+        System.out.println("세션 ID: " + httpSession.getId());
+        System.out.println("세션 sessSeqUsr: " + httpSession.getAttribute("sessSeqUsr"));
+        System.out.println("세션 sessNameUsr: " + httpSession.getAttribute("sessNameUsr"));
+        System.out.println("===================================================");
 
-        if (userUiSeq == null) {
+        Map<String, Object> returnMap = new HashMap<>();
+        String userUiSeqFromSession = (String) httpSession.getAttribute("sessSeqUsr");
+        String userNameFromSession = (String) httpSession.getAttribute("sessNameUsr");
+
+        if (userUiSeqFromSession == null) {
             returnMap.put("rt", "fail");
-            returnMap.put("message", "로그인이 필요합니다.");
+            returnMap.put("message", "로그인이 필요합니다. 세션이 만료되었거나 로그인하지 않았습니다.");
+            System.out.println("리뷰 등록 실패: 로그인 필요 (userUiSeqFromSession is null)");
             return returnMap;
         }
 
         try {
-            reviewDto.setSeq(UUID.randomUUID().toString());
-            reviewDto.setUserUi_seq(userUiSeq);
-            reviewDto.setUserName(userName);
+            reviewDto.setSeq(UUID.randomUUID().toString()); // UUID 설정
+            reviewDto.setUserUi_seq(userUiSeqFromSession);
+            reviewDto.setUserName(userNameFromSession);
+
+            // 필수 값 검증 (밀키트 리뷰에 필요한 필드들)
+            if (reviewDto.getMealKit_seq() == null || reviewDto.getMealKit_seq().isEmpty()) {
+                System.out.println("리뷰 등록 실패: mealKit_seq 누락");
+                returnMap.put("rt", "fail");
+                returnMap.put("message", "필수 정보(상품 ID)가 누락되었습니다.");
+                return returnMap;
+            }
+            if (reviewDto.getReviewTitle() == null || reviewDto.getReviewTitle().trim().isEmpty()) {
+                 System.out.println("리뷰 등록 실패: reviewTitle 누락");
+                 returnMap.put("rt", "fail");
+                 returnMap.put("message", "리뷰 제목을 입력해주세요.");
+                 return returnMap;
+            }
+            if (reviewDto.getReviewContent() == null || reviewDto.getReviewContent().trim().isEmpty()) {
+                 System.out.println("리뷰 등록 실패: reviewContent 누락");
+                 returnMap.put("rt", "fail");
+                 returnMap.put("message", "리뷰 내용을 입력해주세요.");
+                 return returnMap;
+            }
+            // rating은 기본값이 폼에 설정되어 있으므로 별도 null 체크는 생략 가능 (필요시 추가)
+
+            System.out.println("DB 삽입 전 최종 ReviewDto: " + reviewDto);
             reviewService.insertReview(reviewDto);
+
             returnMap.put("rt", "success");
             returnMap.put("message", "리뷰가 성공적으로 추가되었습니다.");
+            System.out.println("리뷰 등록 성공, UUID: " + reviewDto.getSeq());
+
         } catch (Exception e) {
+            e.printStackTrace();
             returnMap.put("rt", "fail");
-            returnMap.put("message", "리뷰 추가 중 오류가 발생했습니다.");
+            returnMap.put("message", "리뷰 추가 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            System.out.println("리뷰 등록 실패 (Exception): " + e.getMessage());
         }
         return returnMap;
     }
@@ -96,4 +134,14 @@ public class ReviewController {
         }
         return returnMap;
     }
+    
+    @ResponseBody
+    @RequestMapping("/checkSession")
+    public Map<String, Object> checkSession(HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("sessSeqUsr", session.getAttribute("sessSeqUsr"));
+        map.put("sessNameUsr", session.getAttribute("sessNameUsr"));
+        return map;
+    }
+    
 }

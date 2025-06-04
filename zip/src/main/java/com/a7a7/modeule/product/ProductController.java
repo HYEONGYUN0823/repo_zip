@@ -104,15 +104,15 @@ public class ProductController {
 	
 	@RequestMapping(value = "/usr/product/ProductUsrView")
 	public String productView(@ModelAttribute("vo") MemberVo vo, ProductDto productDto, UploadDto uploadDto, Model model) throws Exception {
-		// 상품 정보
-		model.addAttribute("item", productService.selectOne(productDto));
-
-		// 이미지 정보
-		uploadDto.setPseq(productDto.getSeq());
-		UploadDto itemFile = uploadService.selectOne(uploadDto);
-		model.addAttribute("itemFile", itemFile);
-
-		return "usr/product/ProductUsrView";
+	    System.out.println("ProductDto seq: " + productDto.getSeq()); // 디버깅 로그
+	    if (productDto.getSeq() != null && productDto.getSeq().contains(",")) {
+	        productDto.setSeq(productDto.getSeq().split(",")[0]); // 첫 번째 값만 사용
+	    }
+	    model.addAttribute("item", productService.selectOne(productDto));
+	    uploadDto.setPseq(productDto.getSeq());
+	    UploadDto itemFile = uploadService.selectOne(uploadDto);
+	    model.addAttribute("itemFile", itemFile);
+	    return "usr/product/ProductUsrView";
 	}
 	
 //	@RequestMapping("/xdm/product/excelDownload")

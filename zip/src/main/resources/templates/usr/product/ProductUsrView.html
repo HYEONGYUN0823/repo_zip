@@ -94,7 +94,7 @@
                                 <h1 id="productDetailName" class="mb-1" th:text="${item.mealKitName}">상품명</h1>
                                 <div class="mb-4">
                                     <small class="text-warning" id="starRating"></small>
-                                    <a href="#" class="ms-2">리뷰 (<span id="reviewCount" th:text="${item.reviewCount != null ? item.reviewCount : 0}">0</span>건)</a>
+                                    <a href="#reviews-tab-pane" class="ms-2">리뷰 (<span id="reviewCount" th:text="${item.reviewCount != null ? item.reviewCount : 0}">0</span>건)</a>
                                 </div>
                                 <hr class="my-6" />
                                 <div>
@@ -155,7 +155,7 @@
                                     <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details-tab-pane" type="button" role="tab" aria-controls="details-tab-pane" aria-selected="false">재료</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane" type="button" role="tab" aria-controls="reviews-tab-pane" aria-selected="false">리뷰</button>
+                                    <button class="nav-link" id="reviews-tab-button" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane" type="button" role="tab" aria-controls="reviews-tab-pane" aria-selected="false">리뷰</button>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
@@ -179,7 +179,7 @@
                                         <div class="col-12 col-lg-6"><table class="table table-striped"><tbody><tr><th>간장</th><td>1/3소주컵</td></tr><tr><th>식용유</th><td>1/3소주컵</td></tr><tr><th>참기름</th><td>1/2TS</td></tr><tr><th>통깨</th><td>조금</td></tr><tr><th>소금</th><td>약간</td></tr><tr><th>후추</th><td>약간</td></tr></tbody></table></div>
                                     </div></div>
                                 </div>
-                                <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">
+                                <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel" aria-labelledby="reviews-tab-button" tabindex="0">
                                     <div class="my-8">
                                         <div class="row">
                                             <!-- 리뷰 통계 -->
@@ -187,42 +187,42 @@
                                                 <div class="mb-4">
                                                     <h4>리뷰 통계</h4>
                                                     <div class="d-flex align-items-center">
-                                                        <span class="fs-3 fw-bold" id="averageRating">0.0</span>
+                                                        <span class="fs-3 fw-bold" id="averageRatingDisplay">0.0</span> <!-- ID 변경 -->
                                                         <small class="text-warning ms-2">
-                                                            <span id="starRatingStats"></span>
+                                                            <span id="starRatingStatsDisplay"></span> <!-- ID 변경 -->
                                                         </small>
-                                                        <span class="ms-2">(<span id="reviewCount">0</span>건)</span>
+                                                        <span class="ms-2">(<span id="reviewCountDisplay">0</span>건)</span> <!-- ID 변경 -->
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- 리뷰 목록 및 작성 -->
                                             <div class="col-md-8">
-                                                <div th:if="${session.sessSeqUsr != null}" class="mb-4">
+                                                <!-- !!! <form> 태그 제거. 대신 div로 감쌈 !!! -->
+                                                <div th:if="${session.sessSeqUsr != null}" class="mb-4" id="reviewFormContainer">
                                                     <h4>리뷰 작성</h4>
-                                                    <form id="reviewForm" autocomplete="off">
-                                                        <input type="hidden" name="mealKit_seq" th:value="${item.seq}">
-                                                        <input type="hidden" name="userUi_seq" th:value="${session.sessSeqUsr}">
-                                                        <input type="hidden" name="rating" id="rating" value="5">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">별점</label>
-                                                            <div class="star-rating">
-                                                                <i class="bi bi-star-fill star text-warning" data-value="1"></i>
-                                                                <i class="bi bi-star-fill star text-warning" data-value="2"></i>
-                                                                <i class="bi bi-star-fill star text-warning" data-value="3"></i>
-                                                                <i class="bi bi-star-fill star text-warning" data-value="4"></i>
-                                                                <i class="bi bi-star-fill star text-warning" data-value="5"></i>
-                                                            </div>
+                                                    <!-- name 속성에 _review 접미사 추가 (선택적) -->
+                                                    <input type="hidden" name="mealKit_seq_review" th:value="${item.seq}">
+                                                    <input type="hidden" name="rating_review" id="ratingInput" value="5"> <!-- ID 변경 -->
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label">별점</label>
+                                                        <div class="star-rating" id="reviewStarRatingContainer"> <!-- ID 추가 -->
+                                                            <i class="bi bi-star-fill star text-warning" data-value="1"></i>
+                                                            <i class="bi bi-star-fill star text-warning" data-value="2"></i>
+                                                            <i class="bi bi-star-fill star text-warning" data-value="3"></i>
+                                                            <i class="bi bi-star-fill star text-warning" data-value="4"></i>
+                                                            <i class="bi bi-star-fill star text-warning" data-value="5"></i>
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="reviewTitle" class="form-label">제목</label>
-                                                            <input type="text" id="reviewTitle" name="reviewTitle" class="form-control" required maxlength="100">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="content" class="form-label">내용</label>
-                                                            <textarea id="content" name="reviewContent" class="form-control" rows="4" required maxlength="1000"></textarea>
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary">리뷰 등록</button>
-                                                    </form>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="reviewTitleInput" class="form-label">제목</label> <!-- ID 변경 -->
+                                                        <input type="text" id="reviewTitleInput" name="reviewTitle_review" class="form-control" required maxlength="100">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="reviewContentInput" class="form-label">내용</label> <!-- ID 변경 -->
+                                                        <textarea id="reviewContentInput" name="reviewContent_review" class="form-control" rows="4" required maxlength="1000"></textarea>
+                                                    </div>
+                                                    <button type="button" id="submitReviewButton" class="btn btn-primary">리뷰 등록</button> <!-- type="button"으로 변경 -->
                                                 </div>
                                                 <div th:unless="${session.sessSeqUsr != null}" class="alert alert-info">
                                                     리뷰를 작성하려면 <a href="/usr/signin/signinUsr">로그인</a>이 필요합니다.
@@ -250,494 +250,595 @@
                     </div>
                 </div>
             </section>
-        </form>
+        </form> <!-- id="formList"의 끝 -->
     </main>
 
     <script type="text/javascript" th:inline="javascript">
-        /* <![CDATA[ */
-        // 전역 zoom 함수
-        function zoom(e) {
-            const zoomer = e.currentTarget;
-            const rect = zoomer.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / zoomer.offsetWidth * 100;
-            const y = (e.clientY - rect.top) / zoomer.offsetHeight * 100;
-            zoomer.style.backgroundPosition = x + '% ' + y + '%';
-            zoomer.style.backgroundSize = '200%';
+    /* <![CDATA[ */
+    // 전역 zoom 함수
+    function zoom(e) {
+        const zoomer = e.currentTarget;
+        const rect = zoomer.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / zoomer.offsetWidth * 100;
+        const y = (e.clientY - rect.top) / zoomer.offsetHeight * 100;
+        zoomer.style.backgroundPosition = x + '% ' + y + '%';
+        zoomer.style.backgroundSize = '200%';
+    }
+    const zoomDivGlobal = document.querySelector('.zoom');
+    if (zoomDivGlobal) {
+        zoomDivGlobal.onmouseleave = function() {
+            this.style.backgroundPosition = 'center';
+            this.style.backgroundSize = 'cover';
         }
-        const zoomDivGlobal = document.querySelector('.zoom');
-        if (zoomDivGlobal) {
-            zoomDivGlobal.onmouseleave = function() {
-                this.style.backgroundPosition = 'center';
-                this.style.backgroundSize = 'cover';
-            }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("ProductUsrView.html DOMContentLoaded - Script Start");
+        const commonAjaxHeaders = { 'Content-Type': 'application/x-www-form-urlencoded' };
+        // CSRF 처리가 필요하다면 여기에 추가 (현재는 CSRF meta 태그 주석 처리 가정)
+        // const csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+        // const csrfHeaderName = document.querySelector('meta[name="_csrf_header"]')?.content;
+        // if (csrfToken && csrfHeaderName) {
+        //     commonAjaxHeaders[csrfHeaderName] = csrfToken;
+        // }
+
+        const stockDisplay = document.getElementById('stockDisplay');
+        const currentStock = stockDisplay ? parseInt(stockDisplay.getAttribute('data-stock')) : 0;
+        const quantitySpinner = document.getElementById('quantitySpinner');
+        const addToCartButton = document.getElementById('addToCartButton');
+        const buyNowButton = document.getElementById('buyNowButton');
+        const quantityInput = document.getElementById('quantity');
+        const productDetailPriceElement = document.querySelector('#quantityAndPriceSection .total-price span');
+        const unitPrice = quantityInput ? parseInt(quantityInput.getAttribute('data-price')) : 0;
+        const productDetailSeqElement = document.getElementById('productDetailSeq'); // 상품 상세의 상품 ID
+        const formTotalPriceForBuyNow = document.getElementById('formTotalPriceForBuyNow');
+
+        const addToCartModalElement = document.getElementById('addToCartConfirmModal');
+        const addToCartModal = addToCartModalElement ? new bootstrap.Modal(addToCartModalElement) : null;
+        if (!addToCartModal) {
+            console.warn("addToCartConfirmModal not found, will use alert fallback.");
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("ProductUsrView.html DOMContentLoaded - Script Start");
-            // CSRF 설정 제거
-            const headers = { 'Content-Type': 'application/x-www-form-urlencoded' }; // CSRF 헤더 제외
+        // 리뷰 관련 요소 (ID 변경 사항 반영)
+        const averageRatingDisplay = document.getElementById('averageRatingDisplay');
+        const starRatingDisplay = document.getElementById('starRating'); // 상품 상세 상단 별점
+        const starRatingStatsDisplay = document.getElementById('starRatingStatsDisplay');
+        const reviewCountDisplay = document.getElementById('reviewCountDisplay'); // 통계 부분 리뷰 수
+        const productReviewCountDisplay = document.getElementById('reviewCount'); // 상품 상세 상단 리뷰 수 (ID가 중복되지 않도록 주의)
 
-            const stockDisplay = document.getElementById('stockDisplay');
-            const currentStock = stockDisplay ? parseInt(stockDisplay.getAttribute('data-stock')) : 0;
-            const quantitySpinner = document.getElementById('quantitySpinner');
-            const addToCartButton = document.getElementById('addToCartButton');
-            const buyNowButton = document.getElementById('buyNowButton');
-            const quantityInput = document.getElementById('quantity');
-            const productDetailPriceElement = document.querySelector('#quantityAndPriceSection .total-price span');
-            const unitPrice = quantityInput ? parseInt(quantityInput.getAttribute('data-price')) : 0;
-            const productDetailSeqElement = document.getElementById('productDetailSeq');
-            const formTotalPriceForBuyNow = document.getElementById('formTotalPriceForBuyNow');
+        // 별점 표시 함수
+        function renderStars(rating) {
+            let starsHtml = '';
+            const fullStars = Math.floor(rating);
+            const halfStar = (rating % 1) >= 0.5;
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
-            const addToCartModalElement = document.getElementById('addToCartConfirmModal');
-            const addToCartModal = addToCartModalElement ? new bootstrap.Modal(addToCartModalElement) : null;
-            if (!addToCartModal) {
-                console.warn("addToCartConfirmModal not found, will use alert fallback.");
+            for (let i = 0; i < fullStars; i++) {
+                starsHtml += '<i class="bi bi-star-fill text-warning"></i>';
+            }
+            if (halfStar) {
+                starsHtml += '<i class="bi bi-star-half text-warning"></i>';
+            }
+            for (let i = 0; i < emptyStars; i++) {
+                starsHtml += '<i class="bi bi-star text-warning"></i>'; // 빈 별도 text-warning으로 통일감 줄 수 있음 or text-muted
+            }
+            return starsHtml;
+        }
+
+        // 리뷰 목록 로드
+        function loadReviews() {
+            if (!productDetailSeqElement) {
+                console.error("productDetailSeqElement not found for loading reviews.");
+                return;
+            }
+            let productSeq = productDetailSeqElement.innerText.trim();
+            if (productSeq.includes(',')) {
+                productSeq = productSeq.split(',')[0];
+            }
+            if (!productSeq) {
+                console.error("Product sequence is empty. Cannot load reviews.");
+                return;
             }
 
-            // 별점 표시 함수
-            function renderStars(rating) {
-                let stars = '';
-                for (let i = 1; i <= 5; i++) {
-                    if (i <= Math.floor(rating)) {
-                        stars += '<i class="bi bi-star-fill"></i>';
-                    } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
-                        stars += '<i class="bi bi-star-half"></i>';
-                    } else {
-                        stars += '<i class="bi bi-star"></i>';
-                    }
-                }
-                return stars;
-            }
+            console.log("Loading reviews for mealKitSeq:", productSeq);
 
-            // 리뷰 목록 로드
-            function loadReviews() {
-                const productSeq = productDetailSeqElement.innerText.trim();
-                fetch(`/usr/review/getReviews?mealKitSeq=${productSeq}`, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.rt === 'success') {
-                        document.getElementById('averageRating').innerText = data.averageRating.toFixed(1);
-                        document.getElementById('starRating').innerHTML = renderStars(data.averageRating);
-                        document.getElementById('starRatingStats').innerHTML = renderStars(data.averageRating);
-                        document.getElementById('reviewCount').innerText = data.reviewCount;
-                        const reviewList = document.getElementById('reviewList');
-                        const noReviews = document.getElementById('noReviews');
-                        reviewList.innerHTML = '';
-                        if (data.reviews && data.reviews.length > 0) {
-                            noReviews.style.display = 'none';
-                            data.reviews.forEach(review => {
-                                const reviewItem = document.createElement('div');
-                                reviewItem.className = 'border-bottom py-3';
-                                reviewItem.innerHTML = `
-                                    <div class="d-flex align-items-center mb-2">
-                                        <div>
-                                            <h6 class="mb-0">${review.userName}</h6>
-                                            <small class="text-muted">${new Date(review.regDate).toLocaleDateString('ko-KR')}</small>
-                                        </div>
+            fetch(`/usr/review/getReviews?mealKitSeq=${productSeq}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error(`Failed to load reviews, status: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                console.log("Loaded reviews data:", data);
+                if (data.rt === 'success') {
+                    if(averageRatingDisplay) averageRatingDisplay.innerText = data.averageRating != null ? data.averageRating.toFixed(1) : '0.0';
+                    if(starRatingDisplay) starRatingDisplay.innerHTML = renderStars(data.averageRating != null ? data.averageRating : 0);
+                    if(starRatingStatsDisplay) starRatingStatsDisplay.innerHTML = renderStars(data.averageRating != null ? data.averageRating : 0);
+                    if(reviewCountDisplay) reviewCountDisplay.innerText = data.reviewCount != null ? data.reviewCount : 0;
+                    if(productReviewCountDisplay) productReviewCountDisplay.innerText = data.reviewCount != null ? data.reviewCount : 0;
+
+
+                    const reviewList = document.getElementById('reviewList');
+                    const noReviews = document.getElementById('noReviews');
+                    if (reviewList) reviewList.innerHTML = ''; // 기존 목록 초기화
+
+                    if (data.reviews && data.reviews.length > 0) {
+                        if (noReviews) noReviews.style.display = 'none';
+                        data.reviews.forEach(review => {
+                            const reviewItem = document.createElement('div');
+                            reviewItem.className = 'border-bottom py-3';
+                            // 서버에서 userUi_seq 대신 현재 로그인한 사용자의 userUi_seq와 비교할 수 있도록 세션 정보를 사용하거나,
+                            // 삭제 버튼은 항상 표시하고 서버에서 권한 체크를 하도록 할 수 있습니다.
+                            // 여기서는 간단히 DTO에 있는 userUi_seq를 사용 (이전 코드 유지)
+                            // const currentUserUiSeq = /*[[${session.sessSeqUsr}]]*/ null; // Thymeleaf 인라인 JavaScript 사용
+                            let deleteButtonHtml = '';
+                            // 현재 세션의 사용자 ID를 가져와서 비교 (주의: 이 방법은 Thymeleaf 인라인 JS가 제대로 동작해야 함)
+                            const sessionUserUiSeq = /*[[${session.sessSeqUsr}]]*/ null;
+                            if (review.userUi_seq && sessionUserUiSeq && review.userUi_seq === sessionUserUiSeq) {
+                                deleteButtonHtml = `<button class="btn btn-danger btn-sm delete-review-btn" data-review-seq="${review.seq}">삭제</button>`;
+                            }
+
+                            reviewItem.innerHTML = `
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <h6 class="mb-0">${review.userName || '익명'}</h6>
+                                        <small class="text-muted">${review.regDate ? new Date(review.regDate).toLocaleDateString('ko-KR') : '날짜 없음'}</small>
                                     </div>
-                                    <div class="mb-2">${renderStars(review.rating)}</div>
-                                    <h5>${review.reviewTitle}</h5>
-                                    <p>${review.reviewContent}</p>
-                                    ${review.userUi_seq === document.querySelector('input[name="userUi_seq"]')?.value ? `<button class="btn btn-danger btn-sm delete-review-btn" data-review-seq="${review.seq}">삭제</button>` : ''}
-                                `;
-                                reviewList.appendChild(reviewItem);
-                            });
-                            bindDeleteReviewButtons();
-                        } else {
-                            noReviews.style.display = 'block';
-                        }
+                                    ${deleteButtonHtml}
+                                </div>
+                                <div class="mb-2">${renderStars(review.rating)}</div>
+                                <h5>${review.reviewTitle || '제목 없음'}</h5>
+                                <p>${review.reviewContent || '내용 없음'}</p>
+                            `;
+                            if (reviewList) reviewList.appendChild(reviewItem);
+                        });
+                        bindDeleteReviewButtons();
                     } else {
-                        console.error('리뷰 로드 실패:', data);
-                        alert(`리뷰 로드 실패: ${data.message || '서버 오류'}`);
+                        if (noReviews) noReviews.style.display = 'block';
+                    }
+                } else {
+                    console.error('리뷰 로드 실패 (서버 응답):', data.message);
+                    if(reviewList) reviewList.innerHTML = '<li class="list-group-item text-danger">리뷰를 불러오는데 실패했습니다.</li>';
+                }
+            })
+            .catch(error => {
+                console.error('리뷰 로드 중 네트워크 또는 기타 오류:', error);
+                const reviewList = document.getElementById('reviewList');
+                if(reviewList) reviewList.innerHTML = '<li class="list-group-item text-danger">리뷰 로드 중 오류 발생.</li>';
+            });
+        }
+
+        // 리뷰 삭제 버튼 바인딩
+        function bindDeleteReviewButtons() {
+            document.querySelectorAll('.delete-review-btn').forEach(button => {
+                // 이벤트 리스너 중복 방지
+                const newButton = button.cloneNode(true);
+                button.parentNode.replaceChild(newButton, button);
+                newButton.addEventListener('click', function() {
+                    const reviewSeq = this.getAttribute('data-review-seq');
+                    if (confirm('이 리뷰를 삭제하시겠습니까?')) {
+                        fetch('/usr/review/deleteReview', {
+                            method: 'POST',
+                            headers: commonAjaxHeaders,
+                            body: new URLSearchParams({ 'seq': reviewSeq })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.rt === 'success') {
+                                alert(data.message || '리뷰가 삭제되었습니다.');
+                                loadReviews();
+                            } else {
+                                alert(`리뷰 삭제 실패: ${data.message || '알 수 없는 오류'}`);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('리뷰 삭제 오류:', error);
+                            alert('리뷰 삭제 중 오류가 발생했습니다.');
+                        });
+                    }
+                });
+            });
+        }
+
+        // 별점 선택 UI 처리 (리뷰 작성 폼 내부)
+        const reviewStarRatingContainer = document.getElementById('reviewStarRatingContainer');
+        const ratingInputElement = document.getElementById('ratingInput'); // ID 변경됨
+
+        if (reviewStarRatingContainer && ratingInputElement) {
+            const stars = reviewStarRatingContainer.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const ratingValue = this.getAttribute('data-value');
+                    ratingInputElement.value = ratingValue;
+                    stars.forEach(s => {
+                        if (parseInt(s.getAttribute('data-value')) <= parseInt(ratingValue)) {
+                            s.classList.add('text-warning');
+                            s.classList.remove('text-muted');
+                        } else {
+                            s.classList.remove('text-warning');
+                            s.classList.add('text-muted');
+                        }
+                    });
+                });
+            });
+        }
+
+        // 리뷰 폼 제출 처리 (수정됨)
+        const submitReviewButton = document.getElementById('submitReviewButton');
+        const reviewFormContainer = document.getElementById('reviewFormContainer'); // div로 감싼 영역
+
+        if (submitReviewButton && reviewFormContainer) {
+            submitReviewButton.addEventListener('click', function(e) {
+                // e.preventDefault(); // type="button"이므로 기본 제출 동작은 없음
+
+                const mealKitSeqReviewInput = reviewFormContainer.querySelector('input[name="mealKit_seq_review"]');
+                // ratingInputElement는 위에서 이미 가져옴
+                const reviewTitleInput = reviewFormContainer.querySelector('#reviewTitleInput'); // ID로 직접 접근
+                const reviewContentTextarea = reviewFormContainer.querySelector('#reviewContentInput'); // ID로 직접 접근
+
+                if (!mealKitSeqReviewInput || !ratingInputElement || !reviewTitleInput || !reviewContentTextarea) {
+                    console.error("리뷰 폼의 일부 요소를 찾을 수 없습니다.");
+                    alert("리뷰 작성 양식에 오류가 있습니다. 페이지를 새로고침 해주세요.");
+                    return;
+                }
+
+                let mealKitSeqValue = mealKitSeqReviewInput.value.trim();
+                if (mealKitSeqValue && mealKitSeqValue.includes(',')) {
+                    mealKitSeqValue = mealKitSeqValue.split(',')[0];
+                }
+                const ratingValue = ratingInputElement.value;
+                const reviewTitleValue = reviewTitleInput.value.trim();
+                const reviewContentValue = reviewContentTextarea.value.trim();
+
+                // 필수 필드 검증
+                if (!mealKitSeqValue || !ratingValue || !reviewTitleValue || !reviewContentValue) {
+                    alert('별점, 제목, 내용을 모두 입력해주세요.');
+                    return;
+                }
+
+                const formDataForReview = new URLSearchParams();
+                formDataForReview.append('mealKit_seq', mealKitSeqValue);
+                formDataForReview.append('rating', ratingValue);
+                formDataForReview.append('reviewTitle', reviewTitleValue);
+                formDataForReview.append('reviewContent', reviewContentValue);
+                // userUi_seq는 서버 컨트롤러에서 세션 값으로 설정됨
+
+                console.log("리뷰 폼 제출 데이터 (JS):", formDataForReview.toString());
+
+                fetch('/usr/review/addReview', {
+                    method: 'POST',
+                    headers: commonAjaxHeaders,
+                    body: formDataForReview.toString()
+                })
+                .then(response => {
+                    console.log("리뷰 등록 응답 상태:", response.status);
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            throw new Error(`서버 오류: ${response.status} - ${text || '응답 없음'}`);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("리뷰 등록 응답 데이터:", data);
+                    if (data.rt === 'success') {
+                        alert(data.message || '리뷰가 등록되었습니다.');
+                        // 폼 필드 초기화
+                        reviewTitleInput.value = '';
+                        reviewContentTextarea.value = '';
+                        ratingInputElement.value = '5'; // 기본값으로
+                        // 별점 UI 초기화
+                        if (reviewStarRatingContainer) {
+                            reviewStarRatingContainer.querySelectorAll('.star').forEach(s => {
+                                s.classList.add('text-warning');
+                                s.classList.remove('text-muted');
+                            });
+                        }
+                        loadReviews();
+                    } else {
+                        alert(`리뷰 등록 실패: ${data.message || '알 수 없는 오류'}`);
                     }
                 })
                 .catch(error => {
-                    console.error('리뷰 로드 오류:', error);
-                    alert('리뷰 로드 중 네트워크 오류가 발생했습니다.');
+                    console.error('리뷰 등록 오류:', error);
+                    alert(`리뷰 등록 중 오류가 발생했습니다: ${error.message}`);
                 });
+            });
+        }
+
+        // --- 기존 장바구니 및 수량 처리 코드 ---
+        function updateProductDetailTotalPrice() {
+            if (!quantityInput || !productDetailPriceElement || isNaN(unitPrice)) return;
+            const currentQuantity = parseInt(quantityInput.value) || 1;
+            const totalPrice = unitPrice * currentQuantity;
+            productDetailPriceElement.innerText = totalPrice.toLocaleString() + '원';
+            if (formTotalPriceForBuyNow) {
+                formTotalPriceForBuyNow.value = totalPrice;
             }
+        }
 
-            // 리뷰 삭제 버튼 바인딩
-            function bindDeleteReviewButtons() {
-                document.querySelectorAll('.delete-review-btn').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const reviewSeq = this.getAttribute('data-review-seq');
-                        if (confirm('이 리뷰를 삭제하시겠습니까?')) {
-                            fetch('/usr/review/deleteReview', {
-                                method: 'POST',
-                                headers: headers,
-                                body: new URLSearchParams({ 'seq': reviewSeq })
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.rt === 'success') {
-                                    alert(data.message);
-                                    loadReviews();
-                                } else {
-                                    alert(`리뷰 삭제 실패: ${data.message || '알 수 없는 오류'}`);
-                                }
-                            })
-                            .catch(error => {
-                                console.error('리뷰 삭제 오류:', error);
-                                alert('리뷰 삭제 중 오류가 발생했습니다.');
-                            });
-                        }
-                    });
-                });
+        if (quantityInput) {
+            if (currentStock > 0) {
+                quantityInput.setAttribute('max', currentStock);
+            } else {
+                quantityInput.value = 0;
+                quantityInput.disabled = true;
+                if (quantitySpinner) quantitySpinner.style.display = 'none';
             }
+            updateProductDetailTotalPrice();
+        }
 
-            // 별점 선택 UI 처리
-            const starRatingContainer = document.querySelector('.star-rating');
-            if (starRatingContainer) {
-                const stars = starRatingContainer.querySelectorAll('.star');
-                const ratingInput = document.getElementById('rating');
-                stars.forEach(star => {
-                    star.addEventListener('click', function() {
-                        const rating = this.getAttribute('data-value');
-                        if (ratingInput) {
-                            ratingInput.value = rating;
-                            stars.forEach(s => {
-                                if (parseInt(s.getAttribute('data-value')) <= parseInt(rating)) {
-                                    s.classList.add('text-warning');
-                                    s.classList.remove('text-muted');
-                                } else {
-                                    s.classList.remove('text-warning');
-                                    s.classList.add('text-muted');
-                                }
-                            });
-                        }
-                    });
-                });
-            }
+        if (quantitySpinner && quantityInput && !quantityInput.disabled) {
+            const plusButton = quantitySpinner.querySelector('.button-plus');
+            const minusButton = quantitySpinner.querySelector('.button-minus');
 
-            // 리뷰 폼 제출 처리
-            const reviewForm = document.getElementById('reviewForm');
-            if (reviewForm) {
-                reviewForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const formData = new FormData(reviewForm);
-                    fetch('/usr/review/addReview', {
-                        method: 'POST',
-                        headers: headers,
-                        body: new URLSearchParams(formData)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.rt === 'success') {
-                            alert(data.message);
-                            reviewForm.reset();
-                            // 별점 초기화
-                            const stars = starRatingContainer?.querySelectorAll('.star');
-                            if (stars) {
-                                stars.forEach(s => {
-                                    s.classList.add('text-warning');
-                                    s.classList.remove('text-muted');
-                                });
-                            }
-                            const ratingInput = document.getElementById('rating');
-                            if (ratingInput) ratingInput.value = 5;
-                            loadReviews();
-                        } else {
-                            alert(`리뷰 등록 실패: ${data.message || '알 수 없는 오류'}`);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('리뷰 등록 오류:', error);
-                        alert('리뷰 등록 중 오류가 발생했습니다.');
-                    });
-                });
-            }
-
-            // 기존 장바구니 및 수량 처리 코드
-            function updateProductDetailTotalPrice() {
-                if (!quantityInput || !productDetailPriceElement || isNaN(unitPrice)) return;
-                const currentQuantity = parseInt(quantityInput.value) || 1;
-                const totalPrice = unitPrice * currentQuantity;
-                productDetailPriceElement.innerText = totalPrice.toLocaleString() + '원';
-                if (formTotalPriceForBuyNow) {
-                    formTotalPriceForBuyNow.value = totalPrice;
-                }
-            }
-
-            if (quantityInput) {
-                if (currentStock > 0) {
-                    quantityInput.setAttribute('max', currentStock);
-                } else {
-                    quantityInput.value = 0;
-                    quantityInput.disabled = true;
-                    if (quantitySpinner) quantitySpinner.style.display = 'none';
-                }
-                updateProductDetailTotalPrice();
-            }
-
-            if (quantitySpinner && quantityInput && !quantityInput.disabled) {
-                const plusButton = quantitySpinner.querySelector('.button-plus');
-                const minusButton = quantitySpinner.querySelector('.button-minus');
-
-                if (plusButton) {
-                    plusButton.addEventListener('click', function() {
-                        let val = parseInt(quantityInput.value);
-                        if (val < currentStock) {
-                            quantityInput.value = val + 1;
-                            updateProductDetailTotalPrice();
-                        } else {
-                            alert('최대 재고 수량입니다.');
-                        }
-                    });
-                }
-                if (minusButton) {
-                    minusButton.addEventListener('click', function() {
-                        let val = parseInt(quantityInput.value);
-                        if (val > 1) {
-                            quantityInput.value = val - 1;
-                            updateProductDetailTotalPrice();
-                        }
-                    });
-                }
-                quantityInput.addEventListener('input', function() {
-                    let val = parseInt(this.value);
-                    if (this.value === '') return;
-                    if (isNaN(val) || val < 1) { /* 입력 중일 수 있으므로 change에서 최종 처리 */ }
-                    else if (val > currentStock) {
-                        this.value = currentStock;
+            if (plusButton) {
+                plusButton.addEventListener('click', function() {
+                    let val = parseInt(quantityInput.value);
+                    if (val < currentStock) {
+                        quantityInput.value = val + 1;
+                        updateProductDetailTotalPrice();
+                    } else {
                         alert('최대 재고 수량입니다.');
                     }
-                    updateProductDetailTotalPrice();
-                });
-                quantityInput.addEventListener('change', function() {
-                    let val = parseInt(this.value);
-                    if (isNaN(val) || val < 1) {
-                        this.value = 1;
-                    } else if (val > currentStock) {
-                        this.value = currentStock;
-                    }
-                    updateProductDetailTotalPrice();
                 });
             }
-
-            if (addToCartButton) {
-                addToCartButton.addEventListener('click', function() {
-                    if (this.disabled) {
-                        alert('품절된 상품입니다.');
-                        return;
-                    }
-                    if (!productDetailSeqElement || !quantityInput) {
-                        alert('상품 정보를 가져올 수 없습니다.');
-                        return;
-                    }
-                    const productSeq = productDetailSeqElement.innerText.trim();
-                    const currentQuantity = parseInt(quantityInput.value);
-                    if (isNaN(currentQuantity) || currentQuantity < 1) {
-                        alert('올바른 수량을 선택해주세요.');
-                        quantityInput.value = 1;
+            if (minusButton) {
+                minusButton.addEventListener('click', function() {
+                    let val = parseInt(quantityInput.value);
+                    if (val > 1) {
+                        quantityInput.value = val - 1;
                         updateProductDetailTotalPrice();
-                        return;
                     }
-
-                    fetch('/usr/cart/addItem', {
-                        method: 'POST',
-                        headers: headers,
-                        body: new URLSearchParams({ 'productSeq': productSeq, 'quantity': currentQuantity })
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            return response.json().then(errData => {
-                                throw new Error(errData.message || `서버 오류: ${response.status}`);
-                            });
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            if (addToCartModal) {
-                                addToCartModal.show();
-                            } else {
-                                if (confirm((data.message || '상품이 장바구니에 추가되었습니다.') + ' 장바구니로 이동하시겠습니까?')) {
-                                    window.location.href = '/usr/cart/CartUsrList';
-                                }
-                            }
-                            loadOffcanvasCart();
-                            updateHeaderCartCount(data.cartItemCount);
-                        } else {
-                            alert(`장바구니 추가 실패: ${data.message || '알 수 없는 오류'}`);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('장바구니 추가 오류:', error);
-                        alert(`장바구니 추가 오류: ${error.message}`);
-                    });
                 });
             }
+            quantityInput.addEventListener('input', function() {
+                let val = parseInt(this.value);
+                if (this.value === '') return;
+                if (isNaN(val) || val < 1) { /* 입력 중일 수 있으므로 change에서 최종 처리 */ }
+                else if (val > currentStock) {
+                    this.value = currentStock;
+                    alert('최대 재고 수량입니다.');
+                }
+                updateProductDetailTotalPrice();
+            });
+            quantityInput.addEventListener('change', function() {
+                let val = parseInt(this.value);
+                if (isNaN(val) || val < 1) {
+                    this.value = 1;
+                } else if (val > currentStock) {
+                    this.value = currentStock;
+                }
+                updateProductDetailTotalPrice();
+            });
+        }
 
-            if (buyNowButton) {
-                buyNowButton.addEventListener('click', function() {
-                    if (this.disabled) {
-                        alert('품절된 상품은 바로 구매할 수 없습니다.');
-                        return;
-                    }
-                    if (!quantityInput) {
-                        alert('수량 정보를 찾을 수 없습니다.');
-                        return;
-                    }
-                    const currentQuantity = parseInt(quantityInput.value);
-                    if (isNaN(currentQuantity) || currentQuantity < 1) {
-                        alert('올바른 수량을 선택해주세요.');
-                        return;
-                    }
-                    if (currentQuantity > currentStock) {
-                        alert('선택하신 수량이 재고를 초과합니다.');
-                        quantityInput.value = currentStock;
-                        updateProductDetailTotalPrice();
-                        return;
-                    }
-
-                    const seqForBuyNow = document.getElementById('formSeqForBuyNow').value;
-                    location.href = `/usr/checkout/CheckoutUsrList?seq=${seqForBuyNow}&quantity=${currentQuantity}`;
-                });
-            }
-
-            const offcanvasElement = document.getElementById('offcanvasRight');
-            const offcanvasItemsContainer = document.getElementById('offcanvasCartItemsContainer');
-            const offcanvasSubtotalSection = document.getElementById('offcanvasSubtotalSection');
-            const offcanvasSubtotalValue = document.getElementById('offcanvasSubtotalValue');
-            const offcanvasCheckoutBtn = document.getElementById('offcanvasCheckoutBtn');
-
-            async function loadOffcanvasCart() {
-                if (!offcanvasItemsContainer || !offcanvasSubtotalSection || !offcanvasSubtotalValue || !offcanvasCheckoutBtn) {
-                    console.warn("오프캔버스 관련 HTML 요소가 페이지에 없습니다. (ProductUsrView)");
-                    updateHeaderCartCountOnly();
+        if (addToCartButton) {
+            addToCartButton.addEventListener('click', function() {
+                if (this.disabled) {
+                    alert('품절된 상품입니다.');
                     return;
                 }
-                try {
-                    const response = await fetch('/usr/cart/getCartSummary');
+                if (!productDetailSeqElement || !quantityInput) {
+                    alert('상품 정보를 가져올 수 없습니다.');
+                    return;
+                }
+                let productSeq = productDetailSeqElement.innerText.trim();
+                if (productSeq.includes(',')) {
+                    productSeq = productSeq.split(',')[0];
+                }
+                const currentQuantity = parseInt(quantityInput.value);
+                if (isNaN(currentQuantity) || currentQuantity < 1) {
+                    alert('올바른 수량을 선택해주세요.');
+                    quantityInput.value = 1;
+                    updateProductDetailTotalPrice();
+                    return;
+                }
+
+                fetch('/usr/cart/addItem', {
+                    method: 'POST',
+                    headers: commonAjaxHeaders,
+                    body: new URLSearchParams({ 'productSeq': productSeq, 'quantity': currentQuantity })
+                })
+                .then(response => {
                     if (!response.ok) {
-                        console.error("오프캔버스 로드 실패, 상태: " + response.status);
-                        offcanvasItemsContainer.innerHTML = '<li class="list-group-item text-muted small">장바구니를 불러오지 못했습니다.</li>';
-                        return;
+                        return response.json().then(errData => {
+                            throw new Error(errData.message || `서버 오류: ${response.status}`);
+                        });
                     }
-                    const data = await response.json();
-                    offcanvasItemsContainer.innerHTML = '';
-                    if (data.cartItems && data.cartItems.length > 0) {
-                        data.cartItems.forEach(item => {
-                            const li = document.createElement('li');
-                            li.className = 'list-group-item py-3 ps-0 border-top';
-                            li.setAttribute('data-product-seq-offcanvas', item.productSeq);
-                            li.innerHTML = `
-                                <div class="row align-items-center">
-                                    <div class="col-7">
-                                        <div class="d-flex">
-                                            <img src="${item.productImageUrl || '/user/template/user_ui/assets/images/products/product-img-default.jpg'}" alt="${item.productName}" class="icon-shape icon-xxl object-fit-cover" />
-                                            <div class="ms-3">
-                                                <a href="/usr/product/ProductUsrView?seq=${item.productSeq}" class="text-inherit"><h6 class="mb-0 small text-truncate" style="max-width: 120px;">${item.productName}</h6></a>
-                                                <span><small class="text-muted">수량: ${item.quantity}</small></span>
-                                                <div class="mt-1 small lh-1">
-                                                    <a href="javascript:void(0);" class="text-decoration-none text-inherit remove-from-offcanvas-cart-btn">
-                                                        <span class="me-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></span>
-                                                        <span class="text-muted small">삭제</span>
-                                                    </a>
-                                                </div>
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        if (addToCartModal) {
+                            addToCartModal.show();
+                        } else {
+                            if (confirm((data.message || '상품이 장바구니에 추가되었습니다.') + ' 장바구니로 이동하시겠습니까?')) {
+                                window.location.href = '/usr/cart/CartUsrList';
+                            }
+                        }
+                        loadOffcanvasCart();
+                        // updateHeaderCartCount(data.cartItemCount); // loadOffcanvasCart 내부에서 호출
+                    } else {
+                        alert(`장바구니 추가 실패: ${data.message || '알 수 없는 오류'}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('장바구니 추가 오류:', error);
+                    alert(`장바구니 추가 오류: ${error.message}`);
+                });
+            });
+        }
+
+        if (buyNowButton) {
+            buyNowButton.addEventListener('click', function() {
+                if (this.disabled) {
+                    alert('품절된 상품은 바로 구매할 수 없습니다.');
+                    return;
+                }
+                if (!quantityInput) {
+                    alert('수량 정보를 찾을 수 없습니다.');
+                    return;
+                }
+                const currentQuantity = parseInt(quantityInput.value);
+                if (isNaN(currentQuantity) || currentQuantity < 1) {
+                    alert('올바른 수량을 선택해주세요.');
+                    return;
+                }
+                if (currentQuantity > currentStock) {
+                    alert('선택하신 수량이 재고를 초과합니다.');
+                    quantityInput.value = currentStock;
+                    updateProductDetailTotalPrice();
+                    return;
+                }
+
+                let seqForBuyNow = document.getElementById('formSeqForBuyNow').value;
+                if (seqForBuyNow.includes(',')) {
+                    seqForBuyNow = seqForBuyNow.split(',')[0];
+                }
+                location.href = `/usr/checkout/CheckoutUsrList?seq=${seqForBuyNow}&quantity=${currentQuantity}`;
+            });
+        }
+
+        // --- 오프캔버스 장바구니 관련 코드 ---
+        const offcanvasElement = document.getElementById('offcanvasRight');
+        const offcanvasItemsContainer = document.getElementById('offcanvasCartItemsContainer');
+        const offcanvasSubtotalSection = document.getElementById('offcanvasSubtotalSection');
+        const offcanvasSubtotalValue = document.getElementById('offcanvasSubtotalValue');
+        const offcanvasCheckoutBtn = document.getElementById('offcanvasCheckoutBtn');
+
+        async function loadOffcanvasCart() {
+            if (!offcanvasItemsContainer || !offcanvasSubtotalSection || !offcanvasSubtotalValue || !offcanvasCheckoutBtn) {
+                updateHeaderCartCountOnly(); // 헤더 카운트만 업데이트 시도
+                return;
+            }
+            try {
+                offcanvasItemsContainer.innerHTML = '<li class="list-group-item text-center text-muted small py-4">로딩 중...</li>';
+                const response = await fetch('/usr/cart/getCartSummary');
+                if (!response.ok) {
+                    console.error("오프캔버스 로드 실패, 상태: " + response.status);
+                    offcanvasItemsContainer.innerHTML = '<li class="list-group-item text-muted small">장바구니를 불러오지 못했습니다.</li>';
+                    updateHeaderCartCount(0);
+                    return;
+                }
+                const data = await response.json();
+                offcanvasItemsContainer.innerHTML = '';
+                if (data.cartItems && data.cartItems.length > 0) {
+                    data.cartItems.forEach(item => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item py-3 ps-0 border-top';
+                        li.setAttribute('data-product-seq-offcanvas', item.productSeq);
+                        li.innerHTML = `
+                            <div class="row align-items-center">
+                                <div class="col-7">
+                                    <div class="d-flex">
+                                        <img src="${item.productImageUrl || '/user/template/user_ui/assets/images/products/product-img-default.jpg'}" alt="${item.productName}" class="icon-shape icon-xxl object-fit-cover" />
+                                        <div class="ms-3">
+                                            <a href="/usr/product/ProductUsrView?seq=${item.productSeq}" class="text-inherit"><h6 class="mb-0 small text-truncate" style="max-width: 120px;">${item.productName}</h6></a>
+                                            <span><small class="text-muted">수량: ${item.quantity}</small></span>
+                                            <div class="mt-1 small lh-1">
+                                                <a href="javascript:void(0);" class="text-decoration-none text-inherit remove-from-offcanvas-cart-btn">
+                                                    <span class="me-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></span>
+                                                    <span class="text-muted small">삭제</span>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-5 text-lg-end text-start text-md-end">
-                                        <span class="fw-bold text-dark small">${(item.price != null && item.quantity != null ? item.price * item.quantity : 0).toLocaleString()}원</span>
-                                    </div>
-                                </div>`;
-                            offcanvasItemsContainer.appendChild(li);
-                        });
-                        offcanvasSubtotalSection.style.display = 'flex';
-                        offcanvasSubtotalValue.innerText = (data.totalAmount || 0).toLocaleString() + '원';
-                        if (offcanvasCheckoutBtn) offcanvasCheckoutBtn.style.display = (data.cartItemCount > 0 ? 'block' : 'none');
-                        bindOffcanvasRemoveButtons();
-                    } else {
-                        offcanvasItemsContainer.innerHTML = '<li class="list-group-item text-center text-muted small py-4">장바구니가 비어있습니다.</li>';
-                        offcanvasSubtotalSection.style.display = 'none';
-                        if (offcanvasCheckoutBtn) offcanvasCheckoutBtn.style.display = 'none';
-                    }
-                    updateHeaderCartCount(data.cartItemCount || 0);
-                } catch (error) {
-                    console.error('오프캔버스 로드 중 오류:', error);
-                    if (offcanvasItemsContainer) {
-                        offcanvasItemsContainer.innerHTML = '<li class="list-group-item text-muted small">장바구니 로드 오류.</li>';
-                    }
-                }
-            }
-
-            function bindOffcanvasRemoveButtons() {
-                document.querySelectorAll('.remove-from-offcanvas-cart-btn').forEach(button => {
-                    const newButton = button.cloneNode(true);
-                    button.parentNode.replaceChild(newButton, button);
-                    newButton.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const listItem = this.closest('li[data-product-seq-offcanvas]');
-                        const productSeq = listItem.dataset.productSeqOffcanvas;
-                        if (confirm('이 상품을 장바구니에서 삭제하시겠습니까?')) {
-                            removeItemAndReloadOffcanvas(productSeq);
-                        }
+                                </div>
+                                <div class="col-5 text-lg-end text-start text-md-end">
+                                    <span class="fw-bold text-dark small">${(item.price != null && item.quantity != null ? item.price * item.quantity : 0).toLocaleString()}원</span>
+                                </div>
+                            </div>`;
+                        offcanvasItemsContainer.appendChild(li);
                     });
+                    offcanvasSubtotalSection.style.display = 'flex';
+                    offcanvasSubtotalValue.innerText = (data.totalAmount || 0).toLocaleString() + '원';
+                    offcanvasCheckoutBtn.style.display = (data.cartItemCount > 0 ? 'block' : 'none');
+                    bindOffcanvasRemoveButtons();
+                } else {
+                    offcanvasItemsContainer.innerHTML = '<li class="list-group-item text-center text-muted small py-4">장바구니가 비어있습니다.</li>';
+                    offcanvasSubtotalSection.style.display = 'none';
+                    offcanvasCheckoutBtn.style.display = 'none';
+                }
+                updateHeaderCartCount(data.cartItemCount || 0);
+            } catch (error) {
+                console.error('오프캔버스 로드 중 오류:', error);
+                offcanvasItemsContainer.innerHTML = '<li class="list-group-item text-muted small">장바구니 로드 오류.</li>';
+                updateHeaderCartCount(0);
+            }
+        }
+
+        function bindOffcanvasRemoveButtons() {
+            document.querySelectorAll('.remove-from-offcanvas-cart-btn').forEach(button => {
+                const newButton = button.cloneNode(true); // 중복 바인딩 방지
+                button.parentNode.replaceChild(newButton, button);
+                newButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const listItem = this.closest('li[data-product-seq-offcanvas]');
+                    if (!listItem) return;
+                    const productSeq = listItem.dataset.productSeqOffcanvas;
+                    if (confirm('이 상품을 장바구니에서 삭제하시겠습니까?')) {
+                        removeItemAndReloadOffcanvas(productSeq);
+                    }
                 });
-            }
+            });
+        }
 
-            async function removeItemAndReloadOffcanvas(productSeq) {
-                try {
-                    const response = await fetch('/usr/cart/removeItem', {
-                        method: 'POST',
-                        headers: headers,
-                        body: new URLSearchParams({ 'productSeq': productSeq })
-                    });
+        async function removeItemAndReloadOffcanvas(productSeq) {
+            try {
+                const response = await fetch('/usr/cart/removeItem', {
+                    method: 'POST',
+                    headers: commonAjaxHeaders,
+                    body: new URLSearchParams({ 'productSeq': productSeq })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    loadOffcanvasCart(); // 오프캔버스 다시 로드
+                    // 현재 페이지가 장바구니 페이지라면 페이지 새로고침 (선택적)
+                    if (window.location.pathname.includes('/usr/cart/CartUsrList')) {
+                        setTimeout(() => window.location.reload(), 200);
+                    }
+                } else {
+                    alert(`상품 삭제 실패: ${data.message || '알 수 없는 오류'}`);
+                }
+            } catch (error) {
+                console.error('오프캔버스 상품 삭제 오류:', error);
+                alert('상품 삭제 중 오류가 발생했습니다.');
+            }
+        }
+
+        function updateHeaderCartCount(count) {
+            const cartCountElement = document.getElementById('headerCartItemCount'); // head.html에 이 ID를 가진 요소가 있어야 함
+            if (cartCountElement) {
+                cartCountElement.innerText = count > 0 ? String(count) : '';
+                cartCountElement.style.display = count > 0 ? 'inline-block' : 'none'; // 카운트가 있으면 보이도록
+            }
+        }
+
+        async function updateHeaderCartCountOnly() {
+            try {
+                const response = await fetch('/usr/cart/getCartSummary');
+                if (response.ok) {
                     const data = await response.json();
-                    if (data.success) {
-                        loadOffcanvasCart();
-                        if (window.location.pathname.endsWith('/usr/cart/CartUsrList')) {
-                            setTimeout(() => location.reload(), 200);
-                        }
-                    } else {
-                        alert(`상품 삭제 실패: ${data.message}`);
-                    }
-                } catch (error) {
-                    console.error('오프캔버스 상품 삭제 오류:', error);
-                    alert('상품 삭제 중 오류.');
+                    updateHeaderCartCount(data.cartItemCount || 0);
                 }
+            } catch (error) {
+                console.warn("헤더 카운트 업데이트 오류:", error);
             }
+        }
 
-            function updateHeaderCartCount(count) {
-                const cartCountElement = document.getElementById('headerCartItemCount');
-                if (cartCountElement) {
-                    cartCountElement.innerText = count > 0 ? String(count) : '';
-                    cartCountElement.style.display = count > 0 ? 'inline-block' : 'none';
-                }
-            }
+        if (offcanvasElement) {
+            offcanvasElement.addEventListener('show.bs.offcanvas', loadOffcanvasCart);
+        }
+        loadOffcanvasCart(); // 페이지 로드 시 오프캔버스(및 헤더 카운트) 정보 로드
 
-            async function updateHeaderCartCountOnly() {
-                try {
-                    const response = await fetch('/usr/cart/getCartSummary');
-                    if (response.ok) {
-                        const data = await response.json();
-                        updateHeaderCartCount(data.cartItemCount || 0);
-                    } else {
-                        console.warn("헤더 카운트용 getCartSummary 실패:", response.status);
-                    }
-                } catch (error) {
-                    console.warn("헤더 카운트 업데이트 오류:", error.message);
-                }
-            }
-
-            if (offcanvasElement) {
-                offcanvasElement.addEventListener('show.bs.offcanvas', loadOffcanvasCart);
-                loadOffcanvasCart();
-            } else {
-                updateHeaderCartCountOnly();
-            }
-
-            // 페이지 로드 시 리뷰 목록 초기화
-            loadReviews();
-        });
-        /* ]]> */
+        // 페이지 로드 시 리뷰 목록 초기화
+        loadReviews();
+    });
+    /* ]]> */
     </script>
-
     <div th:replace="~{usr/include/footer :: footer}"></div>
 </body>
 </html>

@@ -225,10 +225,6 @@ public class CodeController {
 
                 try {
                     // =====================================================================
-                    // !!!!! 실제 엑셀 파일 컬럼 순서에 맞게 수정 !!!!!
-                    // =====================================================================
-                    // 예시: A열(0)=사용여부, B열(1)=코드그룹ID, C열(2)=코드그룹명, D열(3)=코드명, E열(4)=삭제여부, F열(5)=등록일, G열(6)=수정일
-                    // ★★★ ifcdSeq (코드 ID)는 엑셀에 없다고 가정 ★★★
                     String useNyFromExcel       = formatter.formatCellValue(row.getCell(0)); // 사용여부 (A열)
                     String ifcgSeqStrFromFile   = formatter.formatCellValue(row.getCell(1)); // 코드그룹 ID (B열, 숫자여야 함)
                     // String ifcgNameFromFile  = formatter.formatCellValue(row.getCell(2)); // 코드그룹명 (C열)

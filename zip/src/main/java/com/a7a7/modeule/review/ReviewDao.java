@@ -7,4 +7,5 @@ public interface ReviewDao {
     ReviewDto selectReviewBySeq(String seq);
     int insertReview(ReviewDto reviewDto);
     int deleteReview(String seq);
+    int selectReviewCountByMealKit(String mealKitSeq);
 }

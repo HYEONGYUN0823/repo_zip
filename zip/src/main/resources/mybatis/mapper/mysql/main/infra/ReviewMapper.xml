@@ -1,46 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.a7a7.modeule.review.ReviewDao">
-    <select id="selectReviewsByMealKit" parameterType="String" resultType="com.a7a7.modeule.review.ReviewDto">
-        SELECT 
-            r.seq,
+
+    <resultMap id="reviewResultMap" type="com.a7a7.modeule.review.ReviewDto">
+        <id property="seq" column="review_uuid"/> <!-- review_uuid를 DTO의 seq에 매핑 -->
+        <result property="reviewTitle" column="reviewTitle"/>
+        <result property="reviewContent" column="reviewContent"/>
+        <result property="rating" column="rating"/>
+        <result property="mealKit_seq" column="mealKit_seq"/>
+        <result property="userUi_seq" column="userUi_seq"/>
+        <result property="userName" column="userName"/> <!-- JOIN된 userUi 테이블의 name -->
+        <result property="regDate" column="regDate"/>
+        <result property="modDate" column="modDate"/>
+        <result property="reviewCount" column="reviewCount"/>
+        <result property="recipePost_seq" column="recipePost_seq"/>
+    </resultMap>
+
+    <select id="selectReviewsByMealKit" parameterType="String" resultMap="reviewResultMap">
+        SELECT
+            r.seq AS db_pk, <!-- DB의 실제 PK (INT) -->
+            r.review_uuid,  <!-- DTO의 seq (String UUID)와 매핑될 컬럼 -->
+            r.reviewTitle,
+            r.reviewContent,
+            r.rating,
+            r.mealKit_seq,  <!-- String으로 받아도 DB에서 INT와 비교 시 자동 형변환 기대 (또는 파라미터를 Integer로) -->
+            r.userUi_seq,
+            u.name AS userName,
+            r.regDate,
+            r.modDate,
+            r.reviewCount,
+            r.recipePost_seq
+        FROM review r
+        JOIN userUi u ON r.userUi_seq = u.seq <!-- userUi.seq도 INT 타입인지 확인 -->
+        WHERE r.mealKit_seq = CAST(#{mealKitSeq} AS UNSIGNED) <!-- 명시적 형변환 고려 -->
+        ORDER BY r.regDate DESC
+    </select>
+
+    <select id="selectReviewBySeq" parameterType="String" resultMap="reviewResultMap">
+        SELECT
+            r.seq AS db_pk,
+            r.review_uuid,
             r.reviewTitle,
             r.reviewContent,
             r.rating,
             r.mealKit_seq,
             r.userUi_seq,
-            u.name AS userName,
             r.regDate,
-            r.modDate
+            r.modDate,
+            r.reviewCount,
+            r.recipePost_seq
+            <!-- userUi.name을 가져오려면 JOIN 필요 -->
         FROM review r
-        JOIN userUi u ON r.userUi_seq = u.seq
-        WHERE r.mealKit_seq = #{mealKitSeq}
-        ORDER BY r.regDate DESC
+        WHERE r.review_uuid = #{seq_uuid} <!-- 파라미터 이름을 명확히 (예: seq_uuid) -->
     </select>
 
-    <select id="selectReviewBySeq" parameterType="String" resultType="com.a7a7.modeule.review.ReviewDto">
-        SELECT 
-            seq,
-            reviewTitle,
-            reviewContent,
-            rating,
-            mealKit_seq,
-            userUi_seq,
-            regDate,
-            modDate
-        FROM review
-        WHERE seq = #{seq}
-    </select>
-
-    <insert id="insertReview" parameterType="com.a7a7.modeule.review.ReviewDto">
-        INSERT INTO review (
-            seq, reviewTitle, reviewContent, rating, mealKit_seq, userUi_seq, regDate
-        ) VALUES (
-            #{seq}, #{reviewTitle}, #{reviewContent}, #{rating}, #{mealKit_seq}, #{userUi_seq}, NOW()
-        )
-    </insert>
+<insert id="insertReview" parameterType="com.a7a7.modeule.review.ReviewDto">
+    INSERT INTO review (
+        review_uuid, reviewTitle, reviewContent, rating, mealKit_seq, userUi_seq,
+        reviewCount, <!-- 이 부분 다시 추가 -->
+        regDate
+        <!-- recipePost_seq는 여전히 제외 (밀키트 리뷰와 무관하다면) -->
+    ) VALUES (
+        #{seq}, #{reviewTitle}, #{reviewContent}, #{rating, jdbcType=INTEGER},
+        #{mealKit_seq, jdbcType=INTEGER}, #{userUi_seq, jdbcType=INTEGER},
+        #{reviewCount, jdbcType=INTEGER}, <!-- 이 부분 다시 추가 -->
+        NOW()
+    )
+</insert>
 
     <delete id="deleteReview" parameterType="String">
-        DELETE FROM review WHERE seq = #{seq}
+        DELETE FROM review WHERE review_uuid = #{seq_uuid} <!-- 파라미터 이름을 명확히 (예: seq_uuid) -->
     </delete>
+    
+    <select id="selectReviewCountByMealKit" parameterType="String" resultType="int">
+	    SELECT COUNT(*) FROM review WHERE mealKit_seq = CAST(#{mealKitSeq} AS UNSIGNED)
+	</select>
 </mapper>
