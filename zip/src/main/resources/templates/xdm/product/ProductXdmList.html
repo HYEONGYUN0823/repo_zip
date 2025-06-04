@@ -230,7 +230,7 @@
 												</td>
                                                 <td th:text="${list.stock}"></td>
                                                 <td th:text="${#numbers.formatInteger(list.price, 0, 'COMMA')}"></td>
-                                                <td th:text="${list.score}"><b></b></td>
+                                                <td th:text="${list.score != null ? #numbers.formatDecimal(list.score, 1, 1, 'POINT') : '0.0'}"></td>
                                                 <td th:text="${list.mealUseNy == '1' ? 'Y' : 'N'}"></td>
                                                 <td></td>
                                                 <td th:text="${list.mealRegDateTime}"></td>
