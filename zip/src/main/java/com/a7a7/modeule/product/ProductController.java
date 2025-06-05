@@ -1,225 +1,177 @@
+// ProductController.java
 package com.a7a7.modeule.product;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a7a7.common.util.UtilDateTime;
-import com.a7a7.modeule.member.MemberVo;
-import com.a7a7.modeule.upload.UploadDto;
-import com.a7a7.modeule.upload.UploadService;
-
-
+import com.a7a7.modeule.upload.UploadDto; // ProductDto가 상속하므로 직접 사용은 줄어듬
 
 @Controller
 public class ProductController {
-	@Autowired
-	ProductService productService;
-	@Autowired
-	UploadService uploadService;
-	
-	private void setSearch(ProductVo vo) {
-		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
-		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
-	}
-//	-----
-	private void setSearchProduct(ProductListVo vo) {
-		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
-		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
-	}
-	
-	@RequestMapping(value = "/xdm/product/ProductXdmList")
-	public String productXdmList(@ModelAttribute("vo") ProductVo vo, ProductDto productDto, Model model) throws Exception {
+    @Autowired
+    ProductService productService;
 
-	    setSearch(vo); // 검색 조건 설정
-	    vo.setParamsPaging(productService.selectOneCount(vo));
+    private void setSearchAndPagingDefaults(ProductVo vo) {
+        // ... (이전과 동일)
+        vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart().isEmpty() ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
+        vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd().isEmpty() ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
+        if (vo.getShDelNy() == null) vo.setShDelNy(0);
+        if (vo.getShUseNy() == null) vo.setShUseNy(1);
+        if (vo.getSortOption() == null || vo.getSortOption().isEmpty()) vo.setSortOption("latest");
+        if (vo.getRowNumToShow() == 0) vo.setRowNumToShow(12);
+        if (vo.getThisPage() == 0) vo.setThisPage(1);
+    }
 
-	    if (vo.getTotalRows() > 0) {
-	        model.addAttribute("list", productService.selectList(vo));
-	        model.addAttribute("productDto", productDto);
-	        System.out.println("shOption1: " + vo.getShOption1());
-	    }
-	    
-		return "xdm/product/ProductXdmList";
-	}
-	
-	@RequestMapping(value = "/xdm/product/ProductXdmForm")
-	public String productXdmForm(@ModelAttribute("vo") ProductVo vo, ProductDto productDto, UploadDto uploadDto, Model model) throws Exception {
-		
-		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
-//			insert mode
-		} else {
-//			update mode
-			uploadDto.setPseq(productDto.getSeq());
-			UploadDto dto = uploadService.selectOne(uploadDto);
-			System.out.println(dto.getPath());
-			
-			model.addAttribute("item", productService.selectOne(productDto));
-			model.addAttribute("itemFile", dto);
-		}
-		return "xdm/product/ProductXdmForm";
-	}
-	
-	@RequestMapping(value = "/xdm/product/ProductXdmInst")
-	public String productXdmInst(ProductDto productDto) throws Exception {
-		productService.insert(productDto);
-		
-		
-		
-		return "redirect:/xdm/product/ProductXdmList";
-	}
-	
-	@RequestMapping(value = "/xdm/product/ProductXdmUpdt")
-	public String productXdmUpdt(ProductDto productDto) {
-		productService.update(productDto);
-		
-		return "redirect:/xdm/product/ProductXdmList";
-	}
-	
-	@RequestMapping(value = "/xdm/product/ProductXdmUele")
-	public String productXdmUele(ProductDto productDto) {
-		productService.uelete(productDto);
-		
-		return "redirect:/xdm/product/ProductXdmList";
-	}
-	
-	/* #######################################################
-	 					웹사이트
-	 ########################################################*/
-	
-	@RequestMapping(value = "/usr/product/ProductUsrList")
-	public String productList(@ModelAttribute("vo") ProductListVo vo, @ModelAttribute("productVo") ProductVo productVo, ProductDto productDto, UploadDto uploadDto, Model model) throws Exception {
-		setSearchProduct(vo);
-		vo.setParamsPaging(productService.selectOneCount(productVo));
-		uploadDto.setPseq(productDto.getSeq());
-		UploadDto dto = uploadService.selectOne(uploadDto);
-		model.addAttribute("list", productService.selectProductList(vo));
-		model.addAttribute("item", productService.selectOne(productDto));
-		model.addAttribute("itemFile", dto);
-		
-		return "usr/product/ProductUsrList";
-	}
-	
-	@RequestMapping(value = "/usr/product/ProductUsrView")
-	public String productView(@ModelAttribute("vo") MemberVo vo, ProductDto productDto, UploadDto uploadDto, Model model) throws Exception {
-	    System.out.println("ProductDto seq: " + productDto.getSeq()); // 디버깅 로그
-	    if (productDto.getSeq() != null && productDto.getSeq().contains(",")) {
-	        productDto.setSeq(productDto.getSeq().split(",")[0]); // 첫 번째 값만 사용
-	    }
-	    model.addAttribute("item", productService.selectOne(productDto));
-	    uploadDto.setPseq(productDto.getSeq());
-	    UploadDto itemFile = uploadService.selectOne(uploadDto);
-	    model.addAttribute("itemFile", itemFile);
-	    return "usr/product/ProductUsrView";
-	}
-	
-//	@RequestMapping("/xdm/product/excelDownload")
-//    public void excelDownload(ProductVo pvo, ProductListVo vo, HttpServletResponse httpServletResponse) throws Exception {
-//	    
-//		setSearch(pvo);
-//		vo.setParamsPaging(productService.selectOneCount(pvo));
-//
-//		if (vo.getTotalRows() > 0) {
-//			List<ProductDto> list = productService.selectProductList(vo);
-//			
-//			Workbook workbook = new HSSFWorkbook();	// for xls
-////	        Workbook workbook = new XSSFWorkbook();
-//	        Sheet sheet = workbook.createSheet("첫번째 시트");
-//	        CellStyle cellStyle = workbook.createCellStyle();        
-//	        Row row = null;
-//	        Cell cell = null;
-//	        int rowNum = 0;
-//			
-////	        each column width setting
-//	        sheet.setColumnWidth(0, 2100);
-//	        sheet.setColumnWidth(1, 3100);
-//
-////	        Header
-//	        String[] tableHeader = {"코드", "브랜드", "밀키트 이름", "재고", "가격", "평점", "사용", "등록일", "수정일"};
-//
-//	        row = sheet.createRow(rowNum++);
-//			for(int i=0; i<tableHeader.length; i++) {
-//				cell = row.createCell(i);
-//	        	cellStyle.setAlignment(HorizontalAlignment.CENTER);
-//	        	cell.setCellStyle(cellStyle);
-//				cell.setCellValue(tableHeader[i]);
-//			}
-//
-////	        Body
-//			for (int i = 0; i < list.size(); i++) {
-//			    row = sheet.createRow(rowNum++);
-//
-//			    // 0. 코드
-////			    cell = row.createCell(0);
-////			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
-////			    cell.setCellStyle(cellStyle);
-////			    cell.setCellValue(Integer.parseInt(list.get(i).getSeq()));
-////			    }
-//
-//			    // 1. 브랜드
-//			    cell = row.createCell(1);
-//			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
-//			    cell.setCellStyle(cellStyle);
-//			    cell.setCellValue(list.get(i).getBrandName());
-//
-//			    // 2. 밀키트 이름
-//			    cell = row.createCell(2);
-//			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
-//			    cell.setCellStyle(cellStyle);
-//			    cell.setCellValue(list.get(i).getMealKitName());
-//
-//			    // 3. 재고
-//			    cell = row.createCell(3);
-//			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
-//			    cell.setCellStyle(cellStyle);
-//			    cell.setCellValue(list.get(i).getStock());
-//
-//			    // 4. 가격
-//			    cell = row.createCell(4);
-//			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
-//			    cell.setCellStyle(cellStyle);
-//			    cell.setCellValue(list.get(i).getPrice());
-//			    
-//			    // 5. 평점
-//			    cell = row.createCell(5);
-//			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
-//			    cell.setCellStyle(cellStyle);
-//			    cell.setCellValue(list.get(i).getScore());
-//
-//			    // 6. 사용 여부
-//			    cell = row.createCell(6);
-//			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
-//			    cell.setCellStyle(cellStyle);
-//			    if (list.get(i).getMealDelNy() != null) {
-//			        cell.setCellValue("0".equals(list.get(i).getMealDelNy()) ? "N" : "Y");
-//			    }
-//
-//			    // 7. 등록일
-//			    cell = row.createCell(7);
-//			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
-//			    cell.setCellStyle(cellStyle);
-//			    if (list.get(i).getMealRegDateTime() != null) {
-//			    	cell.setCellValue(list.get(i).getMealRegDateTime());
-//			    }
-//
-//			    // 8. 수정일
-//			    cell = row.createCell(8);
-//			    cellStyle.setAlignment(HorizontalAlignment.CENTER);
-//			    cell.setCellStyle(cellStyle);
-//			    if (list.get(i).getMealModDateTime() != null) {
-//			        cell.setCellValue(list.get(i).getMealModDateTime());
-//			    }
-//			}
-//
-//	        httpServletResponse.setContentType("ms-vnd/excel");
-//	        httpServletResponse.setHeader("Content-Disposition", "attachment;filename=example.xls");	// for xls
-////	        httpServletResponse.setHeader("Content-Disposition", "attachment;filename=example.xlsx");
-//
-//	        workbook.write(httpServletResponse.getOutputStream());
-//	        workbook.close();
-//		}
-//    }
-	
+    @RequestMapping(value = "/usr/product/ProductUsrList")
+    public String productList(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception {
+        setSearchAndPagingDefaults(vo); // 모든 필터 기본값 및 페이징 설정
+
+        int totalRows = productService.selectFilteredProductListCount(vo);
+        vo.setParamsPaging(totalRows);
+
+        List<ProductDto> productList = new ArrayList<>();
+        if (totalRows > 0) {
+            productList = productService.selectFilteredProductList(vo);
+        }
+
+        model.addAttribute("list", productList);
+        model.addAttribute("vo", vo);
+        return "usr/product/ProductUsrList";
+    }
+
+    @RequestMapping(value = "/usr/product/filterProductList", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> filterProductList(
+            @ModelAttribute ProductVo vo, // 기본 검색, 페이징, 정렬, 가격 범위는 vo로 받음
+            @RequestParam(value = "ratings", required = false) List<Integer> ratings // 평점은 별도 List로 받음
+    ) throws Exception {
+        vo.setRatings(ratings); // ProductVo에 선택된 평점 리스트 설정
+        setSearchAndPagingDefaults(vo); // 나머지 기본값 및 페이징 설정 (thisPage 등은 요청에서 옴)
+
+        int totalRows = productService.selectFilteredProductListCount(vo);
+        vo.setParamsPaging(totalRows);
+
+        List<ProductDto> filteredList = new ArrayList<>();
+        if (totalRows > 0) {
+             filteredList = productService.selectFilteredProductList(vo);
+        }
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("products", filteredList);
+        responseMap.put("pagingVo", vo);
+        return responseMap;
+    }
+    // ... (XDM 및 ProductUsrView 관련 메서드는 이전 답변과 동일하게 유지)
+     @RequestMapping(value = "/xdm/product/ProductXdmList")
+     public String productXdmList(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception {
+         setSearchAndPagingDefaults(vo);
+         int totalRows = productService.selectOneCount(vo);
+         vo.setParamsPaging(totalRows);
+
+         if (vo.getTotalRows() > 0) {
+             model.addAttribute("list", productService.selectList(vo));
+         } else {
+             model.addAttribute("list", new ArrayList<ProductDto>());
+         }
+         return "xdm/product/ProductXdmList";
+     }
+
+     @RequestMapping(value = "/xdm/product/ProductXdmForm")
+     public String productXdmForm(@ModelAttribute("vo") ProductVo vo, ProductDto dto, Model model) throws Exception {
+         if (dto.getSeq() == null || dto.getSeq().isEmpty() || "0".equals(dto.getSeq())) {
+             model.addAttribute("item", new ProductDto());
+             model.addAttribute("itemFile", new UploadDto());
+         } else {
+             ProductDto item = productService.selectOne(dto);
+             model.addAttribute("item", item);
+             if (item != null) {
+                 UploadDto uploadVo = new UploadDto();
+                 uploadVo.setPseq(item.getSeq());
+                 List<UploadDto> fileList = productService.selectListUpload(uploadVo);
+                 if (fileList != null && !fileList.isEmpty()) {
+                     model.addAttribute("itemFile", fileList.get(0));
+                     if(fileList.get(0) != null && fileList.get(0).getPath() != null) {
+                         System.out.println("Loaded file path: " + fileList.get(0).getPath());
+                     }
+                 } else {
+                     model.addAttribute("itemFile", new UploadDto());
+                 }
+             } else {
+                  model.addAttribute("itemFile", new UploadDto());
+             }
+         }
+         return "xdm/product/ProductXdmForm";
+     }
+
+     @RequestMapping(value = "/xdm/product/ProductXdmInst")
+     public String productXdmInst(ProductDto dto, @ModelAttribute("vo") ProductVo vo) throws Exception {
+         productService.insert(dto);
+         return "redirect:/xdm/product/ProductXdmList" + generateRedirectParams(vo);
+     }
+
+     @RequestMapping(value = "/xdm/product/ProductXdmUpdt")
+     public String productXdmUpdt(ProductDto dto, @ModelAttribute("vo") ProductVo vo) throws Exception {
+         productService.update(dto);
+         return "redirect:/xdm/product/ProductXdmList" + generateRedirectParams(vo);
+     }
+
+     @RequestMapping(value = "/xdm/product/ProductXdmUele")
+     public String productXdmUele(ProductDto dto, @ModelAttribute("vo") ProductVo vo) throws Exception {
+         productService.uelete(dto);
+         return "redirect:/xdm/product/ProductXdmList" + generateRedirectParams(vo);
+     }
+
+     private String generateRedirectParams(ProductVo vo) {
+         StringBuilder params = new StringBuilder();
+         params.append("?thisPage=").append(vo.getThisPage());
+         params.append("&rowNumToShow=").append(vo.getRowNumToShow());
+         if(vo.getShValue() != null && !vo.getShValue().isEmpty()) {
+             params.append("&shValue=").append(vo.getShValue());
+         }
+         if(vo.getShOption() != null) {
+             params.append("&shOption=").append(vo.getShOption());
+         }
+         if(vo.getShOption1() != null) {
+             params.append("&shOption1=").append(vo.getShOption1());
+         }
+         return params.toString();
+     }
+     @RequestMapping(value = "/usr/product/ProductUsrView")
+     public String productView(@ModelAttribute("vo") ProductVo urlVo,
+                               @RequestParam(value = "seq", required = true) String productSeq, Model model) throws Exception {
+         ProductDto dtoForSelect = new ProductDto();
+         dtoForSelect.setSeq(productSeq);
+
+         System.out.println("ProductUsrView - Received productSeq: " + dtoForSelect.getSeq());
+
+         ProductDto item = productService.selectOne(dtoForSelect);
+         model.addAttribute("item", item);
+
+         if (item != null) {
+             UploadDto uploadVo = new UploadDto();
+             uploadVo.setPseq(item.getSeq());
+             List<UploadDto> fileList = productService.selectListUpload(uploadVo);
+             if (fileList != null && !fileList.isEmpty()) {
+                 model.addAttribute("itemFile", fileList.get(0));
+             } else {
+                 model.addAttribute("itemFile", new UploadDto());
+             }
+         } else {
+             model.addAttribute("itemFile", new UploadDto());
+         }
+         model.addAttribute("vo", urlVo);
+         return "usr/product/ProductUsrView";
+     }
 }

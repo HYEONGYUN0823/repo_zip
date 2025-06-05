@@ -2,164 +2,161 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.a7a7.modeule.product.ProductDao">
-	
-	<resultMap id="resultMapObj" type="com.a7a7.modeule.product.ProductDto"/>
-	
-	<sql id = "selectCommon">
-		FROM mealKit as a
-		WHERE 1=1
-<!-- 		AND a.mealDelNy = 0 -->
-		<if test="shUseNy != null and !shUseNy.equals('')">AND a.mealUseNy = #{shUseNy}</if>
-        <if test="shDelNy != null and !shDelNy.equals('')">AND a.mealDelNy = #{shDelNy}</if>
- 				
-				<choose>
-					<when test="shOptionDate == 1">AND a.mealRegDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.mealModDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-				</choose>
-				
-        <choose>
-            <when test="shOption == 1">AND a.seq = #{shValue}</when>
-            <when test="shOption == 2">AND a.mealKitName LIKE CONCAT('%',#{shValue},'%')</when>
-        </choose>
-        
-        <if test="shOption1 != null and shOption1 != ''">
-	        AND a.brandName = #{shOption1}
-	    </if>
-        
-		ORDER BY a.seq DESC
-	</sql>
 
-	<select id="selectOneCount" resultType="Integer">
-		SELECT COUNT(*)
-		<include refid="selectCommon"></include>
-	</select>
-	
-<select id="selectList" resultMap="resultMapObj">
-    SELECT aa.* FROM (
-        SELECT
-            a.seq,
-            a.brandName,
-            a.mealKitName,
-            a.stock,
-            a.price,
-            a.score,
-            a.ingredient,
-            a.mealDelNy,
-            a.mealUseNy,
-            a.mealRegDateTime,
-            a.mealModDateTime,
-            (SELECT COUNT(*) FROM review r WHERE r.mealKit_seq = a.seq) AS reviewCount
-    <include refid="selectCommon"></include>
-    ) aa
-    limit #{rowNumToShow} offset #{startRnumForMysql}
-</select>
-	
-<select id="selectOne" resultMap="resultMapObj">
-    SELECT
-        mk.seq,
-        mk.brandName,
-        mk.mealKitName,
-        mk.stock,
-        mk.price,
-        mk.score,
-        mk.ingredient,
-        mk.mealDelNy,
-        mk.mealUseNy,
-        (SELECT COUNT(*) FROM review r WHERE r.mealKit_seq = mk.seq) AS reviewCount,
-        <!-- ★★★ 상품 대표 이미지 경로 조회 추가 ★★★ -->
-        (SELECT fu.path
-         FROM fileUploaded fu
-         WHERE fu.pseq = mk.seq
-         ORDER BY fu.sort ASC, fu.seq ASC <!-- 대표 이미지 선정 기준 -->
-         LIMIT 1) AS path
-    FROM
-        mealKit mk
-    WHERE 1=1
-        AND mk.seq = #{seq}
-</select>
-	
-	<insert id="insert">
-		INSERT INTO mealKit (
-			brandName,
-			mealKitName,
-			stock,
-			price,
-			score,
-			ingredient,
-			mealDelNy,
-			mealUseNy,
-			mealRegDateTime
-		) values (
-			#{brandName},
-			#{mealKitName},
-			#{stock},
-			#{price},
-			#{score},
-			#{ingredient},
-			#{mealDelNy},
-			#{mealUseNy},
-			now()
-		)
-		<selectKey resultType="String" keyProperty="seq" order="AFTER">
-			SELECT last_insert_id()
-		</selectKey>
-	</insert>
-	
-	<update id="update">
-		UPDATE mealKit SET
-			brandName = #{brandName},
-			mealKitName = #{mealKitName},
-			stock = #{stock},
-			price = #{price},
-			score = #{score},
-			ingredient = #{ingredient},
-			mealDelNy = #{mealDelNy},
-			mealUseNy = #{mealUseNy},
-			mealModDateTime = now()
-		WHERE seq = #{seq}
-	</update>
-	
-	<update id="uelete">
-		UPDATE mealKit SET
-			mealDelNy = 1,
-			mealModDateTime = now()
-		WHERE seq = #{seq}
-	</update>
-	
-<select id="selectProductList" resultMap="resultMapObj">
-    SELECT aa.* FROM (
-        SELECT
-            a.seq,
-            a.brandName,
-            a.mealKitName,
-            a.stock,
-            a.price,
-            a.score,
-            a.ingredient,
-            a.mealDelNy,
-            a.mealUseNy,
-            a.mealRegDateTime,
-            a.mealModDateTime,
-            (SELECT COUNT(*) FROM review r WHERE r.mealKit_seq = a.seq) AS reviewCount,
-            (
-                SELECT b.path
-                FROM fileUploaded b
-                WHERE b.pseq = a.seq
-                ORDER BY b.sort ASC, b.seq ASC
-                LIMIT 1
-            ) path
-    <include refid="selectCommon"></include>
-    ) aa
-    limit #{rowNumToShow} offset #{startRnumForMysql}
-</select>
-	
-    <update id="updateStockDecrease">
-        UPDATE mealKit
-        SET
-            stock = stock - #{quantityToDecrease}
-        WHERE
-            seq = #{productSeq}
-        AND stock >= #{quantityToDecrease}
+    <resultMap id="resultMapObj" type="com.a7a7.modeule.product.ProductDto">
+        <result property="seq" column="seq"/>
+        <result property="brandName" column="brandName"/>
+        <result property="mealKitName" column="mealKitName"/>
+        <result property="stock" column="stock"/>
+        <result property="price" column="price"/>
+        <result property="score" column="score"/>
+        <result property="ingredient" column="ingredient"/>
+        <result property="mealDelNy" column="mealDelNy"/>
+        <result property="mealUseNy" column="mealUseNy"/>
+        <result property="mealRegDateTime" column="mealRegDateTime"/>
+        <result property="mealModDateTime" column="mealModDateTime"/>
+        <result property="path" column="path"/>
+        <result property="reviewCount" column="reviewCount"/>
+    </resultMap>
+
+    <sql id="selectCommonProductFields">
+        a.seq, a.brandName, a.mealKitName, a.stock, a.price, a.score,
+        a.ingredient, a.mealDelNy, a.mealUseNy,
+        a.mealRegDateTime, a.mealModDateTime,
+        (SELECT COUNT(*) FROM review r WHERE r.mealKit_seq = a.seq AND r.delNy = 0) AS reviewCount,
+        (SELECT fu.path FROM fileUploaded fu WHERE fu.pseq = a.seq AND fu.delNy = 0 ORDER BY fu.defaultNy DESC, fu.sort ASC, fu.seq ASC LIMIT 1) AS path
+    </sql>
+
+    <sql id="xdmCommonWhereConditions">
+        WHERE 1=1
+        <if test="shUseNy != null">AND a.mealUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null">AND a.mealDelNy = #{shDelNy}</if>
+        <if test="shDateStart != null and !shDateStart.equals('') and shDateEnd != null and !shDateEnd.equals('')">
+            <choose>
+                <when test="shOptionDate == 1">AND DATE(a.mealRegDateTime) BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+                <when test="shOptionDate == 2">AND DATE(a.mealModDateTime) BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+            </choose>
+        </if>
+        <if test="shValue != null and !shValue.equals('')">
+            <choose>
+                <when test="shOption == 1">AND a.seq LIKE CONCAT('%',#{shValue},'%')</when>
+                <when test="shOption == 2">AND a.mealKitName LIKE CONCAT('%',#{shValue},'%')</when>
+            </choose>
+        </if>
+        <if test="shOption1 != null and shOption1 != ''">
+            AND a.brandName = #{shOption1}
+        </if>
+    </sql>
+
+     <sql id="usrCommonWhereConditions">
+        WHERE a.mealUseNy = 1
+          AND a.mealDelNy = 0
+        <if test="shValue != null and !shValue.equals('')">
+             AND a.mealKitName LIKE CONCAT('%',#{shValue},'%')
+        </if>
+    </sql>
+
+<sql id="usrFilterConditions">
+        <if test="minPrice != null and minPrice gt 0">
+            AND a.price >= #{minPrice}
+        </if>
+        <if test="maxPrice != null and maxPrice lt 100000"> <!-- test 속성에서는 lt 사용 -->
+            <![CDATA[
+                AND a.price <= #{maxPrice}
+            ]]>
+        </if>
+        <if test="ratings != null and !ratings.isEmpty()">
+            AND (
+            <foreach item="ratingItem" collection="ratings" open="" separator=" OR " close="">
+                <!-- SQL 내부의 < 를 < 로 변경 -->
+                <![CDATA[
+                (a.score >= #{ratingItem} AND a.score < (#{ratingItem} + 1))
+                ]]>
+            </foreach>
+            )
+        </if>
+    </sql>
+
+    <select id="selectOneCount" parameterType="com.a7a7.modeule.product.ProductVo" resultType="Integer">
+        SELECT COUNT(*)
+        FROM mealKit as a
+        <include refid="xdmCommonWhereConditions"/>
+    </select>
+    
+    <select id="selectList" parameterType="com.a7a7.modeule.product.ProductVo" resultMap="resultMapObj">
+        SELECT <include refid="selectCommonProductFields"/>
+        FROM mealKit as a
+        <include refid="xdmCommonWhereConditions"/>
+        ORDER BY a.seq DESC
+        LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+    </select>
+    
+    <select id="selectOne" parameterType="com.a7a7.modeule.product.ProductDto" resultMap="resultMapObj">
+        SELECT <include refid="selectCommonProductFields"/>
+        FROM mealKit a
+        WHERE a.seq = #{seq}
+    </select>
+    
+    <insert id="insert" parameterType="com.a7a7.modeule.product.ProductDto">
+        INSERT INTO mealKit (
+            brandName, mealKitName, stock, price, score,
+            ingredient, mealDelNy, mealUseNy, mealRegDateTime, mealModDateTime
+        ) VALUES (
+            #{brandName}, #{mealKitName}, #{stock}, #{price}, #{score},
+            #{ingredient}, 0, 1, NOW(), NOW()
+        )
+        <selectKey resultType="String" keyProperty="seq" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+    
+    <update id="update" parameterType="com.a7a7.modeule.product.ProductDto">
+        UPDATE mealKit SET
+            brandName = #{brandName}, mealKitName = #{mealKitName}, stock = #{stock}, price = #{price},
+            score = #{score}, ingredient = #{ingredient},
+            mealDelNy = CAST(#{mealDelNy} AS UNSIGNED),
+            mealUseNy = CAST(#{mealUseNy} AS UNSIGNED),
+            mealModDateTime = NOW()
+        WHERE seq = #{seq}
+    </update>
+    
+    <update id="uelete" parameterType="com.a7a7.modeule.product.ProductDto">
+        UPDATE mealKit SET mealDelNy = 1, mealModDateTime = NOW() WHERE seq = #{seq}
+    </update>
+    
+    <select id="selectProductList" parameterType="com.a7a7.modeule.product.ProductVo" resultMap="resultMapObj">
+         SELECT <include refid="selectCommonProductFields"/>
+         FROM mealKit as a
+         <include refid="usrCommonWhereConditions"/>
+         ORDER BY a.mealRegDateTime DESC
+         LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+    </select>
+
+    <select id="selectFilteredProductList" parameterType="com.a7a7.modeule.product.ProductVo" resultMap="resultMapObj">
+         SELECT <include refid="selectCommonProductFields"/>
+         FROM mealKit as a
+         <include refid="usrCommonWhereConditions"/>
+         <include refid="usrFilterConditions"/>
+         ORDER BY
+            <choose>
+                <when test="sortOption == 'priceAsc'">a.price ASC, a.seq DESC</when>
+                <when test="sortOption == 'priceDesc'">a.price DESC, a.seq DESC</when>
+                <when test="sortOption == 'ratingDesc'">a.score DESC, a.seq DESC</when>
+                <otherwise>a.mealRegDateTime DESC, a.seq DESC</otherwise>
+            </choose>
+         LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+    </select>
+
+    <select id="selectFilteredProductListCount" parameterType="com.a7a7.modeule.product.ProductVo" resultType="int">
+        SELECT COUNT(*)
+        FROM mealKit as a
+        <include refid="usrCommonWhereConditions"/>
+        <include refid="usrFilterConditions"/>
+    </select>
+    
+    <update id="updateStockDecrease" parameterType="map">
+        UPDATE mealKit SET stock = stock - #{quantityToDecrease}
+        WHERE seq = #{productSeq} AND stock >= #{quantityToDecrease}
     </update>
 
 </mapper>

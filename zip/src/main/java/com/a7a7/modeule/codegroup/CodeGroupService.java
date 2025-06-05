@@ -37,5 +37,12 @@ public class CodeGroupService {
 	public int uelete(CodeGroupDto codeGroupDto) {
 		return codeGroupDao.uelete(codeGroupDto);
 	}
+	
+    public String getCodeName(String ifcgSeq, String ifcdSeq) { // ifcgSeq 타입 String
+        if (ifcgSeq == null || ifcgSeq.isEmpty() || ifcdSeq == null || ifcdSeq.isEmpty()) {
+            return null;
+        }
+        return codeGroupDao.selectCodeNameByCodes(ifcgSeq, ifcdSeq);
+    }
 
 }

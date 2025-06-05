@@ -52,4 +52,30 @@
 			AND pseq = #{pseq}
 	</select>
 	
+<select id="selectListUpload" parameterType="com.a7a7.modeule.upload.UploadDto" resultType="com.a7a7.modeule.upload.UploadDto">
+    SELECT
+        seq,
+        type,
+        defaultNy,
+        sort,
+        path,
+        originalName,
+        uuidName,
+        ext,
+        size,
+        delNy,
+        pseq,
+        regDateTime
+        <!-- 필요한 컬럼들 -->
+    FROM
+        fileUploaded
+    WHERE 1=1
+        AND pseq = #{pseq}
+        AND delNy = 0 <!-- 삭제되지 않은 파일만 -->
+    <if test="type != null and type != 0">
+        AND type = #{type}
+    </if>
+    ORDER BY defaultNy DESC, sort ASC, seq ASC
+</select>
+	
 </mapper>

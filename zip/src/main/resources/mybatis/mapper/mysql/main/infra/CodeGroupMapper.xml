@@ -121,4 +121,16 @@
 		WHERE ifcgSeq = #{ifcgSeq}
 	</update>
 	
+    <select id="selectCodeNameByCodes" resultType="String">
+        SELECT
+            ifcdName
+        FROM
+            code
+        WHERE 1=1
+          AND ifcgSeq = #{ifcgSeq}  <!-- DB의 ifcgSeq 컬럼이 VARCHAR 타입이라면 CAST 불필요 -->
+          AND ifcdSeq = #{ifcdSeq}
+          AND ifcdUseNy = 1
+          AND ifcdDelNy = 0
+    </select>
+	
 </mapper>

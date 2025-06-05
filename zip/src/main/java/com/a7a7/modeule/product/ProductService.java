@@ -1,112 +1,149 @@
 package com.a7a7.modeule.product;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map; // HashMap 사용 시 필요 (decreaseStock에서 사용 중)
+import java.util.HashMap; // decreaseStock에서 사용 중
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.a7a7.modeule.codegroup.CodeGroupDto;
+import com.a7a7.modeule.codegroup.CodeGroupService;
 import com.a7a7.modeule.upload.UploadDao;
-import com.a7a7.modeule.upload.UploadService;
+import com.a7a7.modeule.upload.UploadDto; // UploadDto 임포트 추가
 import com.amazonaws.services.s3.AmazonS3Client;
 
 @Service
-public class ProductService extends UploadService {
-	@Autowired
-	ProductDao dao;
-//	for aws.s3 fileupload s
-	@Autowired
-	private AmazonS3Client amazonS3Client;
-	@Autowired
-	UploadDao uploadDao;
+public class ProductService extends com.a7a7.modeule.upload.UploadService { // FQCN 사용
+    @Autowired
+    ProductDao dao;
+    @Autowired
+    CodeGroupService codeGroupService;
 
-	public int selectOneCount(ProductVo vo) {
-		return dao.selectOneCount(vo);
-	}
-	
-	public List<CodeGroupDto> selectList(ProductVo vo) {
-		return dao.selectList(vo);
-	}
-	public List<CodeGroupDto> selectProductList(ProductListVo vo) {
-		return dao.selectProductList(vo);
-	}
-	
-	public ProductDto selectOne(ProductDto productDto) {
-		return dao.selectOne(productDto);
-	}
-	
-	public int insert(ProductDto dto) throws Exception {
-		dao.insert(dto);
-			uploadFilesToS3(
-    			dto.getUploadImg1()
-    			, dto
-    			, "infrBannerUploaded"
-    			, dto.getUploadImg1Type()
-    			, dto.getUploadImg1MaxNumber()
-    			, dto.getSeq()
-    			, uploadDao
-    			, amazonS3Client);
-    	return 1;
+    @Autowired
+    UploadDao uploadDao;
+    @Autowired
+    AmazonS3Client amazonS3Client;
+
+    public int selectOneCount(ProductVo vo) {
+        return dao.selectOneCount(vo);
     }
-	
-	public int update(ProductDto productDto) {
-		return dao.update(productDto);
-	}
-	
-	public int uelete(ProductDto productDto) {
-		return dao.uelete(productDto);
-	}
-	
-    @Transactional // 재고 변경은 중요한 작업이므로 트랜잭션 관리
-    public int decreaseStock(String productSeq, int quantityToDecrease) throws Exception {
-        System.out.println("### ProductService.decreaseStock - 상품 ID: " + productSeq + ", 감소 수량: " + quantityToDecrease);
 
-        if (productSeq == null || productSeq.trim().isEmpty() || quantityToDecrease <= 0) {
-            throw new IllegalArgumentException("상품 ID 또는 수량이 유효하지 않습니다.");
+    public List<ProductDto> selectList(ProductVo vo) {
+        List<ProductDto> list = dao.selectList(vo);
+        for (ProductDto dto : list) {
+            setBrandNameStringFromCode(dto);
         }
+        return list;
+    }
 
-        // 선택적: 현재 재고 확인 로직 (DAO에 SELECT 쿼리가 있다면)
-        ProductDto productParam = new ProductDto();
-        productParam.setSeq(productSeq);
-        ProductDto currentProduct = dao.selectOne(productParam); // 현재 상품 정보 조회
-
-        if (currentProduct == null) {
-            System.err.println("### ProductService.decreaseStock - 존재하지 않는 상품 ID: " + productSeq);
-            throw new RuntimeException("존재하지 않는 상품입니다. (ID: " + productSeq + ")");
+    public List<ProductDto> selectProductList(ProductVo vo) {
+        List<ProductDto> list = dao.selectProductList(vo);
+        for (ProductDto dto : list) {
+            setBrandNameStringFromCode(dto);
         }
-        if (currentProduct.getStock() == null || currentProduct.getStock() < quantityToDecrease) {
-            System.err.println("### ProductService.decreaseStock - 재고 부족. 상품 ID: " + productSeq + ", 현재 재고: " + currentProduct.getStock() + ", 요청 수량: " + quantityToDecrease);
-            throw new RuntimeException("재고가 부족합니다. (상품: " + currentProduct.getMealKitName() + ")");
+        return list;
+    }
+
+    public ProductDto selectOne(ProductDto productDto) {
+        ProductDto item = dao.selectOne(productDto);
+        if (item != null) {
+            setBrandNameStringFromCode(item);
         }
+        return item;
+    }
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("productSeq", productSeq);
-        params.put("quantityToDecrease", quantityToDecrease);
-        int updatedRows = dao.updateStockDecrease(params);
-
-        if (updatedRows == 0) {
-            // 이 경우는 DAO의 UPDATE 쿼리에 AND stock >= quantity 조건이 있고, 그 조건에 걸렸거나,
-            // productSeq가 DB에 없는 경우 등 (위의 selectOne으로 이미 확인했으므로 후자는 드묾)
-            System.err.println("### ProductService.decreaseStock - 재고 업데이트 실패 (0 rows affected). 상품 ID: " + productSeq + ". 동시성 문제 또는 재고 부족 조건 실패 가능성.");
-            // 여기서 다시 한번 재고를 확인하고 예외를 발생시킬 수 있음
-            ProductDto refreshedProduct = dao.selectOne(productParam);
-            if (refreshedProduct.getStock() < quantityToDecrease) {
-                 throw new RuntimeException("재고가 부족하여 업데이트되지 않았습니다. (상품: " + refreshedProduct.getMealKitName() + ")");
+    @Transactional
+    public int insert(ProductDto dto) throws Exception {
+        int result = dao.insert(dto);
+        MultipartFile[] files = dto.getUploadImg1();
+        if (files != null && files.length > 0) {
+            boolean hasFilesToUpload = false;
+            for (MultipartFile file : files) {
+                if (file != null && !file.isEmpty()) {
+                    hasFilesToUpload = true;
+                    break;
+                }
             }
-            // 다른 이유로 업데이트가 안 된 경우, 심각한 오류일 수 있음
-            throw new RuntimeException("알 수 없는 이유로 재고 업데이트에 실패했습니다. 상품 ID: " + productSeq);
+            if (hasFilesToUpload) {
+                 uploadFilesToS3(files, dto, "productUploaded", dto.getUploadImg1Type(),
+                                 dto.getUploadImg1MaxNumber(), dto.getSeq(), uploadDao, amazonS3Client);
+            }
         }
-        System.out.println("### ProductService.decreaseStock - 재고 감소 성공. 상품 ID: " + productSeq + ", 업데이트된 행 수: " + updatedRows);
-        return updatedRows;
+        return result;
     }
 
-//	public List<ProductDto> filterProducts(int minPrice, int maxPrice, List<Integer> ratings) {
-//	    return dao.filterProducts(minPrice, maxPrice, ratings);
-//	}
-	
-	
-	
+    @Transactional
+    public int update(ProductDto productDto) {
+        // TODO: 파일 관련 로직 (업데이트 시 기존 파일 처리 등)
+        return dao.update(productDto);
+    }
+
+    @Transactional
+    public int uelete(ProductDto productDto) {
+        // TODO: 관련 파일 삭제 로직 (논리적 또는 물리적)
+        return dao.uelete(productDto);
+    }
+
+    @Transactional
+    public int updateStockDecrease(Map<String, Object> params) {
+         ProductDto productParam = new ProductDto();
+         productParam.setSeq((String)params.get("productSeq"));
+         ProductDto currentProduct = dao.selectOne(productParam);
+
+         if (currentProduct == null) {
+             throw new RuntimeException("존재하지 않는 상품입니다. (ID: " + params.get("productSeq") + ")");
+         }
+         Integer quantityToDecrease = (Integer) params.get("quantityToDecrease");
+         if (currentProduct.getStock() == null || currentProduct.getStock() < quantityToDecrease) {
+             throw new RuntimeException("재고가 부족합니다. (상품: " + currentProduct.getMealKitName() + ")");
+         }
+         int updatedRows = dao.updateStockDecrease(params);
+         if (updatedRows == 0) {
+              ProductDto refreshedProduct = dao.selectOne(productParam);
+             if (refreshedProduct.getStock() < quantityToDecrease) { // refreshedProduct null 체크 추가
+                  throw new RuntimeException("재고가 부족하여 업데이트되지 않았습니다. (상품: " + (refreshedProduct != null ? refreshedProduct.getMealKitName() : "알수없음") + ")");
+             }
+             throw new RuntimeException("알 수 없는 이유로 재고 업데이트에 실패했습니다. 상품 ID: " + params.get("productSeq"));
+         }
+         return updatedRows;
+    }
+
+    public List<ProductDto> selectFilteredProductList(ProductVo vo) {
+        List<ProductDto> list = dao.selectFilteredProductList(vo);
+        for (ProductDto dto : list) {
+            setBrandNameStringFromCode(dto);
+        }
+        return list;
+    }
+
+    public int selectFilteredProductListCount(ProductVo vo) {
+        return dao.selectFilteredProductListCount(vo);
+    }
+
+    // 브랜드 코드에 해당하는 이름을 설정하는 헬퍼 메서드 (이 메서드 하나만 남깁니다)
+    private void setBrandNameStringFromCode(ProductDto dto) {
+        if (dto != null && dto.getBrandName() != 0) {
+            try {
+                // CodeGroupService의 getCodeName 메서드 호출 (파라미터 타입 및 순서 확인)
+                String brandNameFromService = codeGroupService.getCodeName("3", String.valueOf(dto.getBrandName()));
+
+                if (brandNameFromService != null && !brandNameFromService.isEmpty()) {
+                    dto.setBrandNameAsString(brandNameFromService);
+                } else {
+                    dto.setBrandNameAsString("브랜드(" + dto.getBrandName() + ")"); // 코드를 찾지 못한 경우
+                }
+            } catch (Exception e) {
+                System.err.println("브랜드 이름 조회 중 오류 발생 - 브랜드 코드: " + dto.getBrandName() + ", 오류: " + e.getMessage());
+                dto.setBrandNameAsString("정보 조회 오류"); // 오류 발생 시
+            }
+        } else if (dto != null) {
+            dto.setBrandNameAsString("브랜드 미지정"); // brandName 코드가 0이거나 없는 경우
+        }
+    }
+    
+    public List<UploadDto> selectListUpload(UploadDto vo) {
+        return uploadDao.selectListUpload(vo);
+    }
 }
