@@ -58,13 +58,18 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value = "/xdm/signin/signinXdmProc")
 	public Map<String, Object> signinXdmProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
-		Map<String, Object> returnMap = new HashMap<String, Object>();
-		
+		Map<String, Object> returnMap = new HashMap<>();
+
 		MemberDto reMember = memberService.selectOneLogin(memberDto);
-		
-		if(reMember != null)	{
+
+		if (reMember != null) {
+			// admSignin 값 확인 (예: 0이면 접근 차단)
+			if ("0".equals(reMember.getAdmSignin())) {
+				returnMap.put("rt", "fail");
+				return returnMap;
+			}
+
 			returnMap.put("rt", "success");
-			
 			httpSession.setAttribute("sessSeqXdm", reMember.getSeq());
 			httpSession.setAttribute("sessIdXdm", reMember.getiD());
 			httpSession.setAttribute("sessPassWordXdm", reMember.getPassWord());
@@ -72,9 +77,7 @@ public class MemberController {
 		} else {
 			returnMap.put("rt", "fail");
 		}
-	    	
-		
-	    
+
 		return returnMap;
 	}
 	
