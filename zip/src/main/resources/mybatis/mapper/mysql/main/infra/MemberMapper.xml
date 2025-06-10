@@ -84,7 +84,9 @@
 			roadNameAddress,
 			Address,
 			detailedAddress,
-			zipCode
+			zipCode,
+			longitude,
+			latitude
 		FROM
 			userUi
 		WHERE 1=1
@@ -152,7 +154,13 @@
 			mobileCarrier,
 			phoneNumber,
 			admSignin,
-			regDateTime
+			regDateTime,
+			roadNameAddress,
+			Address,
+			detailedAddress,
+			zipCode,
+			longitude,
+			latitude
 		) values (
 			#{seq},
 			#{name},
@@ -165,6 +173,12 @@
 			#{mobileCarrier},
 			#{phoneNumber},
 			#{admSignin},
+			#{roadNameAddress},
+			#{Address},
+			#{detailedAddress},
+			#{zipCode},
+			#{longitude},
+			#{latitude},
 			now()
 		)
 	</insert>
@@ -180,6 +194,12 @@
 			delNy = #{delNy},
 			mobileCarrier = #{mobileCarrier},
 			phoneNumber = #{phoneNumber},
+			roadNameAddress = #{roadNameAddress},
+			Address = #{Address},
+			detailedAddress = #{detailedAddress},
+			zipCode = #{zipCode},
+			longitude = #{longitude},
+			latitude = #{latitude},
 			modDateTime = now()
 		WHERE seq = #{seq}
 	</update>
