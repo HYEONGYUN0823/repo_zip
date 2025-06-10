@@ -1,6 +1,5 @@
 package com.a7a7.modeule.code;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -8,7 +7,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
@@ -25,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.a7a7.common.util.UtilDateTime;
 import com.a7a7.modeule.codegroup.CodeGroupService;
-import com.a7a7.modeule.codegroup.CodeGroupVo;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -68,7 +65,7 @@ public class CodeController {
 	
 	
 	@RequestMapping(value = "/xdm/code/CodeXdmForm")
-	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, CodeGroupVo gvo, CodeDto codeDto, Model model) throws Exception{
+	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo,  CodeDto codeDto, Model model) throws Exception{
 		System.out.println(codeService.selectTwo(codeDto));
 		
 		model.addAttribute("listCodeGroup", codeGroupService.selectListWithoutPaging()); 
