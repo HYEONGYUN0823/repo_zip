@@ -119,9 +119,25 @@
                                     <h2 class="fs-6 mb-0">
                                         <a th:href="@{/usr/product/ProductUsrView(seq=*{seq})}" class="text-inherit text-decoration-none product-title-clamp" th:title="*{mealKitName}" th:text="*{mealKitName}">상품명</a>
                                     </h2>
-                                    <div class="mt-1">
-                                        <small class="text-warning render-stars-main" th:attr="data-rating=*{score ?: 0.0}"></small>
-                                        <span class="text-muted small ms-1" th:text="'(' + (*{reviewCount != null ? reviewCount : 0}) + ')'"></span>
+									<div class="mt-1 rating-text-group">
+                                        <small class="text-warning render-stars-main" th:attr="data-rating=*{score != null ? score : 0.0}"></small>
+                                        <span class="text-muted small ms-1">
+                                            <!-- 평점 텍스트 -->
+                                            <span th:text="*{score != null ? #numbers.formatDecimal(score, 1, 1, 'POINT') : '0.0'}">0.0</span>
+                                            <!-- 구분자 -->
+                                            <span th:if="*{reviewCount != null and reviewCount > 0}"></span>
+                                            <!-- 리뷰 개수 (리뷰가 있을 때만 "리뷰 N건" 표시) -->
+                                            <span th:if="*{reviewCount != null and reviewCount > 0}">
+                                             (<span th:text="*{reviewCount}">0</span>)
+                                            </span>
+                                            <!-- 리뷰가 없을 경우 (선택적 메시지) -->
+                                            <span th:if="*{reviewCount == null or reviewCount == 0} and *{score != null and score > 0.0}">
+                                                (0)
+                                            </span>
+                                            <span th:if="*{reviewCount == null or reviewCount == 0} and (*{score == null or score == 0.0})">
+                                                (0)
+                                            </span>
+                                        </span>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center mt-3">
                                         <div><span class="text-dark fw-bold" th:text="*{price != null ? #numbers.formatInteger(price, 0, 'COMMA') + '원' : '가격정보없음'}"></span></div>

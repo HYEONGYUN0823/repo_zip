@@ -2,26 +2,19 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{usr/include/head :: head}">
+    <!-- 페이지별 스타일은 여기에 추가하거나 head 프래그먼트에 포함 -->
     <style>
-        .star-rating .star {
-            cursor: pointer;
-            font-size: 1.5rem;
-            margin-right: 5px;
-        }
-        .star-rating .star.text-warning {
-            color: #ffc107 !important;
-        }
-        .star-rating .star.text-muted {
-            color: #6c757d !important;
-        }
-        .progress {
-            background-color: #e9ecef;
-        }
+        .star-rating .star { cursor: pointer; font-size: 1.5rem; margin-right: 5px; }
+        .star-rating .star.text-warning { color: #ffc107 !important; }
+        .star-rating .star.text-muted { color: #6c757d !important; }
+        .progress { background-color: #e9ecef; }
     </style>
 </head>
 
 <body>
-    <script src="/user/template/user_ui/assets/js/vendors/validation.js"></script>
+    <!-- validation.js는 보통 body 최하단 또는 head에 위치 -->
+    <!-- <script src="/user/template/user_ui/assets/js/vendors/validation.js"></script> -->
+
     <!-- 오프캔버스 장바구니 -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header border-bottom">
@@ -30,6 +23,7 @@
         </div>
         <div class="offcanvas-body">
             <div>
+                <!-- <div class="alert alert-danger p-2" role="alert">무료 배송까지 <span id="offcanvasFreeShippingThreshold">XX,XXX</span>원!</div> -->
                 <ul class="list-group list-group-flush" id="offcanvasCartItemsContainer"><li class="list-group-item text-center text-muted small py-4">로딩 중...</li></ul>
                 <div class="d-flex justify-content-between fw-bold mt-4" id="offcanvasSubtotalSection" style="display: none;">
                     <span>소계:</span><span id="offcanvasSubtotalValue">0원</span>
@@ -44,75 +38,35 @@
 
     <!-- 장바구니 추가 확인 모달 -->
     <div class="modal fade" id="addToCartConfirmModal" tabindex="-1" aria-labelledby="addToCartConfirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addToCartConfirmModalLabel">장바구니 추가 완료</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    상품이 장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?
-                </div>
-                <div class="modal-footer">
-                    <a href="/usr/cart/CartUsrList" class="btn btn-primary">장바구니로 이동</a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">계속 쇼핑하기</button>
-                </div>
+        <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="addToCartConfirmModalLabel">장바구니 추가 완료</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body">상품이 장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?</div>
+            <div class="modal-footer">
+                <a href="/usr/cart/CartUsrList" class="btn btn-primary">장바구니로 이동</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">계속 쇼핑하기</button>
             </div>
-        </div>
+        </div></div>
     </div>
 
-    <!-- 리뷰 등록 결과 모달 -->
-    <div class="modal fade" id="reviewSubmitResultModal" tabindex="-1" aria-labelledby="reviewSubmitResultModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="reviewSubmitResultModalLabel">알림</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="reviewSubmitResultModalBody">
-                    <!-- JavaScript에 의해 내용이 채워짐 -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
-                </div>
-            </div>
-        </div>
+    <!-- 리뷰 관련 및 공통 액션 모달 -->
+    <div class="modal fade" id="commonActionModal" tabindex="-1" aria-labelledby="commonActionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="commonActionModalLabel">알림</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body" id="commonActionModalBody"></div>
+            <div class="modal-footer" id="commonActionModalFooter"></div>
+        </div></div>
     </div>
-
-    <!-- 리뷰 삭제 확인 모달 -->
-    <div class="modal fade" id="reviewDeleteConfirmModal" tabindex="-1" aria-labelledby="reviewDeleteConfirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="reviewDeleteConfirmModalLabel">리뷰 삭제 확인</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="reviewDeleteConfirmModalBody">
-                    이 리뷰를 정말 삭제하시겠습니까? 삭제 후에는 복구할 수 없습니다.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteReviewButton">삭제</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <main>
-        <form name="formList" id="formList" method="post" autocomplete="off" novalidate> <!-- novalidate 속성 추가 -->
+        <form name="formList" id="formList" method="post" autocomplete="off" novalidate>
             <input type="hidden" name="vo_seq" th:value="${vo != null ? vo.seq : ''}">
-            <div class="mt-4">
-                <div class="container">
-                    <div class="row"><div class="col-12"><nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
-                            <li class="breadcrumb-item"><a href="/usr/product/ProductUsrList">밀키트</a></li>
-                            <li class="breadcrumb-item active" aria-current="page" th:text="${item.mealKitName}">상품명</li>
-                        </ol>
-                    </nav></div></div>
-                </div>
-            </div>
+            <div class="mt-4"><div class="container"><div class="row"><div class="col-12"><nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/usr/index/Index">홈</a></li>
+                    <li class="breadcrumb-item"><a href="/usr/product/ProductUsrList">밀키트</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" th:text="${item.mealKitName}">상품명</li>
+                </ol>
+            </nav></div></div></div></div>
             <section class="mt-8">
                 <div class="container">
                     <div class="row align-items-start">
@@ -168,12 +122,12 @@
                                         </div>
                                         <th:block th:if="${item.stock != null and item.stock > 0}">
                                             <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
-                                                <input type="hidden" name="seq" id="formSeqForBuyNow" th:value="${item.seq}" />
-                                                <input type="hidden" name="totalPrice" id="formTotalPriceForBuyNow" th:value="${item.price}" />
-                                                <button id="buyNowButton" class="btn btn-primary" type="button">바로 구매</button>
+                                                <button id="addToCartButton" class="btn btn-primary" type="button">장바구니 담기</button>
                                             </div>
                                             <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
-                                                <button id="addToCartButton" class="btn btn-dark" type="button">장바구니 담기</button>
+                                                <input type="hidden" name="seq" id="formSeqForBuyNow" th:value="${item.seq}" />
+                                                <input type="hidden" name="totalPrice" id="formTotalPriceForBuyNow" th:value="${item.price}" />
+                                                <button id="buyNowButton" class="btn btn-dark" type="button">바로 구매</button>
                                             </div>
                                         </th:block>
                                     </div>
@@ -184,423 +138,291 @@
                 </div>
             </section>
 
-            <section class="mt-lg-14 mt-8">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <ul class="nav nav-pills nav-lb-tab" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product-tab-pane" type="button" role="tab" aria-controls="product-tab-pane" aria-selected="true">조리순서</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details-tab-pane" type="button" role="tab" aria-controls="details-tab-pane" aria-selected="false">재료</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="reviews-tab-button" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane" type="button" role="tab" aria-controls="reviews-tab-pane" aria-selected="false">리뷰</button>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="product-tab-pane" role="tabpanel" aria-labelledby="product-tab" tabindex="0">
-                                    <div class="my-8">
-                                        <div class="mb-5"><h5 class="mb-1">1. 당근과 대파 준비</h5><p class="mb-0">당근은 작은 크기로 다지고 대파는 송송 썰어 준비한다.</p></div>
-                                        <div class="mb-5"><h5 class="mb-1">2. 팬에 파 볶아내기</h5><p class="mb-0">달군 팬에 식용유를 넣고 송송 썬 파를 넣어 볶아 향을 낸다.</p></div>
-                                        <div class="mb-5"><h5 class="mb-1">3. 당근을 넣고 달걀 3개 준비</h5><p class="mb-0">파를 한쪽으로 밀어내고 당근을 올린다. 밀어 낸 공간에 달걀 3개를 깨트려 넣는다.</p></div>
-                                        <div class="mb-5"><h5 class="mb-1">4. 스크램블로 만들기</h5><p class="mb-0">계란은 주걱으로 빠르게 저어가며 스크램블을 만든다.</p></div>
-                                        <div class="mb-5"><h5 class="mb-1">5. 스크램블과 야채 섞기</h5><p class="mb-0">스크램블이 만들어지면 미리 볶아둔 야채와 고루 섞어준다.</p></div>
-                                        <div class="mb-5"><h5 class="mb-1">6. 간장을 태워 재료와 섞기</h5><p class="mb-0">내용물을 한쪽으로 밀어둔 뒤 간장을 부어 넣고 끓인 뒤 재료와 함께 고루 섞는다.</p></div>
-                                        <div class="mb-5"><h5 class="mb-1">7. 맛보고 간하기</h5><p class="mb-0">밥을 넣고 주걱으로 으깨어 가며 볶고 모자란 간은 소금, 후추로 더한다.</p></div>
-                                        <div class="mb-5"><h5 class="mb-1">8. 참기름으로 향을 더하기</h5><p class="mb-0">참기름을 넣고 섞어 마무리 한다.</p></div>
-                                        <div class="mb-5"><h5 class="mb-1">9. 완성된 밥에 깨 넣기</h5><p class="mb-0">접시에 볶아진 밥을 담고 통깨를 솔솔 뿌려 마무리 한다.</p></div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
-                                    <div class="my-8"><div class="row">
-                                        <div class="col-12"><h4 class="mb-4">필수 재료</h4></div>
-                                        <div class="col-12 col-lg-6"><table class="table table-striped"><tbody><tr><th>밥</th><td>1.5공기</td></tr><tr><th>송송 썬 파(200ml)</th><td>1컵</td></tr><tr><th>다진 당근</th><td>1소주컵</td></tr><tr><th>달걀</th><td>3개</td></tr></tbody></table></div>
-                                        <div class="col-12 col-lg-6"><table class="table table-striped"><tbody><tr><th>간장</th><td>1/3소주컵</td></tr><tr><th>식용유</th><td>1/3소주컵</td></tr><tr><th>참기름</th><td>1/2TS</td></tr><tr><th>통깨</th><td>조금</td></tr><tr><th>소금</th><td>약간</td></tr><tr><th>후추</th><td>약간</td></tr></tbody></table></div>
-                                    </div></div>
-                                </div>
-                                <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel" aria-labelledby="reviews-tab-button" tabindex="0">
-                                    <div class="my-8">
-                                        <div class="row">
-                                            <!-- 왼쪽: 리뷰 통계 (col-md-4) -->
-                                            <div class="col-md-4">
-                                                <div class="me-lg-12 mb-6 mb-md-0">
-                                                    <div class="mb-5">
-                                                        <h4 class="mb-3">고객 리뷰</h4>
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="fs-3 fw-bold text-dark me-2" id="averageRatingDisplay">0.0</span>
-                                                            <small class="text-warning">
-                                                                <span id="starRatingStatsDisplay"></span>
-                                                            </small>
-                                                            <span class="ms-2 text-muted">(<span id="reviewCountStatsDisplay">0</span>건의 평가)</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-8" id="ratingDistribution">
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <div class="text-nowrap me-3 text-muted"><span class="d-inline-block align-middle text-muted">5</span><i class="bi bi-star-fill ms-1 small text-warning"></i></div>
-                                                            <div class="w-100"><div class="progress" style="height: 6px;"><div class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="ratingBar5"></div></div></div>
-                                                            <span class="text-muted ms-3" id="ratingPercent5">0%</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <div class="text-nowrap me-3 text-muted"><span class="d-inline-block align-middle text-muted">4</span><i class="bi bi-star-fill ms-1 small text-warning"></i></div>
-                                                            <div class="w-100"><div class="progress" style="height: 6px;"><div class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="ratingBar4"></div></div></div>
-                                                            <span class="text-muted ms-3" id="ratingPercent4">0%</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <div class="text-nowrap me-3 text-muted"><span class="d-inline-block align-middle text-muted">3</span><i class="bi bi-star-fill ms-1 small text-warning"></i></div>
-                                                            <div class="w-100"><div class="progress" style="height: 6px;"><div class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="ratingBar3"></div></div></div>
-                                                            <span class="text-muted ms-3" id="ratingPercent3">0%</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <div class="text-nowrap me-3 text-muted"><span class="d-inline-block align-middle text-muted">2</span><i class="bi bi-star-fill ms-1 small text-warning"></i></div>
-                                                            <div class="w-100"><div class="progress" style="height: 6px;"><div class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="ratingBar2"></div></div></div>
-                                                            <span class="text-muted ms-3" id="ratingPercent2">0%</span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <div class="text-nowrap me-3 text-muted"><span class="d-inline-block align-middle text-muted">1</span><i class="bi bi-star-fill ms-1 small text-warning"></i></div>
-                                                            <div class="w-100"><div class="progress" style="height: 6px;"><div class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="ratingBar1"></div></div></div>
-                                                            <span class="text-muted ms-3" id="ratingPercent1">0%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-grid" th:if="${session.sessSeqUsr == null}">
-                                                        <a href="/usr/signin/signinUsr" class="btn btn-outline-gray-400 mt-4 text-muted">리뷰를 작성하려면 로그인하세요.</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- 오른쪽: 리뷰 목록 및 작성 (col-md-8) -->
-                                            <div class="col-md-8">
-                                                <div th:if="${session.sessSeqUsr != null}" class="mb-10" id="reviewFormContainer">
-                                                    <h3 class="mb-5">리뷰 작성</h3>
-                                                    <input type="hidden" name="mealKit_seq_review" th:value="${item.seq}">
-                                                    <input type="hidden" name="rating_review" id="ratingInput" value="5">
-
-                                                    <div class="border-bottom py-4 mb-4">
-                                                        <h4 class="mb-3">전체 평가</h4>
-                                                        <div class="star-rating" id="reviewStarRatingContainer">
-                                                            <i class="bi bi-star-fill star text-warning" data-value="1"></i>
-                                                            <i class="bi bi-star-fill star text-warning" data-value="2"></i>
-                                                            <i class="bi bi-star-fill star text-warning" data-value="3"></i>
-                                                            <i class="bi bi-star-fill star text-warning" data-value="4"></i>
-                                                            <i class="bi bi-star-fill star text-warning" data-value="5"></i>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="border-bottom py-4 mb-4">
-                                                        <h5>제목</h5>
-                                                        <input type="text" id="reviewTitleInput" name="reviewTitle_review" class="form-control" placeholder="오늘도 한끼 식사 해결!" maxlength="100"> <!-- required 제거 -->
-                                                    </div>
-
-                                                    <div class="py-4 mb-4">
-                                                        <h5>작성된 리뷰를 추가하세요</h5>
-                                                        <textarea id="reviewContentInput" name="reviewContent_review" class="form-control" rows="3" placeholder="어떤점이 괜찮았나요? 이 제품에 대해 알려주세요!" maxlength="1000"></textarea> <!-- required 제거 -->
-                                                    </div>
-                                                    <div class="d-flex justify-content-end">
-                                                        <button type="button" id="submitReviewButton" class="btn btn-primary">리뷰 제출</button>
-                                                    </div>
-                                                </div>
-                                                <div th:unless="${session.sessSeqUsr != null}" class="alert alert-info">
-                                                    리뷰를 작성하려면 <a href="/usr/signin/signinUsr" class="alert-link">로그인</a>이 필요합니다.
-                                                </div>
-
-                                                <div class="mb-10">
-                                                    <div class="d-flex justify-content-between align-items-center mb-8">
-                                                        <div><h4>리뷰</h4></div>
-                                                        <div>
-                                                            <select class="form-select" id="reviewSortSelect">
-                                                                <option value="latest" selected>최근 리뷰</option>
-                                                                <option value="highest_rating">높은 별점순</option>
-                                                                <option value="lowest_rating">낮은 별점순</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div id="reviewList">
-                                                        <div class="text-muted text-center" id="noReviews">리뷰가 없습니다.</div>
-                                                        <!-- 동적 리뷰 아이템이 여기에 삽입됨 -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            <section class="mt-lg-14 mt-8"> <!-- 탭 UI 및 내용 -->
+                <div class="container"><div class="row"><div class="col-md-12">
+                    <ul class="nav nav-pills nav-lb-tab" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation"><button class="nav-link active" id="product-tab-btn" data-bs-toggle="tab" data-bs-target="#product-tab-pane" type="button" role="tab" aria-controls="product-tab-pane" aria-selected="true">조리순서</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link" id="details-tab-btn" data-bs-toggle="tab" data-bs-target="#details-tab-pane" type="button" role="tab" aria-controls="details-tab-pane" aria-selected="false">재료</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link" id="reviews-tab-btn" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane" type="button" role="tab" aria-controls="reviews-tab-pane" aria-selected="false">리뷰</button></li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="product-tab-pane" role="tabpanel" aria-labelledby="product-tab-btn" tabindex="0">
+                            <div class="my-8">
+                                <div class="mb-5"><h5 class="mb-1">1. 당근과 대파 준비</h5><p class="mb-0">당근은 작은 크기로 다지고 대파는 송송 썰어 준비한다.</p></div>
+                                <div class="mb-5"><h5 class="mb-1">2. 팬에 파 볶아내기</h5><p class="mb-0">달군 팬에 식용유를 넣고 송송 썬 파를 넣어 볶아 향을 낸다.</p></div>
+                                <div class="mb-5"><h5 class="mb-1">3. 당근을 넣고 달걀 3개 준비</h5><p class="mb-0">파를 한쪽으로 밀어내고 당근을 올린다. 밀어 낸 공간에 달걀 3개를 깨트려 넣는다.</p></div>
+                                <div class="mb-5"><h5 class="mb-1">4. 스크램블로 만들기</h5><p class="mb-0">계란은 주걱으로 빠르게 저어가며 스크램블을 만든다.</p></div>
+                                <div class="mb-5"><h5 class="mb-1">5. 스크램블과 야채 섞기</h5><p class="mb-0">스크램블이 만들어지면 미리 볶아둔 야채와 고루 섞어준다.</p></div>
+                                <div class="mb-5"><h5 class="mb-1">6. 간장을 태워 재료와 섞기</h5><p class="mb-0">내용물을 한쪽으로 밀어둔 뒤 간장을 부어 넣고 끓인 뒤 재료와 함께 고루 섞는다.</p></div>
+                                <div class="mb-5"><h5 class="mb-1">7. 맛보고 간하기</h5><p class="mb-0">밥을 넣고 주걱으로 으깨어 가며 볶고 모자란 간은 소금, 후추로 더한다.</p></div>
+                                <div class="mb-5"><h5 class="mb-1">8. 참기름으로 향을 더하기</h5><p class="mb-0">참기름을 넣고 섞어 마무리 한다.</p></div>
+                                <div class="mb-5"><h5 class="mb-1">9. 완성된 밥에 깨 넣기</h5><p class="mb-0">접시에 볶아진 밥을 담고 통깨를 솔솔 뿌려 마무리 한다.</p></div>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab-btn" tabindex="0">
+                            <div class="my-8"><div class="row">
+                                <div class="col-12"><h4 class="mb-4">필수 재료</h4></div>
+                                <div class="col-12 col-lg-6"><table class="table table-striped"><tbody><tr><th>밥</th><td>1.5공기</td></tr><tr><th>송송 썬 파(200ml)</th><td>1컵</td></tr><tr><th>다진 당근</th><td>1소주컵</td></tr><tr><th>달걀</th><td>3개</td></tr></tbody></table></div>
+                                <div class="col-12 col-lg-6"><table class="table table-striped"><tbody><tr><th>간장</th><td>1/3소주컵</td></tr><tr><th>식용유</th><td>1/3소주컵</td></tr><tr><th>참기름</th><td>1/2TS</td></tr><tr><th>통깨</th><td>조금</td></tr><tr><th>소금</th><td>약간</td></tr><tr><th>후추</th><td>약간</td></tr></tbody></table></div>
+                            </div></div>
+                        </div>
+                        <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel" aria-labelledby="reviews-tab-btn" tabindex="0">
+                            <div class="my-8"><div class="row">
+                                <div class="col-md-4"> <!-- 리뷰 통계 -->
+                                    <div class="me-lg-12 mb-6 mb-md-0"><div class="mb-5">
+                                        <h4 class="mb-3">고객 리뷰</h4>
+                                        <div class="d-flex align-items-center">
+                                            <span class="fs-3 fw-bold text-dark me-2" id="averageRatingDisplay">0.0</span>
+                                            <small class="text-warning" id="starRatingStatsDisplay"></small>
+                                            <span class="ms-2 text-muted">(<span id="reviewCountStatsDisplay">0</span>건의 평가)</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-8" id="ratingDistribution"> <!-- ... (별점 분포 UI) ... --> </div>
+                                    <div class="d-grid" th:if="${session.sessSeqUsr == null}"><a href="/usr/signin/signinUsr" class="btn btn-outline-gray-400 mt-4 text-muted">리뷰를 작성하려면 로그인하세요.</a></div>
+                                </div></div>
+                                <div class="col-md-8"> <!-- 리뷰 목록 및 작성 폼 -->
+                                    <div th:if="${session.sessSeqUsr != null}" class="mb-10" id="reviewFormContainer">
+                                        <h3 class="mb-5">리뷰 작성</h3>
+                                        <input type="hidden" name="mealKit_seq_review" id="reviewMealKitSeq" th:value="${item.seq}">
+                                        <input type="hidden" name="rating_review" id="ratingInput" value="5">
+                                        <div class="border-bottom py-4 mb-4"><h4 class="mb-3">전체 평가</h4>
+                                            <div class="star-rating" id="reviewStarRatingContainer">
+                                                <i class="bi bi-star-fill star text-warning" data-value="1"></i><i class="bi bi-star-fill star text-warning" data-value="2"></i><i class="bi bi-star-fill star text-warning" data-value="3"></i><i class="bi bi-star-fill star text-warning" data-value="4"></i><i class="bi bi-star-fill star text-warning" data-value="5"></i>
+                                            </div>
+                                        </div>
+                                        <div class="border-bottom py-4 mb-4"><h5>제목</h5><input type="text" id="reviewTitleInput" name="reviewTitle_review" class="form-control" placeholder="제목을 입력하세요" maxlength="100"></div>
+                                        <div class="py-4 mb-4"><h5>내용</h5><textarea id="reviewContentInput" name="reviewContent_review" class="form-control" rows="3" placeholder="리뷰 내용을 작성해주세요." maxlength="1000"></textarea></div>
+                                        <div class="d-flex justify-content-end"><button type="button" id="submitReviewButton" class="btn btn-primary">리뷰 제출</button></div>
+                                    </div>
+                                    <div th:unless="${session.sessSeqUsr != null}" class="alert alert-info">리뷰를 작성하려면 <a href="/usr/signin/signinUsr" class="alert-link">로그인</a>이 필요합니다.</div>
+                                    <div class="mb-10"><div class="d-flex justify-content-between align-items-center mb-8">
+                                        <div><h4>다른 고객님들의 리뷰</h4></div>
+                                        <div><select class="form-select form-select-sm" id="reviewSortSelect"><option value="latest" selected>최신순</option><option value="highest_rating">높은 별점순</option><option value="lowest_rating">낮은 별점순</option></select></div>
+                                    </div><div id="reviewListContainer"><div class="text-muted text-center py-3" id="noReviewsMessage">리뷰가 없습니다.</div></div></div>
+                                </div>
+                            </div></div>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </div></div></div>
+			</section>
+			<section class="my-lg-14 my-14"> <!-- ... (관련 상품) ... --> </section>
+        </form>
+	</main>
+		
+	<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+    // 세션에서 현재 로그인한 사용자 ID 가져오기 (JavaScript에서 사용)
+    const currentLoggedInUserSeq = /*[[${session.sessSeqUsr}]]*/ null;
 
-            <section class="my-lg-14 my-14">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12"><h3>관련 항목</h3></div>
-                    </div>
-                    <div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2">
-                        <!-- 관련 상품 카드 예시 -->
-                    </div>
-                </div>
-            </section>
-        </form> <!-- id="formList"의 끝 -->
-    </main>
-
-    <script type="text/javascript" th:inline="javascript">
-    /* <![CDATA[ */
-    // 전역 zoom 함수
-    function zoom(e) {
-        const zoomer = e.currentTarget;
-        const rect = zoomer.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / zoomer.offsetWidth * 100;
-        const y = (e.clientY - rect.top) / zoomer.offsetHeight * 100;
-        zoomer.style.backgroundPosition = x + '% ' + y + '%';
-        zoomer.style.backgroundSize = '200%';
-    }
+	// 전역 zoom 함수
+	function zoom(e) {
+	  const zoomer = e.currentTarget;
+	  const rect = zoomer.getBoundingClientRect();
+	  const x = (e.clientX - rect.left) / zoomer.offsetWidth * 100;
+	  const y = (e.clientY - rect.top) / zoomer.offsetHeight * 100;
+	  zoomer.style.backgroundPosition = x + '% ' + y + '%';
+	  zoomer.style.backgroundSize = '200%';
+	}
     const zoomDivGlobal = document.querySelector('.zoom');
-    if (zoomDivGlobal) {
+    if(zoomDivGlobal){
         zoomDivGlobal.onmouseleave = function() {
             this.style.backgroundPosition = 'center';
             this.style.backgroundSize = 'cover';
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log("ProductUsrView.html DOMContentLoaded - Script Start");
-        const commonAjaxHeaders = { 'Content-Type': 'application/x-www-form-urlencoded' };
+	document.addEventListener('DOMContentLoaded', function() {
+	    console.log("ProductUsrView.html DOMContentLoaded - Script Start v6 (Modal, Login Check)");
 
-        const stockDisplay = document.getElementById('stockDisplay');
-        const currentStock = stockDisplay ? parseInt(stockDisplay.getAttribute('data-stock')) : 0;
-        const quantitySpinner = document.getElementById('quantitySpinner');
-        const addToCartButton = document.getElementById('addToCartButton');
-        const buyNowButton = document.getElementById('buyNowButton');
-        const quantityInput = document.getElementById('quantity');
-        const productDetailPriceElement = document.querySelector('#quantityAndPriceSection .total-price span');
-        const unitPrice = quantityInput ? parseInt(quantityInput.getAttribute('data-price')) : 0;
-        const productDetailSeqElement = document.getElementById('productDetailSeq');
-        const formTotalPriceForBuyNow = document.getElementById('formTotalPriceForBuyNow');
+	    const csrfTokenMeta = document.querySelector('meta[name="_csrf"]');
+	    const csrfHeaderMeta = document.querySelector('meta[name="_csrf_header"]');
+	    const commonAjaxHeaders = { 'Content-Type': 'application/x-www-form-urlencoded' };
+	    if (csrfTokenMeta && csrfHeaderMeta && csrfTokenMeta.content && csrfHeaderMeta.content) {
+	        commonAjaxHeaders[csrfHeaderMeta.content] = csrfTokenMeta.content;
+	    } else { console.warn("CSRF meta tags not found for ProductUsrView."); }
+
+	    // --- 모달 인스턴스 생성 ---
+	    const commonModalElement = document.getElementById('commonActionModal');
+	    let commonModalInstance = commonModalElement ? new bootstrap.Modal(commonModalElement) : null;
+	    const commonModalLabel = document.getElementById('commonActionModalLabel');
+	    const commonModalBody = document.getElementById('commonActionModalBody');
+	    const commonModalFooter = document.getElementById('commonActionModalFooter');
 
         const addToCartModalElement = document.getElementById('addToCartConfirmModal');
         const addToCartModal = addToCartModalElement ? new bootstrap.Modal(addToCartModalElement) : null;
 
         const reviewSubmitResultModalElement = document.getElementById('reviewSubmitResultModal');
-        const reviewSubmitResultModal = reviewSubmitResultModalElement ? new bootstrap.Modal(reviewSubmitResultModalElement) : null;
+        let reviewSubmitResultModal = reviewSubmitResultModalElement ? new bootstrap.Modal(reviewSubmitResultModalElement) : null;
         const reviewSubmitResultModalLabel = document.getElementById('reviewSubmitResultModalLabel');
         const reviewSubmitResultModalBody = document.getElementById('reviewSubmitResultModalBody');
-
+        
         const reviewDeleteConfirmModalElement = document.getElementById('reviewDeleteConfirmModal');
-        const reviewDeleteConfirmModal = reviewDeleteConfirmModalElement ? new bootstrap.Modal(reviewDeleteConfirmModalElement) : null;
+        let reviewDeleteConfirmModal = reviewDeleteConfirmModalElement ? new bootstrap.Modal(reviewDeleteConfirmModalElement) : null;
         const confirmDeleteReviewButton = document.getElementById('confirmDeleteReviewButton');
         let reviewSeqToDelete = null;
 
-        if (!reviewSubmitResultModal) console.warn("reviewSubmitResultModal not found, will use alert fallback for review submission.");
-        if (!reviewDeleteConfirmModal || !confirmDeleteReviewButton) console.warn("reviewDeleteConfirmModal or its confirm button not found, will use confirm() fallback for review deletion.");
+        if (!commonModalInstance) console.error("ID 'commonActionModal' 요소를 찾지 못했습니다. 공통 모달이 작동하지 않습니다.");
+        if (!addToCartModal) console.warn("ID 'addToCartConfirmModal' 요소를 찾지 못했습니다. 장바구니 추가 확인 모달이 작동하지 않을 수 있습니다.");
+        if (!reviewSubmitResultModal) console.warn("ID 'reviewSubmitResultModal' 요소를 찾지 못했습니다. 리뷰 제출 결과 모달이 작동하지 않을 수 있습니다.");
+        if (!reviewDeleteConfirmModal || !confirmDeleteReviewButton) console.warn("ID 'reviewDeleteConfirmModal' 또는 'confirmDeleteReviewButton' 요소를 찾지 못했습니다. 리뷰 삭제 확인 모달이 작동하지 않을 수 있습니다.");
 
+	    function showCommonModal(title, message, buttons = []) {
+            if (!commonModalInstance || !commonModalLabel || !commonModalBody || !commonModalFooter) {
+                console.warn("Common Modal elements missing, using fallback alert/confirm.");
+                let confirmResult = true;
+                if (buttons.some(b => b.text && (b.text.includes('취소') || b.text.includes('아니요')) )) { // 취소 계열 버튼이 있으면 confirm으로
+                    confirmResult = confirm(message);
+                } else {
+                    alert(message);
+                }
 
-        const averageRatingDisplay = document.getElementById('averageRatingDisplay');
-        const productStarRating = document.getElementById('productStarRating');
-        const starRatingStatsDisplay = document.getElementById('starRatingStatsDisplay');
-        const reviewCountStatsDisplay = document.getElementById('reviewCountStatsDisplay');
-        const productReviewCount = document.getElementById('productReviewCount');
+                if (confirmResult) {
+                    const primaryAction = buttons.find(b => b.class && (b.class.includes('btn-primary') || b.class.includes('btn-danger')))?.action;
+                    if (typeof primaryAction === 'function') primaryAction();
+                    else { const defaultAction = buttons[0]?.action; if(typeof defaultAction === 'function') defaultAction(); }
+                } else {
+                    const cancelAction = buttons.find(b => b.text && (b.text.includes('취소') || b.text.includes('아니요')))?.action;
+                    if (typeof cancelAction === 'function') cancelAction();
+                }
+                return;
+            }
+	        commonModalLabel.innerText = title;
+	        commonModalBody.innerHTML = message;
+	        commonModalFooter.innerHTML = '';
 
-        function renderStars(rating) {
-            let starsHtml = ''; const numRating = parseFloat(rating) || 0; const fullStars = Math.floor(numRating);
-            const halfStar = (numRating % 1) >= 0.25 && (numRating % 1) < 0.75; const 거의FullStar = (numRating % 1) >= 0.75;
-            let totalRenderedStars = 0;
-            for (let i = 0; i < fullStars; i++) { starsHtml += '<i class="bi bi-star-fill text-warning"></i>'; totalRenderedStars++; }
-            if (거의FullStar && totalRenderedStars < 5) { starsHtml += '<i class="bi bi-star-fill text-warning"></i>'; totalRenderedStars++; }
-            else if (halfStar && totalRenderedStars < 5) { starsHtml += '<i class="bi bi-star-half text-warning"></i>'; totalRenderedStars++; }
-            const emptyStars = 5 - totalRenderedStars;
-            for (let i = 0; i < emptyStars; i++) { starsHtml += '<i class="bi bi-star text-warning"></i>'; }
-            return starsHtml;
-        }
-
-        function loadReviews(sortBy = 'latest') {
-            if (!productDetailSeqElement) { console.error("productDetailSeqElement not found"); return; }
-            let productSeq = productDetailSeqElement.innerText.trim();
-            if (productSeq.includes(',')) productSeq = productSeq.split(',')[0];
-            if (!productSeq) { console.error("Product sequence is empty"); return; }
-            console.log(`Loading reviews for mealKitSeq: ${productSeq}, sortBy: ${sortBy}`);
-            fetch(`/usr/review/getReviews?mealKitSeq=${productSeq}&sortBy=${sortBy}`, { method: 'GET', headers: { 'Content-Type': 'application/json' } })
-            .then(r => { if (!r.ok) throw new Error(`Fetch error: ${r.status}`); return r.json(); })
-            .then(d => {
-                console.log("Loaded reviews data:", d);
-                if (d.rt === 'success') {
-                    const avgR = d.averageRating != null ? parseFloat(d.averageRating) : 0;
-                    const revC = d.reviewCount != null ? parseInt(d.reviewCount) : 0;
-                    if(averageRatingDisplay) averageRatingDisplay.innerText = avgR.toFixed(1);
-                    if(productStarRating) productStarRating.innerHTML = renderStars(avgR);
-                    if(starRatingStatsDisplay) starRatingStatsDisplay.innerHTML = renderStars(avgR);
-                    if(reviewCountStatsDisplay) reviewCountStatsDisplay.innerText = revC;
-                    if(productReviewCount) productReviewCount.innerText = revC;
-                    const distData = d.ratingDistribution;
-                    console.log("Dist Data:", distData, "Rev Count:", revC);
-                    if (distData && typeof distData === 'object' && revC > 0) {
-                        for (let i = 5; i >= 1; i--) {
-                            const sk = String(i); const cfs = parseInt(distData[sk]) || 0;
-                            const p = (cfs / revC) * 100;
-                            const rb = document.getElementById(`ratingBar${i}`);
-                            const rpt = document.getElementById(`ratingPercent${i}`);
-                            console.log(`Star ${i}: count=${cfs}, total=${revC}, percentage=${p.toFixed(0)}%`);
-                            if (rb) rb.style.width = p.toFixed(0) + '%'; if (rpt) rpt.innerText = p.toFixed(0) + '%';
-                        }
-                    } else {
-                        for (let i = 1; i <= 5; i++) {
-                            const rb = document.getElementById(`ratingBar${i}`); const rpt = document.getElementById(`ratingPercent${i}`);
-                            if (rb) rb.style.width = '0%'; if (rpt) rpt.innerText = '0%';
-                        }
-                    }
-                    const rL = document.getElementById('reviewList'); const nR = document.getElementById('noReviews');
-                    if (rL) rL.innerHTML = '';
-                    if (d.reviews && d.reviews.length > 0) {
-                        if (nR) nR.style.display = 'none';
-                        d.reviews.forEach(rev => {
-                            const rI = document.createElement('div'); rI.className = 'd-flex border-bottom pb-6 mb-6';
-                            if (rL.children.length > 0) rI.classList.add('pt-4');
-                            const sUsrId = /*[[${session.sessSeqUsr}]]*/ null; let delBtn = '';
-                            if (rev.userUi_seq && sUsrId && rev.userUi_seq === sUsrId) {
-                                delBtn = `<button class="btn btn-danger btn-sm delete-review-btn ms-auto" data-review-seq="${rev.seq}">삭제</button>`;
-                            }
-                            rI.innerHTML = `<div class="flex-grow-1"><div class="d-flex justify-content-between align-items-start"><div><h6 class="mb-1">${rev.userName||'익명'}</h6><p class="small mb-0"><span class="text-muted">${rev.regDate?new Date(rev.regDate).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'}):''}</span></p></div>${delBtn}</div><div class="mb-2 mt-2">${renderStars(rev.rating)}<span class="ms-3 text-dark fw-bold">${rev.reviewTitle||''}</span></div><p class="mb-0">${rev.reviewContent||''}</p></div>`;
-                            if (rL) rL.appendChild(rI);
-                        });
-                        bindDeleteReviewButtons();
-                    } else { if (nR) nR.style.display = 'block'; }
-                } else { console.error('리뷰 로드 실패(서버):', d.message); if(document.getElementById('reviewList')) document.getElementById('reviewList').innerHTML = '<div class="text-danger text-center py-3">리뷰 로드 실패.</div>';}
-            }).catch(e => { console.error('리뷰 로드 오류:', e); if(document.getElementById('reviewList')) document.getElementById('reviewList').innerHTML = '<div class="text-danger text-center py-3">리뷰 로드 오류.</div>';});
-        }
-
-        function bindDeleteReviewButtons() {
-            console.log("bindDeleteReviewButtons 호출됨");
-            const deleteButtons = document.querySelectorAll('.delete-review-btn');
-            console.log("찾은 삭제 버튼 개수:", deleteButtons.length);
-
-            deleteButtons.forEach(button => {
-                // 이벤트 리스너 중복 등록을 피하기 위해 기존 버튼을 복제하고, 이전 버튼을 새 버튼으로 교체
-                const newButton = button.cloneNode(true);
-                button.parentNode.replaceChild(newButton, button);
-                
-                newButton.addEventListener('click', function(event) { // event 객체를 파라미터로 받음
-                    event.preventDefault(); // !!! 버튼 클릭의 기본 동작 방지 !!!
-
-                    reviewSeqToDelete = this.getAttribute('data-review-seq');
-                    console.log("삭제 버튼 클릭 - reviewSeqToDelete:", reviewSeqToDelete);
-                    if (reviewDeleteConfirmModal) {
-                        console.log("삭제 확인 모달 보여주기 시도");
-                        reviewDeleteConfirmModal.show();
-                    } else {
-                        console.warn("reviewDeleteConfirmModal 없음, confirm 사용");
-                        if (confirm('이 리뷰를 정말 삭제하시겠습니까?')) {
-                            proceedDeleteReview(reviewSeqToDelete);
-                        }
-                    }
+            if (buttons.length === 0) {
+                const defaultCloseButton = document.createElement('button');
+                defaultCloseButton.type = 'button'; defaultCloseButton.className = 'btn btn-secondary';
+                defaultCloseButton.setAttribute('data-bs-dismiss', 'modal'); defaultCloseButton.innerText = '닫기';
+                commonModalFooter.appendChild(defaultCloseButton);
+            } else {
+                buttons.forEach(btnConfig => {
+                    const button = document.createElement('button');
+                    button.type = 'button'; button.className = `btn ${btnConfig.class || 'btn-light'}`;
+                    button.innerText = btnConfig.text;
+                    if (btnConfig.dismiss) { button.setAttribute('data-bs-dismiss', 'modal'); }
+                    button.addEventListener('click', () => {
+                        if (typeof btnConfig.action === 'function') { btnConfig.action(); }
+                        if (!btnConfig.keepOpen && commonModalInstance) { commonModalInstance.hide(); }
+                    });
+                    commonModalFooter.appendChild(button);
                 });
+            }
+	        if(commonModalInstance) commonModalInstance.show();
+	    }
+
+	    // --- 상품 상세 페이지 요소 및 로직 ---
+	    const stockDisplay = document.getElementById('stockDisplay');
+	    const currentStock = stockDisplay ? parseInt(stockDisplay.getAttribute('data-stock')) : 0;
+	    const quantitySpinner = document.getElementById('quantitySpinner');
+	    const addToCartButton = document.getElementById('addToCartButton');
+        const buyNowButton = document.getElementById('buyNowButton');
+	    const quantityInput = document.getElementById('quantity');
+	    const productDetailPriceElement = document.querySelector('#quantityAndPriceSection .total-price span');
+	    const unitPrice = quantityInput ? parseInt(quantityInput.getAttribute('data-price')) : 0;
+        const productDetailSeqElement = document.getElementById('productDetailSeq');
+        const formTotalPriceForBuyNow = document.getElementById('formTotalPriceForBuyNow');
+
+	    function updateProductDetailTotalPrice() {
+            if (!quantityInput || !productDetailPriceElement || isNaN(unitPrice)) return;
+	        const currentQuantity = parseInt(quantityInput.value) || 1;
+	        const totalPrice = unitPrice * currentQuantity;
+	        productDetailPriceElement.innerText = totalPrice.toLocaleString() + '원';
+            if (formTotalPriceForBuyNow) { formTotalPriceForBuyNow.value = totalPrice; }
+        }
+
+	    if (quantityInput) {
+            if (currentStock > 0) { quantityInput.setAttribute('max', currentStock); }
+            else { quantityInput.value = 0; quantityInput.disabled = true; if (quantitySpinner) quantitySpinner.style.display = 'none';}
+            updateProductDetailTotalPrice();
+        }
+
+	    if (quantitySpinner && quantityInput && !quantityInput.disabled) {
+            const plusButton = quantitySpinner.querySelector('.button-plus');
+            const minusButton = quantitySpinner.querySelector('.button-minus');
+            if (plusButton) { plusButton.addEventListener('click', function() { let val = parseInt(quantityInput.value); if (val < currentStock) { quantityInput.value = val + 1; updateProductDetailTotalPrice(); } else { showCommonModal('알림', '최대 재고 수량입니다.'); }});}
+            if (minusButton) { minusButton.addEventListener('click', function() { let val = parseInt(quantityInput.value); if (val > 1) { quantityInput.value = val - 1; updateProductDetailTotalPrice(); }});}
+            quantityInput.addEventListener('input', function() { let val = parseInt(this.value); if (this.value === '') return; if (isNaN(val) || val < 1) {} else if (val > currentStock) { this.value = currentStock; showCommonModal('알림','최대 재고 수량입니다.'); } updateProductDetailTotalPrice(); });
+            quantityInput.addEventListener('change', function() { let val = parseInt(this.value); if (isNaN(val) || val < 1) { this.value = 1; } else if (val > currentStock) { this.value = currentStock; } updateProductDetailTotalPrice(); });
+        }
+
+	    if (addToCartButton) {
+            addToCartButton.addEventListener('click', function() {
+                if (!currentLoggedInUserSeq) {
+                    showCommonModal("로그인 필요", "장바구니에 상품을 담으려면 로그인이 필요합니다.<br>로그인 페이지로 이동하시겠습니까?", [
+                        { text: '취소', class: 'btn-secondary', dismiss: true },
+                        { text: '로그인', class: 'btn-primary', action: () => { window.location.href = '/usr/signin/signinUsr'; } }
+                    ]); return;
+                }
+	            if (this.disabled) { showCommonModal("알림", "품절된 상품입니다."); return; }
+	            if (!productDetailSeqElement || !quantityInput) { showCommonModal("오류", "상품 정보를 가져올 수 없습니다."); return; }
+	            const productSeq = productDetailSeqElement.innerText.trim();
+	            const currentQuantity = parseInt(quantityInput.value);
+	            if (isNaN(currentQuantity) || currentQuantity < 1) { showCommonModal("알림", "올바른 수량을 선택해주세요."); quantityInput.value = 1; updateProductDetailTotalPrice(); return; }
+
+	            fetch('/usr/cart/addItem', { method: 'POST', headers: commonAjaxHeaders, body: new URLSearchParams({ 'productSeq': productSeq, 'quantity': currentQuantity }) })
+	            .then(response => { if (!response.ok) { return response.json().then(errData => { throw new Error(errData.message || `서버 오류: ${response.status}`); }); } return response.json(); })
+	            .then(data => {
+	                if (data.success) {
+                        if (addToCartModal) { addToCartModal.show(); }
+                        else { showCommonModal("장바구니 추가 완료", "상품이 장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?", [ {text: '계속 쇼핑', class:'btn-secondary', dismiss: true}, {text: '장바구니 이동', class: 'btn-primary', action: () => window.location.href='/usr/cart/CartUsrList'} ]);}
+	                    loadOffcanvasCart(); updateHeaderCartCount(data.cartItemCount);
+	                } else { showCommonModal('장바구니 추가 실패', (data.message || '알 수 없는 오류.')); }
+	            })
+	            .catch(error => { console.error('장바구니 추가 오류:', error); showCommonModal('장바구니 추가 오류', error.message); });
+	        });
+        }
+
+        if (buyNowButton) {
+            buyNowButton.addEventListener('click', function() {
+                if (!currentLoggedInUserSeq) {
+                    showCommonModal("로그인 필요", "바로 구매를 진행하려면 로그인이 필요합니다.<br>로그인 페이지로 이동하시겠습니까?", [
+                        { text: '취소', class: 'btn-secondary', dismiss: true },
+                        { text: '로그인', class: 'btn-primary', action: () => { window.location.href = '/usr/signin/signinUsr'; } }
+                    ]); return;
+                }
+                if (this.disabled) { showCommonModal("알림", "품절된 상품은 바로 구매할 수 없습니다."); return; }
+                if (!quantityInput) { showCommonModal("오류", "수량 정보를 찾을 수 없습니다."); return; }
+                const currentQuantity = parseInt(quantityInput.value);
+                if (isNaN(currentQuantity) || currentQuantity < 1) { showCommonModal("알림", "올바른 수량을 선택해주세요."); return; }
+                if (currentQuantity > currentStock) { showCommonModal("알림", "선택 수량이 재고를 초과합니다."); quantityInput.value = currentStock; updateProductDetailTotalPrice(); return; }
+                const seqForBuyNow = document.getElementById('formSeqForBuyNow').value;
+                window.location.href = `/usr/checkout/CheckoutUsrList?seq=${seqForBuyNow}&quantity=${currentQuantity}`;
             });
         }
-        
-        function proceedDeleteReview(reviewSeq) {
-            console.log("proceedDeleteReview 호출 - reviewSeq:", reviewSeq);
-            if (!reviewSeq) { console.error("proceedDeleteReview: reviewSeq가 없습니다."); return; }
-            fetch('/usr/review/deleteReview', { method: 'POST', headers: commonAjaxHeaders, body: new URLSearchParams({ 'seq': reviewSeq }) })
-            .then(response => { console.log("삭제 요청 응답 상태:", response.status); return response.json();})
-            .then(data => {
-                console.log("삭제 요청 응답 데이터:", data);
-                if (reviewSubmitResultModal && reviewSubmitResultModalLabel && reviewSubmitResultModalBody) {
-                    reviewSubmitResultModalLabel.innerText = data.rt === 'success' ? "리뷰 삭제 완료" : "리뷰 삭제 실패";
-                    reviewSubmitResultModalBody.innerText = data.message || (data.rt === 'success' ? '리뷰가 삭제되었습니다.' : '리뷰 삭제 중 문제가 발생했습니다.');
-                    reviewSubmitResultModal.show();
-                } else {
-                    alert(data.message || (data.rt === 'success' ? '리뷰가 삭제되었습니다.' : `리뷰 삭제 실패: ${data.message || '알 수 없는 오류'}`));
-                }
-                if (data.rt === 'success') {
-                    loadReviews(document.getElementById('reviewSortSelect')?.value || 'latest');
-                }
-            })
-            .catch(error => {
-                console.error('리뷰 삭제 fetch 오류:', error);
-                if (reviewSubmitResultModal && reviewSubmitResultModalLabel && reviewSubmitResultModalBody) {
-                    reviewSubmitResultModalLabel.innerText = "삭제 처리 오류";
-                    reviewSubmitResultModalBody.innerText = '리뷰 삭제 중 오류가 발생했습니다.';
-                    reviewSubmitResultModal.show();
-                } else {
-                    alert('리뷰 삭제 중 오류가 발생했습니다.');
-                }
-            });
-            reviewSeqToDelete = null;
-        }
 
-        // 삭제 확인 모달의 "삭제" 버튼에 대한 이벤트 리스너는 DOMContentLoaded 시점에 한 번만 등록
-        if (confirmDeleteReviewButton && reviewDeleteConfirmModal) {
-            confirmDeleteReviewButton.addEventListener('click', function() {
-                console.log("모달의 '삭제' 버튼 클릭됨 - reviewSeqToDelete:", reviewSeqToDelete);
-                if (reviewSeqToDelete) {
-                    proceedDeleteReview(reviewSeqToDelete);
-                }
-                reviewDeleteConfirmModal.hide();
-            });
-        }
+	    // --- 오프캔버스 및 리뷰 관련 JavaScript (이전 답변의 완성된 코드 사용) ---
+        const offcanvasElement=document.getElementById('offcanvasRight');
+        const offcanvasItemsContainer=document.getElementById('offcanvasCartItemsContainer');
+        const offcanvasSubtotalSection=document.getElementById('offcanvasSubtotalSection');
+        const offcanvasSubtotalValue=document.getElementById('offcanvasSubtotalValue');
+        const offcanvasCheckoutBtn=document.getElementById('offcanvasCheckoutBtn');
 
-
-        const reviewStarRatingContainer = document.getElementById('reviewStarRatingContainer');
-        const ratingInputElement = document.getElementById('ratingInput');
-        if (reviewStarRatingContainer && ratingInputElement) {
-            const stars = reviewStarRatingContainer.querySelectorAll('.star');
-            stars.forEach(star => star.addEventListener('click', function() {
-                const rVal = this.dataset.value; ratingInputElement.value = rVal;
-                stars.forEach(s => { s.classList.toggle('text-warning', parseInt(s.dataset.value)<=parseInt(rVal)); s.classList.toggle('text-muted', parseInt(s.dataset.value)>parseInt(rVal)); });
-            }));
-        }
-
-        const submitReviewButton = document.getElementById('submitReviewButton');
-        const reviewFormContainer = document.getElementById('reviewFormContainer');
-        if (submitReviewButton && reviewFormContainer) {
-            submitReviewButton.addEventListener('click', function() {
-                const mSeqIn = reviewFormContainer.querySelector('input[name="mealKit_seq_review"]');
-                const rTitleIn = reviewFormContainer.querySelector('#reviewTitleInput');
-                const rContentIn = reviewFormContainer.querySelector('#reviewContentInput');
-                if (!mSeqIn || !ratingInputElement || !rTitleIn || !rContentIn) {
-                    if(reviewSubmitResultModal){reviewSubmitResultModalLabel.innerText="오류"; reviewSubmitResultModalBody.innerText="양식 오류"; reviewSubmitResultModal.show();}else{alert("양식 오류");} return;
-                }
-                let mSeqVal = mSeqIn.value.trim(); if(mSeqVal.includes(',')) mSeqVal=mSeqVal.split(',')[0];
-                const rVal = ratingInputElement.value; const rTitleVal = rTitleIn.value.trim(); const rContentVal = rContentIn.value.trim();
-                
-                // JavaScript 유효성 검사 (required 대신 사용)
-                if (!mSeqVal || !rVal || !rTitleVal || !rContentVal) {
-                    if(reviewSubmitResultModal){reviewSubmitResultModalLabel.innerText="입력 필요"; reviewSubmitResultModalBody.innerText="별점, 제목, 내용을 모두 입력해주세요."; reviewSubmitResultModal.show();}else{alert("별점, 제목, 내용을 모두 입력해주세요.");} return;
-                }
-
-                const fd = new URLSearchParams(); fd.append('mealKit_seq',mSeqVal); fd.append('rating',rVal); fd.append('reviewTitle',rTitleVal); fd.append('reviewContent',rContentVal);
-                fetch('/usr/review/addReview', { method:'POST', headers:commonAjaxHeaders, body:fd.toString() })
-                .then(r => { if(!r.ok)return r.text().then(t=>{throw new Error(t||r.statusText);}); return r.json();})
-                .then(d => {
-                    if(reviewSubmitResultModal){reviewSubmitResultModalLabel.innerText=d.rt==='success'?"등록성공":"등록실패"; reviewSubmitResultModalBody.innerText=d.message||(d.rt==='success'?'등록됨':'문제발생'); reviewSubmitResultModal.show();}else{alert(d.message||(d.rt==='success'?'등록됨':`실패: ${d.message||'오류'}`));}
-                    if(d.rt==='success'){rTitleIn.value='';rContentIn.value='';ratingInputElement.value='5';if(reviewStarRatingContainer)reviewStarRatingContainer.querySelectorAll('.star').forEach(s=>{s.classList.add('text-warning');s.classList.remove('text-muted');}); loadReviews(document.getElementById('reviewSortSelect')?.value||'latest');}
-                }).catch(e => { console.error('등록오류',e); if(reviewSubmitResultModal){reviewSubmitResultModalLabel.innerText="처리 오류"; reviewSubmitResultModalBody.innerText=`오류: ${e.message}`; reviewSubmitResultModal.show();}else{alert(`오류: ${e.message}`);}});
-            });
-        }
-
-        const reviewSortSelect = document.getElementById('reviewSortSelect');
-        if(reviewSortSelect) reviewSortSelect.addEventListener('change', function(){ loadReviews(this.value); });
-
-        function updateProductDetailTotalPrice(){if(!quantityInput||!productDetailPriceElement||isNaN(unitPrice))return;const q=parseInt(quantityInput.value)||1;productDetailPriceElement.innerText=(unitPrice*q).toLocaleString()+'원';if(formTotalPriceForBuyNow)formTotalPriceForBuyNow.value=unitPrice*q;}
-        if(quantityInput){if(currentStock>0)quantityInput.max=currentStock;else{quantityInput.value=0;quantityInput.disabled=true;if(quantitySpinner)quantitySpinner.style.display='none';}updateProductDetailTotalPrice();}
-        if(quantitySpinner&&quantityInput&&!quantityInput.disabled){
-            quantitySpinner.querySelector('.button-plus')?.addEventListener('click',()=>{let v=parseInt(quantityInput.value);if(v<currentStock){quantityInput.value=v+1;}else alert('최대재고');updateProductDetailTotalPrice();});
-            quantitySpinner.querySelector('.button-minus')?.addEventListener('click',()=>{let v=parseInt(quantityInput.value);if(v>1)quantityInput.value=v-1;updateProductDetailTotalPrice();});
-            quantityInput.addEventListener('input',()=>{if(quantityInput.value==='')return;let v=parseInt(quantityInput.value);if(isNaN(v)||v<1){}else if(v>currentStock){quantityInput.value=currentStock;alert('최대재고');}updateProductDetailTotalPrice();});
-            quantityInput.addEventListener('change',()=>{let v=parseInt(quantityInput.value);if(isNaN(v)||v<1)quantityInput.value=1;else if(v>currentStock)quantityInput.value=currentStock;updateProductDetailTotalPrice();});
-        }
-        if(addToCartButton)addToCartButton.addEventListener('click',()=>{if(addToCartButton.disabled||!productDetailSeqElement||!quantityInput)return;let pS=productDetailSeqElement.innerText.trim();if(pS.includes(','))pS=pS.split(',')[0];const q=parseInt(quantityInput.value);if(isNaN(q)||q<1){alert('수량오류');quantityInput.value=1;updateProductDetailTotalPrice();return;}fetch('/usr/cart/addItem',{method:'POST',headers:commonAjaxHeaders,body:new URLSearchParams({productSeq:pS,quantity:q})}).then(r=>r.ok?r.json():r.json().then(e=>{throw new Error(e.message||r.statusText);})).then(d=>{if(d.success){if(addToCartModal)addToCartModal.show();else if(confirm((d.message||'장바구니추가됨')+' 이동?'))location.href='/usr/cart/CartUsrList';loadOffcanvasCart();}else alert('추가실패: '+(d.message||'오류'));}).catch(e=>console.error('장바구니추가오류',e));});
-        if(buyNowButton)buyNowButton.addEventListener('click',()=>{if(buyNowButton.disabled||!quantityInput)return;const q=parseInt(quantityInput.value);if(isNaN(q)||q<1){alert('수량오류');return;}if(q>currentStock){alert('재고초과');quantityInput.value=currentStock;updateProductDetailTotalPrice();return;}let s=document.getElementById('formSeqForBuyNow').value;if(s.includes(','))s=s.split(',')[0];location.href=`/usr/checkout/CheckoutUsrList?seq=${s}&quantity=${q}`;});
-
-        const offcanvasElement=document.getElementById('offcanvasRight');const offcanvasItemsContainer=document.getElementById('offcanvasCartItemsContainer');const offcanvasSubtotalSection=document.getElementById('offcanvasSubtotalSection');const offcanvasSubtotalValue=document.getElementById('offcanvasSubtotalValue');const offcanvasCheckoutBtn=document.getElementById('offcanvasCheckoutBtn');
-        async function loadOffcanvasCart(){if(!offcanvasItemsContainer){updateHeaderCartCountOnly();return;}try{offcanvasItemsContainer.innerHTML='<li class="list-group-item text-center text-muted small py-4">로딩중...</li>';const r=await fetch('/usr/cart/getCartSummary');if(!r.ok){offcanvasItemsContainer.innerHTML='<li class="list-group-item text-muted small">장바구니로드실패</li>';updateHeaderCartCount(0);return;}const d=await r.json();offcanvasItemsContainer.innerHTML='';if(d.cartItems&&d.cartItems.length>0){d.cartItems.forEach(i=>{const l=document.createElement('li');l.className='list-group-item py-3 ps-0 border-top';l.dataset.productSeqOffcanvas=i.productSeq;l.innerHTML=`<div class="row align-items-center"><div class="col-7"><div class="d-flex"><img src="${i.productImageUrl||'/user/template/user_ui/assets/images/products/product-img-default.jpg'}" alt="${i.productName}" class="icon-shape icon-xxl object-fit-cover" /><div class="ms-3"><a href="/usr/product/ProductUsrView?seq=${i.productSeq}" class="text-inherit"><h6 class="mb-0 small text-truncate" style="max-width:120px;">${i.productName}</h6></a><span><small class="text-muted">수량: ${i.quantity}</small></span><div class="mt-1 small lh-1"><a href="javascript:void(0);" class="text-decoration-none text-inherit remove-from-offcanvas-cart-btn"><span class="me-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></span><span class="text-muted small">삭제</span></a></div></div></div></div><div class="col-5 text-lg-end text-start text-md-end"><span class="fw-bold text-dark small">${(i.price*i.quantity).toLocaleString()}원</span></div></div>`;offcanvasItemsContainer.appendChild(l);});offcanvasSubtotalSection.style.display='flex';offcanvasSubtotalValue.innerText=(d.totalAmount||0).toLocaleString()+'원';offcanvasCheckoutBtn.style.display=d.cartItemCount>0?'block':'none';bindOffcanvasRemoveButtons();}else{offcanvasItemsContainer.innerHTML='<li class="list-group-item text-center text-muted small py-4">장바구니 비어있음</li>';offcanvasSubtotalSection.style.display='none';offcanvasCheckoutBtn.style.display='none';}updateHeaderCartCount(d.cartItemCount||0);}catch(e){console.error('오프캔버스 오류',e);if(offcanvasItemsContainer)offcanvasItemsContainer.innerHTML='<li class="list-group-item text-muted small">로드 오류</li>';updateHeaderCartCount(0);}}
+        async function loadOffcanvasCart(){if(!offcanvasItemsContainer){updateHeaderCartCountOnly();return;}try{offcanvasItemsContainer.innerHTML='<li class="list-group-item text-center text-muted small py-4">로딩중...</li>';const r=await fetch('/usr/cart/getCartSummary');if(!r.ok){offcanvasItemsContainer.innerHTML='<li class="list-group-item text-muted small">장바구니로드실패</li>';updateHeaderCartCount(0);return;}const d=await r.json();offcanvasItemsContainer.innerHTML='';if(d.cartItems&&d.cartItems.length>0){d.cartItems.forEach(i=>{const l=document.createElement('li');l.className='list-group-item py-3 ps-0 border-top';l.dataset.productSeqOffcanvas=i.productSeq;l.innerHTML=`<div class="row align-items-center"><div class="col-7"><div class="d-flex"><img src="${i.productImageUrl||'/user/template/user_ui/assets/images/products/product-img-default.jpg'}" alt="${i.productName}" class="icon-shape icon-xxl object-fit-cover" /><div class="ms-3"><a href="/usr/product/ProductUsrView?seq=${i.productSeq}" class="text-inherit"><h6 class="mb-0 small text-truncate" style="max-width:120px;">${i.productName}</h6></a><span><small class="text-muted">수량: ${i.quantity}</small></span><div class="mt-1 small lh-1"><a href="javascript:void(0);" class="text-decoration-none text-inherit remove-from-offcanvas-cart-btn"><span class="me-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></span><span class="text-muted small">삭제</span></a></div></div></div></div><div class="col-5 text-lg-end text-start text-md-end"><span class="fw-bold text-dark small">${(i.price!=null&&i.quantity!=null?i.price*i.quantity:0).toLocaleString()}원</span></div></div>`;offcanvasItemsContainer.appendChild(l);});offcanvasSubtotalSection.style.display='flex';offcanvasSubtotalValue.innerText=(d.totalAmount||0).toLocaleString()+'원';if(offcanvasCheckoutBtn)offcanvasCheckoutBtn.style.display=d.cartItemCount>0?'block':'none';bindOffcanvasRemoveButtons();}else{offcanvasItemsContainer.innerHTML='<li class="list-group-item text-center text-muted small py-4">장바구니가 비어있습니다.</li>';offcanvasSubtotalSection.style.display='none';if(offcanvasCheckoutBtn)offcanvasCheckoutBtn.style.display='none';}updateHeaderCartCount(d.cartItemCount||0);}catch(e){console.error('오프캔버스 오류',e);if(offcanvasItemsContainer)offcanvasItemsContainer.innerHTML='<li class="list-group-item text-muted small">로드 오류</li>';updateHeaderCartCount(0);}}
         function bindOffcanvasRemoveButtons(){document.querySelectorAll('.remove-from-offcanvas-cart-btn').forEach(b=>{const nB=b.cloneNode(true);b.parentNode.replaceChild(nB,b);nB.addEventListener('click',function(e){e.preventDefault();const lI=this.closest('li[data-product-seq-offcanvas]');if(!lI)return;if(confirm('장바구니에서 삭제?'))removeItemAndReloadOffcanvas(lI.dataset.productSeqOffcanvas);});});}
-        async function removeItemAndReloadOffcanvas(pS){try{const r=await fetch('/usr/cart/removeItem',{method:'POST',headers:commonAjaxHeaders,body:new URLSearchParams({productSeq:pS})});const d=await r.json();if(d.success){loadOffcanvasCart();if(location.pathname.includes('/usr/cart/CartUsrList'))setTimeout(()=>location.reload(),200);}else alert('삭제실패: '+(d.message||'오류'));}catch(e){console.error('오프캔버스 삭제오류',e);alert('삭제중 오류');}}
+        async function removeItemAndReloadOffcanvas(pS){try{const r=await fetch('/usr/cart/removeItem',{method:'POST',headers:commonAjaxHeaders,body:new URLSearchParams({productSeq:pS})});const d=await r.json();if(d.success){loadOffcanvasCart();if(location.pathname.includes('/usr/cart/CartUsrList'))setTimeout(()=>location.reload(),200);}else showCommonModal('삭제 실패',d.message||'오류');}catch(e){console.error('오프캔버스 삭제오류',e);showCommonModal('삭제 중 오류',e.message);}}
         function updateHeaderCartCount(c){const el=document.getElementById('headerCartItemCount');if(el){el.innerText=c>0?String(c):'';el.style.display=c>0?'inline-block':'none';}}
         async function updateHeaderCartCountOnly(){try{const r=await fetch('/usr/cart/getCartSummary');if(r.ok)updateHeaderCartCount((await r.json()).cartItemCount||0);}catch(e){console.warn("헤더 카운트 오류",e);}}
-        if(offcanvasElement)offcanvasElement.addEventListener('show.bs.offcanvas',loadOffcanvasCart);loadOffcanvasCart();loadReviews();
-        const reviewsTabButton=document.getElementById('reviews-tab-button');if(reviewsTabButton)reviewsTabButton.addEventListener('shown.bs.tab',()=>loadReviews(document.getElementById('reviewSortSelect')?.value||'latest'));
-    });
-    /* ]]> */
-    </script>
-    <div th:replace="~{usr/include/footer :: footer}"></div>
+        if(offcanvasElement)offcanvasElement.addEventListener('show.bs.offcanvas',loadOffcanvasCart);
+        loadOffcanvasCart(); // 페이지 로드 시 오프캔버스 및 헤더 카운트 초기 로드
+
+        // --- 리뷰 관련 JavaScript (이전 답변의 완성된 코드 사용) ---
+        // function loadReviews(sortBy = 'latest') { ... }
+        // function renderStars(rating) { ... }
+        // function bindDeleteReviewButtons() { ... }
+        // function proceedDeleteReview(reviewSeq) { ... }
+        // (리뷰 관련 이벤트 리스너 등록 코드 포함)
+        loadReviews(); // 초기 리뷰 로드
+        const reviewsTabButton=document.getElementById('reviews-tab-btn'); // 리뷰 탭 버튼 ID 확인
+        if(reviewsTabButton)reviewsTabButton.addEventListener('shown.bs.tab',()=>loadReviews(document.getElementById('reviewSortSelect')?.value||'latest'));
+
+
+        console.log("ProductUsrView.html JavaScript execution finished. v6");
+	});
+	/*]]>*/
+	</script>
+		
+	<div th:replace="~{usr/include/footer :: footer}"></div>
+
 </body>
 </html>

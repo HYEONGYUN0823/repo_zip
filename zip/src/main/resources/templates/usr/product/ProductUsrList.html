@@ -122,13 +122,16 @@
                                        th:title="*{mealKitName}"
                                        th:text="*{mealKitName}">상품명</a>
                                 </h2>
-                                <div class="mt-1">
-                                    <small class="text-warning render-stars" th:attr="data-rating=*{score ?: 0.0}"></small>
-                                    <span class="text-muted small ms-1">
-                                        (<span th:if="*{score != null}" th:text="${#numbers.formatDecimal(score,1,1,'POINT')}"></span><span th:unless="*{score != null}">0.0</span>
-                                        <span> / 리뷰 </span><span th:text="*{reviewCount != null ? reviewCount : 0}">0</span><span>건</span>)
-                                    </span>
-                                </div>
+<div class="mt-1">
+    <span class="text-warning render-stars" th:attr="data-rating=*{score ?: 0.0}"></span>
+    <span class="text-muted small ms-1">
+        평점은 
+        <span th:if="*{score != null}" th:text="${#numbers.formatDecimal(score,1,1,'POINT')}"></span>
+        <span th:unless="*{score != null}">0.0</span>
+        리뷰는 
+        (<span th:text="*{reviewCount != null ? reviewCount : 0}">0</span>)
+    </span>
+</div>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                     <div>
                                         <span class="text-dark fw-bold" th:text="*{price != null ? #numbers.formatInteger(price, 0, 'COMMA') + '원' : '가격 정보 없음'}"></span>
@@ -208,7 +211,7 @@
             if (!commonModalInstance || !commonModalLabel || !commonModalBody || !commonModalFooter) {
                 console.warn("ProductUsrList: 모달 구성 요소 누락, 기본 alert/confirm으로 대체합니다.");
                 let confirmResult = true;
-                const confirmButtonConfig = buttons.find(b => b.isConfirm === true || b.text === '확인' || b.text === '예' || b.text === '삭제' || b.text === '장바구니로 이동' || b.text === '로그인으로 이동' );
+                const confirmButtonConfig = buttons.find(b => b.isConfirm === true || b.text === '확인' || b.text === '예' || b.text === '삭제' || b.text === '장바구니로 이동' || b.text === '로그인' );
                 const cancelButtonConfig = buttons.find(b => b.isCancel === true || b.text === '취소' || b.text === '아니요' || b.text === '계속 쇼핑하기');
                 if (confirmButtonConfig && cancelButtonConfig) {
                     confirmResult = confirm(message);
@@ -340,7 +343,7 @@
 								</h2>
                                 <div class="mt-1">
                                     <small class="text-warning render-stars" data-rating="${score}"></small>
-                                    <span class="text-muted small ms-1">(${score > 0 ? score.toFixed(1) : '0.0'} / 리뷰 ${reviewCount}건)</span>
+                                    <span class="text-muted small ms-1">${score > 0 ? score.toFixed(1) : '0.0'} (${reviewCount})</span>
                                 </div>
 								<div class="d-flex justify-content-between align-items-center mt-3">
 									<div><span class="text-dark fw-bold">${formattedPrice}</span></div>
@@ -391,7 +394,7 @@
                     if (!isLoggedInProductList) {
                         showActionModal("로그인 필요", "로그인이 필요한 서비스입니다.<br/>로그인 페이지로 이동하시겠습니까?", [
                             { text: '취소', class: 'btn-secondary', dismissModal: true },
-                            { text: '로그인으로 이동', class: 'btn-primary', action: () => { window.location.href = loginPageUrlProductList + '?redirectURL=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash); }}
+                            { text: '로그인', class: 'btn-primary', action: () => { window.location.href = loginPageUrlProductList + '?redirectURL=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash); }}
                         ]);
                         return;
                     }
