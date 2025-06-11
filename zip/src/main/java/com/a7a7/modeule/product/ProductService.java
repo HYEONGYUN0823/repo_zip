@@ -163,6 +163,25 @@ public class ProductService extends com.a7a7.modeule.upload.UploadService { // F
     public int selectFilteredProductListCount(ProductVo vo) {
         return dao.selectFilteredProductListCount(vo);
     }
+    
+    public List<ProductDto> getPopularProducts() {
+        ProductVo vo = new ProductVo();
+        vo.setShUseNy(1);
+        vo.setShDelNy(0);
+        // sortOption은 DAO 쿼리에서 직접 지정 (score DESC, reviewCount DESC)
+        vo.setRowNumToShow(4); // 예: 인기 상품 4개 표시 (필요에 따라 조절)
+        // thisPage는 LIMIT에서 offset 없이 상위 N개만 가져오므로 설정 불필요
+        
+        // ProductDao.xml의 selectPopularProductList 쿼리가
+        // 이미지 경로(path), 리뷰 개수(reviewCount)를 이미 포함하여 조회합니다.
+        List<ProductDto> popularList = dao.selectPopularProductList(vo);
+        
+        for (ProductDto dto : popularList) {
+            setBrandNameStringFromCode(dto); // 브랜드명 문자열 채우기
+        }
+        System.out.println("ProductService - getPopularProducts: " + (popularList != null ? popularList.size() : 0) + " items fetched.");
+        return popularList;
+    }
 
     private void setBrandNameStringFromCode(ProductDto dto) {
         if (dto != null && dto.getBrandName() != 0) {

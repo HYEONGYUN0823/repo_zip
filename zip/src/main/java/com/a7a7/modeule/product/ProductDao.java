@@ -16,6 +16,8 @@ public interface ProductDao {
     public int uelete(ProductDto productDto); // 논리적 삭제 (delNy = 1)
     public int selectOneCount(ProductVo vo); // XDM용 카운트
     public int updateStockDecrease(Map<String, Object> params);
+    
+    public List<ProductDto> selectPopularProductList(ProductVo vo);
 
     // --- AJAX 필터링 및 정렬을 위한 메서드 추가 ---
     public List<ProductDto> selectFilteredProductList(ProductVo vo);

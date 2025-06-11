@@ -20,4 +20,7 @@ public interface ReviewDao {
 
     // mealKit 테이블 score 업데이트
     int updateMealKitScore(@Param("mealKitSeq") String mealKitSeq, @Param("score") Double score);
+    
+    
+    
 }

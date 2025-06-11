@@ -158,5 +158,37 @@
         UPDATE mealKit SET stock = stock - #{quantityToDecrease}
         WHERE seq = #{productSeq} AND stock >= #{quantityToDecrease}
     </update>
+    
+    <select id="selectPopularProductList" resultMap="resultMapObj" parameterType="com.a7a7.modeule.product.ProductVo">
+        SELECT
+            mk.seq,
+            mk.brandName,
+            mk.mealKitName,
+            mk.stock,
+            mk.price,
+            mk.score,
+            mk.ingredient,
+            mk.mealDelNy,
+            mk.mealUseNy,
+            mk.mealRegDateTime,
+            mk.mealModDateTime,
+            (SELECT COUNT(*) FROM review r WHERE r.mealKit_seq = mk.seq AND r.delNy = 0) AS reviewCount,
+            (SELECT fu.path
+             FROM fileUploaded fu
+             WHERE fu.pseq = mk.seq
+               AND fu.type = 1001 <!-- 대표 이미지 타입 가정 -->
+               AND fu.delNy = 0
+             ORDER BY fu.sort ASC, fu.seq ASC
+             LIMIT 1) AS path
+        FROM
+            mealKit mk
+        WHERE 1=1
+            AND mk.mealDelNy = 0
+            AND mk.mealUseNy = 1
+            AND mk.stock > 0      <!-- 재고 있는 상품만 -->
+        ORDER BY
+            mk.score DESC, reviewCount DESC, mk.seq DESC <!-- 별점 높은 순, 리뷰 많은 순, 최신 순 -->
+        LIMIT #{rowNumToShow} <!-- ProductVo에서 전달된 개수만큼 제한 (예: 4 또는 5) -->
+    </select>
 
 </mapper>
