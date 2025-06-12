@@ -318,7 +318,13 @@ public class MemberController {
 	
 	
 	@RequestMapping(value = "/usr/setting/userUiUsrSettings")
-	public String memberUsrSettings() {
+	public String memberUsrSettings(@ModelAttribute("vo") MemberVo vo, MemberDto memberDto, Model model, HttpSession httpSession) throws Exception {
+		
+		String userSeq = (String) httpSession.getAttribute("sessSeqUsr");
+		memberDto.setSeq(userSeq);
+		MemberDto userInfo = memberService.selectOne(memberDto);
+		model.addAttribute("item", userInfo);
+		
 		return "usr/setting/userUiSettings";
 	}
 	
