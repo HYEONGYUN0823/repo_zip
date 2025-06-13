@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BlogController {
 	
 	@RequestMapping(value = "/usr/blog/BlogUsrList")
-	public String BlogUsrController() {
+	public String BlogUsrList() {
 		
 		return "usr/blog/BlogUsrList";
+	}
+	
+	@RequestMapping(value = "/usr/blog/BlogUsrView")
+	public String BlogUsrView() {
+		
+		return "usr/blog/BlogUsrView";
 	}
 	
 	
