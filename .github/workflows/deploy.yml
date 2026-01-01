@@ -17,45 +17,81 @@ jobs:
         distribution: 'temurin'
         cache: 'gradle'
 
+    # gradlew 파일이 'zip' 폴더 안에 있으므로, 해당 경로에 권한 부여
     - name: Grant execute permission for gradlew
       run: chmod +x ./zip/gradlew
 
+    # Gradle 빌드: 'zip' 폴더를 작업 디렉토리로 설정하고,
+    # 'zip' 폴더 안에 있는 gradlew를 실행합니다.
     - name: Build with Gradle
-      working-directory: ./zip
-      run: ./gradlew bootJar
+      working-directory: ./zip # 'zip' 폴더를 작업 디렉토리로 설정
+      run: ./gradlew bootJar   # 'zip' 폴더 안에 있는 gradlew 실행
 
     - name: Deploy to EC2
-      uses: easingthemes/ssh-deploy@v4.1.8
+      uses: easingthemes/ssh-deploy@v4.1.8 # 지정하신 버전 사용
       with:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.EC2_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        SOURCE: "zip/build/libs/"
-        TARGET: "/home/ec2-user/zip"
+        REMOTE_USER: ${{ secrets.REMOTE_USER }} # GitHub Secrets에 'ec2-user'로 설정되어 있어야 함
+        SOURCE: "zip/build/libs/" # 빌드된 Jar 파일이 있는 정확한 경로
+        TARGET: "/home/ec2-user/zip" # ec2-user의 홈 디렉토리 아래 zip 폴더
         ARGS: "--exclude='.git*' --exclude='Jenkinsfile' --exclude='.github/' --exclude='zip/build/tmp/' --exclude='zip/build/reports/'"
         SCRIPT_AFTER: |
-          # 1. 권한 강제 부여 (가장 중요)
-          sudo chown -R ec2-user:ec2-user /home/ec2-user/zip
-          sudo chmod -R 777 /home/ec2-user/zip
-          
-          cd /home/ec2-user/zip
+          cd /home/ec2-user/zip # 배포된 경로로 이동
 
-          # 2. 기존 프로세스 종료
-          APP_PORT=8080
+          APP_PORT=8080 # 애플리케이션 포트
+
+          echo "Attempting to stop any process on port ${APP_PORT}..."
+          # ec2-user로 실행하므로, lsof나 kill 명령어에 sudo가 필요할 수 있습니다.
           PID=$(sudo lsof -t -i:${APP_PORT})
           if [ -n "$PID" ]; then
+            echo "Stopping process on port ${APP_PORT} (PID: $PID)"
             sudo kill -9 $PID
+          else
+            echo "No process found running on port ${APP_PORT}."
           fi
 
-          # 3. 실행 (모든 이름의 변수를 강제 주입)
-          JAR_FILE="zip-0.0.1-SNAPSHOT.jar"
-          
-          nohup java -jar \
-            -Dcloud.aws.credentials.access-key="${{ secrets.CLOUD_AWS_CREDENTIALS_ACCESS_KEY }}" \
-            -Dcloud.aws.credentials.secret-key="${{ secrets.CLOUD_AWS_CREDENTIALS_SECRET_ACCESS_KEY }}" \
-            -Dcloud_aws_credentials_access_key="${{ secrets.CLOUD_AWS_CREDENTIALS_ACCESS_KEY }}" \
-            -Dcloud_aws_credentials_secret_access_key="${{ secrets.CLOUD_AWS_CREDENTIALS_SECRET_ACCESS_KEY }}" \
-            -Dspring.datasource.url="${{ secrets.MYSQL_MAIN_JDBC_URL }}" \
-            -Dspring.datasource.username="${{ secrets.MYSQL_MAIN_USERNAME }}" \
-            -Dspring.datasource.password="${{ secrets.MYSQL_MAIN_PASSWORD }}" \
-            $JAR_FILE > /home/ec2-user/zip/app.log 2>&1 &
+          # 실행할 Jar 파일 이름 (이전에 zip-0.0.1-SNAPSHOT.jar 로 확인)
+          JAR_FILE_TO_EXECUTE="zip-0.0.1-SNAPSHOT.jar"
+
+          if [ -f "$JAR_FILE_TO_EXECUTE" ]; then
+            echo "Starting Spring Boot application: $JAR_FILE_TO_EXECUTE"
+            # ▼▼▼▼▼▼▼▼▼ 환경 변수 설정 부분 ▼▼▼▼▼▼▼▼▼
+            export mysql_main_jdbc_url="${{ secrets.mysql_main_jdbc_url }}"
+            export mysql_main_username="${{ secrets.mysql_main_username }}"
+            export mysql_main_password="${{ secrets.mysql_main_password }}"
+
+            export google_mail_username="${{ secrets.google_mail_username }}"
+            export google_app_password="${{ secrets.google_app_password }}"
+
+            export cloud_aws_region="${{ secrets.cloud_aws_region }}"
+            export cloud_aws_bucket="${{ secrets.cloud_aws_bucket }}"
+            export cloud_aws_credentials_access_key="${{ secrets.cloud_aws_credentials_access_key }}"
+            export cloud_aws_credentials_secret_access_key="${{ secrets.cloud_aws_credentials_secret_access_key }}"
+
+            export tossPay_api="${{ secrets.tossPay_api }}"
+            export tossPay_cli_api="${{ secrets.tossPay_cli_api }}"
+            # ▲▲▲▲▲▲▲▲▲ 환경 변수 설정 부분 ▲▲▲▲▲▲▲▲▲
+
+            # ▼▼▼▼▼▼▼▼▼ 디버깅 로그 추가 ▼▼▼▼▼▼▼▼▼
+            echo "--- DEBUG: Environment Variables from Secrets ---"
+            echo "Secrets - mysql_main_jdbc_url: [${{ secrets.mysql_main_jdbc_url }}]"
+            echo "Secrets - mysql_main_username: [${{ secrets.mysql_main_username }}]"
+            # 필요한 다른 시크릿 값들도 이런 식으로 찍어볼 수 있습니다.
+
+            echo "--- DEBUG: Exported Environment Variables ---"
+            echo "Exported - mysql_main_jdbc_url: [$mysql_main_jdbc_url]"
+            echo "Exported - mysql_main_username: [$mysql_main_username]"
+            # 필요하다면 다른 export된 변수들도 찍어보세요.
+            echo "-------------------------------------------------"
+            # ▲▲▲▲▲▲▲▲▲ 디버깅 로그 추가 ▲▲▲▲▲▲▲▲▲
+
+            # application.properties에 'spring.profiles.include=external'이 있으므로,
+            # 실행 시 'external' 프로파일을 활성화합니다.
+            nohup java -jar $JAR_FILE_TO_EXECUTE > /home/ec2-user/zip/app.log 2>&1 &
+            echo "Spring Boot application started. Check logs at /home/ec2-user/zip/app.log"
+          else
+            echo "ERROR: Specified JAR file '$JAR_FILE_TO_EXECUTE' not found in /home/ec2-user/zip."
+            ls -la /home/ec2-user/zip # 디버깅을 위해 파일 목록 출력
+            exit 1
+          fi
